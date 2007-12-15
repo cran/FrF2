@@ -1,0 +1,66 @@
+`MEPlot` <-
+function(obj, main=paste("Main effects plot for", respnam), pch=15, 
+         cex.xax = 1.5, cex.yax = cex.xax, mgp.ylab = 4, cex.title=1.5, 
+         abbrev=3, ...){
+   # main      overall title
+   # pch       plot character
+   # lwd       line width
+   # cex.xax   cex for levels on x-axes 
+   # cex.yax   cex for label and levels on y-axis
+   # mgp.ylab  mgp entry y-axis label 
+   #           (relative to invisible axis of left-most plot)
+   # cex.title multiplier for cex.main for the overall title given in option main
+   # abbrev  maximum number of characters used for levels on x-axes
+   obj <- remodel(obj)
+   labs <- lapply(obj$labs,function(sp) substr(sp,1,abbrev))
+   obj <- obj$model
+   if (!check(obj)) 
+     stop("This routine is applicable for 2-level factorial designs without partial aliasing only.")
+   mod <- obj$model
+   term.ord <- attr(terms(obj),"order")
+   nmain <- length(which(term.ord==1))
+   intcol <- attr(attr(mod,"terms"),"intercept")
+   respnam <- colnames(mod)[attr(attr(mod,"terms"),"response")]
+   ymean <- mean(mod[,respnam])
+   mm <- model.matrix(obj)
+   if (intcol > 0) mm <- mm[,-intcol]
+   terms1 <- colnames(mm)[which(term.ord==1)]
+   predmat <- matrix(rep(0,2*nmain),2,nmain)
+   colnames(predmat) <- terms1
+   #addnam <- setdiff(colnames(obj$model), terms1)
+   #names <- c(terms1,addnam)
+   for (i in 1:nmain)
+      predmat[,i] <- ymean+c(-1,1)*coef(obj)[terms1[i]]
+   
+   omfrow <- par("mfrow")   
+   omar <- par("mar")
+   ooma <- par("oma")
+   ax <- pretty(c(min(predmat),max(predmat)))
+   par(mfrow=c(1,nmain),mar=c(2, 1, 2, 1) + 0.1, oma=c(3,5,4,0))
+   for (i in 1:nmain){
+          ## plot effect without axis drawn (but y label shown for i==1)
+          ## plot effect without axis drawn and without axis labels for i>1
+          if (i==1)
+          plot(c(-1,1),predmat[,i],main=terms1[i],xlab="",xpd=NA, ylab=respnam,type="b",
+              xlim=c(-1.3,1.3),ylim=c(min(ax),max(ax)), axes=FALSE, cex=2, 
+              cex.lab=cex.yax, cex.axis=1.5, pch=pch, mgp=c(mgp.ylab,1,0))
+          else plot(c(-1,1),predmat[,i],main=terms1[i],xlab="",ylab="",type="b",
+              xlim=c(-1.3,1.3),ylim=c(min(ax),max(ax)), axes=FALSE, cex=2, 
+              cex.lab=1.2, cex.axis=1.5, pch=pch)
+              
+          box(which="figure")
+          abline(h=ymean,xpd=TRUE)   ## line for mean in all plots
+          axis(1, at = c(-1,1), labels = labs[[i]], 
+               cex.axis=cex.xax, xpd=NA) ## draw bottom axes; 
+                                         ## annotation may extend
+                                         ## into outer area
+          if (i==1)
+          axis(2, at = ax, labels = ax, cex.axis=cex.yax, outer=TRUE)
+              ## draq left-hand-side axis into the outer area
+              ## (axis label comes from first actual plot
+              ## placement controlled by mgp.ylab
+     }
+   title(main, line=1.5, outer=TRUE, cex.main=cex.title*par("cex.main"))
+   par(mfrow=omfrow,mar=omar,oma=ooma)
+}
+
