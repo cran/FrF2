@@ -76,10 +76,8 @@ Maintainer: Ulrike Groemping <groemping@tfh-berlin.de>
     # half normal plot of effects
     DanielPlot(iM.lm,code=TRUE,alpha=0.5,half=TRUE)
     # main effects plots
-    windows()
     MEPlot(iM.lm)
     # interaction plots
-    windows()
     IAPlot(iM.lm)
     # interaction plots with attention drawn to aliases
     IAPlot(iM.lm, show.alias=TRUE)
