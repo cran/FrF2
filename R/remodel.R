@@ -15,7 +15,7 @@ function(obj){
      xmod <- mod[,rowSums(attr(attr(mod,"terms"),"factors"))>0]
        # numeric -1 1 columns instead of factors 
        # because otherwise prediction difficult for intermediate (0) level
-     if (any(sapply(xmod,"is.factor"))) {
+     if (any(sapply(xmod,"is.factor")) || "aov" %in% class(obj)) {
        hilf <- 0
        for (i in 1:length(xmod)) {
            hilf <- hilf+1

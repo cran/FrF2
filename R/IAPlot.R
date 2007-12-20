@@ -35,7 +35,8 @@ function(obj, main=paste("Interaction plot matrix for",respnam), pch=c(15,17),
    if (intcol > 0) mm <- mm[,-intcol]
    coefs <- coef(obj)
    if (intcol > 0) coefs <- coefs[-intcol] 
-   
+
+ 
    terms1 <- colnames(mm)[which(term.ord==1)]
    terms2 <- colnames(mm)[which(term.ord==2)]
    ## used for easy prediction

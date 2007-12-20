@@ -85,7 +85,7 @@ remodel(obj)
   The internal function \code{remodel} is applied to a linear model object and 
   returns a list of two components:
       \item{model }{is the redone model with x-variables recoded to numeric 
-              -1 and 1 notation}
+              -1 and 1 notation and aov objects made into \dQuote(pure) lm objects}
       \item{labs }{is a list preserving the level information from original factors
                (levels are minus and plus for numerical variables)}
 
