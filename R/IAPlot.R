@@ -1,7 +1,7 @@
 `IAPlot` <-
 function(obj, main=paste("Interaction plot matrix for",respnam), pch=c(15,17), 
     cex.lab=par("cex.lab"), cex=par("cex"), cex.xax=par("cex.axis"), 
-    cex.yax=cex.xax, cex.title = 1.5, abbrev=4, show.alias=FALSE, ...){
+    cex.yax=cex.xax, cex.title = 1.5, lwd=par("lwd"), abbrev=4, show.alias=FALSE){
     # obj     a linear model
     # pch     plot characters used
     # cex     plot character size
@@ -104,7 +104,7 @@ function(obj, main=paste("Interaction plot matrix for",respnam), pch=c(15,17),
    ooma <- par("oma")
    ## determine axis limits and graphics parameters
    ax <- pretty(c(min(predmat),max(predmat)))
-   par(mfcol=c(nmain,nmain), mar=c(1, 1, 1, 1) + 0.1, oma=c(3,5,4,0))
+   par(mfcol=c(nmain,nmain), mar=c(1, 1, 1, 1) + 0.1, oma=c(3,5,4,0.1))
    # i is column index, j is row index
    for (i in 1:nmain){
      for (j in 1:nmain){
@@ -121,16 +121,16 @@ function(obj, main=paste("Interaction plot matrix for",respnam), pch=c(15,17),
                           axes=FALSE,xlab="",ylab=respnam,
                           col="red", pch=pch[1], cex=cex)
                 box(which="figure")
-                points(c(-1),min(ax)+1/6*(max(ax)-min(ax)),pch=pch[2], cex=cex)
+                points(c(-1),min(ax)+1/6*(max(ax)-min(ax)),pch=pch[2], cex=cex, lwd=lwd)
                 text(c(-1,-1),min(ax)+c(5,1)*(max(ax)-min(ax))/6,
-                      labs[[i]],pos=4, xpd=NA)
+                      labs[[i]],pos=4, xpd=NA, cex=cex.lab)
                 text(0,(max(ax)+min(ax))/2, terms1[i],adj=0.5,xpd=TRUE, 
                     cex=cex.lab, col="blue")
                 ## axes for corner panels
                 if (i==1) axis(2, at = ax, labels = ax, cex.axis=cex.yax, 
-                      outer=TRUE)
+                      outer=TRUE, lwd=lwd)
                 if (j==nmain) axis(1, at = c(-1,1), labels = labs[[j]], 
-                    cex.axis=cex.xax, outer=TRUE)
+                    cex.axis=cex.xax, outer=TRUE, lwd=lwd)
                 }
           if (i<j) {
               sp <- intfind(i,j,varnums)
@@ -143,15 +143,15 @@ function(obj, main=paste("Interaction plot matrix for",respnam), pch=c(15,17),
               else {plot(c(-1,1),predmat[c(1,2),sp],ylab=respnam,xlab=terms1[j],
                      type="b", xlim=c(-1.1,1.1),ylim=c(min(ax),max(ax)), 
                      axes=FALSE, col="red",
-                     lty=3, pch=pch[1], cex=cex)
+                     lty=3, pch=pch[1], cex=cex, lwd=lwd)
                     box(which="figure")
-                    lines(c(-1,1),predmat[c(3,4),sp])
-                    points(c(-1,1),predmat[c(3,4),sp],pch=pch[2], cex=cex)
+                    lines(c(-1,1),predmat[c(3,4),sp],lwd=lwd)
+                    points(c(-1,1),predmat[c(3,4),sp],pch=pch[2], cex=cex, lwd=lwd)
                     }       
               ## axes for border panels
-                if (i==1) axis(2, at = ax, labels = ax, cex.axis=cex.yax, outer=TRUE)
+                if (i==1) axis(2, at = ax, labels = ax, cex.axis=cex.yax, outer=TRUE, lwd=lwd)
                 if (j==nmain) axis(1, at = c(-1,1), labels = labs[[i]], 
-                    cex.axis=cex.xax, outer=TRUE)
+                    cex.axis=cex.xax, outer=TRUE, lwd=lwd)
           }
           if (i>j) {
                sp <- intfind(j,i,varnums)
@@ -162,13 +162,13 @@ function(obj, main=paste("Interaction plot matrix for",respnam), pch=c(15,17),
                     }
               else {plot(c(-1,1),predmat[c(1,3),sp],ylab=respnam,xlab=terms1[j],
                        type="b", xlim=c(-1.1,1.1),ylim=c(min(ax),max(ax)), axes=FALSE, 
-                       col="red", lty=3, pch=pch[1], cex=cex)
+                       col="red", lty=3, pch=pch[1], cex=cex, lwd=lwd)
                     box(which="figure")
-                    lines(c(-1,1),predmat[c(2,4),sp])
-                    points(c(-1,1),predmat[c(2,4),sp],pch=pch[2], cex=cex)}
+                    lines(c(-1,1),predmat[c(2,4),sp],lwd=lwd)
+                    points(c(-1,1),predmat[c(2,4),sp],pch=pch[2], cex=cex, lwd=lwd)}
          }
          if (show.alias) numact <- if (length(hilf)>0)
-             text(0,max(ax),alnum[hilf],xpd=TRUE)
+             text(0,max(ax),alnum[hilf],xpd=TRUE,cex=cex.lab)
    }
    }
    title(main, line=1.5, outer=TRUE, cex.main=cex.title*par("cex.main"))

@@ -11,14 +11,16 @@
   functions are not intended for users. 
 }
 \usage{
-MEPlot(obj, main = paste("Main effects plot for", respnam), pch = 15, cex.xax = 1.5, 
-     cex.yax = cex.xax, mgp.ylab = 4, cex.title = 1.5, abbrev = 3, ...)
+MEPlot(obj, main = paste("Main effects plot for", respnam), 
+    pch = 15, cex.xax = par("cex.axis"), cex.yax = cex.xax, mgp.ylab = 4, 
+    cex.title = 1.5, cex.main = par("cex.main"), 
+    lwd = par("lwd"), abbrev = 3)
 
-IAPlot(obj, main = paste("Interaction plot matrix for", respnam), pch = c(15, 17), 
-     cex.lab = par("cex.lab"), cex = par("cex"), 
-     cex.xax = par("cex.axis"), cex.yax = cex.xax, cex.title = 1.5,
-     abbrev = 4, show.alias = FALSE, ...)
-     
+IAPlot(obj, main = paste("Interaction plot matrix for", respnam), 
+    pch = c(15, 17), cex.lab = par("cex.lab"), cex = par("cex"), 
+    cex.xax = par("cex.axis"), cex.yax = cex.xax, cex.title = 1.5, 
+    lwd = par("lwd"), abbrev = 4, show.alias = FALSE)
+         
 intfind(i, j, mat)
 
 check(obj)
@@ -35,18 +37,20 @@ remodel(obj)
               aliased or orthogonal, like in a fractional factorial 2-level 
               design}
   \item{main}{ overall title for the plot assembly }
-  \item{pch}{ Plot symbol number \code{mep}, 
+  \item{pch}{ Plot symbol number \code{MEPlot}, 
               or vector of two plot symbol numbers for the lower 
               and higher level of the trace factor \code{iap}}
-  \item{cex.xax}{ size of x-axis annotation }
-  \item{cex.yax}{ size of y-axis annotation }
-  \item{mgp.ylab}{horizontal placement of label of vertical axis in \code{mep}}
-  \item{cex.title}{multiplier for size of overall title } 
+  \item{cex.xax}{ size of x-axis annotation, defaults to \code{cex.axis}-parameter }
+  \item{cex.yax}{ size of y-axis annotation, defaults to cex.xax }
+  \item{mgp.ylab}{horizontal placement of label of vertical axis in \code{MEPlot}}
+  \item{cex.title}{multiplier for size of overall title 
+              (cex.main is multiplied with this factor) } 
+  \item{cex.main}{ size of individual plot titles in \code{MEPlot} } 
   \item{cex.lab}{ Size of variable names in diagonal panels of interaction plots
-              produced by \code{iap}.}
+              produced by \code{IAPlot}.}
   \item{cex}{ size of plot symbols in interaction plots }
+  \item{lwd}{ line width for plot lines and axes }
   \item{abbrev}{ number of characters shown for factor levels }
-  \item{\dots}{graphical parameters passed to \code{plot}}
   \item{show.alias}{ if TRUE, the interaction plot shows the number 
               of the list entry from aliases(obj)\$aliases 
               (cf. \code{\link{aliases}}) in order to support immediate 
@@ -58,8 +62,8 @@ remodel(obj)
 }
 
 \details{
-  \code{MEPlot} produces a plot of all main effects in the model,
-  \code{IAPlot} produces a plot of all interaction effects in the model,
+  \code{MEPlot} produces plots of all main effects in the model,
+  \code{IAPlot} produces plots of all interaction effects in the model,
   \code{intfind} is an internal function not directly useful for users.
   \code{check} is an internal function for checking whether the model complies 
               with assumptions (fractional factorial of 2-level factors 

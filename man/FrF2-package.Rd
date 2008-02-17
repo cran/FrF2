@@ -11,8 +11,9 @@ meant for completely aliased designs only, i.e. e.g. not for analysing Plackett-
 Burman designs with interactions. 
 
 The package enables convenient main effects and interaction plots for all 
-factors simultaneously and offers an enhanced DanielPlot function (modified from 
-BsMD).  Furthermore, the alias structure for Fractional Factorial 2-level 
+factors simultaneously and offers a cube plot for looking at the simultaneous 
+effects of three factors. An enhanced DanielPlot function (modified from BsMD) 
+is provided. Furthermore, the alias structure for Fractional Factorial 2-level 
 designs is output in a more readable format than with the built-in function 
 alias. 
 }
@@ -24,7 +25,10 @@ Burman designs with interactions.
 The package works on linear models and enables convenient main effects and 
 interaction plots (functions \code{MEPlot} and \code{IAPlot}) similar to those 
 offered by Minitab software for all factors simultaneously, even though especially the 
-interactions are often aliased, i.e. the model is typically singular.  
+interactions are often aliased, i.e. the model is typically singular. 
+For the (rare) case of suspected three-factor-interactions, function 
+\code{cubePlot} displays a cube with corners labeled with the (modeled) 
+means of three factors simultaneously.
 Furthermore, the function \code{DanielPlot} from package \pkg{BsMD} has been 
 modified to automatically label effects significant according to the 
 Lenth-criterion, and to provide more usage comfort to the analyst.  
@@ -53,11 +57,10 @@ Maintainer: Ulrike Groemping <groemping@tfh-berlin.de>
 \keyword{ design }
 \seealso{
 \code{BsMD-package}, \code{\link{MEPlot}}, \code{\link{IAPlot}}, 
-\code{\link{DanielPlot}}, \code{\link{aliases}}
+\code{\link{cubePlot}}, \code{\link{DanielPlot}}, \code{\link{aliases}}
 }
 \examples{
     ### Injection Molding Experiment. Box et al. 1978.
-    require(FrF2)
     data(BM93.e3.data)  #from BsMD
     iMdat <- BM93.e3.data[1:16,2:10]  #only original experiment
     # make data more user-friendly
@@ -83,4 +86,20 @@ Maintainer: Ulrike Groemping <groemping@tfh-berlin.de>
     IAPlot(iM.lm, show.alias=TRUE)
     # alias groups corresponding to interaction plots
     aliases(iM.lm)$aliases[9:15]
+    # cube plot of three factors
+    # (not very useful for this model, for demonstration only)
+      ## per default, modeled means are shown
+      ## this does not make a difference here, since the main effect of 
+      ## ScrewSpeed is confounded with the MoldTemp:HoldPress:BoostPress
+      ## interaction, so that the three-factor-interaction is indirectly included 
+      ## in the modeled means
+      cubePlot(iM.lm, "MoldTemp", "HoldPress", "BoostPress")
+      ## modeled means without a three-factor interaction
+      cubePlot(lm(y ~ (MoldTemp+HoldPress+BoostPress)^2, data = iMdat), 
+         "MoldTemp", "HoldPress", "BoostPress")
+      ## modeled=FALSE reverts to showing the apparent three-factor interaction
+      cubePlot(lm(y ~ (MoldTemp+HoldPress+BoostPress)^2, data = iMdat), 
+         "MoldTemp", "HoldPress", "BoostPress", modeled=FALSE)
+      ## cubePlot also works on raw data
+      cubePlot(iMdat$y, iMdat$MoldTemp, iMdat$HoldPress, iMdat$BoostPress)
 }

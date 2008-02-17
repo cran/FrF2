@@ -1,2 +1,3 @@
      import(BsMD)
-     export("DanielPlot", "aliases", "IAPlot","MEPlot")
+     export("DanielPlot", "aliases", "IAPlot", "MEPlot", 
+            "cubePlot", "cubedraw", "cubecorners", "cubelabel")

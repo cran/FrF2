@@ -1,7 +1,7 @@
 `MEPlot` <-
 function(obj, main=paste("Main effects plot for", respnam), pch=15, 
-         cex.xax = 1.5, cex.yax = cex.xax, mgp.ylab = 4, cex.title=1.5, 
-         abbrev=3, ...){
+         cex.xax = par("cex.axis"), cex.yax = cex.xax, mgp.ylab = 4, 
+         cex.title=1.5, cex.main=par("cex.main"), lwd=par("lwd"), abbrev=3){
    # main      overall title
    # pch       plot character
    # lwd       line width
@@ -36,31 +36,32 @@ function(obj, main=paste("Main effects plot for", respnam), pch=15,
    omar <- par("mar")
    ooma <- par("oma")
    ax <- pretty(c(min(predmat),max(predmat)))
-   par(mfrow=c(1,nmain),mar=c(2, 1, 2, 1) + 0.1, oma=c(3,5,4,0))
+   par(mfrow=c(1,nmain),mar=c(2, 1, 2, 1) + 0.1, oma=c(3,5,4,0.1))
    for (i in 1:nmain){
           ## plot effect without axis drawn (but y label shown for i==1)
           ## plot effect without axis drawn and without axis labels for i>1
           if (i==1)
           plot(c(-1,1),predmat[,i],main=terms1[i],xlab="",xpd=NA, ylab=respnam,type="b",
               xlim=c(-1.3,1.3),ylim=c(min(ax),max(ax)), axes=FALSE, cex=2, 
-              cex.lab=cex.yax, cex.axis=1.5, pch=pch, mgp=c(mgp.ylab,1,0))
+              cex.lab=cex.yax, cex.axis=1.5, pch=pch, mgp=c(mgp.ylab,1,0), 
+              cex.main=cex.main, lwd=lwd)
           else plot(c(-1,1),predmat[,i],main=terms1[i],xlab="",ylab="",type="b",
               xlim=c(-1.3,1.3),ylim=c(min(ax),max(ax)), axes=FALSE, cex=2, 
-              cex.lab=1.2, cex.axis=1.5, pch=pch)
+              cex.lab=1.2, cex.axis=1.5, pch=pch, cex.main=cex.main, lwd=lwd)
               
           box(which="figure")
           abline(h=ymean,xpd=TRUE)   ## line for mean in all plots
           axis(1, at = c(-1,1), labels = labs[[i]], 
-               cex.axis=cex.xax, xpd=NA) ## draw bottom axes; 
+               cex.axis=cex.xax, xpd=NA,lwd=lwd) ## draw bottom axes; 
                                          ## annotation may extend
                                          ## into outer area
           if (i==1)
-          axis(2, at = ax, labels = ax, cex.axis=cex.yax, outer=TRUE)
-              ## draq left-hand-side axis into the outer area
+          axis(2, at = ax, labels = ax, cex.axis=cex.yax, outer=TRUE,lwd=lwd)
+              ## draw left-hand-side axis into the outer area
               ## (axis label comes from first actual plot
               ## placement controlled by mgp.ylab
      }
-   title(main, line=1.5, outer=TRUE, cex.main=cex.title*par("cex.main"))
+   title(main, line=1.5, outer=TRUE, cex.main=cex.title*cex.main)
    par(mfrow=omfrow,mar=omar,oma=ooma)
 }
 
