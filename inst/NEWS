@@ -1,0 +1,50 @@
+Changes to package FrF2 
+
+The package is currently under intensive development. It will 
+see new features in the near future, but possibly also changes 
+in current structure. 
+
+Version 0.9, 11/03/2009
+
+   Added functionality for creating designs: FrF2 and pb create 
+   regular and non-regular fractional factorials with 2-level 
+   factors, together with a number of utility functions. 
+
+Version 0.8, 16/02/2008
+
+   added function for cube plots for showing means or fitted means 
+   for three-way-interactions
+
+   corrected bugs in documentation: plot functions MEPlot and 
+   IAPlot do not take ... argument, and they were wrongly 
+   referenced by their early development names "iap" and "mep" 
+   in a few places 
+
+   line width (lwd) choosable in MEPlot and IAPlot (affects plot 
+   lines and axis thickness)
+
+   title size of individual plots (cex.main) choosable in MEPlot
+
+   legend in diagonal panels of interaction plot matrix (IAPlot) 
+   improved
+
+   alias numbers in interaction plots (in case of 
+   show.alias=TRUE) sized by cex.lab
+
+   right outer margin slightly increased for making outer border 
+   visible in copied figures
+
+Version 0.7, 16/12/2007 
+
+   Bug-fix: functions DanielPlot and IAPlot did not work with aov 
+   objects but only with pure lm-objects. This has been fixed by 
+   letting the internal function remodel transform aov objects 
+   into pure lm objects.
+
+Version 0.6, 16/12/2007 
+
+   Eliminated portability issue with example: Version 0.5 used 
+   windows() for opening several graphics devices.
+
+First version on CRAN: 
+Version 0.5, 15/12/2007

@@ -1,28 +1,32 @@
 \name{FrF2-package}
 \alias{FrF2-package}
-\alias{FrF2}
 \docType{package}
 \title{
-Package for analysing Fractional Factorial designs with 2-level factors
+Fractional Factorial designs with 2-level factors
 }
 \description{
-This package analyses Fractional Factorial designs with 2-level factors; it is 
-meant for completely aliased designs only, i.e. e.g. not for analysing Plackett-
-Burman designs with interactions. 
+This package creates regular and non-regular Fractional Factorial designs. 
+Furthermore, analysis tools for Fractional Factorial designs with 2-level factors 
+are offered (main effects and interaction plots for all factors simultaneously, 
+cube plot for looking at the simultaneous effects of three factors, full or half normal plot, 
+alias structure in a more readable format than with the built-in function alias). 
 
-The package enables convenient main effects and interaction plots for all 
-factors simultaneously and offers a cube plot for looking at the simultaneous 
-effects of three factors. An enhanced DanielPlot function (modified from BsMD) 
-is provided. Furthermore, the alias structure for Fractional Factorial 2-level 
-designs is output in a more readable format than with the built-in function 
-alias. 
+The package is currently subject to intensive development; new functionality will be added, 
+and existing structures, inputs and outputs may change in the future.
 }
 \details{
-This package analyses Fractional Factorial designs with 2-level factors; it is 
-meant for completely aliased designs only, i.e. e.g. not for analysing Plackett-
-Burman designs with interactions. 
+The package is currently subject to intensive development; new functionality will be added, 
+and existing structures, inputs and outputs may change in the future. 
+Please contact me, if you have suggestions.
 
-The package works on linear models and enables convenient main effects and 
+This package designs and analyses Fractional Factorial experiments with 2-level factors. 
+Analysis facilities are meant for completely aliased designs only, 
+i.e. e.g. not for analysing Plackett-Burman designs with interactions. 
+
+Regular (function \code{FrF2}) and non-regular (function \code{pb}) 2-level fractional factorial 
+designs can be generated.
+
+In terms of analysis, the package works on linear models and enables convenient main effects and 
 interaction plots (functions \code{MEPlot} and \code{IAPlot}) similar to those 
 offered by Minitab software for all factors simultaneously, even though especially the 
 interactions are often aliased, i.e. the model is typically singular. 
@@ -39,27 +43,41 @@ than the output from the built-in function \code{alias}.
 \author{
 Ulrike Groemping
 
-Maintainer: Ulrike Groemping <groemping@tfh-berlin.de>
+Maintainer: Ulrike Groemping <groemping@bht-berlin.de>
 }
 \references{
     Box G. E. P, Hunter, W. C. and Hunter, J. S. (2005) 
     \emph{Statistics for Experimenters, 2nd edition}.
     New York: Wiley.
     
+    Chen, J., Sun, D.X. and Wu, C.F.J. (1993) 
+    A catalogue of 2-level and 3-level orthogonal arrays. 
+    \emph{International Statistical Review} \bold{61}, 131-145.
+
     Daniel, C. (1959) 
     Use of Half Normal Plots in Interpreting Two Level Experiments.
     \emph{Technometrics}, \bold{1}, 311-340.
     
-    Lenth, R.V. (1989) Quick and easy analysis of unreplicated factorials.
+    Hedayat, A.S., Sloane, N.J.A. and Stufken, J. (1999) 
+    \emph{Orthogonal Arrays: Theory and Applications}, Springer, New York. 
+    
+      Lenth, R.V. (1989) Quick and easy analysis of unreplicated factorials.
     \emph{Technometrics}, \bold{31}, 469-473.
+  
+     Plackett, R.L.; Burman, J.P. (1946) The design of optimum multifactorial 
+     experiments. \emph{Biometrika} \bold{33}, 305-325.
     
 }
+\keyword{ array }
 \keyword{ design }
 \seealso{
 \code{BsMD-package}, \code{\link{MEPlot}}, \code{\link{IAPlot}}, 
-\code{\link{cubePlot}}, \code{\link{DanielPlot}}, \code{\link{aliases}}
+\code{\link{cubePlot}}, \code{\link{DanielPlot}}, \code{\link{aliases}}, 
+\code{\link{FrF2}}, \code{\link{pb}}
 }
 \examples{
+    ### for examples on design generation, cf. functions pb and FrF2
+  
     ### Injection Molding Experiment. Box et al. 1978.
     data(BM93.e3.data)  #from BsMD
     iMdat <- BM93.e3.data[1:16,2:10]  #only original experiment

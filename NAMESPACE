@@ -1,3 +1,8 @@
      import(BsMD)
      export("DanielPlot", "aliases", "IAPlot", "MEPlot", 
-            "cubePlot", "cubedraw", "cubecorners", "cubelabel")
+            "cubePlot", "cubedraw", "cubecorners", "cubelabel",
+            "FrF2","pb","nruns.catlg", "nfac.catlg", "nfree.2fis.catlg",
+            "free.2fis.catlg","all.2fis.free.catlg","res.catlg","WLP.catlg",
+            "catlg","Yates","Letters","pb.list")
+
+     S3method("[",catlg)
