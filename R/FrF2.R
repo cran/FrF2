@@ -5,7 +5,7 @@ FrF2 <- function(nruns=NULL, nfactors=NULL,
                  randomize=TRUE, seed=NULL, ...){
     ## check nruns
     if (!is.null(nruns)){
-       k <- floor(log2(nruns))
+       k <- round(log2(nruns))
        if (!2^k==nruns) stop("nruns must be a power of 2.")}
     ## check factor specifications
     if (is.null(factor.names) & is.null(nfactors) & (is.null(nruns) | is.null(generators)) ) 

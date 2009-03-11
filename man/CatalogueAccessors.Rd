@@ -31,8 +31,10 @@ catlg
 }
 \details{
   The class \code{catlg} is a named list of design entries, 
-  currently containing the Chen, Sun and Wu designs only. Each design entry 
-  is again a list with the following items:
+  currently containing the Chen, Sun and Wu (1993) 2-level designs only 
+  (complete list of 2-level fractional factorials up to 32~runs, 
+  complete list of resolution IV 2-level fractional factorials with 64~runs). 
+  Each design entry is again a list with the following items:
   \itemize{
       \item{res}{resolution, numeric, i.e. 3 denotes resolution III and so forth }
       \item{nfac}{number of factors} 
@@ -51,7 +53,7 @@ catlg
 \value{
   \code{[} selects a subset of designs based on \code{i}, which is again a list of class \code{catlg}, even if a single element is selected.
   \code{res}, \code{nruns}, \code{nfac} and \code{nfree.2fis} return a named vector,
-  the remaining functions usually return a list.
+  the remaining functions return a list.
 }
 \references{ 
 Chen, J., Sun, D.X. and Wu, C.F.J. (1993) A catalogue of 2-level and 3-level orthogonal arrays. \emph{Int. Statistical Review} \bold{61}, 131-145.}

@@ -10,8 +10,8 @@
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{ ~~ Internal utility functions ~~ }
 \description{
-  ~~ Internal functions, mainly for calculation of Plackett-Burman and other non-regular screening designs. 
-  They need not be accessed for normal use of the package. ~~
+  Internal functions, mainly for calculation of Plackett-Burman and other non-regular screening designs. 
+  They need not be accessed for normal use of the package. 
 }
 \usage{
 circ.mat(gen) 
@@ -40,6 +40,10 @@ des.recode(var, recodes, as.factor.result)
   \item{recodes}{ characater string specifying recodes, so far only used in the principal form \dQuote{-1=level[1];1=level[2]} }
   \item{as.factor.result}{ logical that specifies whether or not results are to be coerced to factor. 
             The default is that factors are coerced to factor, while numeric variables with numeric recodes are kept numeric.}
+}
+
+\details{
+Function \code{des.recode} has been adapted to the needs of this package from function \code{recode} of package \code{car}.
 }
 \value{
     All functions return except \code{des.recode} return a numeric matrix, \code{circ.mat} a square matrix of dimension \code{length(gen)}, 

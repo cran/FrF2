@@ -65,11 +65,11 @@ gen.check <- function(k,gen){   if (!is.list(gen)) {
 
 res.catlg <- function(catlg) sapply(catlg, function(obj) obj$res)
 nfree.2fis.catlg <- function(catlg) sapply(catlg, function(obj) obj$nfree.2fis)
-free.2fis.catlg <- function(catlg) sapply(catlg, function(obj) obj$free.2fis)
-all.2fis.free.catlg <- function(catlg) sapply(catlg, function(obj) obj$all.2fis.free)
+free.2fis.catlg <- function(catlg) lapply(catlg, function(obj) obj$free.2fis)
+all.2fis.free.catlg <- function(catlg) lapply(catlg, function(obj) obj$all.2fis.free)
 nfac.catlg <- function(catlg) sapply(catlg, function(obj) obj$nfac)
 nruns.catlg <- function(catlg) sapply(catlg, function(obj) obj$nruns)
-WLP.catlg <- function(catlg) sapply(catlg, function(obj) obj$WLP)
+WLP.catlg <- function(catlg) lapply(catlg, function(obj) obj$WLP)
 
 
 des.recode <- function (var, recodes, as.factor.result) 

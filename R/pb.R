@@ -28,7 +28,7 @@ pb <- function(nruns,nfactors=nruns-1,
                  boxtyssedal=TRUE, n12.taguchi=FALSE,randomize=TRUE,seed=NULL, ...){
   if (nruns %in% c(8,64)) 
 cat("Plackett-Burman designs in", nruns, "runs coincide with regular fractional factorials. \n For screening many factors, you may want to consider increasing the number of runs by 4. \n Make sure to take the alias structure into account for interpretation!\n\n")
-  if (!floor(nruns/4)==nruns/4) stop("Plackett-Burman designs require that nruns is a multiple of 4.")
+  if (!isTRUE(all.equal((nruns/4) %% 1,0))) stop("Plackett-Burman designs require that nruns is a multiple of 4.")
   if (is.null(nfactors)) stop("nfactors must be given.")
   if (!nfactors==floor(nfactors)) stop("nfactors must be an integer number.")
   if (!((is.character(default.levels) | is.numeric(default.levels)) & length(default.levels)==2) ) 

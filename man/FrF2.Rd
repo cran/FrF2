@@ -113,6 +113,10 @@ FrF2(8, generators = list(c(1,2,3),c(2,3)))
 ## finding smallest design with resolution 5 in 7 factors
 FrF2(nfactors=7, resolution=5)
 
+## maximum resolution minimum aberration design with 9 factors in 32 runs
+FrF2(32,9)[3]
+## maximum number of free 2-factor interactions instead of minimum aberration
+FrF2(32,9,max.nfree2fis=TRUE)[3]
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

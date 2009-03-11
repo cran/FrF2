@@ -4,6 +4,21 @@ The package is currently under intensive development. It will
 see new features in the near future, but possibly also changes 
 in current structure. 
 
+Version 0.9-1, 24/03/2009
+
+   A few minor bug fixes: 
+   - Changed R version the package depends on to 2.7.0 
+     (packages BsMD and scatterplot3d require this version),
+     and added LazyLoad: yes and LazyData: yes to 
+     DESCRIPTION file
+   - tried to fix example error for Mac: 
+     round instead of floor in check for nruns in FrF2,
+     also changed check for nruns in pb
+   - Bug fix on WLP.catlg, free.2fis.catlg and all.2fis.free.catlg: 
+     now always return a named list, 
+     even if the catlg object has only one element
+   - minor clarifications in documentation
+
 Version 0.9, 11/03/2009
 
    Added functionality for creating designs: FrF2 and pb create 
