@@ -24,7 +24,10 @@ Analysis facilities are meant for completely aliased designs only,
 i.e. e.g. not for analysing Plackett-Burman designs with interactions. 
 
 Regular (function \code{FrF2}) and non-regular (function \code{pb}) 2-level fractional factorial 
-designs can be generated.
+designs can be generated. Functions \code{fac.design}, \code{fractionate} or \code{oa.design} from 
+Chambers and Hastie (1993) have been used as role models e.g. for 
+the option \code{factor.names} or for outputting a data frame with attributes. 
+However, S compatibility has not been considered in devising this package.
 
 In terms of analysis, the package works on linear models and enables convenient main effects and 
 interaction plots (functions \code{MEPlot} and \code{IAPlot}) similar to those 
@@ -50,6 +53,9 @@ Maintainer: Ulrike Groemping <groemping@bht-berlin.de>
     \emph{Statistics for Experimenters, 2nd edition}.
     New York: Wiley.
     
+    Chambers, J.M. and Hastie, T.J. (1993). \emph{Statistical Models in S}, 
+    Chapman and Hall, London.
+     
     Chen, J., Sun, D.X. and Wu, C.F.J. (1993) 
     A catalogue of 2-level and 3-level orthogonal arrays. 
     \emph{International Statistical Review} \bold{61}, 131-145.

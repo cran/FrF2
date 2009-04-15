@@ -113,10 +113,11 @@ print.wordlist4 <- function(wl){
    else print(sapply(wl[[4]],FUN=function(obj) paste(Letters[obj],collapse=""),simplify=FALSE),quote=FALSE)
 }
 
-alias3fi <- function(k, gen){
+alias3fi <- function(k, gen, order=3){
    ## k number of factors spanning basis full factorial
    ## gen list of vectors giving generators (in terms of position of full factorial factors, 
    ##       e.g. list element c(1,2) is AB
+   if (!order %in% c(2,3)) stop("order must be 2 or 3")
    gen <- gen.check(k, gen)
    if (!(k>0 & floor(k)==k)) stop("k must be a positive integer number.")
    if (!is.list(gen)) stop("gen must be a list of generator vectors.")
@@ -136,18 +137,25 @@ alias3fi <- function(k, gen){
    for (i in 1:n2) all2[i] <- mult.gen.a(all1[sel[,i]])
    names(all2) <- apply(sel,2,function(obj) paste(Letters[obj],collapse=""))
 
+   all3 <- NULL
+   if (order==3){
    ## vector of 3fis in terms of generators in character form
    all3 <- rep(0,choose(k+g,3))
    sel <- combn(k+g,3)
    n3 <- ncol(sel)
    for (i in 1:n3) all3[i] <- mult.gen.a(all1[sel[,i]])
-       names(all3) <- apply(sel,2,function(obj) paste(Letters[obj],collapse=""))
+       names(all3) <- apply(sel,2,function(obj) paste(Letters[obj],collapse=""))}
 
-   ## now all3 contains all lengths
    ## pattern contains number of occurrences of each effect among main to 3fis
+   ## or 2fis only in case of order=2
    pattern <- table(all3 <- c(all1,all2,all3))
-   if (max(pattern)==1)
-          cat("There is no aliasing among main effects, 2fis or 3fis for this design.\n")
+       ## now all3 contains all lengths
+   if (max(pattern)==1){
+          if (order==2)
+          aus <- "no aliasing among main effects and 2fis"
+          else
+          aus <- "no aliasing of main effects or 2fis with effects up to order 3"
+   }
    else {
           struc <- as.list(rep(0,length(pattern)))
           for (i in 1:length(pattern)) 
@@ -159,9 +167,42 @@ alias3fi <- function(k, gen){
    ## with 2fi
    wme2 <- grep("^[[:alpha:]]{2}=[[:alpha:][:punct:]]*",struc)
    ## with 3fi
-   wme3 <- grep("^[[:alpha:]]{3}=[[:alpha:][:punct:]]*",struc)
+   if (order==3) wme3 <- grep("^[[:alpha:]]{3}=[[:alpha:][:punct:]]*",struc)
    ## sort order not yet good for more than 25 factors (a before A etc., and also unfortunately locale dependent)
    ## !!! improve by making sort depend on factor number rather than letter
-   list(main=sort(struc[wme]),fi2=sort(struc[wme2]),fi3=sort(struc[wme3]))
+   if (order==2) aus <- list(main=sort(struc[wme]),fi2=sort(struc[wme2]))
+   else aus <- list(main=sort(struc[wme]),fi2=sort(struc[wme2]),fi3=sort(struc[wme3]))
    }
+   aus
    }
+
+   gen.check <- function(k,gen){   if (!is.list(gen)) {
+                 if (!(is.numeric(gen) | is.character(gen))) 
+                      stop("gen must be a list of generator vectors, a vector of column numbers or a character vector of generators.")
+                 if (is.character(gen)) gen <- lapply(strsplit(gen,""), function(obj) which(Letters %in% obj))
+                 else {
+                 if (any(!gen==floor(gen))) stop("All entries in gen must be integer numbers.")
+                 if (any(2^(0:(k-1)) %in% gen)) stop("This design is of resolution II and is not permitted in package FrF2.")
+                 if (min(gen)<1 | max(gen)>2^k-1) stop("Column numbers in gen must be in the range of 3 to 2^k-1.")
+                 gen <- Yates[gen]}
+              }
+              if (any(sapply(gen,function(obj) any(obj<1 | obj>k | !floor(obj)==obj) )))
+                   stop(paste("All generators must contain integer numbers from 1 to", k, 
+                     "\n or letters from",Letters[1],"to", Letters[k], "only."))
+              gen
+              }
+              
+desnum <- function(design){
+     if (!"design" %in% class(design)) stop("desnum is applicable for class design only.")
+     else attr(design,"desnum")
+ }
+ 
+run.order <- function(design){
+     if (!"design" %in% class(design)) stop("desnum is applicable for class design only.")
+     else attr(design,"run.order")
+ }
+ 
+design.info <- function(design){
+     if (!"design" %in% class(design)) stop("desnum is applicable for class design only.")
+     else attr(design,"design.info")
+ }

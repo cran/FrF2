@@ -4,6 +4,39 @@ The package is currently under intensive development. It will
 see new features in the near future, but possibly also changes 
 in current structure. 
 
+Version 0.91-1, 15/04/2009
+   Bug fix in documentation to function FrF2 
+
+Version 0.91, 06/04/2009
+
+   Additions to function FrF2: 
+   - added functionality for "estimable", i.e. automated search  
+     for designs that accommodate certain 2-factor interactions (2fis) well 
+     (two approaches)
+   - added possibility of replications and repeated measurements
+   - added more design information to output of FrF2 and changed 
+     output from list to data frame with attributes of new class design
+   - FrF2 now also can do full factorials
+   - renamed option max.nclear.2fis to MaxC2 (often used in the literature)
+   Additions to function pb: 
+   - added possibility of replications and repeated measurements
+   Further changes:
+   - modified function alias3fi (non-exported function) to allow allow 
+     reducing detail to order=2
+   - renamed catlg elements around clear 2fis to read "clear" and not "free",
+     accessor functions analogously
+   - grouped R-utility functions in files according to same pattern as 
+     in Rd files
+   - changed output of pb also to data frame with attributes of class design
+   - extensions and clarifications for documentation
+   - switched to FrF2, if pb is called for nruns=8 and nfactors<=4
+   
+   Bug fixes:
+   - FrF2 code had gen instead of generators in two places
+   - pb had a bug that prevented design generation 
+     for those numbers of runs for which doubling is used 
+     (40, 56,64,88,96)
+
 Version 0.9-1, 24/03/2009
 
    A few minor bug fixes: 

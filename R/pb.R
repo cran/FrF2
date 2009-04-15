@@ -25,9 +25,21 @@
 pb <- function(nruns,nfactors=nruns-1, 
                  factor.names = if(nfactors<=50) Letters[1:nfactors] else paste("F",1:nfactors,sep=""), 
                  default.levels = c(-1,1),
-                 boxtyssedal=TRUE, n12.taguchi=FALSE,randomize=TRUE,seed=NULL, ...){
-  if (nruns %in% c(8,64)) 
-cat("Plackett-Burman designs in", nruns, "runs coincide with regular fractional factorials. \n For screening many factors, you may want to consider increasing the number of runs by 4. \n Make sure to take the alias structure into account for interpretation!\n\n")
+                 boxtyssedal=TRUE, n12.taguchi=FALSE, 
+                 replications=1, repeat.only=FALSE, 
+                 randomize=TRUE,seed=NULL, ...){
+  if (nruns == 8) {
+      if (nfactors>4) warning("Plackett-Burman designs in 8 runs coincide with regular fractional factorials. 
+          For screening more than four factors, you may want to consider increasing the number of runs to 12. 
+          Make sure to take the alias structure into account for interpretation!")
+      else {
+           aus <- FrF2(nruns=8, nfactors=nfactors, factor.names=factor.names,
+                  default.levels=default.levels, replications=replications, repeat.only=repeat.only,
+                  randomize=randomize,seed=seed, ...)
+          warning("The design has been constructed with function FrF2 in order to ensure 
+                resolution IV and show alias information.")
+           }
+      }
   if (!isTRUE(all.equal((nruns/4) %% 1,0))) stop("Plackett-Burman designs require that nruns is a multiple of 4.")
   if (is.null(nfactors)) stop("nfactors must be given.")
   if (!nfactors==floor(nfactors)) stop("nfactors must be an integer number.")
@@ -75,20 +87,37 @@ cat("Plackett-Burman designs in", nruns, "runs coincide with regular fractional 
           sel <- normalize.col.first(williamson(circ.mat(a),circ.mat(b),circ.mat(c),circ.mat(d)))
           sel <- normalize.row.last(sel)
     }
-    else if (nruns %in% c(40,56,64,88,96)) sel <- normalize.row.last(double.des(pb(nruns/2)))
+    else if (nruns %in% c(40,56,64,88,96)) 
+           sel <- normalize.row.last(double.des(desnum(pb(nruns/2,randomize=FALSE))))[,1:nfactors]
     else
     stop(paste("Design for", nruns, "runs not yet implemented.","\n")) 
     }
   else sel <- rbind(circ.mat(sel),rep(-1,nruns-1))[,1:nfactors]
   }
   }
-    if (!is.null(seed)) set.seed(seed)
+
+      rand.ord <- rep(1:nruns,replications)
+      if (replications > 1 & repeat.only) rand.ord <- rep(1:nruns,each=replications)
+      if (randomize & !is.null(seed)) set.seed(seed)
+      if (randomize & !repeat.only) for (i in 1:replications) 
+                  rand.ord[((i-1)*nruns+1):(i*nruns)] <- sample(nruns)
+      if (randomize & repeat.only) rand.ord <- rep(sample(1:nruns), each=replications)
+
     colnames(sel) <- names(factor.names)
     rownames(sel) <- 1:nruns
-    if (randomize) sel <- sel[sample(nruns),]
+    sel <- sel[rand.ord,]
+    orig.no <- rownames(sel)
+    rownames(sel) <- 1:(nruns*replications)
     desdf <- data.frame(sel)
     for (i in 1:nfactors) desdf[,i] <- des.recode(desdf[,i],"-1=factor.names[[i]][1];1=factor.names[[i]][2]") 
-    aus <- list(desnum=sel,design=desdf,origin="FrF2.pb")
+    if (nruns>8 | nfactors>4)
+    aus <- desdf
+    attr(aus,"desnum") <- sel
+    attr(aus,"run.order") <- cbind("run.no.in.std.order"=rand.ord,"run.no"=1:nrow(sel))
+    attr(aus,"design.info") <- list(type="pb", 
+         replications=replications, repeat.only=repeat.only,
+         randomize=randomize, seed=seed)
+    class(aus) <- c("design","data.frame")
     aus
 }
 
