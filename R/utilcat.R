@@ -5,13 +5,13 @@ mult.gen <- function(liste){
    as.numeric(names(hilf[hilf==1]))
 }
 
-mult.gen.a <- function(string.vec){
+mult.gen.a <- function(string.vec,sep=""){
    ## omitted error check, because slows down very much
-   hilf <- table(unlist(strsplit(string.vec,"")))%%2
-   paste(names(hilf[hilf==1]),collapse="")
+   hilf <- table(unlist(strsplit(string.vec,sep)))%%2
+   paste(names(hilf[hilf==1]),collapse=sep)
 }
 
-words.all <- function(k, gen, max.length=7){
+words.all <- function(k, gen, design=NULL, max.length=7, select.catlg=catlg){
    ## 2^k is the run number of the design
    ## gen is a list of vectors which generate additional factors from interactions among the first k ones 
    ##   column numbers can be incorporated by using Yates[coln], e.g. Yates[c(7,31)] for gen=list(c(1,2,3), c(1,2,3,4,5))
@@ -19,7 +19,8 @@ words.all <- function(k, gen, max.length=7){
    ## max.length is the maximum length of words shown (calculations do become faster by reducing this)
    ##      can be set to NULL in order to use maximum possible word length (may be advisable for use in further calculations)
    if (!(k>0 & floor(k)==k)) stop("k must be a positive integer number.")
-
+   
+   if (is.character(design)) gen <- select.catlg[[design]]$gen
    ### check generator entry and transform to list of vector of numbers
    gen <- gen.check(k,gen)
 
@@ -125,17 +126,23 @@ alias3fi <- function(k, gen, order=3){
       stop("All generators must contain integer numbers between 1 and k only.")
    g <- length(gen)  ## number of generators
    struc <- NULL
+   sep <- ""
+
+   if (k + g > 50) {
+      Letters <- paste("F",1:(k+g),sep="")
+      sep <- ":"
+      }
 
    ## vector of main effects in terms of generators in character form
-   all1 <- sapply(c(as.list(1:k),gen),function(obj) paste(Letters[obj],collapse=""))
+   all1 <- sapply(c(as.list(1:k),gen),function(obj) paste(Letters[obj],collapse=sep))
    names(all1) <- Letters[1:(g+k)]
 
    ## vector of 2fis in terms of generators in character form
    all2 <- rep(0,choose(k+g,2))
    sel <- combn(k+g,2)
    n2 <- ncol(sel)
-   for (i in 1:n2) all2[i] <- mult.gen.a(all1[sel[,i]])
-   names(all2) <- apply(sel,2,function(obj) paste(Letters[obj],collapse=""))
+   for (i in 1:n2) all2[i] <- mult.gen.a(all1[sel[,i]],sep=sep)
+   names(all2) <- apply(sel,2,function(obj) paste(Letters[obj],collapse=sep))
 
    all3 <- NULL
    if (order==3){
@@ -143,8 +150,8 @@ alias3fi <- function(k, gen, order=3){
    all3 <- rep(0,choose(k+g,3))
    sel <- combn(k+g,3)
    n3 <- ncol(sel)
-   for (i in 1:n3) all3[i] <- mult.gen.a(all1[sel[,i]])
-       names(all3) <- apply(sel,2,function(obj) paste(Letters[obj],collapse=""))}
+   for (i in 1:n3) all3[i] <- mult.gen.a(all1[sel[,i]],sep=sep)
+       names(all3) <- apply(sel,2,function(obj) paste(Letters[obj],collapse=sep))}
 
    ## pattern contains number of occurrences of each effect among main to 3fis
    ## or 2fis only in case of order=2
@@ -163,6 +170,7 @@ alias3fi <- function(k, gen, order=3){
           struc <- sapply(struc[which(sapply(struc,length)>1)], function(obj) paste(obj,collapse="="))
    ## sort in ascending order
    ## with main effect
+   if (k+g<=50){
    wme <- grep("^[[:alpha:]]=[[:alpha:][:punct:]]*",struc)
    ## with 2fi
    wme2 <- grep("^[[:alpha:]]{2}=[[:alpha:][:punct:]]*",struc)
@@ -170,6 +178,14 @@ alias3fi <- function(k, gen, order=3){
    if (order==3) wme3 <- grep("^[[:alpha:]]{3}=[[:alpha:][:punct:]]*",struc)
    ## sort order not yet good for more than 25 factors (a before A etc., and also unfortunately locale dependent)
    ## !!! improve by making sort depend on factor number rather than letter
+   }
+   else{
+   wme <- grep("^F[[:digit:]]+=F[[:digit:][:punct:]]*",struc)
+   ## with 2fi
+   wme2 <- grep("^F[[:digit:]]+:F[[:digit:]]+=F[[:digit:][:punct:]]*",struc)
+   ## with 3fi
+   if (order==3) wme3 <- grep("^F[[:digit:]]+:F[[:digit:]]+:F[[:digit:]]+=F[[:digit:][:punct:]]*",struc)
+   }
    if (order==2) aus <- list(main=sort(struc[wme]),fi2=sort(struc[wme2]))
    else aus <- list(main=sort(struc[wme]),fi2=sort(struc[wme2]),fi3=sort(struc[wme3]))
    }
@@ -191,18 +207,3 @@ alias3fi <- function(k, gen, order=3){
                      "\n or letters from",Letters[1],"to", Letters[k], "only."))
               gen
               }
-              
-desnum <- function(design){
-     if (!"design" %in% class(design)) stop("desnum is applicable for class design only.")
-     else attr(design,"desnum")
- }
- 
-run.order <- function(design){
-     if (!"design" %in% class(design)) stop("desnum is applicable for class design only.")
-     else attr(design,"run.order")
- }
- 
-design.info <- function(design){
-     if (!"design" %in% class(design)) stop("desnum is applicable for class design only.")
-     else attr(design,"design.info")
- }

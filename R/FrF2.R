@@ -1,28 +1,102 @@
 FrF2 <- function(nruns=NULL, nfactors=NULL, 
-                 factor.names = if(!is.null(nfactors)) {if(nfactors<=50) Letters[1:nfactors] else paste("F",1:nfactors,sep="")} else NULL, 
+                 factor.names = if(!is.null(nfactors)) {if(nfactors<=50) Letters[1:nfactors] 
+                                else paste("F",1:nfactors,sep="")} else NULL, 
                  default.levels = c(-1,1), 
-                 generators=NULL, resolution=NULL, estimable=NULL, clear=TRUE, res3=FALSE, max.time=60, 
-                 select.catlg=catlg, perm.start=NULL, perms=NULL, MaxC2=FALSE, 
+                 generators=NULL, design=NULL, resolution=NULL, select.catlg=catlg, 
+                 estimable=NULL, clear=TRUE, res3=FALSE, max.time=60, 
+                 perm.start=NULL, perms=NULL, MaxC2=FALSE, 
                  replications=1, repeat.only=FALSE, 
-                 randomize=TRUE, seed=NULL, alias.info=2, ...){
+                 randomize=TRUE, seed=NULL, alias.info=2, 
+                 blocks=1, block.name="Blocks", bbreps=replications, wbreps=1, alias.block.2fis = FALSE,
+                 hard=NULL, check.hard=10, WPs=1, nfac.WP=0, WPfacs=NULL, check.WPs=10, ...){
+## check that no incompatible options are used together
+if (!(is.null(design) | is.null(estimable))) stop("design and estimable must not be specified together.")
+if (!(is.null(generators) | is.null(design))) stop("generators and design must not be specified together.")
+if (is.null(nruns) & !(is.null(generators))) stop("If generators is specified, nruns must be given.")
+if (!(is.null(generators) | is.null(estimable))) stop("generators and estimable must not be specified together.")
+if (!(identical(blocks,1) | is.null(estimable))) stop("blocks and estimable must not be specified together.")
+if (!(identical(WPs,1) | is.null(estimable))) stop("WPs and estimable must not be specified together.")
+if (!(is.null(hard) | is.null(estimable))) stop("hard and estimable must not be specified together.")
+if (!(identical(blocks,1) | identical(WPs,1))) stop("blocks and WPs must not be specified together.")
+if (!(identical(blocks,1) | is.null(hard))) stop("blocks and hard must not be specified together.")
+if (!(identical(WPs,1) | is.null(hard))) stop("WPs and hard must not be specified together.")
+if (identical(blocks,1) & !identical(wbreps,1)) stop("wbreps must not differ from 1, if blocks = 1.")
+if (!(is.null(WPfacs) | identical(WPs,1)) & is.null(design) & is.null(generators))
+          stop("WPfacs requires explicit definition of a design via design or generators.")
+    ## thus, wbreps = 1 can always be assumed for non-split-plot situations,
+    ## which reduces necessary case distinctions
+#if ((!identical(WPs,1)) & is.null(nruns)) stop("WPs only works if nruns is specified.")
+    ### ??? or is that needed for the automatic version only ???
+    if (!(is.null(resolution) | is.null(estimable))) stop("You can only specify resolution OR estimable.")
+    if (!(is.null(resolution) | is.null(nruns))) warning("resolution is ignored, if nruns is given.")
+
+## simple checks for individual option entries
+    if (default.levels[1]==default.levels[2]) stop("Both default levels are identical.")
+    if (!(is.logical(clear) & is.logical(res3) & is.logical(MaxC2) & is.logical(repeat.only) 
+         & is.logical(randomize) & is.logical(alias.block.2fis) ))
+         stop("clear, res3, MaxC2, repeat.only, randomize, and alias.block.2fis must be logicals (TRUE or FALSE).")
+    if (!is.numeric(max.time)) 
+         stop("max.time must be a positive maximum run time for searching a design with estimable given and clear=FALSE.")
+    if (!is.numeric(check.hard)) stop("check.hard must be an integer number.")
+    if (!is.numeric(check.WPs)) stop("check.WPs must be an integer number.")
+    check.hard <- floor(check.hard)  ## avoid stupid errors
+    check.WPs <- floor(check.WPs)  ## avoid stupid errors
+    if (!is.numeric(bbreps)) stop("bbreps must be an integer number.")
+    if (!is.numeric(wbreps)) stop("wbreps must be an integer number.")
+    if (!is.numeric(replications)) stop("replications must be an integer number.")
+    if (bbreps > 1  & identical(blocks,1) & !replications > 1) 
+        stop("Use replications, not bbreps, for specifying replications for unblocked designs.")
+
+    if (!alias.info %in% c(2,3)) 
+         stop("alias.info can be 2 or 3 only.")
+    if (!(is.numeric(default.levels) | is.character(default.levels))) 
+         stop("default.levels must be a numeric or character vector of length 2")
+    if (!length(default.levels) ==2) 
+         stop("default.levels must be a numeric or character vector of length 2")
+    if (!(is.null(hard) | is.numeric(hard))) 
+         stop("hard must be numeric.")
+    if (!(is.null(resolution) | is.numeric(resolution))) 
+         stop("resolution must be numeric.")
+    if (is.numeric(resolution)) if(!(resolution == floor(resolution) & resolution>=3)) 
+         stop("resolution must be an integer number (at least 3), if specified.")
+    res.WP <- NULL   ## for simple way of checking whether split-plot design later on
+
+## treatment of one specifically-chosen design entry
+    if (!is.null(design)){ 
+        ## design is looked for in the catalogue specified in select.catlg
+        if (!is.character(design)) stop("design must be a character string.")
+        if (!length(design)==1) stop("design must be one character string.")
+           if (design %in% names(select.catlg)){ 
+                cand <- select.catlg[design]
+                if (!is.null(nruns)) {if (!nruns==cand[[1]]$nruns) 
+                          stop("selected design does not have the desired number of runs.")}
+                       else nruns <- cand[[1]]$nruns
+                if (!is.null(factor.names)) {if (!length(factor.names)==cand[[1]]$nfac) 
+                          stop("selected design does not have the number of factors specified in factor.names.")}
+                if (!is.null(nfactors)) {if (!nfactors==cand[[1]]$nfac) 
+                          stop("selected design does not have the number of factors specified in nfactors.")}
+                       else nfactors <- cand[[1]]$nfac
+                }
+                else stop("invalid entry for design")
+    }
+    
+    ## should occur after special treatment for specific design
     if (!is.null(nruns)){
        k <- round(log2(nruns))
        if (!2^k==nruns) stop("nruns must be a power of 2.")
-       if (nruns < 8 | nruns > 64) stop("less than 8 or more than 64 runs are currently not covered by FrF2.")
+       if (nruns < 8 | nruns > 4096) stop("less than 8 or more than 4096 runs are not covered by FrF2.")
        }
-    if (!(is.logical(clear) | is.logical(FALSE) | is.logical(MaxC2) | is.logical(repeat.only) | is.logical(randomize) ))
-       stop("clear, res3, MaxC2, repeat.only and randomize must be logicals (TRUE or FALSE).")
-    if (!is.numeric(max.time)) stop("max.time must be a positive maximum run time for searching a design with estimable given and clear=FALSE.")
-    if (!(is.null(resolution) | is.null(estimable))) stop("You can only specify resolution OR estimable.")
-    if (!(is.null(resolution) | is.null(nruns))) warning("resolution is ignored, if nruns is given.")
+
     ## check factor specifications
     if (is.null(factor.names) & is.null(nfactors) & (is.null(nruns) | is.null(generators)) & is.null(estimable)) 
-         stop("The number of factors must be specified either nfactors, via factor.names, via estimable, or via nruns together with generators.")
-    if (!is.null(factor.names) & !(is.character(factor.names) | is.list(factor.names)) ) stop("factor.names must be a character vector or a list.")
+         stop("The number of factors must be specified via nfactors, via factor.names, via estimable, through selecting 
+         one specific catalogued design or via nruns together with generators.")
+    if (!is.null(factor.names) & !(is.character(factor.names) | is.list(factor.names)) ) 
+         stop("factor.names must be a character vector or a list.")
     if (is.null(nfactors)) {if (!is.null(factor.names)) nfactors <- length(factor.names)
-                          else if (!is.null(generators)) nfactors <- length(generators)+k}
+                          else if (!is.null(generators)) nfactors <- length(generators)+k 
+                          }
     if (!is.null(estimable)) {
-                if (!is.null(generators)) stop("You cannot combine estimable with generators.")
               estimable <- estimable.check(estimable, nfactors, factor.names)
               if (is.null(nfactors)) nfactors <- estimable$nfac
               estimable <- estimable$estimable
@@ -46,11 +120,14 @@ FrF2 <- function(nruns=NULL, nfactors=NULL,
                    }
     }
           ## from here on, estimable is a numeric matrix with two rows
-    if (!nfactors==floor(nfactors)) stop("nfactors must be an integer number.")
-    if (!is.null(factor.names) & !length(factor.names)==nfactors) stop("There must be nfactors factor names, if any.")
-    if (is.null(factor.names)) if(nfactors<=50) factor.names <- Letters[1:nfactors] else factor.names <- paste("F",1:nfactors,sep="")
+          ## and nfactors is known
+    if (!nfactors==floor(nfactors)) 
+         stop("nfactors must be an integer number.")
+    if (!is.null(factor.names) & !length(factor.names)==nfactors) 
+         stop("There must be nfactors factor names, if any.")
+    if (is.null(factor.names)) 
+         if(nfactors<=50) factor.names <- Letters[1:nfactors] else factor.names <- paste("F",1:nfactors,sep="")
     
-    if (!alias.info %in% c(2,3)) stop("alias.info can be 2 or 3 only.")
     ## check factor level specifications
     if (!((is.character(default.levels) | is.numeric(default.levels)) & length(default.levels)==2) ) 
                  stop("default.levels must be a vector of 2 levels.")
@@ -61,40 +138,15 @@ FrF2 <- function(nruns=NULL, nfactors=NULL,
               factor.names <- hilf}
     ## from here on, factor.names is a named list
 
-    
-    ff <- FALSE  ## indicator whether full factorial
-
-    if (!is.null(nruns)){
-       ## find FrF2 for given number of runs
-       ## or estimable given (here, number of runs has already been calculated if necessary)
-       if (nfactors<=k) {
-                    ### full factorial
-                    if (nfactors==k) aus <- fac.design(2, k, factor.names=factor.names, 
-                             replications=replications, repeat.only=repeat.only, randomize=randomize, seed=seed)
-                    else aus <- fac.design(2, nfactors, factor.names=factor.names, 
-                             replications=replications*2^(k-nfactors), repeat.only=repeat.only, randomize=randomize, seed=seed)
-                    ff <- TRUE
-              }
-       else {
-       ### fractional factorial
-       if (nfactors>nruns-1) stop("You can accomodate at most ",nruns-1," factors in a FrF2 design with ",nruns," runs." )
-       g <- nfactors - k  ## number of generators needed
-       if (!is.null(generators)) {
+    ### prepare generators case
+    if (!is.null(generators)){
+               ### nruns and k are always given for this situation
               generators <- gen.check(k, generators)
-              if (!length(generators)==g) 
-              stop("This design in ", nruns, " runs with ", nfactors," factors requires ", g, " generators.")
-              }
-       if (is.null(generators)) {
-            if (!(is.null(estimable) | ff)) {
-                      desmat <- estimable(estimable, nfactors, nruns, 
-                           clear=clear, res3=res3, max.time=max.time, select.catlg=select.catlg, 
-                           perm.start=perm.start, perms=perms, order=alias.info )
-                      design.info <- list(type="FrF2.estimable", map=desmat$map, aliased=desmat$aliased, clear=clear, res3=res3)
-                      desmat <- desmat$design
-                  }
-            else cand <- select.catlg[nruns.catlg(catlg)==nruns & nfac.catlg(catlg)==nfactors]
-            }
-       else {  res <- NA; nclear.2fis<-NA; clear.2fis<-NULL;all.2fis.clear<-NA
+                 g <- nfactors - k
+                 if (!length(generators)== g) 
+                 stop("This design in ", nruns, " runs with ", nfactors," factors requires ", g, " generators.")
+              
+               res <- NA; nclear.2fis<-NA; clear.2fis<-NULL;all.2fis.clear<-NA
                if (g<10) wl <- words.all(k, generators,max.length=6)
                else if (g<15) wl <- words.all(k, generators,max.length=5)
                else if (g<20) wl <- words.all(k, generators,max.length=4)
@@ -105,34 +157,255 @@ FrF2 <- function(nruns=NULL, nfactors=NULL,
                else if (g<20) res="5+"}
 
                cand <- list(custom=list(res=res, nfac=nfactors, nruns=nruns, 
-                    gen=sapply(generators,function(obj) which(sapply(Yates[1:(nruns-1)],function(obj2) identical(obj,obj2)))), 
+                    gen=sapply(generators,function(obj) which(sapply(Yates[1:(nruns-1)],
+                             function(obj2) isTRUE(all.equal(sort(obj),obj2))))), 
                     WLP=WLP, nclear.2fis=nclear.2fis, clear.2fis=clear.2fis, all.2fis.clear=all.2fis.clear))
                    ## needs to be list of list, because access later is always via cand[1]
                class(cand) <- c("catlg","list")
-           }
-           } ## end of full or fractional factorial for given nruns or estimable
+      }
+    ## prepare blocks
+    if (!identical(blocks,1)) {
+             blocks <- block.check(k, blocks, nfactors, factor.names)  
+             if (is.list(blocks)) k.block <- length(blocks)
+             block.auto=FALSE   ## default for block.auto, set to TRUE below, if TRUE
+             }
+             ## blocks is now list of generators or number of blocks
+    if (!is.list(blocks)){
+    if (blocks>1){
+       block.auto=TRUE
+       if (is.null(nruns)) 
+            stop("blocks>1 only works if nruns is specified.")
+       k.block <- round(log2(blocks))
+       if (blocks > nruns/2) 
+            stop("There cannot be more blocks than half the run size.")
+       if (nfactors+blocks-1>=nruns) 
+            stop(paste(nfactors, "factors cannot be accomodated in", nruns, "runs with", blocks, "blocks."))
+       ntreat <- nfactors
+#       nfactors <- nfactors + k.block     #### omitted for new version, that alone is probably not yet the solution
     }
-    else {
+    }
+    ### treat hard before WPs, so that it can be handled by split-plot approach
+    if (!is.null(hard)){
+      if (is.null(generators)) 
+           cand <- select.catlg[which(nfac.catlg(select.catlg)==nfactors & nruns.catlg(select.catlg)==nruns)]
+      if (hard == nfactors) stop("It does not make sense to choose hard equal to nfactors.")
+      if (hard >= nruns/2) 
+          warning ("Did you really need to declare so many factors as hard-to-change ?")
+      nfac.WP <- hard
+         if (hard < nruns/2){
+         WPs <- NA
+         ## for generators already specified earlier
+         for (i in 1:min(length(cand),check.hard)){
+             leftadjust.out <- leftadjust(k,cand[[i]]$gen,early=hard,show=1)
+             if (is.na(WPs) | WPs > 2^leftadjust.out$k.early) 
+                 WPs <- 2^leftadjust.out$k.early
+             }
+         }
+      if (hard>=nruns/2 | WPs==nruns) {
+           warning("There are so many hard-to-change factors that no good special design could be found.
+                Randomization has been switched off.")
+           randomize <- FALSE
+           WPs <- 1
+           ## desmat will be the special slow-change matrix
+           leftadjust.out <- leftadjust(k,cand[[1]]$gen,early=hard,show=1)
+           generators <- leftadjust.out$gen
+           ## with this generator and the hard-to-change factors in the earliest columns
+      }
+    }
+    ## prepare WPs
+    if (!identical(WPs,1)) {
+             if (is.null(nruns)) stop("WPs>1 only works if nruns is specified.")
+             if (WPs > nruns/2) stop("There cannot be more whole plots (WPs) than half the run size.")
+             k.WP <- round(log2(WPs))
+             if (!WPs == 2^k.WP) stop("WPs must be a power of 2.")
+             if (nfac.WP < k.WP) {
+                 add <- k.WP - nfac.WP
+                 names.add <- rep(list(default.levels),add)
+                 names(names.add) <- paste("WP",(nfac.WP+1):(nfac.WP+add),sep="")
+                 nfactors <- nfactors + add
+                 factor.names <- c(factor.names[1:nfac.WP],names.add,factor.names[-(1:nfac.WP)])
+                 nfac.WP <- k.WP
+                 warning("There are fewer factors than needed for a full factorial whole plot design. ", add, 
+                   " dummy splitting factor(s) have been introduced.")
+              }
+             if (!is.null(WPfacs)) {
+                WPfacs <- WP.check(k, WPfacs, nfac.WP, nfactors, factor.names)  
+                ## WPfacs is now character vector of the form Fno or single number of whole plots
+                WPsnum <- as.numeric(chartr("F", " ", WPfacs))
+                ## the factor positions within the factor names list from which the design is generated
+                WPsorig <- WPsnum 
+             }
+             else {WPsorig <- WPsnum <- 1:nfac.WP }  ## first nfac.WP factors are whole plot factors
+    }
+    
+    if (!is.null(nruns)){
+       ## find FrF2 for given number of runs 
+       ## or one specific design (because nruns has already been calculated if necessary)
+       ## or estimable given (because nruns has already been calculated if necessary)
+       if (nfactors<=k & identical(blocks,1) & identical(WPs,1)) {
+                    ### full factorial without blocks or WPs finally treated here
+                    ### result immediately returned, i.e. function ends here in this case
+                    if (nfactors==k) aus <- fac.design(2, k, factor.names=factor.names, 
+                             replications=replications, repeat.only=repeat.only, 
+                             randomize=randomize, seed=seed)
+                    else aus <- fac.design(2, nfactors, factor.names=factor.names, 
+                             replications=replications*2^(k-nfactors), repeat.only=repeat.only, 
+                             randomize=randomize, seed=seed)
+                    for (i in 1:nfactors) 
+                           if (is.factor(aus[[i]])) contrasts(aus[[i]]) <- contr.FrF2(2)
+                    return(aus)
+              }
+       else {
+       if (nfactors < k) stop("A full factorial for nfactors factors requires fewer than nruns runs. 
+           Please reduce the number of runs and introduce replications instead.")
+       if (nfactors == k) {
+           generators <- as.list(numeric(0))
+               cand <- list(custom=list(res=Inf, nfac=nfactors, nruns=nruns, 
+                    gen=numeric(0), 
+                    WLP=c(0,0,0,0), nclear.2fis=choose(k,2), clear.2fis=combn(k,2), all.2fis.clear="all"))
+                   ## needs to be list of list, because access later is always via cand[1]
+               class(cand) <- c("catlg","list")
+           }
+             ### fractional factorial
+         if (nfactors > nruns - 1) 
+               stop("You can accomodate at most ",nruns-1," factors in a FrF2 design with ",nruns," runs." )
+         g <- nfactors - k  ## number of generators needed
+            if (!is.null(estimable)) {
+                ## determine design that satisfies estimability requests
+                      desmat <- estimable(estimable, nfactors, nruns, 
+                           clear=clear, res3=res3, max.time=max.time, select.catlg=select.catlg, 
+                           perm.start=perm.start, perms=perms, order=alias.info )
+                      design.info <- list(type="FrF2.estimable", 
+                             nruns=nruns, nfactors=nfactors, factor.names=factor.names, 
+                             map=desmat$map, aliased=desmat$aliased, clear=clear, res3=res3)
+                      desmat <- desmat$design
+                  }
+            else if (is.null(generators) & is.null(design)) 
+                 cand <- select.catlg[nruns.catlg(select.catlg)==nruns & nfac.catlg(select.catlg)==nfactors]
+               ## candidate designs for further steps
+               ## resolution not here, because ignored for given nruns
+
+            ## treating blocked designs
+            if (!is.list(blocks)){
+                if (blocks > 1) {
+                    ### small case
+                    if (g==0 | choose(nruns - 1 - nfactors, k.block) < 100000){
+                    for (i in 1:length(cand)){
+                      if (g==0) blockpick.out <- try(blockpick(k, gen=0, 
+                            k.block=k.block, show=1, alias.block.2fis = alias.block.2fis),TRUE)
+                      else {
+                      if (is.null(generators))
+                      blockpick.out <- try(blockpick(k, design=names(cand[i]), 
+                            k.block=k.block, show=1, alias.block.2fis = alias.block.2fis),TRUE)
+                      else  blockpick.out <- try(blockpick(k, gen=cand[[i]]$gen, 
+                            k.block=k.block, show=1, alias.block.2fis = alias.block.2fis),TRUE)
+                      }
+
+                      if (!"try-error" %in% class(blockpick.out)) {
+                         blocks <- blockpick.out$blockcols   #[2^(0:(k.block-1))]
+                         cand <- cand[i]
+                         cand[[1]]$gen <- c(cand[[1]]$gen,blocks)
+                         blocks <- nfactors+(1:k.block) ## now in terms of factors
+                         nfactors <- nfactors+k.block
+                         g <- g+k.block
+                      ## check whether OK
+                         hilf <- factor.names
+                         factor.names <- vector("list", nfactors)
+                         factor.names[-blocks] <- hilf
+                         factor.names[blocks] <- list(default.levels)
+                         if (ntreat <= 50) 
+                         names(factor.names) <- c(Letters[1:ntreat],paste("b",1:k.block,sep=""))
+                         else 
+                         names(factor.names) <- c(paste("F",1:ntreat,sep=""),paste("b",1:k.block,sep=""))
+                         blocks <- as.list(blocks)   ### rest is treated with the manual routine
+                         break
+                      }
+                    }## else treats big case
+                    }
+                else{
+                    nfactors <- nfactors+k.block
+                    g <- g+k.block
+                    hilf <- factor.names
+                    factor.names <- vector("list", nfactors)
+                    factor.names[(k.block+1):nfactors] <- hilf
+                    factor.names[1:k.block] <- list(default.levels)
+                    names(factor.names) <- c(paste("b",1:k.block,sep=""),paste(names(hilf)))
+                    cand <- select.catlg[nfac.catlg(select.catlg)==nfactors & nruns.catlg(select.catlg)==nruns]
+                    if (!(is.null(generators) & is.null(design))) 
+                         warning("For this request, generator or design specifications have been ignored, 
+                              because the block allocation procedure for big problems was used.")
+                    for (i in 1:length(cand)){
+                      blockpick.out <- try(blockpick.big(k, gen=cand[[i]]$gen, 
+                            k.block=k.block, show=1, alias.block.2fis = alias.block.2fis),TRUE)
+                      if (!"try-error" %in% class(blockpick.out)) {
+                         cand <- cand[i]
+                         cand[[1]]$gen <- blockpick.out$gen  ## includes block generators
+                         blocks <- as.list(1:k.block) ## first k.block generator columns
+                                                      ### rest is treated with the manual routine
+                         break
+                      }
+                    }
+                    } ## end else (for big case)
+                if (alias.block.2fis & !is.list(blocks)) 
+                         stop("no adequate block design found")
+                if ((!alias.block.2fis) & !is.list(blocks)) 
+                         stop("no adequate block design found with 2fis unconfounded with blocks")
+                }
+                }
+            ## automatic treatment of split-plot designs
+            if (WPs > 1){ 
+               if (is.null(WPfacs)){
+                    WP.auto <- TRUE
+                    ## max.res.5 is the max number of factors for resolution 5, 
+                    ##    if k (or k.WP is of size ...
+                    max.res.5 <- c(1,2,3, 5, 6, 8, 11, 17)
+                    for (i in 1:length(cand)){
+                      ## prevent wasting search time on impossible setups
+                      if (is.null(generators)){
+                        if (cand[[i]]$res>=5 & nfac.WP > max.res.5[k.WP]) next
+                        if (cand[[i]]$res>=4 & nfac.WP > WPs/2) next
+                      }
+                      if (nfac.WP > WPs/2 | nfac.WP <= k.WP)
+                      splitpick.out <- try(splitpick(k, cand[[i]]$gen, k.WP=k.WP, nfac.WP=nfac.WP, show=1),TRUE)
+                      else  splitpick.out <- try(splitpick(k, cand[[i]]$gen, k.WP=k.WP, nfac.WP=nfac.WP, 
+                             show=check.WPs),TRUE)
+                      if (!"try-error" %in% class(splitpick.out)) {
+                         WPfacs <- c(1:k.WP)    
+                         if (nfac.WP > k.WP) WPfacs <- c(WPfacs, (k + 1):(k+nfac.WP-k.WP))
+                         cand <- cand[i]
+                         cand[[1]]$gen <- splitpick.out$gen[1,]
+                         res.WP <- splitpick.out$res.WP[1]
+                         break
+                      }
+                    }
+                if (is.null(res.WP)) stop("no adequate splitplot design found")
+                WPsorig <- WPsnum <- WPfacs
+                WPfacs <- paste("F",WPfacs,sep="")  ## treat with manual below
+                }
+              else WP.auto <- FALSE
+              } 
+              }
+              ### next closing brace for !is.null(nruns)
+              } 
+else {
        ## nruns not given and not already assigned for estimable
        ## find smallest FrF2 that fulfills the requirements regarding resolution/estimability
-       if (is.null(resolution) & is.null(estimable)) stop("At least one of nruns or resolution or estimable must be given.")
-       if (!is.null(resolution)) {
-                 if (!(resolution==floor(resolution) & resolution>=3)) stop("resolution must be an integer number >=3.")
-                 cand <- catlg[which(res.catlg(catlg)>=resolution & nfac.catlg(catlg)==nfactors)]
-       }
-       else cand <- catlg[which(nfac.catlg(catlg)==nfactors)]   
+       if (is.null(resolution) & is.null(estimable)) 
+                 stop("At least one of nruns or resolution or estimable must be given.")
+       if (!is.null(resolution)) 
+                 cand <- select.catlg[which(res.catlg(select.catlg)>=resolution & nfac.catlg(select.catlg)==nfactors)]
+       else cand <- select.catlg[which(nfac.catlg(select.catlg)==nfactors)]   
            ## no prior restriction by resolution
-       #if (!is.null(estimable)) ## select those candidate designs with the requested effects unconfounded, if possible
-       if (length(cand)==0) stop("Only a full factorial or a design with more than 64 runs grants the requested combination of nfactors and resolution.")
+       if (length(cand)==0) 
+           stop("No design listed in catalogue ", deparse(substitute(select.catlg)), " fulfills all requirements.")
     }
     ## standard FrF2 situations
-    if (MaxC2 & is.null(estimable) & is.null(generators) & !ff) 
-           cand <- cand[which.max(sapply(cand[which(sapply(cand, function(obj) obj$res)==max(sapply(cand, function(obj) obj$res)))], 
-              function(obj) obj$nclear.2fis))]
+    if (MaxC2 & is.null(estimable) & is.null(generators) ) 
+           cand <- cand[which.max(sapply(cand[which(sapply(cand, 
+                   function(obj) obj$res)==max(sapply(cand, function(obj) obj$res)))], 
+                   function(obj) obj$nclear.2fis))]
 
     ### creation of actual design 
-    ## full factorial done already, therefore excluded
-    if (!ff){
     if (is.null(nruns)) {nruns <- cand[[1]]$nruns 
                          k <- round(log2(nruns))
                          g <- nfactors - k}
@@ -141,39 +414,315 @@ FrF2 <- function(nruns=NULL, nfactors=NULL,
        for (i in 2:k) destxt <- paste(destxt,",c(-1,1)",sep="")
        destxt <- paste("as.matrix(",destxt,"))",sep="")
        desmat <- eval(parse(text=destxt))
+       if (is.character(WPfacs) | is.list(blocks)) desmat <- desmat[,k:1]  ## slow first rather than fast first
+       if (!is.null(hard)) {
+             desmat <- rep(c(-1,1),each=nruns/2)
+             for (i in 2:k) desmat <- cbind(desmat,rep(c(1,-1,-1,1),times=(2^i)/4,each=nruns/(2^i)))
+             }
+       if (g>0)
+       for (i in 1:g) 
+       desmat <- cbind(desmat, apply(desmat[,unlist(Yates[cand[[1]]$gen[i]])],1,prod))
+       if (WPs > 1) {if (!WP.auto) {
+            hilf <- apply(desmat[,WPsorig],1,paste,collapse="")
+            if (!length(table(hilf))==WPs) 
+            stop("The specified design creates ",
+                 length(table(hilf)), " and not ", WPs, " whole plots.")
+                 for (j in setdiff(1:nfactors,WPsorig))
+                     if (!length(table(paste(hilf,desmat[,j],sep="")))>WPs) 
+                         stop("Factor ", names(factor.names)[j], " is also a whole plot factor.")
+          }
+          }
+       
+       ## slow changing order, if required
+       if ((!is.character(WPfacs)) & !is.null(hard) ) 
+           desmat <- desmat[,order(c(2^(0:(k-1)),cand[[1]]$gen))]
+
+       if (is.list(blocks)) {
+            hilf <- blocks
+            for (i in 1:k.block) hilf[[i]] <- apply(desmat[,hilf[[i]],drop=FALSE],1,prod)
+
+            Blocks <- factor(as.numeric(factor(apply(matrix(as.character(unlist(hilf)),ncol=k.block),
+                        1,paste,collapse=""))))
+            hilf <- order(Blocks)
+            desmat <- desmat[hilf,]
+            Blocks <- Blocks[hilf]
+            contrasts(Blocks) <- contr.FrF2(levels(Blocks))
+            nblocks <- 2^length(blocks)
+            blocksize <- nruns / nblocks
+            block.no <- paste(Blocks,rep(1:blocksize,nblocks),sep=".")
+            }
+
+       if (is.character(WPfacs)) {
+            ## make WP factor columns the first ones
+            ## make factor.names match this order 
+            #### for automatic selection the first WPs factors are WP factors !!!
+            #if (nfac.WP > k.WP){
+            
+            ## are WPsnum and WPsorig at all different ?
+            ## or are they always the same now?
+               desmat <- desmat[,c(WPsnum,setdiff(1:nfactors,WPsnum))]
+               factor.names <- factor.names[c(WPsorig,setdiff(1:nfactors,WPsorig))]
+
+               plotsize <- round(nruns/WPs)
+               
+               if (is.null(hard)){
+                 hilf <- ord(desmat)
+                 desmat <- desmat[ord(desmat),]
+               }
+               wp.no <- paste(rep(1:WPs,each=plotsize),rep(1:plotsize,WPs),sep=".")
+               
+            }
     }
+
     rownames(desmat) <- 1:nruns
 
+    ## handle randomization and replication
+    if (randomize & !is.null(seed)) set.seed(seed)
+    if (!(is.list(blocks) | WPs > 1)){
+      ## simple randomization situations
       rand.ord <- rep(1:nruns,replications)
       if (replications > 1 & repeat.only) rand.ord <- rep(1:nruns,each=replications)
-      if (randomize & !is.null(seed)) set.seed(seed)
       if (randomize & !repeat.only) for (i in 1:replications) 
                   rand.ord[((i-1)*nruns+1):(i*nruns)] <- sample(nruns)
       if (randomize & repeat.only) rand.ord <- rep(sample(1:nruns), each=replications)
+      }
+      else {   
+          if (is.list(blocks)){
+          #### implement randomization and replication for blocks
+          ## bbreps=replications, wbreps=1
+          ## if ((!repeat.only) & !randomize)
+              rand.ord <- rep(1:nruns, bbreps * wbreps)
+              if ((!repeat.only) & !randomize)
+                 for (i in 0:(nblocks-1))
+                    for (j in 1:wbreps)
+                    rand.ord[(i*blocksize*wbreps+(j-1)*blocksize+1):((i+1)*blocksize*wbreps+j*blocksize)] <- 
+                         (i*blocksize+1):((i+1)*blocksize)
+                    rand.ord <- rep(rand.ord[1:(nruns*wbreps)],bbreps)
+              if (repeat.only & !randomize)
+                    for (j in 1:wbreps)
+                    rand.ord[(i*blocksize*wbreps + (j-1)*blocksize + 1) : 
+                          (i*blocksize*wbreps + j*blocksize)] <- 
+                               sample((i%%nblocks*blocksize+1):(i%%nblocks*blocksize+blocksize))
+              if (wbreps > 1 & repeat.only) rand.ord <- rep(1:nruns,bbreps, each=wbreps)
+              if ((!repeat.only) & randomize)
+                 for (i in 0:(nblocks*bbreps-1))
+                    for (j in 1:wbreps)
+                    rand.ord[(i*blocksize*wbreps + (j-1)*blocksize + 1) : 
+                          (i*blocksize*wbreps + j*blocksize)] <- 
+                               sample((i%%nblocks*blocksize+1):(i%%nblocks*blocksize+blocksize))
+                               
+              if (repeat.only & randomize)
+                 for (i in 0:(nblocks*bbreps-1))
+                    rand.ord[(i*blocksize*wbreps + 1) : 
+                          ((i+1)*blocksize*wbreps)] <- rep(sample((((i%%nblocks)*blocksize)+1):
+                                        ((i%%nblocks+1)*blocksize)),each=wbreps)
+              }
+          else {
+          #### implement randomization and replication for split-plots
+          ####   standard approach; replications replicate complete plots
+          ####   repeat.only generate repeated measurements within plots
+                rand.ord <- rep(1:nruns,replications)
+                if (replications > 1 & repeat.only) 
+                                  rand.ord <- rep(1:nruns,each=replications)
+                if ((!repeat.only) & randomize){
+                    ## whole plots are replicated
+                    ## might be more wise to use larger design
 
-      desmat <- desmat[rand.ord,]
+                    ## randomization on two levels
+                    ## first: randomization within each whole plot
+                    for (i in 1:(WPs*replications)) 
+                        rand.ord[((i-1)*plotsize+1):(i*plotsize)] <- 
+                            sample(rand.ord[((i-1)*plotsize+1):(i*plotsize)])
+                    ## second: randomization of whole plots (in blocks per replication)
+                    for (i in 1:replications){
+                        WPsamp <- sample(WPs) 
+                        WPsamp <- (rep(WPsamp,each=plotsize)-1)*plotsize + rep(1:plotsize,WPs)
+                        rand.ord[((i-1)*plotsize*WPs+1):(i*plotsize*WPs)] <- 
+                            rand.ord[(i-1)*plotsize*WPs + WPsamp]
+                        }
+                    }
+                if (repeat.only & randomize){
+                    ## repeated measurements within whole plots
+                    ## repetition of complete whole plots is not covered, 
+                    ##     as I don't think that this makes sense
 
-    if (is.null(estimable))
-    for (i in 1:g) desmat <- cbind(desmat, apply(desmat[,unlist(Yates[cand[[1]]$gen[[i]]])],1,prod))
+                    ## first: randomization within each whole plot
+                    for (i in 1:WPs) 
+                        rand.ord[((i-1)*plotsize*replications+1):(i*plotsize*replications)] <- 
+                            rand.ord[(i-1)*plotsize*replications + 
+                               rep(replications*(sample(plotsize)-1),each=replications) + 
+                               rep(1:2,each=plotsize)]
+                    ## second: randomization of whole plots
+                        WPsamp <- sample(WPs) 
+                        WPsamp <- (rep(WPsamp,each=plotsize*replications)-1)*plotsize*replications + 
+                             rep(1:(plotsize*replications),WPs)
+                        rand.ord <- rand.ord[WPsamp]
+                    }
+          }
+      }          
+
+    desmat <- desmat[rand.ord,]
     
+    
+    if (is.list(blocks)) {
+              Blocks <- Blocks[rand.ord]
+              block.no <- block.no[rand.ord]
+              }
+    if (WPs > 1) wp.no <- wp.no[rand.ord]
     colnames(desmat) <- names(factor.names)
     orig.no <- rownames(desmat)
-    rownames(desmat) <- 1:(nruns*replications)
+    ## adapt original number to replications
+    if (is.list(blocks)) orig.no <- block.no
+    if (WPs > 1) orig.no <- wp.no
+    orig.no.rp <- orig.no
+    if (bbreps * wbreps > 1){
+           if (bbreps > 1) {
+                ## !repeat.only covers all blocked cases and the repeat.only standard cases
+                ## since bbreps stands in for replications
+                if (repeat.only)
+                orig.no.rp <- paste(orig.no.rp, rep(1:bbreps,nruns*wbreps),sep=".")
+                else
+                orig.no.rp <- paste(orig.no.rp, rep(1:bbreps,each=nruns),sep=".")
+           }
+           if (wbreps > 1){
+                ## blocked with within block replications
+                if (repeat.only) 
+                     orig.no.rp <- paste(orig.no.rp, rep(1:wbreps,nruns*bbreps),sep=".")
+                else orig.no.rp <- paste(orig.no.rp, rep(1:wbreps,each=blocksize,nblocks*bbreps),sep=".")
+           }
+    }
+    rownames(desmat) <- orig.no.rp   ## without blocks, replications=bbreps
+
+#    if (is.list(blocks)) {
+#         if (repeat.only)
+#         rn <- paste(Blocks,rep(1:blocksize,each=wbreps,nblocks*bbreps),
+#                     rep(1:bbreps,each=nruns*wbreps),rep(1:wbreps,nruns*bbreps),sep=".")
+#         else 
+#         rn <- paste(Blocks,rep(1:blocksize,nblocks*bbreps*wbreps),
+#                     rep(1:bbreps,each=nruns*wbreps),rep(1:wbreps,each=blocksize,nblocks*bbreps),sep=".")
+#         rownames(desmat) <- rn
+#         }
+#    if (WPs > 1) {
+#                if (repeat.only) rownames(desmat) <- paste(rep(1:WPs,each=plotsize*replications),
+#                           rep(1:plotsize,each=replications,WPs),rep(1:replications,WPs*plotsize),sep=".")
+#                    else rownames(desmat) <- paste( rep(1:WPs,each=plotsize,replications),
+#                           rep(1:plotsize,WPs*replications),rep(1:replications,each=WPs*plotsize),sep=".")
+#           }
+    
     desdf <- data.frame(desmat)
-    for (i in 1:nfactors) desdf[,i] <- des.recode(desdf[,i],"-1=factor.names[[i]][1];1=factor.names[[i]][2]") 
-    if (is.null(estimable) & is.null(generators) & !ff) 
-         design.info <- list(type="FrF2", catlg.entry=cand[1], aliased = alias3fi(k,cand[1][[1]]$gen,order=alias.info))
-    if (!is.null(generators)) {
+    for (i in 1:nfactors) {
+        desdf[,i] <- des.recode(desdf[,i],"-1=factor.names[[i]][1];1=factor.names[[i]][2]") 
+        if (is.character(desdf[,i])) {
+                 desdf[,i] <- factor(desdf[,i],levels=factor.names[[i]]) 
+                 contrasts(desdf[,i]) <- contr.FrF2(2)
+        }
+        }
+
+    if (is.list(blocks)) {
+        desdf <- cbind(Blocks, desdf)
+        ## reassign levels for Blocks to concatenation of manual build factors
+        ## if they are built from only single factors
+        ## !!! it is important to maintain the original order of numbered blocks factor
+        ##     for more than four blocks (because e.g. grouping 1,2,3,7 vs. 4,5,6,8 not
+        ##     orthogonal to everything else !
+        hilf <- blocks
+        if (all(sapply(hilf,length)==1) & !block.auto) {
+            hilf <- as.numeric(hilf) + 1
+            levels(desdf$Blocks) <- unique(apply(desdf[,hilf,drop=FALSE],1,paste,collapse=""))
+            }
+        colnames(desdf)[1] <- block.name
+        ## delete any single block generator columns
+        hilf <- blocks
+        hilf <- as.numeric(hilf[which(sapply(hilf,length)==1)])
+        if (length(hilf)>0) {
+            desdf <- desdf[,-(hilf+1)]
+            desmat <- desmat[,-hilf]
+            factor.names <- factor.names[-hilf]
+        }
+        ## prepend block model matrix to desmat (not only generators but all block main effects)  
+        desmat <- cbind(model.matrix(~desdf[,1])[,-1],desmat)
+        colnames(desmat)[1:(2^k.block-1)] <- paste(block.name,1:(2^k.block-1),sep="")
+        if (alias.info==3)
+        hilf <- aliases(lm((1:nrow(desmat))~(.)^3,data=data.frame(desmat)))
+        else 
+        hilf <- aliases(lm((1:nrow(desmat))~(.)^2,data=data.frame(desmat)))
+        ## check against blockpick.out here, if possible?
+        ## blockpick.out$alias.2fis.block
+        
+        ## delete all aliases of Block factors themselves
+        ## with or without "-"
+        ## as these are not interesting
+        if (length(hilf$aliases) > 0)
+        for (i in 1:length(hilf$aliases)) {
+             txt <- hilf$aliases[[i]]
+             if (length(grep(paste("^-?",block.name,sep=""),txt)) > 0)
+                  txt <- txt[-grep(paste("^-?",block.name,sep=""),txt)] 
+                  if (length(txt)==length(grep("^-",txt))) txt <- sub("-","",txt)
+                  hilf$aliases[[i]] <- txt
+             }
+        ## determine treatment effects that are aliased with blocks
+        aliased.with.blocks <- hilf$aliases[1:(2^k.block-1)]
+           aliased.with.blocks <- unlist(aliased.with.blocks)
+           if (length(aliased.with.blocks)==0) aliased.with.blocks <- "none"
+        ## determine treatment effects that are aliased with each other
+        aliased <- hilf$aliases[-(1:(2^k.block-1))]
+           aliased <- aliased[which(sapply(aliased,length)>1)]
+        ## prepare design info for blocked designs
+        ntreat <- ncol(desdf) - 1
+ #       if (block.auto) factor.names <- factor.names[1:ntreat]
+ #       if (block.auto) factor.names <- factor.names[setdiff(1:nfactors,blocks)]
+          design.info <- list(type="FrF2.blocked", block.name=block.name, 
+            nruns=nruns, nblocks=nblocks, blocksize=blocksize, 
+            ntreat=ntreat,factor.names=factor.names,
+            aliased.with.blocks=aliased.with.blocks, aliased=aliased,
+            bbreps=bbreps, wbreps=wbreps)
+        if (!is.null(generators)) {
+           if (g>0) 
+           design.info <- c(design.info, 
+                list(base.design=paste("generator columns:", paste(cand[[1]]$gen, collapse=", "))))
+           else 
+           design.info <- c(design.info, 
+                list(base.design="full factorial"))
+                }
+           else design.info <- c(design.info, list(base.design=names(cand[1])))
+        }   ## end of blocked designs
+
+        if (WPs > 1){
+            
+            ## output for split-plot designs
+            if (alias.info==3)
+            aliased <- aliases(lm((1:nrow(desmat))~(.)^3,data=data.frame(desmat)))$aliases
+            else
+            aliased <- aliases(lm((1:nrow(desmat))~(.)^2,data=data.frame(desmat)))$aliases
+            
+            aliased <- aliased[which(sapply(aliased,length)>1)]
+            design.info <- list(type="FrF2.splitplot", 
+                nruns=nruns, nfac.WP=nfac.WP, nfac.SP=nfactors-nfac.WP, 
+                      factor.names=factor.names,
+                nWPs=WPs, plotsize=nruns/WPs, 
+                res.WP=res.WP, aliased=aliased)
+            if (!is.null(generators)) 
+                design.info <- c(design.info, 
+                     list(base.design=paste("generator columns:", paste(cand[[1]]$gen, collapse=", "))))
+                else design.info <- c(design.info, list(base.design=names(cand[1])))
+        }
+
+    if (is.null(estimable) & is.null(generators) & !(is.list(blocks) | WPs > 1))
+        design.info <- list(type="FrF2", nruns=nruns, nfactors=nfactors, factor.names=factor.names, 
+            catlg.entry=cand[1], aliased = alias3fi(k,cand[1][[1]]$gen,order=alias.info))
+        ## incorporate reasonable further info (blocks, WPs etc.)
+    if ((!is.null(generators)) & !is.list(blocks) & !WPs > 1) {
          names(generators) <- Letters[(k+1):nfactors]
-         gen.display <- paste(Letters[(k+1):nfactors],sapply(generators,function(obj) paste(Letters[obj],collapse="")),sep="=")
-         design.info <- list(type="FrF2.generators", generators=gen.display, aliased = alias3fi(k,generators,order=alias.info))
+         gen.display <- paste(Letters[(k+1):nfactors],sapply(generators,function(obj) 
+               paste(Letters[obj],collapse="")),sep="=")
+         design.info <- list(type="FrF2.generators", nruns=nruns, nfactors=nfactors, factor.names=factor.names, generators=gen.display, 
+               aliased = alias3fi(k,generators,order=alias.info))
          }
     aus <- desdf
     attr(aus,"desnum") <- desmat
-    attr(aus,"run.order") <- cbind("run.no.in.std.order"=rand.ord,"run.no"=1:nrow(desmat))
+    attr(aus,"run.order") <- data.frame("run.no.in.std.order"=orig.no,"run.no"=1:nrow(desmat),"run.no.std.rp"=orig.no.rp)
     attr(aus,"design.info") <- c(design.info, replications=replications, repeat.only=repeat.only,
       randomize=randomize, seed=seed)
-      }# end of excluding full factorial
     class(aus) <- c("design","data.frame")
     aus
 } 

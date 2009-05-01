@@ -1,0 +1,1733 @@
+
+R version 2.8.1 (2008-12-22)
+Copyright (C) 2008 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library(FrF2)
+Loading required package: BsMD
+Loading required package: scatterplot3d
+Loading required package: igraph
+Loading required package: sfsmisc
+
+Attaching package: 'FrF2'
+
+
+	The following object(s) are masked from package:BsMD :
+
+	 DanielPlot 
+
+> ### test programs for FrF2
+> ### FrF2 functionality
+> ### combination of everything with everything is not included, 
+> ###    but presumably also not needed
+> FrF2(8,4,randomize=FALSE)
+   A  B  C  D
+1 -1 -1 -1 -1
+2  1 -1 -1  1
+3 -1  1 -1  1
+4  1  1 -1 -1
+5 -1 -1  1  1
+6  1 -1  1 -1
+7 -1  1  1 -1
+8  1  1  1  1
+> set.seed(98776)
+> test <- FrF2(8,4,replications=2, repeat.only=FALSE)
+> set.seed(98776)
+> test <- FrF2(8,4,replications=2, repeat.only=TRUE)
+> run.order(test)
+   run.no.in.std.order run.no run.no.std.rp
+1                    1      1           1.1
+2                    1      2           1.2
+3                    7      3           7.1
+4                    7      4           7.2
+5                    3      5           3.1
+6                    3      6           3.2
+7                    8      7           8.1
+8                    8      8           8.2
+9                    2      9           2.1
+10                   2     10           2.2
+11                   5     11           5.1
+12                   5     12           5.2
+13                   4     13           4.1
+14                   4     14           4.2
+15                   6     15           6.1
+16                   6     16           6.2
+> test
+     A  B  C  D
+1.1 -1 -1 -1 -1
+1.2 -1 -1 -1 -1
+7.1 -1  1  1 -1
+7.2 -1  1  1 -1
+3.1 -1  1 -1  1
+3.2 -1  1 -1  1
+8.1  1  1  1  1
+8.2  1  1  1  1
+2.1  1 -1 -1  1
+2.2  1 -1 -1  1
+5.1 -1 -1  1  1
+5.2 -1 -1  1  1
+4.1  1  1 -1 -1
+4.2  1  1 -1 -1
+6.1  1 -1  1 -1
+6.2  1 -1  1 -1
+> test <- FrF2(8,4,replications=2, repeat.only=TRUE, randomize=FALSE)
+> test <- FrF2(8,4,replications=2, repeat.only=FALSE)
+> run.order(test)
+   run.no.in.std.order run.no run.no.std.rp
+1                    5      1           5.1
+2                    2      2           2.1
+3                    1      3           1.1
+4                    4      4           4.1
+5                    6      5           6.1
+6                    8      6           8.1
+7                    3      7           3.1
+8                    7      8           7.1
+9                    5      9           5.2
+10                   7     10           7.2
+11                   2     11           2.2
+12                   4     12           4.2
+13                   3     13           3.2
+14                   6     14           6.2
+15                   8     15           8.2
+16                   1     16           1.2
+> test
+     A  B  C  D
+5.1 -1 -1  1  1
+2.1  1 -1 -1  1
+1.1 -1 -1 -1 -1
+4.1  1  1 -1 -1
+6.1  1 -1  1 -1
+8.1  1  1  1  1
+3.1 -1  1 -1  1
+7.1 -1  1  1 -1
+5.2 -1 -1  1  1
+7.2 -1  1  1 -1
+2.2  1 -1 -1  1
+4.2  1  1 -1 -1
+3.2 -1  1 -1  1
+6.2  1 -1  1 -1
+8.2  1  1  1  1
+1.2 -1 -1 -1 -1
+> 
+> str(FrF2(16,6,randomize=FALSE, factor.names=list(eins=c(1,2),zwei=c(43,87),drei=c("alt","neu"),vier="",fuenf="",sechs="")))
+Classes 'design' and 'data.frame':	16 obs. of  6 variables:
+ $ eins : num  1 2 1 2 1 2 1 2 1 2 ...
+ $ zwei : num  43 43 87 87 43 43 87 87 43 43 ...
+ $ drei : Factor w/ 2 levels "alt","neu": 1 1 1 1 2 2 2 2 1 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "alt" "neu"
+  .. .. ..$ : NULL
+ $ vier : num  -1 -1 -1 -1 -1 -1 -1 -1 1 1 ...
+ $ fuenf: num  -1 1 1 -1 1 -1 -1 1 -1 1 ...
+ $ sechs: num  -1 1 1 -1 -1 1 1 -1 1 -1 ...
+ - attr(*, "desnum")= num [1:16, 1:6] -1 1 -1 1 -1 1 -1 1 -1 1 ...
+  ..- attr(*, "dimnames")=List of 2
+  .. ..$ : chr  "1" "2" "3" "4" ...
+  .. ..$ : chr  "eins" "zwei" "drei" "vier" ...
+ - attr(*, "run.order")='data.frame':	16 obs. of  3 variables:
+  ..$ run.no.in.std.order: Factor w/ 16 levels "1","10","11",..: 1 9 10 11 12 13 14 15 16 2 ...
+  ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
+  ..$ run.no.std.rp      : Factor w/ 16 levels "1","10","11",..: 1 9 10 11 12 13 14 15 16 2 ...
+ - attr(*, "design.info")=List of 9
+  ..$ type        : chr "FrF2"
+  ..$ nruns       : num 16
+  ..$ nfactors    : num 6
+  ..$ factor.names:List of 6
+  .. ..$ eins : num  1 2
+  .. ..$ zwei : num  43 87
+  .. ..$ drei : chr  "alt" "neu"
+  .. ..$ vier : num  -1 1
+  .. ..$ fuenf: num  -1 1
+  .. ..$ sechs: num  -1 1
+  ..$ catlg.entry :List of 1
+  .. ..$ 6-2.1:List of 8
+  .. .. ..$ res           : int 4
+  .. .. ..$ nfac          : num 6
+  .. .. ..$ nruns         : num 16
+  .. .. ..$ gen           : num  7 11
+  .. .. ..$ WLP           : num  0 0 0 3 0 0 0
+  .. .. ..$ nclear.2fis   : num 0
+  .. .. ..$ clear.2fis    : num 
+  .. .. ..$ all.2fis.clear: num 
+  .. ..- attr(*, "class")= chr  "catlg" "list"
+  ..$ aliased     :List of 2
+  .. ..$ main: chr 
+  .. ..$ fi2 : chr  "AB=CE=DF" "AC=BE" "AD=BF" "AE=BC" ...
+  ..$ replications: num 1
+  ..$ repeat.only : logi FALSE
+  ..$ randomize   : logi FALSE
+> str(FrF2(16,randomize=FALSE, factor.names=list(eins=c(1,2),zwei=c(43,87),drei=c("alt","neu"),vier="",fuenf="",sechs="")))
+Classes 'design' and 'data.frame':	16 obs. of  6 variables:
+ $ eins : num  1 2 1 2 1 2 1 2 1 2 ...
+ $ zwei : num  43 43 87 87 43 43 87 87 43 43 ...
+ $ drei : Factor w/ 2 levels "alt","neu": 1 1 1 1 2 2 2 2 1 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "alt" "neu"
+  .. .. ..$ : NULL
+ $ vier : num  -1 -1 -1 -1 -1 -1 -1 -1 1 1 ...
+ $ fuenf: num  -1 1 1 -1 1 -1 -1 1 -1 1 ...
+ $ sechs: num  -1 1 1 -1 -1 1 1 -1 1 -1 ...
+ - attr(*, "desnum")= num [1:16, 1:6] -1 1 -1 1 -1 1 -1 1 -1 1 ...
+  ..- attr(*, "dimnames")=List of 2
+  .. ..$ : chr  "1" "2" "3" "4" ...
+  .. ..$ : chr  "eins" "zwei" "drei" "vier" ...
+ - attr(*, "run.order")='data.frame':	16 obs. of  3 variables:
+  ..$ run.no.in.std.order: Factor w/ 16 levels "1","10","11",..: 1 9 10 11 12 13 14 15 16 2 ...
+  ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
+  ..$ run.no.std.rp      : Factor w/ 16 levels "1","10","11",..: 1 9 10 11 12 13 14 15 16 2 ...
+ - attr(*, "design.info")=List of 9
+  ..$ type        : chr "FrF2"
+  ..$ nruns       : num 16
+  ..$ nfactors    : int 6
+  ..$ factor.names:List of 6
+  .. ..$ eins : num  1 2
+  .. ..$ zwei : num  43 87
+  .. ..$ drei : chr  "alt" "neu"
+  .. ..$ vier : num  -1 1
+  .. ..$ fuenf: num  -1 1
+  .. ..$ sechs: num  -1 1
+  ..$ catlg.entry :List of 1
+  .. ..$ 6-2.1:List of 8
+  .. .. ..$ res           : int 4
+  .. .. ..$ nfac          : num 6
+  .. .. ..$ nruns         : num 16
+  .. .. ..$ gen           : num  7 11
+  .. .. ..$ WLP           : num  0 0 0 3 0 0 0
+  .. .. ..$ nclear.2fis   : num 0
+  .. .. ..$ clear.2fis    : num 
+  .. .. ..$ all.2fis.clear: num 
+  .. ..- attr(*, "class")= chr  "catlg" "list"
+  ..$ aliased     :List of 2
+  .. ..$ main: chr 
+  .. ..$ fi2 : chr  "AB=CE=DF" "AC=BE" "AD=BF" "AE=BC" ...
+  ..$ replications: num 1
+  ..$ repeat.only : logi FALSE
+  ..$ randomize   : logi FALSE
+> str(FrF2(16,design="6-2.2",randomize=FALSE))
+Classes 'design' and 'data.frame':	16 obs. of  6 variables:
+ $ A: num  -1 1 -1 1 -1 1 -1 1 -1 1 ...
+ $ B: num  -1 -1 1 1 -1 -1 1 1 -1 -1 ...
+ $ C: num  -1 -1 -1 -1 1 1 1 1 -1 -1 ...
+ $ D: num  -1 -1 -1 -1 -1 -1 -1 -1 1 1 ...
+ $ E: num  1 -1 -1 1 1 -1 -1 1 1 -1 ...
+ $ F: num  -1 1 -1 1 1 -1 1 -1 1 -1 ...
+ - attr(*, "desnum")= num [1:16, 1:6] -1 1 -1 1 -1 1 -1 1 -1 1 ...
+  ..- attr(*, "dimnames")=List of 2
+  .. ..$ : chr  "1" "2" "3" "4" ...
+  .. ..$ : chr  "A" "B" "C" "D" ...
+ - attr(*, "run.order")='data.frame':	16 obs. of  3 variables:
+  ..$ run.no.in.std.order: Factor w/ 16 levels "1","10","11",..: 1 9 10 11 12 13 14 15 16 2 ...
+  ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
+  ..$ run.no.std.rp      : Factor w/ 16 levels "1","10","11",..: 1 9 10 11 12 13 14 15 16 2 ...
+ - attr(*, "design.info")=List of 9
+  ..$ type        : chr "FrF2"
+  ..$ nruns       : num 16
+  ..$ nfactors    : num 6
+  ..$ factor.names:List of 6
+  .. ..$ A: num  -1 1
+  .. ..$ B: num  -1 1
+  .. ..$ C: num  -1 1
+  .. ..$ D: num  -1 1
+  .. ..$ E: num  -1 1
+  .. ..$ F: num  -1 1
+  ..$ catlg.entry :List of 1
+  .. ..$ 6-2.2:List of 8
+  .. .. ..$ res           : int 3
+  .. .. ..$ nfac          : num 6
+  .. .. ..$ nruns         : num 16
+  .. .. ..$ gen           : num  3 13
+  .. .. ..$ WLP           : num  0 0 1 1 1 0 0
+  .. .. ..$ nclear.2fis   : num 6
+  .. .. ..$ clear.2fis    : num [1:2, 1:6] 2 3 2 4 2 6 3 5 4 5 ...
+  .. .. ..$ all.2fis.clear: num 
+  .. ..- attr(*, "class")= chr  "catlg" "list"
+  ..$ aliased     :List of 2
+  .. ..$ main: chr  "A=BE" "B=AE" "E=AB"
+  .. ..$ fi2 : chr  "AC=DF" "AD=CF" "AF=CD"
+  ..$ replications: num 1
+  ..$ repeat.only : logi FALSE
+  ..$ randomize   : logi FALSE
+> str(FrF2(16,generators=catlg[["6-2.2"]]$gen,randomize=FALSE,factor.names=list(eins=c(1,2),zwei=c(43,87),drei=c("alt","neu"),vier="",fuenf="",sechs="")))
+Classes 'design' and 'data.frame':	16 obs. of  6 variables:
+ $ eins : num  1 2 1 2 1 2 1 2 1 2 ...
+ $ zwei : num  43 43 87 87 43 43 87 87 43 43 ...
+ $ drei : Factor w/ 2 levels "alt","neu": 1 1 1 1 2 2 2 2 1 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "alt" "neu"
+  .. .. ..$ : NULL
+ $ vier : num  -1 -1 -1 -1 -1 -1 -1 -1 1 1 ...
+ $ fuenf: num  1 -1 -1 1 1 -1 -1 1 1 -1 ...
+ $ sechs: num  -1 1 -1 1 1 -1 1 -1 1 -1 ...
+ - attr(*, "desnum")= num [1:16, 1:6] -1 1 -1 1 -1 1 -1 1 -1 1 ...
+  ..- attr(*, "dimnames")=List of 2
+  .. ..$ : chr  "1" "2" "3" "4" ...
+  .. ..$ : chr  "eins" "zwei" "drei" "vier" ...
+ - attr(*, "run.order")='data.frame':	16 obs. of  3 variables:
+  ..$ run.no.in.std.order: Factor w/ 16 levels "1","10","11",..: 1 9 10 11 12 13 14 15 16 2 ...
+  ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
+  ..$ run.no.std.rp      : Factor w/ 16 levels "1","10","11",..: 1 9 10 11 12 13 14 15 16 2 ...
+ - attr(*, "design.info")=List of 9
+  ..$ type        : chr "FrF2.generators"
+  ..$ nruns       : num 16
+  ..$ nfactors    : int 6
+  ..$ factor.names:List of 6
+  .. ..$ eins : num  1 2
+  .. ..$ zwei : num  43 87
+  .. ..$ drei : chr  "alt" "neu"
+  .. ..$ vier : num  -1 1
+  .. ..$ fuenf: num  -1 1
+  .. ..$ sechs: num  -1 1
+  ..$ generators  : chr  "E=AB" "F=ACD"
+  ..$ aliased     :List of 2
+  .. ..$ main: chr  "A=BE" "B=AE" "E=AB"
+  .. ..$ fi2 : chr  "AC=DF" "AD=CF" "AF=CD"
+  ..$ replications: num 1
+  ..$ repeat.only : logi FALSE
+  ..$ randomize   : logi FALSE
+> 
+> str(FrF2(16,design="6-2.2",randomize=FALSE,factor.names=list(eins=c(1,2),zwei=c(43,87),drei=c("alt","neu"),vier="",fuenf="",sechs="")))
+Classes 'design' and 'data.frame':	16 obs. of  6 variables:
+ $ eins : num  1 2 1 2 1 2 1 2 1 2 ...
+ $ zwei : num  43 43 87 87 43 43 87 87 43 43 ...
+ $ drei : Factor w/ 2 levels "alt","neu": 1 1 1 1 2 2 2 2 1 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "alt" "neu"
+  .. .. ..$ : NULL
+ $ vier : num  -1 -1 -1 -1 -1 -1 -1 -1 1 1 ...
+ $ fuenf: num  1 -1 -1 1 1 -1 -1 1 1 -1 ...
+ $ sechs: num  -1 1 -1 1 1 -1 1 -1 1 -1 ...
+ - attr(*, "desnum")= num [1:16, 1:6] -1 1 -1 1 -1 1 -1 1 -1 1 ...
+  ..- attr(*, "dimnames")=List of 2
+  .. ..$ : chr  "1" "2" "3" "4" ...
+  .. ..$ : chr  "eins" "zwei" "drei" "vier" ...
+ - attr(*, "run.order")='data.frame':	16 obs. of  3 variables:
+  ..$ run.no.in.std.order: Factor w/ 16 levels "1","10","11",..: 1 9 10 11 12 13 14 15 16 2 ...
+  ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
+  ..$ run.no.std.rp      : Factor w/ 16 levels "1","10","11",..: 1 9 10 11 12 13 14 15 16 2 ...
+ - attr(*, "design.info")=List of 9
+  ..$ type        : chr "FrF2"
+  ..$ nruns       : num 16
+  ..$ nfactors    : num 6
+  ..$ factor.names:List of 6
+  .. ..$ eins : num  1 2
+  .. ..$ zwei : num  43 87
+  .. ..$ drei : chr  "alt" "neu"
+  .. ..$ vier : num  -1 1
+  .. ..$ fuenf: num  -1 1
+  .. ..$ sechs: num  -1 1
+  ..$ catlg.entry :List of 1
+  .. ..$ 6-2.2:List of 8
+  .. .. ..$ res           : int 3
+  .. .. ..$ nfac          : num 6
+  .. .. ..$ nruns         : num 16
+  .. .. ..$ gen           : num  3 13
+  .. .. ..$ WLP           : num  0 0 1 1 1 0 0
+  .. .. ..$ nclear.2fis   : num 6
+  .. .. ..$ clear.2fis    : num [1:2, 1:6] 2 3 2 4 2 6 3 5 4 5 ...
+  .. .. ..$ all.2fis.clear: num 
+  .. ..- attr(*, "class")= chr  "catlg" "list"
+  ..$ aliased     :List of 2
+  .. ..$ main: chr  "A=BE" "B=AE" "E=AB"
+  .. ..$ fi2 : chr  "AC=DF" "AD=CF" "AF=CD"
+  ..$ replications: num 1
+  ..$ repeat.only : logi FALSE
+  ..$ randomize   : logi FALSE
+> str(FrF2(16,design="6-2.2",nfactors=6,randomize=FALSE))
+Classes 'design' and 'data.frame':	16 obs. of  6 variables:
+ $ A: num  -1 1 -1 1 -1 1 -1 1 -1 1 ...
+ $ B: num  -1 -1 1 1 -1 -1 1 1 -1 -1 ...
+ $ C: num  -1 -1 -1 -1 1 1 1 1 -1 -1 ...
+ $ D: num  -1 -1 -1 -1 -1 -1 -1 -1 1 1 ...
+ $ E: num  1 -1 -1 1 1 -1 -1 1 1 -1 ...
+ $ F: num  -1 1 -1 1 1 -1 1 -1 1 -1 ...
+ - attr(*, "desnum")= num [1:16, 1:6] -1 1 -1 1 -1 1 -1 1 -1 1 ...
+  ..- attr(*, "dimnames")=List of 2
+  .. ..$ : chr  "1" "2" "3" "4" ...
+  .. ..$ : chr  "A" "B" "C" "D" ...
+ - attr(*, "run.order")='data.frame':	16 obs. of  3 variables:
+  ..$ run.no.in.std.order: Factor w/ 16 levels "1","10","11",..: 1 9 10 11 12 13 14 15 16 2 ...
+  ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
+  ..$ run.no.std.rp      : Factor w/ 16 levels "1","10","11",..: 1 9 10 11 12 13 14 15 16 2 ...
+ - attr(*, "design.info")=List of 9
+  ..$ type        : chr "FrF2"
+  ..$ nruns       : num 16
+  ..$ nfactors    : num 6
+  ..$ factor.names:List of 6
+  .. ..$ A: num  -1 1
+  .. ..$ B: num  -1 1
+  .. ..$ C: num  -1 1
+  .. ..$ D: num  -1 1
+  .. ..$ E: num  -1 1
+  .. ..$ F: num  -1 1
+  ..$ catlg.entry :List of 1
+  .. ..$ 6-2.2:List of 8
+  .. .. ..$ res           : int 3
+  .. .. ..$ nfac          : num 6
+  .. .. ..$ nruns         : num 16
+  .. .. ..$ gen           : num  3 13
+  .. .. ..$ WLP           : num  0 0 1 1 1 0 0
+  .. .. ..$ nclear.2fis   : num 6
+  .. .. ..$ clear.2fis    : num [1:2, 1:6] 2 3 2 4 2 6 3 5 4 5 ...
+  .. .. ..$ all.2fis.clear: num 
+  .. ..- attr(*, "class")= chr  "catlg" "list"
+  ..$ aliased     :List of 2
+  .. ..$ main: chr  "A=BE" "B=AE" "E=AB"
+  .. ..$ fi2 : chr  "AC=DF" "AD=CF" "AF=CD"
+  ..$ replications: num 1
+  ..$ repeat.only : logi FALSE
+  ..$ randomize   : logi FALSE
+> str(FrF2(16,design="6-2.2",randomize=FALSE,factor.names=list(eins=c(1,2),zwei=c(43,87),drei=c("alt","neu"),vier="",fuenf="",sechs="")))
+Classes 'design' and 'data.frame':	16 obs. of  6 variables:
+ $ eins : num  1 2 1 2 1 2 1 2 1 2 ...
+ $ zwei : num  43 43 87 87 43 43 87 87 43 43 ...
+ $ drei : Factor w/ 2 levels "alt","neu": 1 1 1 1 2 2 2 2 1 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "alt" "neu"
+  .. .. ..$ : NULL
+ $ vier : num  -1 -1 -1 -1 -1 -1 -1 -1 1 1 ...
+ $ fuenf: num  1 -1 -1 1 1 -1 -1 1 1 -1 ...
+ $ sechs: num  -1 1 -1 1 1 -1 1 -1 1 -1 ...
+ - attr(*, "desnum")= num [1:16, 1:6] -1 1 -1 1 -1 1 -1 1 -1 1 ...
+  ..- attr(*, "dimnames")=List of 2
+  .. ..$ : chr  "1" "2" "3" "4" ...
+  .. ..$ : chr  "eins" "zwei" "drei" "vier" ...
+ - attr(*, "run.order")='data.frame':	16 obs. of  3 variables:
+  ..$ run.no.in.std.order: Factor w/ 16 levels "1","10","11",..: 1 9 10 11 12 13 14 15 16 2 ...
+  ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
+  ..$ run.no.std.rp      : Factor w/ 16 levels "1","10","11",..: 1 9 10 11 12 13 14 15 16 2 ...
+ - attr(*, "design.info")=List of 9
+  ..$ type        : chr "FrF2"
+  ..$ nruns       : num 16
+  ..$ nfactors    : num 6
+  ..$ factor.names:List of 6
+  .. ..$ eins : num  1 2
+  .. ..$ zwei : num  43 87
+  .. ..$ drei : chr  "alt" "neu"
+  .. ..$ vier : num  -1 1
+  .. ..$ fuenf: num  -1 1
+  .. ..$ sechs: num  -1 1
+  ..$ catlg.entry :List of 1
+  .. ..$ 6-2.2:List of 8
+  .. .. ..$ res           : int 3
+  .. .. ..$ nfac          : num 6
+  .. .. ..$ nruns         : num 16
+  .. .. ..$ gen           : num  3 13
+  .. .. ..$ WLP           : num  0 0 1 1 1 0 0
+  .. .. ..$ nclear.2fis   : num 6
+  .. .. ..$ clear.2fis    : num [1:2, 1:6] 2 3 2 4 2 6 3 5 4 5 ...
+  .. .. ..$ all.2fis.clear: num 
+  .. ..- attr(*, "class")= chr  "catlg" "list"
+  ..$ aliased     :List of 2
+  .. ..$ main: chr  "A=BE" "B=AE" "E=AB"
+  .. ..$ fi2 : chr  "AC=DF" "AD=CF" "AF=CD"
+  ..$ replications: num 1
+  ..$ repeat.only : logi FALSE
+  ..$ randomize   : logi FALSE
+> 
+> ## estimable in examples
+> ## replications in examples
+> ## randomize in examples
+> ## MaxC2 in examples
+> 
+> ## blocks
+>   ## automatic selection
+>   FrF2(32,14,blocks=8,randomize=FALSE,alias.block.2fis=TRUE)
+    Blocks  A  B  C  D  E  F  G  H  J  K  L  M  N  O
+1.1      1 -1  1  1  1 -1 -1 -1 -1  1  1  1 -1  1 -1
+1.2      1 -1  1  1  1  1 -1 -1 -1  1 -1 -1  1 -1  1
+1.3      1  1 -1 -1 -1 -1  1  1  1 -1  1  1 -1  1 -1
+1.4      1  1 -1 -1 -1  1  1  1  1 -1 -1 -1  1 -1  1
+2.1      2 -1  1  1 -1 -1 -1  1  1 -1  1  1 -1 -1  1
+2.2      2 -1  1  1 -1  1 -1  1  1 -1 -1 -1  1  1 -1
+2.3      2  1 -1 -1  1 -1  1 -1 -1  1  1  1 -1 -1  1
+2.4      2  1 -1 -1  1  1  1 -1 -1  1 -1 -1  1  1 -1
+3.1      3 -1  1 -1  1 -1  1 -1  1 -1  1 -1  1  1 -1
+3.2      3 -1  1 -1  1  1  1 -1  1 -1 -1  1 -1 -1  1
+3.3      3  1 -1  1 -1 -1 -1  1 -1  1  1 -1  1  1 -1
+3.4      3  1 -1  1 -1  1 -1  1 -1  1 -1  1 -1 -1  1
+4.1      4 -1  1 -1 -1 -1  1  1 -1  1  1 -1  1 -1  1
+4.2      4 -1  1 -1 -1  1  1  1 -1  1 -1  1 -1  1 -1
+4.3      4  1 -1  1  1 -1 -1 -1  1 -1  1 -1  1 -1  1
+4.4      4  1 -1  1  1  1 -1 -1  1 -1 -1  1 -1  1 -1
+5.1      5 -1 -1  1  1 -1  1  1 -1 -1 -1  1  1  1  1
+5.2      5 -1 -1  1  1  1  1  1 -1 -1  1 -1 -1 -1 -1
+5.3      5  1  1 -1 -1 -1 -1 -1  1  1 -1  1  1  1  1
+5.4      5  1  1 -1 -1  1 -1 -1  1  1  1 -1 -1 -1 -1
+6.1      6 -1 -1  1 -1 -1  1 -1  1  1 -1  1  1 -1 -1
+6.2      6 -1 -1  1 -1  1  1 -1  1  1  1 -1 -1  1  1
+6.3      6  1  1 -1  1 -1 -1  1 -1 -1 -1  1  1 -1 -1
+6.4      6  1  1 -1  1  1 -1  1 -1 -1  1 -1 -1  1  1
+7.1      7 -1 -1 -1  1 -1 -1  1  1  1 -1 -1 -1  1  1
+7.2      7 -1 -1 -1  1  1 -1  1  1  1  1  1  1 -1 -1
+7.3      7  1  1  1 -1 -1  1 -1 -1 -1 -1 -1 -1  1  1
+7.4      7  1  1  1 -1  1  1 -1 -1 -1  1  1  1 -1 -1
+8.1      8 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+8.2      8 -1 -1 -1 -1  1 -1 -1 -1 -1  1  1  1  1  1
+8.3      8  1  1  1  1 -1  1  1  1  1 -1 -1 -1 -1 -1
+8.4      8  1  1  1  1  1  1  1  1  1  1  1  1  1  1
+>   ## automatic selection without aliasing of 2fis with blocks
+>   FrF2(32,6,blocks=4,randomize=FALSE)
+    Blocks  A  B  C  D  E  F
+1.1      1 -1 -1 -1 -1 -1 -1
+1.2      1 -1 -1  1 -1  1  1
+1.3      1 -1  1 -1  1 -1  1
+1.4      1 -1  1  1  1  1 -1
+1.5      1  1 -1 -1  1  1  1
+1.6      1  1 -1  1  1 -1 -1
+1.7      1  1  1 -1 -1  1 -1
+1.8      1  1  1  1 -1 -1  1
+2.1      2 -1 -1 -1 -1  1 -1
+2.2      2 -1 -1  1 -1 -1  1
+2.3      2 -1  1 -1  1  1  1
+2.4      2 -1  1  1  1 -1 -1
+2.5      2  1 -1 -1  1 -1  1
+2.6      2  1 -1  1  1  1 -1
+2.7      2  1  1 -1 -1 -1 -1
+2.8      2  1  1  1 -1  1  1
+3.1      3 -1 -1 -1  1 -1 -1
+3.2      3 -1 -1  1  1  1  1
+3.3      3 -1  1 -1 -1 -1  1
+3.4      3 -1  1  1 -1  1 -1
+3.5      3  1 -1 -1 -1  1  1
+3.6      3  1 -1  1 -1 -1 -1
+3.7      3  1  1 -1  1  1 -1
+3.8      3  1  1  1  1 -1  1
+4.1      4 -1 -1 -1  1  1 -1
+4.2      4 -1 -1  1  1 -1  1
+4.3      4 -1  1 -1 -1  1  1
+4.4      4 -1  1  1 -1 -1 -1
+4.5      4  1 -1 -1 -1 -1  1
+4.6      4  1 -1  1 -1  1 -1
+4.7      4  1  1 -1  1 -1 -1
+4.8      4  1  1  1  1  1  1
+>   ## manual selection
+>   FrF2(32,6,blocks="A",randomize=FALSE)
+     Blocks  B  C  D  E  F
+1.1      -1 -1 -1 -1 -1 -1
+1.2      -1 -1 -1 -1  1  1
+1.3      -1 -1 -1  1 -1  1
+1.4      -1 -1 -1  1  1 -1
+1.5      -1 -1  1 -1 -1  1
+1.6      -1 -1  1 -1  1 -1
+1.7      -1 -1  1  1 -1 -1
+1.8      -1 -1  1  1  1  1
+1.9      -1  1 -1 -1 -1  1
+1.10     -1  1 -1 -1  1 -1
+1.11     -1  1 -1  1 -1 -1
+1.12     -1  1 -1  1  1  1
+1.13     -1  1  1 -1 -1 -1
+1.14     -1  1  1 -1  1  1
+1.15     -1  1  1  1 -1  1
+1.16     -1  1  1  1  1 -1
+2.1       1 -1 -1 -1 -1  1
+2.2       1 -1 -1 -1  1 -1
+2.3       1 -1 -1  1 -1 -1
+2.4       1 -1 -1  1  1  1
+2.5       1 -1  1 -1 -1 -1
+2.6       1 -1  1 -1  1  1
+2.7       1 -1  1  1 -1  1
+2.8       1 -1  1  1  1 -1
+2.9       1  1 -1 -1 -1 -1
+2.10      1  1 -1 -1  1  1
+2.11      1  1 -1  1 -1  1
+2.12      1  1 -1  1  1 -1
+2.13      1  1  1 -1 -1  1
+2.14      1  1  1 -1  1 -1
+2.15      1  1  1  1 -1 -1
+2.16      1  1  1  1  1  1
+>   FrF2(32,6,blocks=c("ABC","DE"),randomize=FALSE)
+    Blocks  A  B  C  D  E  F
+1.1      1 -1 -1 -1 -1  1  1
+1.2      1 -1 -1 -1  1 -1  1
+1.3      1 -1  1  1 -1  1  1
+1.4      1 -1  1  1  1 -1  1
+1.5      1  1 -1  1 -1  1  1
+1.6      1  1 -1  1  1 -1  1
+1.7      1  1  1 -1 -1  1  1
+1.8      1  1  1 -1  1 -1  1
+2.1      2 -1 -1 -1 -1 -1 -1
+2.2      2 -1 -1 -1  1  1 -1
+2.3      2 -1  1  1 -1 -1 -1
+2.4      2 -1  1  1  1  1 -1
+2.5      2  1 -1  1 -1 -1 -1
+2.6      2  1 -1  1  1  1 -1
+2.7      2  1  1 -1 -1 -1 -1
+2.8      2  1  1 -1  1  1 -1
+3.1      3 -1 -1  1 -1  1 -1
+3.2      3 -1 -1  1  1 -1 -1
+3.3      3 -1  1 -1 -1  1 -1
+3.4      3 -1  1 -1  1 -1 -1
+3.5      3  1 -1 -1 -1  1 -1
+3.6      3  1 -1 -1  1 -1 -1
+3.7      3  1  1  1 -1  1 -1
+3.8      3  1  1  1  1 -1 -1
+4.1      4 -1 -1  1 -1 -1  1
+4.2      4 -1 -1  1  1  1  1
+4.3      4 -1  1 -1 -1 -1  1
+4.4      4 -1  1 -1  1  1  1
+4.5      4  1 -1 -1 -1 -1  1
+4.6      4  1 -1 -1  1  1  1
+4.7      4  1  1  1 -1 -1  1
+4.8      4  1  1  1  1  1  1
+>   FrF2(32,8,blocks=list(c(1,2,3),c(4,5)),randomize=FALSE)
+    Blocks  A  B  C  D  E  F  G  H
+1.1      1 -1 -1 -1 -1  1 -1 -1 -1
+1.2      1 -1 -1 -1  1 -1 -1  1 -1
+1.3      1 -1  1  1 -1  1 -1  1  1
+1.4      1 -1  1  1  1 -1 -1 -1  1
+1.5      1  1 -1  1 -1  1 -1  1 -1
+1.6      1  1 -1  1  1 -1 -1 -1 -1
+1.7      1  1  1 -1 -1  1 -1 -1  1
+1.8      1  1  1 -1  1 -1 -1  1  1
+2.1      2 -1 -1 -1 -1 -1 -1 -1  1
+2.2      2 -1 -1 -1  1  1 -1  1  1
+2.3      2 -1  1  1 -1 -1 -1  1 -1
+2.4      2 -1  1  1  1  1 -1 -1 -1
+2.5      2  1 -1  1 -1 -1 -1  1  1
+2.6      2  1 -1  1  1  1 -1 -1  1
+2.7      2  1  1 -1 -1 -1 -1 -1 -1
+2.8      2  1  1 -1  1  1 -1  1 -1
+3.1      3 -1 -1  1 -1  1  1 -1  1
+3.2      3 -1 -1  1  1 -1  1  1  1
+3.3      3 -1  1 -1 -1  1  1  1 -1
+3.4      3 -1  1 -1  1 -1  1 -1 -1
+3.5      3  1 -1 -1 -1  1  1  1  1
+3.6      3  1 -1 -1  1 -1  1 -1  1
+3.7      3  1  1  1 -1  1  1 -1 -1
+3.8      3  1  1  1  1 -1  1  1 -1
+4.1      4 -1 -1  1 -1 -1  1 -1 -1
+4.2      4 -1 -1  1  1  1  1  1 -1
+4.3      4 -1  1 -1 -1 -1  1  1  1
+4.4      4 -1  1 -1  1  1  1 -1  1
+4.5      4  1 -1 -1 -1 -1  1  1 -1
+4.6      4  1 -1 -1  1  1  1 -1 -1
+4.7      4  1  1  1 -1 -1  1 -1  1
+4.8      4  1  1  1  1  1  1  1  1
+>   FrF2(32,8,blocks=list(c(1,2,3,4),c(7,8)),randomize=FALSE)
+    Blocks  A  B  C  D  E  F  G  H
+1.1      1 -1 -1 -1  1 -1 -1  1 -1
+1.2      1 -1 -1  1 -1  1  1 -1  1
+1.3      1 -1  1 -1 -1  1  1  1 -1
+1.4      1 -1  1  1  1 -1 -1 -1  1
+1.5      1  1 -1 -1 -1 -1  1  1 -1
+1.6      1  1 -1  1  1  1 -1 -1  1
+1.7      1  1  1 -1  1  1 -1  1 -1
+1.8      1  1  1  1 -1 -1  1 -1  1
+2.1      2 -1 -1 -1  1  1 -1  1  1
+2.2      2 -1 -1  1 -1 -1  1 -1 -1
+2.3      2 -1  1 -1 -1 -1  1  1  1
+2.4      2 -1  1  1  1  1 -1 -1 -1
+2.5      2  1 -1 -1 -1  1  1  1  1
+2.6      2  1 -1  1  1 -1 -1 -1 -1
+2.7      2  1  1 -1  1 -1 -1  1  1
+2.8      2  1  1  1 -1  1  1 -1 -1
+3.1      3 -1 -1 -1 -1 -1 -1 -1  1
+3.2      3 -1 -1  1  1  1  1  1 -1
+3.3      3 -1  1 -1  1  1  1 -1  1
+3.4      3 -1  1  1 -1 -1 -1  1 -1
+3.5      3  1 -1 -1  1 -1  1 -1  1
+3.6      3  1 -1  1 -1  1 -1  1 -1
+3.7      3  1  1 -1 -1  1 -1 -1  1
+3.8      3  1  1  1  1 -1  1  1 -1
+4.1      4 -1 -1 -1 -1  1 -1 -1 -1
+4.2      4 -1 -1  1  1 -1  1  1  1
+4.3      4 -1  1 -1  1 -1  1 -1 -1
+4.4      4 -1  1  1 -1  1 -1  1  1
+4.5      4  1 -1 -1  1  1  1 -1 -1
+4.6      4  1 -1  1 -1 -1 -1  1  1
+4.7      4  1  1 -1 -1 -1 -1 -1 -1
+4.8      4  1  1  1  1  1  1  1  1
+>   FrF2(32,8,blocks=list(2,5,7),randomize=FALSE)
+    Blocks  A  C  D  F  H
+1.1 -1-1-1 -1 -1 -1 -1  1
+1.2 -1-1-1 -1  1 -1  1 -1
+1.3 -1-1-1  1 -1  1  1  1
+1.4 -1-1-1  1  1  1 -1 -1
+2.1  -1-11 -1 -1  1 -1 -1
+2.2  -1-11 -1  1  1  1  1
+2.3  -1-11  1 -1 -1  1 -1
+2.4  -1-11  1  1 -1 -1  1
+3.1  -11-1 -1 -1 -1 -1 -1
+3.2  -11-1 -1  1 -1  1  1
+3.3  -11-1  1 -1  1  1 -1
+3.4  -11-1  1  1  1 -1  1
+4.1   -111 -1 -1  1 -1  1
+4.2   -111 -1  1  1  1 -1
+4.3   -111  1 -1 -1  1  1
+4.4   -111  1  1 -1 -1 -1
+5.1  1-1-1 -1 -1  1  1 -1
+5.2  1-1-1 -1  1  1 -1  1
+5.3  1-1-1  1 -1 -1 -1 -1
+5.4  1-1-1  1  1 -1  1  1
+6.1   1-11 -1 -1 -1  1  1
+6.2   1-11 -1  1 -1 -1 -1
+6.3   1-11  1 -1  1 -1  1
+6.4   1-11  1  1  1  1 -1
+7.1   11-1 -1 -1  1  1  1
+7.2   11-1 -1  1  1 -1 -1
+7.3   11-1  1 -1 -1 -1  1
+7.4   11-1  1  1 -1  1 -1
+8.1    111 -1 -1 -1  1 -1
+8.2    111 -1  1 -1 -1  1
+8.3    111  1 -1  1 -1 -1
+8.4    111  1  1  1  1  1
+>   ## mixed single and generated
+>   str(FrF2(32,8,blocks=list(2,5,c(6,7)),randomize=FALSE))
+Classes 'design' and 'data.frame':	32 obs. of  7 variables:
+ $ Blocks: Factor w/ 8 levels "1","2","3","4",..: 1 1 1 1 2 2 2 2 3 3 ...
+  ..- attr(*, "contrasts")= num [1:8, 1:7] -1 1 -1 1 -1 1 -1 1 -1 -1 ...
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "1" "2" "3" "4" ...
+  .. .. ..$ : NULL
+ $ A     : num  -1 -1 1 1 -1 -1 1 1 -1 -1 ...
+ $ C     : num  -1 1 -1 1 -1 1 -1 1 -1 1 ...
+ $ D     : num  1 -1 1 -1 -1 1 -1 1 1 -1 ...
+ $ F     : num  -1 1 1 -1 -1 1 1 -1 -1 1 ...
+ $ G     : num  1 -1 -1 1 -1 1 1 -1 1 -1 ...
+ $ H     : num  -1 -1 1 1 1 1 -1 -1 1 1 ...
+ - attr(*, "desnum")= num [1:32, 1:13] -1 -1 -1 -1 1 1 1 1 -1 -1 ...
+  ..- attr(*, "dimnames")=List of 2
+  .. ..$ : chr  "1" "2" "3" "4" ...
+  .. ..$ : chr  "Blocks1" "Blocks2" "Blocks3" "Blocks4" ...
+ - attr(*, "run.order")='data.frame':	32 obs. of  3 variables:
+  ..$ run.no.in.std.order: Factor w/ 32 levels "1.1","1.2","1.3",..: 1 2 3 4 5 6 7 8 9 10 ...
+  ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
+  ..$ run.no.std.rp      : Factor w/ 32 levels "1.1","1.2","1.3",..: 1 2 3 4 5 6 7 8 9 10 ...
+ - attr(*, "design.info")=List of 15
+  ..$ type               : chr "FrF2.blocked"
+  ..$ block.name         : chr "Blocks"
+  ..$ nruns              : num 32
+  ..$ nblocks            : num 8
+  ..$ blocksize          : num 4
+  ..$ ntreat             : num 6
+  ..$ factor.names       :List of 6
+  .. ..$ A: num  -1 1
+  .. ..$ C: num  -1 1
+  .. ..$ D: num  -1 1
+  .. ..$ F: num  -1 1
+  .. ..$ G: num  -1 1
+  .. ..$ H: num  -1 1
+  ..$ aliased.with.blocks: chr  "C:D" "F:G" "A:H"
+  ..$ aliased            :List of 2
+  .. ..$ : chr  "C:F" "D:G"
+  .. ..$ : chr  "C:G" "D:F"
+  ..$ bbreps             : num 1
+  ..$ wbreps             : num 1
+  ..$ base.design        : chr "8-3.1"
+  ..$ replications       : num 1
+  ..$ repeat.only        : logi FALSE
+  ..$ randomize          : logi FALSE
+>   ## with factor names
+>   str(FrF2(32,blocks=c("ABC","DE"),
++        factor.names=list(first=c("-","+"),second=c("old","new"),
++                          third=c(1000,2000),fourth="",fifth="",sixth=""),
++        randomize=FALSE))
+Classes 'design' and 'data.frame':	32 obs. of  7 variables:
+ $ Blocks: Factor w/ 4 levels "1","2","3","4": 1 1 1 1 1 1 1 1 2 2 ...
+  ..- attr(*, "contrasts")= num [1:4, 1:3] -1 1 -1 1 -1 -1 1 1 1 -1 ...
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "1" "2" "3" "4"
+  .. .. ..$ : NULL
+ $ first : Factor w/ 2 levels "-","+": 1 1 1 1 2 2 2 2 1 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-" "+"
+  .. .. ..$ : NULL
+ $ second: Factor w/ 2 levels "old","new": 1 1 2 2 1 1 2 2 1 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "old" "new"
+  .. .. ..$ : NULL
+ $ third : num  1000 1000 2000 2000 2000 2000 1000 1000 1000 1000 ...
+ $ fourth: num  -1 1 -1 1 -1 1 -1 1 -1 1 ...
+ $ fifth : num  1 -1 1 -1 1 -1 1 -1 -1 1 ...
+ $ sixth : num  1 1 1 1 1 1 1 1 -1 -1 ...
+ - attr(*, "desnum")= num [1:32, 1:9] -1 -1 -1 -1 -1 -1 -1 -1 1 1 ...
+  ..- attr(*, "dimnames")=List of 2
+  .. ..$ : chr  "1" "2" "3" "4" ...
+  .. ..$ : chr  "Blocks1" "Blocks2" "Blocks3" "first" ...
+ - attr(*, "run.order")='data.frame':	32 obs. of  3 variables:
+  ..$ run.no.in.std.order: Factor w/ 32 levels "1.1","1.2","1.3",..: 1 2 3 4 5 6 7 8 9 10 ...
+  ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
+  ..$ run.no.std.rp      : Factor w/ 32 levels "1.1","1.2","1.3",..: 1 2 3 4 5 6 7 8 9 10 ...
+ - attr(*, "design.info")=List of 15
+  ..$ type               : chr "FrF2.blocked"
+  ..$ block.name         : chr "Blocks"
+  ..$ nruns              : num 32
+  ..$ nblocks            : num 4
+  ..$ blocksize          : num 8
+  ..$ ntreat             : num 6
+  ..$ factor.names       :List of 6
+  .. ..$ first : chr  "-" "+"
+  .. ..$ second: chr  "old" "new"
+  .. ..$ third : num  1000 2000
+  .. ..$ fourth: num  -1 1
+  .. ..$ fifth : num  -1 1
+  .. ..$ sixth : num  -1 1
+  ..$ aliased.with.blocks: chr  "fourth:fifth" "sixth"
+  ..$ aliased            : list()
+  ..$ bbreps             : num 1
+  ..$ wbreps             : num 1
+  ..$ base.design        : chr "6-1.1"
+  ..$ replications       : num 1
+  ..$ repeat.only        : logi FALSE
+  ..$ randomize          : logi FALSE
+>   str(dat <- FrF2(32,blocks=c(7,20,25),
++        factor.names=list(first=c("-","+"),second=c("old","new"),
++                          third=c(1000,2000),fourth="",fifth="",sixth=""),
++        randomize=FALSE,alias.info=3))
+Classes 'design' and 'data.frame':	32 obs. of  7 variables:
+ $ Blocks: Factor w/ 8 levels "1","2","3","4",..: 1 1 1 1 2 2 2 2 3 3 ...
+  ..- attr(*, "contrasts")= num [1:8, 1:7] -1 1 -1 1 -1 1 -1 1 -1 -1 ...
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "1" "2" "3" "4" ...
+  .. .. ..$ : NULL
+ $ first : Factor w/ 2 levels "-","+": 1 1 2 2 1 1 2 2 1 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-" "+"
+  .. .. ..$ : NULL
+ $ second: Factor w/ 2 levels "old","new": 1 2 1 2 1 2 1 2 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "old" "new"
+  .. .. ..$ : NULL
+ $ third : num  1000 2000 2000 1000 1000 2000 2000 1000 1000 2000 ...
+ $ fourth: num  1 -1 1 -1 -1 1 -1 1 -1 1 ...
+ $ fifth : num  1 -1 -1 1 1 -1 -1 1 -1 1 ...
+ $ sixth : num  -1 -1 1 1 1 1 -1 -1 -1 -1 ...
+ - attr(*, "desnum")= num [1:32, 1:13] -1 -1 -1 -1 1 1 1 1 -1 -1 ...
+  ..- attr(*, "dimnames")=List of 2
+  .. ..$ : chr  "1" "2" "3" "4" ...
+  .. ..$ : chr  "Blocks1" "Blocks2" "Blocks3" "Blocks4" ...
+ - attr(*, "run.order")='data.frame':	32 obs. of  3 variables:
+  ..$ run.no.in.std.order: Factor w/ 32 levels "1.1","1.2","1.3",..: 1 2 3 4 5 6 7 8 9 10 ...
+  ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
+  ..$ run.no.std.rp      : Factor w/ 32 levels "1.1","1.2","1.3",..: 1 2 3 4 5 6 7 8 9 10 ...
+ - attr(*, "design.info")=List of 15
+  ..$ type               : chr "FrF2.blocked"
+  ..$ block.name         : chr "Blocks"
+  ..$ nruns              : num 32
+  ..$ nblocks            : num 8
+  ..$ blocksize          : num 4
+  ..$ ntreat             : num 6
+  ..$ factor.names       :List of 6
+  .. ..$ first : chr  "-" "+"
+  .. ..$ second: chr  "old" "new"
+  .. ..$ third : num  1000 2000
+  .. ..$ fourth: num  -1 1
+  .. ..$ fifth : num  -1 1
+  .. ..$ sixth : num  -1 1
+  ..$ aliased.with.blocks: chr  "first:fourth:fifth" "second:third:sixth" "third:fifth" "first:third:fourth" ...
+  ..$ aliased            :List of 6
+  .. ..$ : chr  "first:third:fifth" "second:fourth:sixth"
+  .. ..$ : chr  "first:fourth:sixth" "second:third:fifth"
+  .. ..$ : chr  "first:second:sixth" "third:fourth:fifth"
+  .. ..$ : chr  "first:second:fourth" "third:fifth:sixth"
+  .. ..$ : chr  "first:third:sixth" "second:fourth:fifth"
+  .. ..$ : chr  "first:fifth:sixth" "second:third:fourth"
+  ..$ bbreps             : num 1
+  ..$ wbreps             : num 1
+  ..$ base.design        : chr "6-1.1"
+  ..$ replications       : num 1
+  ..$ repeat.only        : logi FALSE
+  ..$ randomize          : logi FALSE
+>   str(FrF2(32,blocks=list(1,2),
++        factor.names=list(first=c("-","+"),second=c("old","new"),
++                          third=c(1000,2000),fourth="",fifth="",sixth="",seven="",eight="",nine=""),
++        randomize=FALSE))
+Classes 'design' and 'data.frame':	32 obs. of  8 variables:
+ $ Blocks: Factor w/ 4 levels "-old","-new",..: 1 1 1 1 1 1 1 1 2 2 ...
+  ..- attr(*, "contrasts")= num [1:4, 1:3] -1 1 -1 1 -1 -1 1 1 1 -1 ...
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "1" "2" "3" "4"
+  .. .. ..$ : NULL
+ $ third : num  1000 1000 1000 1000 2000 2000 2000 2000 1000 1000 ...
+ $ fourth: num  -1 -1 1 1 -1 -1 1 1 -1 -1 ...
+ $ fifth : num  -1 1 -1 1 -1 1 -1 1 -1 1 ...
+ $ sixth : num  -1 -1 -1 -1 1 1 1 1 1 1 ...
+ $ seven : num  -1 -1 1 1 -1 -1 1 1 1 1 ...
+ $ eight : num  -1 1 -1 1 -1 1 -1 1 1 -1 ...
+ $ nine  : num  1 -1 -1 1 -1 1 1 -1 1 -1 ...
+ - attr(*, "desnum")= num [1:32, 1:10] -1 -1 -1 -1 -1 -1 -1 -1 1 1 ...
+  ..- attr(*, "dimnames")=List of 2
+  .. ..$ : chr  "1" "2" "3" "4" ...
+  .. ..$ : chr  "Blocks1" "Blocks2" "Blocks3" "third" ...
+ - attr(*, "run.order")='data.frame':	32 obs. of  3 variables:
+  ..$ run.no.in.std.order: Factor w/ 32 levels "1.1","1.2","1.3",..: 1 2 3 4 5 6 7 8 9 10 ...
+  ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
+  ..$ run.no.std.rp      : Factor w/ 32 levels "1.1","1.2","1.3",..: 1 2 3 4 5 6 7 8 9 10 ...
+ - attr(*, "design.info")=List of 15
+  ..$ type               : chr "FrF2.blocked"
+  ..$ block.name         : chr "Blocks"
+  ..$ nruns              : num 32
+  ..$ nblocks            : num 4
+  ..$ blocksize          : num 8
+  ..$ ntreat             : num 7
+  ..$ factor.names       :List of 7
+  .. ..$ third : num  1000 2000
+  .. ..$ fourth: num  -1 1
+  .. ..$ fifth : num  -1 1
+  .. ..$ sixth : num  -1 1
+  .. ..$ seven : num  -1 1
+  .. ..$ eight : num  -1 1
+  .. ..$ nine  : num  -1 1
+  ..$ aliased.with.blocks: chr  "third:sixth" "fourth:seven" "fifth:eight"
+  ..$ aliased            :List of 6
+  .. ..$ : chr  "third:fourth" "sixth:seven"
+  .. ..$ : chr  "third:fifth" "sixth:eight"
+  .. ..$ : chr  "third:seven" "fourth:sixth"
+  .. ..$ : chr  "third:eight" "fifth:sixth"
+  .. ..$ : chr  "fourth:fifth" "seven:eight"
+  .. ..$ : chr  "fourth:eight" "fifth:seven"
+  ..$ bbreps             : num 1
+  ..$ wbreps             : num 1
+  ..$ base.design        : chr "9-4.1"
+  ..$ replications       : num 1
+  ..$ repeat.only        : logi FALSE
+  ..$ randomize          : logi FALSE
+>   ## using blockpick.big
+>   str(FrF2(64,7,blocks=32,alias.block.2fis=TRUE,randomize=FALSE))
+Classes 'design' and 'data.frame':	64 obs. of  8 variables:
+ $ Blocks: Factor w/ 32 levels "1","2","3","4",..: 1 1 2 2 3 3 4 4 5 5 ...
+  ..- attr(*, "contrasts")= num [1:32, 1:31] -1 1 -1 1 -1 1 -1 1 -1 1 ...
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "1" "2" "3" "4" ...
+  .. .. ..$ : NULL
+ $ A     : num  -1 1 -1 1 -1 1 -1 1 -1 1 ...
+ $ B     : num  -1 1 -1 1 -1 1 -1 1 -1 1 ...
+ $ C     : num  -1 1 -1 1 -1 1 -1 1 1 -1 ...
+ $ D     : num  -1 1 -1 1 1 -1 1 -1 -1 1 ...
+ $ E     : num  -1 1 1 -1 -1 1 1 -1 1 -1 ...
+ $ F     : num  1 -1 -1 1 -1 1 1 -1 1 -1 ...
+ $ G     : num  1 -1 -1 1 -1 1 1 -1 -1 1 ...
+ - attr(*, "desnum")= num [1:64, 1:38] -1 -1 1 1 -1 -1 1 1 -1 -1 ...
+  ..- attr(*, "dimnames")=List of 2
+  .. ..$ : chr  "1" "2" "3" "4" ...
+  .. ..$ : chr  "Blocks1" "Blocks2" "Blocks3" "Blocks4" ...
+ - attr(*, "run.order")='data.frame':	64 obs. of  3 variables:
+  ..$ run.no.in.std.order: Factor w/ 64 levels "1.1","1.2","10.1",..: 1 2 23 24 45 46 53 54 55 56 ...
+  ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
+  ..$ run.no.std.rp      : Factor w/ 64 levels "1.1","1.2","10.1",..: 1 2 23 24 45 46 53 54 55 56 ...
+ - attr(*, "design.info")=List of 15
+  ..$ type               : chr "FrF2.blocked"
+  ..$ block.name         : chr "Blocks"
+  ..$ nruns              : num 64
+  ..$ nblocks            : num 32
+  ..$ blocksize          : num 2
+  ..$ ntreat             : num 7
+  ..$ factor.names       :List of 7
+  .. ..$ A: num  -1 1
+  .. ..$ B: num  -1 1
+  .. ..$ C: num  -1 1
+  .. ..$ D: num  -1 1
+  .. ..$ E: num  -1 1
+  .. ..$ F: num  -1 1
+  .. ..$ G: num  -1 1
+  ..$ aliased.with.blocks: chr  "A:E" "B:G" "C:F" "A:D" ...
+  ..$ aliased            : list()
+  ..$ bbreps             : num 1
+  ..$ wbreps             : num 1
+  ..$ base.design        : chr "12-6.3"
+  ..$ replications       : num 1
+  ..$ repeat.only        : logi FALSE
+  ..$ randomize          : logi FALSE
+> 
+> ## split plot
+>   ## automatic selection
+>   FrF2(32,14,WPs=8,nfac.WP=4,randomize=FALSE)
+     A  B  C  F  D  E  G  H  J  K  L  M  N  O
+1.1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+1.2 -1 -1 -1 -1 -1  1 -1 -1 -1  1  1  1  1  1
+1.3 -1 -1 -1 -1  1 -1  1  1  1 -1 -1 -1  1  1
+1.4 -1 -1 -1 -1  1  1  1  1  1  1  1  1 -1 -1
+2.1 -1 -1  1  1 -1 -1 -1  1  1 -1  1  1 -1 -1
+2.2 -1 -1  1  1 -1  1 -1  1  1  1 -1 -1  1  1
+2.3 -1 -1  1  1  1 -1  1 -1 -1 -1  1  1  1  1
+2.4 -1 -1  1  1  1  1  1 -1 -1  1 -1 -1 -1 -1
+3.1 -1  1 -1  1 -1 -1  1 -1  1  1 -1  1 -1  1
+3.2 -1  1 -1  1 -1  1  1 -1  1 -1  1 -1  1 -1
+3.3 -1  1 -1  1  1 -1 -1  1 -1  1 -1  1  1 -1
+3.4 -1  1 -1  1  1  1 -1  1 -1 -1  1 -1 -1  1
+4.1 -1  1  1 -1 -1 -1  1  1 -1  1  1 -1 -1  1
+4.2 -1  1  1 -1 -1  1  1  1 -1 -1 -1  1  1 -1
+4.3 -1  1  1 -1  1 -1 -1 -1  1  1  1 -1  1 -1
+4.4 -1  1  1 -1  1  1 -1 -1  1 -1 -1  1 -1  1
+5.1  1 -1 -1  1 -1 -1  1  1 -1  1  1 -1  1 -1
+5.2  1 -1 -1  1 -1  1  1  1 -1 -1 -1  1 -1  1
+5.3  1 -1 -1  1  1 -1 -1 -1  1  1  1 -1 -1  1
+5.4  1 -1 -1  1  1  1 -1 -1  1 -1 -1  1  1 -1
+6.1  1 -1  1 -1 -1 -1  1 -1  1  1 -1  1  1 -1
+6.2  1 -1  1 -1 -1  1  1 -1  1 -1  1 -1 -1  1
+6.3  1 -1  1 -1  1 -1 -1  1 -1  1 -1  1 -1  1
+6.4  1 -1  1 -1  1  1 -1  1 -1 -1  1 -1  1 -1
+7.1  1  1 -1 -1 -1 -1 -1  1  1 -1  1  1  1  1
+7.2  1  1 -1 -1 -1  1 -1  1  1  1 -1 -1 -1 -1
+7.3  1  1 -1 -1  1 -1  1 -1 -1 -1  1  1 -1 -1
+7.4  1  1 -1 -1  1  1  1 -1 -1  1 -1 -1  1  1
+8.1  1  1  1  1 -1 -1 -1 -1 -1 -1 -1 -1  1  1
+8.2  1  1  1  1 -1  1 -1 -1 -1  1  1  1 -1 -1
+8.3  1  1  1  1  1 -1  1  1  1 -1 -1 -1 -1 -1
+8.4  1  1  1  1  1  1  1  1  1  1  1  1  1  1
+>   FrF2(32,14,WPs=8,nfac.WP=2,randomize=FALSE)
+     A  B WP3  C  D  E  F  G  H  J  K  L  M  N  O
+1.1 -1 -1  -1 -1 -1  1  1  1 -1 -1 -1  1  1  1  1
+1.2 -1 -1  -1 -1  1  1  1  1  1  1  1 -1 -1 -1 -1
+1.3 -1 -1  -1  1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+1.4 -1 -1  -1  1  1 -1 -1 -1  1  1  1  1  1  1  1
+2.1 -1 -1   1 -1 -1  1  1 -1 -1  1  1  1  1 -1 -1
+2.2 -1 -1   1 -1  1  1  1 -1  1 -1 -1 -1 -1  1  1
+2.3 -1 -1   1  1 -1 -1 -1  1 -1  1  1 -1 -1  1  1
+2.4 -1 -1   1  1  1 -1 -1  1  1 -1 -1  1  1 -1 -1
+3.1 -1  1  -1 -1 -1  1 -1  1  1 -1  1  1 -1  1 -1
+3.2 -1  1  -1 -1  1  1 -1  1 -1  1 -1 -1  1 -1  1
+3.3 -1  1  -1  1 -1 -1  1 -1  1 -1  1 -1  1 -1  1
+3.4 -1  1  -1  1  1 -1  1 -1 -1  1 -1  1 -1  1 -1
+4.1 -1  1   1 -1 -1  1 -1 -1  1  1 -1  1 -1 -1  1
+4.2 -1  1   1 -1  1  1 -1 -1 -1 -1  1 -1  1  1 -1
+4.3 -1  1   1  1 -1 -1  1  1  1  1 -1 -1  1  1 -1
+4.4 -1  1   1  1  1 -1  1  1 -1 -1  1  1 -1 -1  1
+5.1  1 -1  -1 -1 -1 -1  1  1  1  1 -1  1 -1 -1  1
+5.2  1 -1  -1 -1  1 -1  1  1 -1 -1  1 -1  1  1 -1
+5.3  1 -1  -1  1 -1  1 -1 -1  1  1 -1 -1  1  1 -1
+5.4  1 -1  -1  1  1  1 -1 -1 -1 -1  1  1 -1 -1  1
+6.1  1 -1   1 -1 -1 -1  1 -1  1 -1  1  1 -1  1 -1
+6.2  1 -1   1 -1  1 -1  1 -1 -1  1 -1 -1  1 -1  1
+6.3  1 -1   1  1 -1  1 -1  1  1 -1  1 -1  1 -1  1
+6.4  1 -1   1  1  1  1 -1  1 -1  1 -1  1 -1  1 -1
+7.1  1  1  -1 -1 -1 -1 -1  1 -1  1  1  1  1 -1 -1
+7.2  1  1  -1 -1  1 -1 -1  1  1 -1 -1 -1 -1  1  1
+7.3  1  1  -1  1 -1  1  1 -1 -1  1  1 -1 -1  1  1
+7.4  1  1  -1  1  1  1  1 -1  1 -1 -1  1  1 -1 -1
+8.1  1  1   1 -1 -1 -1 -1 -1 -1 -1 -1  1  1  1  1
+8.2  1  1   1 -1  1 -1 -1 -1  1  1  1 -1 -1 -1 -1
+8.3  1  1   1  1 -1  1  1  1 -1 -1 -1 -1 -1 -1 -1
+8.4  1  1   1  1  1  1  1  1  1  1  1  1  1  1  1
+Warning message:
+In FrF2(32, 14, WPs = 8, nfac.WP = 2, randomize = FALSE) :
+  There are fewer factors than needed for a full factorial whole plot design. 1 dummy splitting factor(s) have been introduced.
+>   test <- FrF2(32,14,WPs=8,nfac.WP=6,randomize=FALSE)
+>   str(test[32:1,])
+Classes 'design' and 'data.frame':	32 obs. of  14 variables:
+ $ A: num  1 1 1 1 1 1 1 1 1 1 ...
+ $ B: num  1 1 1 1 1 1 1 1 -1 -1 ...
+ $ C: num  1 1 1 1 -1 -1 -1 -1 1 1 ...
+ $ F: num  1 1 1 1 1 1 1 1 -1 -1 ...
+ $ G: num  1 1 1 1 -1 -1 -1 -1 1 1 ...
+ $ H: num  1 1 1 1 -1 -1 -1 -1 -1 -1 ...
+ $ D: num  1 1 -1 -1 1 1 -1 -1 1 1 ...
+ $ E: num  1 -1 1 -1 1 -1 1 -1 1 -1 ...
+ $ J: num  1 1 -1 -1 1 1 -1 -1 1 1 ...
+ $ K: num  1 1 -1 -1 -1 -1 1 1 -1 -1 ...
+ $ L: num  1 -1 1 -1 1 -1 1 -1 1 -1 ...
+ $ M: num  1 -1 1 -1 -1 1 -1 1 -1 1 ...
+ $ N: num  1 -1 -1 1 1 -1 -1 1 -1 1 ...
+ $ O: num  1 -1 -1 1 -1 1 1 -1 1 -1 ...
+ - attr(*, "desnum")= num [1:32, 1:14] 1 1 1 1 1 1 1 1 1 1 ...
+  ..- attr(*, "dimnames")=List of 2
+  .. ..$ : chr  "8.4" "8.3" "8.2" "8.1" ...
+  .. ..$ : chr  "A" "B" "C" "F" ...
+ - attr(*, "run.order")='data.frame':	32 obs. of  3 variables:
+  ..$ run.no.in.std.order: Factor w/ 32 levels "1.1","1.2","1.3",..: 32 31 30 29 28 27 26 25 24 23 ...
+  ..$ run.no             : int  32 31 30 29 28 27 26 25 24 23 ...
+  ..$ run.no.std.rp      : Factor w/ 32 levels "1.1","1.2","1.3",..: 32 31 30 29 28 27 26 25 24 23 ...
+ - attr(*, "design.info")=List of 13
+  ..$ type        : chr "FrF2.splitplot"
+  ..$ nruns       : num 32
+  ..$ nfac.WP     : num 6
+  ..$ nfac.SP     : num 8
+  ..$ factor.names:List of 14
+  .. ..$ A: num  -1 1
+  .. ..$ B: num  -1 1
+  .. ..$ C: num  -1 1
+  .. ..$ F: num  -1 1
+  .. ..$ G: num  -1 1
+  .. ..$ H: num  -1 1
+  .. ..$ D: num  -1 1
+  .. ..$ E: num  -1 1
+  .. ..$ J: num  -1 1
+  .. ..$ K: num  -1 1
+  .. ..$ L: num  -1 1
+  .. ..$ M: num  -1 1
+  .. ..$ N: num  -1 1
+  .. ..$ O: num  -1 1
+  ..$ nWPs        : num 8
+  ..$ plotsize    : num 4
+  ..$ res.WP      : num 3
+  ..$ aliased     :List of 29
+  .. ..$ : chr  "A" "D:J" "E:L" "B:F" ...
+  .. ..$ : chr  "B" "A:F" "C:H"
+  .. ..$ : chr  "C" "A:G" "B:H"
+  .. ..$ : chr  "F" "G:H" "A:B"
+  .. ..$ : chr  "G" "F:H" "A:C"
+  .. ..$ : chr  "H" "F:G" "D:K" "E:M" ...
+  .. ..$ : chr  "D" "H:K" "A:J"
+  .. ..$ : chr  "E" "H:M" "A:L"
+  .. ..$ : chr  "J" "A:D"
+  .. ..$ : chr  "K" "H:D"
+  .. ..$ : chr  "L" "A:E"
+  .. ..$ : chr  "M" "H:E"
+  .. ..$ : chr  "A:H" "J:K" "L:M" "N:O" ...
+  .. ..$ : chr  "A:K" "H:J"
+  .. ..$ : chr  "A:M" "H:L"
+  .. ..$ : chr  "A:N" "H:O"
+  .. ..$ : chr  "A:O" "H:N"
+  .. ..$ : chr  "B:D" "F:J" "E:N" "C:K"
+  .. ..$ : chr  "B:E" "F:L" "D:N" "C:M"
+  .. ..$ : chr  "B:J" "F:D" "G:K" "L:N" ...
+  .. ..$ : chr  "B:K" "G:J" "L:O" "M:N" ...
+  .. ..$ : chr  "B:L" "F:E" "G:M" "J:N" ...
+  .. ..$ : chr  "B:M" "G:L" "J:O" "K:N" ...
+  .. ..$ : chr  "B:N" "G:O" "D:E" "J:L" ...
+  .. ..$ : chr  "B:O" "G:N" "J:M" "K:L"
+  .. ..$ : chr  "C:J" "F:K" "G:D" "E:O"
+  .. ..$ : chr  "C:L" "F:M" "G:E" "D:O"
+  .. ..$ : chr  "C:N" "F:O" "D:M" "E:K"
+  .. ..$ : chr  "C:O" "F:N" "D:L" "E:J"
+  ..$ base.design : chr "14-9.6"
+  ..$ replications: num 1
+  ..$ repeat.only : logi FALSE
+  ..$ randomize   : logi FALSE
+>   str(test[14:1,])
+'data.frame':	14 obs. of  14 variables:
+ $ A: num  -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
+ $ B: num  1 1 1 1 1 1 -1 -1 -1 -1 ...
+ $ C: num  1 1 -1 -1 -1 -1 1 1 1 1 ...
+ $ F: num  -1 -1 -1 -1 -1 -1 1 1 1 1 ...
+ $ G: num  -1 -1 1 1 1 1 -1 -1 -1 -1 ...
+ $ H: num  1 1 -1 -1 -1 -1 -1 -1 -1 -1 ...
+ $ D: num  -1 -1 1 1 -1 -1 1 1 -1 -1 ...
+ $ E: num  1 -1 1 -1 1 -1 1 -1 1 -1 ...
+ $ J: num  1 1 -1 -1 1 1 -1 -1 1 1 ...
+ $ K: num  -1 -1 -1 -1 1 1 -1 -1 1 1 ...
+ $ L: num  -1 1 -1 1 -1 1 -1 1 -1 1 ...
+ $ M: num  1 -1 -1 1 -1 1 -1 1 -1 1 ...
+ $ N: num  -1 1 1 -1 -1 1 -1 1 1 -1 ...
+ $ O: num  1 -1 1 -1 -1 1 -1 1 1 -1 ...
+>   str(test[,14:1])
+'data.frame':	32 obs. of  14 variables:
+ $ O: num  1 -1 -1 1 -1 1 1 -1 1 -1 ...
+ $ N: num  -1 1 1 -1 -1 1 1 -1 1 -1 ...
+ $ M: num  -1 1 -1 1 1 -1 1 -1 1 -1 ...
+ $ L: num  1 -1 1 -1 1 -1 1 -1 1 -1 ...
+ $ K: num  -1 -1 1 1 1 1 -1 -1 1 1 ...
+ $ J: num  1 1 -1 -1 1 1 -1 -1 1 1 ...
+ $ E: num  -1 1 -1 1 -1 1 -1 1 -1 1 ...
+ $ D: num  -1 -1 1 1 -1 -1 1 1 -1 -1 ...
+ $ H: num  1 1 1 1 -1 -1 -1 -1 -1 -1 ...
+ $ G: num  1 1 1 1 -1 -1 -1 -1 1 1 ...
+ $ F: num  1 1 1 1 1 1 1 1 -1 -1 ...
+ $ C: num  -1 -1 -1 -1 1 1 1 1 -1 -1 ...
+ $ B: num  -1 -1 -1 -1 -1 -1 -1 -1 1 1 ...
+ $ A: num  -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
+>   str(test[14:1,,drop.attr=FALSE])
+Classes 'design' and 'data.frame':	14 obs. of  14 variables:
+ $ A: num  -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
+ $ B: num  1 1 1 1 1 1 -1 -1 -1 -1 ...
+ $ C: num  1 1 -1 -1 -1 -1 1 1 1 1 ...
+ $ F: num  -1 -1 -1 -1 -1 -1 1 1 1 1 ...
+ $ G: num  -1 -1 1 1 1 1 -1 -1 -1 -1 ...
+ $ H: num  1 1 -1 -1 -1 -1 -1 -1 -1 -1 ...
+ $ D: num  -1 -1 1 1 -1 -1 1 1 -1 -1 ...
+ $ E: num  1 -1 1 -1 1 -1 1 -1 1 -1 ...
+ $ J: num  1 1 -1 -1 1 1 -1 -1 1 1 ...
+ $ K: num  -1 -1 -1 -1 1 1 -1 -1 1 1 ...
+ $ L: num  -1 1 -1 1 -1 1 -1 1 -1 1 ...
+ $ M: num  1 -1 -1 1 -1 1 -1 1 -1 1 ...
+ $ N: num  -1 1 1 -1 -1 1 -1 1 1 -1 ...
+ $ O: num  1 -1 1 -1 -1 1 -1 1 1 -1 ...
+ - attr(*, "desnum")= num [1:14, 1:14] -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
+  ..- attr(*, "dimnames")=List of 2
+  .. ..$ : chr  "4.2" "4.1" "3.4" "3.3" ...
+  .. ..$ : chr  "A" "B" "C" "F" ...
+ - attr(*, "run.order")='data.frame':	14 obs. of  3 variables:
+  ..$ run.no.in.std.order: Factor w/ 32 levels "1.1","1.2","1.3",..: 14 13 12 11 10 9 8 7 6 5 ...
+  ..$ run.no             : int  14 13 12 11 10 9 8 7 6 5 ...
+  ..$ run.no.std.rp      : Factor w/ 32 levels "1.1","1.2","1.3",..: 14 13 12 11 10 9 8 7 6 5 ...
+ - attr(*, "design.info")=List of 3
+  ..$ type            : chr "subset of design"
+  ..$ subset.rows     : int  14 13 12 11 10 9 8 7 6 5 ...
+  ..$ orig.design.info:List of 13
+  .. ..$ type        : chr "FrF2.splitplot"
+  .. ..$ nruns       : num 32
+  .. ..$ nfac.WP     : num 6
+  .. ..$ nfac.SP     : num 8
+  .. ..$ factor.names:List of 14
+  .. .. ..$ A: num  -1 1
+  .. .. ..$ B: num  -1 1
+  .. .. ..$ C: num  -1 1
+  .. .. ..$ F: num  -1 1
+  .. .. ..$ G: num  -1 1
+  .. .. ..$ H: num  -1 1
+  .. .. ..$ D: num  -1 1
+  .. .. ..$ E: num  -1 1
+  .. .. ..$ J: num  -1 1
+  .. .. ..$ K: num  -1 1
+  .. .. ..$ L: num  -1 1
+  .. .. ..$ M: num  -1 1
+  .. .. ..$ N: num  -1 1
+  .. .. ..$ O: num  -1 1
+  .. ..$ nWPs        : num 8
+  .. ..$ plotsize    : num 4
+  .. ..$ res.WP      : num 3
+  .. ..$ aliased     :List of 29
+  .. .. ..$ : chr  "A" "D:J" "E:L" "B:F" ...
+  .. .. ..$ : chr  "B" "A:F" "C:H"
+  .. .. ..$ : chr  "C" "A:G" "B:H"
+  .. .. ..$ : chr  "F" "G:H" "A:B"
+  .. .. ..$ : chr  "G" "F:H" "A:C"
+  .. .. ..$ : chr  "H" "F:G" "D:K" "E:M" ...
+  .. .. ..$ : chr  "D" "H:K" "A:J"
+  .. .. ..$ : chr  "E" "H:M" "A:L"
+  .. .. ..$ : chr  "J" "A:D"
+  .. .. ..$ : chr  "K" "H:D"
+  .. .. ..$ : chr  "L" "A:E"
+  .. .. ..$ : chr  "M" "H:E"
+  .. .. ..$ : chr  "A:H" "J:K" "L:M" "N:O" ...
+  .. .. ..$ : chr  "A:K" "H:J"
+  .. .. ..$ : chr  "A:M" "H:L"
+  .. .. ..$ : chr  "A:N" "H:O"
+  .. .. ..$ : chr  "A:O" "H:N"
+  .. .. ..$ : chr  "B:D" "F:J" "E:N" "C:K"
+  .. .. ..$ : chr  "B:E" "F:L" "D:N" "C:M"
+  .. .. ..$ : chr  "B:J" "F:D" "G:K" "L:N" ...
+  .. .. ..$ : chr  "B:K" "G:J" "L:O" "M:N" ...
+  .. .. ..$ : chr  "B:L" "F:E" "G:M" "J:N" ...
+  .. .. ..$ : chr  "B:M" "G:L" "J:O" "K:N" ...
+  .. .. ..$ : chr  "B:N" "G:O" "D:E" "J:L" ...
+  .. .. ..$ : chr  "B:O" "G:N" "J:M" "K:L"
+  .. .. ..$ : chr  "C:J" "F:K" "G:D" "E:O"
+  .. .. ..$ : chr  "C:L" "F:M" "G:E" "D:O"
+  .. .. ..$ : chr  "C:N" "F:O" "D:M" "E:K"
+  .. .. ..$ : chr  "C:O" "F:N" "D:L" "E:J"
+  .. ..$ base.design : chr "14-9.6"
+  .. ..$ replications: num 1
+  .. ..$ repeat.only : logi FALSE
+  .. ..$ randomize   : logi FALSE
+> 
+> ## replications in combination with blocks
+> ## (with randomization in examples)
+> run.order(FrF2(8,3,blocks=2,wbreps=2,randomize=FALSE))
+   run.no.in.std.order run.no run.no.std.rp
+1                  1.1      1         1.1.1
+2                  1.2      2         1.2.1
+3                  1.3      3         1.3.1
+4                  1.4      4         1.4.1
+5                  1.1      5         1.1.2
+6                  1.2      6         1.2.2
+7                  1.3      7         1.3.2
+8                  1.4      8         1.4.2
+9                  2.1      9         2.1.1
+10                 2.2     10         2.2.1
+11                 2.3     11         2.3.1
+12                 2.4     12         2.4.1
+13                 2.1     13         2.1.2
+14                 2.2     14         2.2.2
+15                 2.3     15         2.3.2
+16                 2.4     16         2.4.2
+> run.order(FrF2(8,3,blocks=2,wbreps=2,repeat.only=TRUE,randomize=FALSE))
+   run.no.in.std.order run.no run.no.std.rp
+1                  1.1      1         1.1.1
+2                  1.1      2         1.1.2
+3                  1.2      3         1.2.1
+4                  1.2      4         1.2.2
+5                  1.3      5         1.3.1
+6                  1.3      6         1.3.2
+7                  1.4      7         1.4.1
+8                  1.4      8         1.4.2
+9                  2.1      9         2.1.1
+10                 2.1     10         2.1.2
+11                 2.2     11         2.2.1
+12                 2.2     12         2.2.2
+13                 2.3     13         2.3.1
+14                 2.3     14         2.3.2
+15                 2.4     15         2.4.1
+16                 2.4     16         2.4.2
+> run.order(FrF2(8,3,blocks=2,bbreps=2,randomize=FALSE))
+   run.no.in.std.order run.no run.no.std.rp
+1                  1.1      1         1.1.1
+2                  1.2      2         1.2.1
+3                  1.3      3         1.3.1
+4                  1.4      4         1.4.1
+5                  2.1      5         2.1.1
+6                  2.2      6         2.2.1
+7                  2.3      7         2.3.1
+8                  2.4      8         2.4.1
+9                  1.1      9         1.1.2
+10                 1.2     10         1.2.2
+11                 1.3     11         1.3.2
+12                 1.4     12         1.4.2
+13                 2.1     13         2.1.2
+14                 2.2     14         2.2.2
+15                 2.3     15         2.3.2
+16                 2.4     16         2.4.2
+> run.order(FrF2(8,3,blocks=2,bbreps=2,wbreps=2,randomize=FALSE))
+   run.no.in.std.order run.no run.no.std.rp
+1                  1.1      1       1.1.1.1
+2                  1.2      2       1.2.1.1
+3                  1.3      3       1.3.1.1
+4                  1.4      4       1.4.1.1
+5                  1.1      5       1.1.1.2
+6                  1.2      6       1.2.1.2
+7                  1.3      7       1.3.1.2
+8                  1.4      8       1.4.1.2
+9                  2.1      9       2.1.2.1
+10                 2.2     10       2.2.2.1
+11                 2.3     11       2.3.2.1
+12                 2.4     12       2.4.2.1
+13                 2.1     13       2.1.2.2
+14                 2.2     14       2.2.2.2
+15                 2.3     15       2.3.2.2
+16                 2.4     16       2.4.2.2
+17                 1.1     17       1.1.1.1
+18                 1.2     18       1.2.1.1
+19                 1.3     19       1.3.1.1
+20                 1.4     20       1.4.1.1
+21                 1.1     21       1.1.1.2
+22                 1.2     22       1.2.1.2
+23                 1.3     23       1.3.1.2
+24                 1.4     24       1.4.1.2
+25                 2.1     25       2.1.2.1
+26                 2.2     26       2.2.2.1
+27                 2.3     27       2.3.2.1
+28                 2.4     28       2.4.2.1
+29                 2.1     29       2.1.2.2
+30                 2.2     30       2.2.2.2
+31                 2.3     31       2.3.2.2
+32                 2.4     32       2.4.2.2
+Warning message:
+In data.row.names(row.names, rowsi, i) :
+  some row.names duplicated: 17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32 --> row.names NOT used
+> FrF2(8,3,blocks=2,bbreps=2,wbreps=2,repeat.only=TRUE,randomize=FALSE)
+   Blocks  A  B  C
+1       1 -1 -1 -1
+2       1 -1 -1 -1
+3       1 -1  1  1
+4       1 -1  1  1
+5       1  1 -1  1
+6       1  1 -1  1
+7       1  1  1 -1
+8       1  1  1 -1
+9       2 -1 -1  1
+10      2 -1 -1  1
+11      2 -1  1 -1
+12      2 -1  1 -1
+13      2  1 -1 -1
+14      2  1 -1 -1
+15      2  1  1  1
+16      2  1  1  1
+17      1 -1 -1 -1
+18      1 -1 -1 -1
+19      1 -1  1  1
+20      1 -1  1  1
+21      1  1 -1  1
+22      1  1 -1  1
+23      1  1  1 -1
+24      1  1  1 -1
+25      2 -1 -1  1
+26      2 -1 -1  1
+27      2 -1  1 -1
+28      2 -1  1 -1
+29      2  1 -1 -1
+30      2  1 -1 -1
+31      2  1  1  1
+32      2  1  1  1
+Warning message:
+In data.row.names(row.names, rowsi, i) :
+  some row.names duplicated: 17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32 --> row.names NOT used
+> set.seed(68702)
+> run.order(FrF2(8,3,blocks=2,bbreps=2,wbreps=2,randomize=TRUE))
+   run.no.in.std.order run.no run.no.std.rp
+1                  1.4      1       1.4.1.1
+2                  1.3      2       1.3.1.1
+3                  1.2      3       1.2.1.1
+4                  1.1      4       1.1.1.1
+5                  1.2      5       1.2.1.2
+6                  1.3      6       1.3.1.2
+7                  1.4      7       1.4.1.2
+8                  1.1      8       1.1.1.2
+9                  2.1      9       2.1.2.1
+10                 2.4     10       2.4.2.1
+11                 2.3     11       2.3.2.1
+12                 2.2     12       2.2.2.1
+13                 2.2     13       2.2.2.2
+14                 2.3     14       2.3.2.2
+15                 2.4     15       2.4.2.2
+16                 2.1     16       2.1.2.2
+17                 1.1     17       1.1.1.1
+18                 1.2     18       1.2.1.1
+19                 1.3     19       1.3.1.1
+20                 1.4     20       1.4.1.1
+21                 1.4     21       1.4.1.2
+22                 1.3     22       1.3.1.2
+23                 1.1     23       1.1.1.2
+24                 1.2     24       1.2.1.2
+25                 2.1     25       2.1.2.1
+26                 2.4     26       2.4.2.1
+27                 2.2     27       2.2.2.1
+28                 2.3     28       2.3.2.1
+29                 2.4     29       2.4.2.2
+30                 2.2     30       2.2.2.2
+31                 2.3     31       2.3.2.2
+32                 2.1     32       2.1.2.2
+Warning message:
+In data.row.names(row.names, rowsi, i) :
+  some row.names duplicated: 17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32 --> row.names NOT used
+> set.seed(68702)
+> run.order(FrF2(8,3,blocks=2,bbreps=2,wbreps=2,repeat.only=TRUE,randomize=TRUE))
+   run.no.in.std.order run.no run.no.std.rp
+1                  1.4      1       1.4.1.1
+2                  1.4      2       1.4.2.2
+3                  1.3      3       1.3.1.1
+4                  1.3      4       1.3.2.2
+5                  1.2      5       1.2.1.1
+6                  1.2      6       1.2.2.2
+7                  1.1      7       1.1.1.1
+8                  1.1      8       1.1.2.2
+9                  2.2      9       2.2.1.1
+10                 2.2     10       2.2.2.2
+11                 2.3     11       2.3.1.1
+12                 2.3     12       2.3.2.2
+13                 2.4     13       2.4.1.1
+14                 2.4     14       2.4.2.2
+15                 2.1     15       2.1.1.1
+16                 2.1     16       2.1.2.2
+17                 1.1     17       1.1.1.1
+18                 1.1     18       1.1.2.2
+19                 1.4     19       1.4.1.1
+20                 1.4     20       1.4.2.2
+21                 1.3     21       1.3.1.1
+22                 1.3     22       1.3.2.2
+23                 1.2     23       1.2.1.1
+24                 1.2     24       1.2.2.2
+25                 2.2     25       2.2.1.1
+26                 2.2     26       2.2.2.2
+27                 2.3     27       2.3.1.1
+28                 2.3     28       2.3.2.2
+29                 2.4     29       2.4.1.1
+30                 2.4     30       2.4.2.2
+31                 2.1     31       2.1.1.1
+32                 2.1     32       2.1.2.2
+Warning message:
+In data.row.names(row.names, rowsi, i) :
+  some row.names duplicated: 17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32 --> row.names NOT used
+> 
+> ## replications in combination with split plot 
+>   FrF2(32,14,WPs=8,nfac.WP=2,randomize=FALSE, replications=3)
+       A  B WP3  C  D  E  F  G  H  J  K  L  M  N  O
+1.1.1 -1 -1  -1 -1 -1  1  1  1 -1 -1 -1  1  1  1  1
+1.2.1 -1 -1  -1 -1  1  1  1  1  1  1  1 -1 -1 -1 -1
+1.3.1 -1 -1  -1  1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+1.4.1 -1 -1  -1  1  1 -1 -1 -1  1  1  1  1  1  1  1
+2.1.1 -1 -1   1 -1 -1  1  1 -1 -1  1  1  1  1 -1 -1
+2.2.1 -1 -1   1 -1  1  1  1 -1  1 -1 -1 -1 -1  1  1
+2.3.1 -1 -1   1  1 -1 -1 -1  1 -1  1  1 -1 -1  1  1
+2.4.1 -1 -1   1  1  1 -1 -1  1  1 -1 -1  1  1 -1 -1
+3.1.1 -1  1  -1 -1 -1  1 -1  1  1 -1  1  1 -1  1 -1
+3.2.1 -1  1  -1 -1  1  1 -1  1 -1  1 -1 -1  1 -1  1
+3.3.1 -1  1  -1  1 -1 -1  1 -1  1 -1  1 -1  1 -1  1
+3.4.1 -1  1  -1  1  1 -1  1 -1 -1  1 -1  1 -1  1 -1
+4.1.1 -1  1   1 -1 -1  1 -1 -1  1  1 -1  1 -1 -1  1
+4.2.1 -1  1   1 -1  1  1 -1 -1 -1 -1  1 -1  1  1 -1
+4.3.1 -1  1   1  1 -1 -1  1  1  1  1 -1 -1  1  1 -1
+4.4.1 -1  1   1  1  1 -1  1  1 -1 -1  1  1 -1 -1  1
+5.1.1  1 -1  -1 -1 -1 -1  1  1  1  1 -1  1 -1 -1  1
+5.2.1  1 -1  -1 -1  1 -1  1  1 -1 -1  1 -1  1  1 -1
+5.3.1  1 -1  -1  1 -1  1 -1 -1  1  1 -1 -1  1  1 -1
+5.4.1  1 -1  -1  1  1  1 -1 -1 -1 -1  1  1 -1 -1  1
+6.1.1  1 -1   1 -1 -1 -1  1 -1  1 -1  1  1 -1  1 -1
+6.2.1  1 -1   1 -1  1 -1  1 -1 -1  1 -1 -1  1 -1  1
+6.3.1  1 -1   1  1 -1  1 -1  1  1 -1  1 -1  1 -1  1
+6.4.1  1 -1   1  1  1  1 -1  1 -1  1 -1  1 -1  1 -1
+7.1.1  1  1  -1 -1 -1 -1 -1  1 -1  1  1  1  1 -1 -1
+7.2.1  1  1  -1 -1  1 -1 -1  1  1 -1 -1 -1 -1  1  1
+7.3.1  1  1  -1  1 -1  1  1 -1 -1  1  1 -1 -1  1  1
+7.4.1  1  1  -1  1  1  1  1 -1  1 -1 -1  1  1 -1 -1
+8.1.1  1  1   1 -1 -1 -1 -1 -1 -1 -1 -1  1  1  1  1
+8.2.1  1  1   1 -1  1 -1 -1 -1  1  1  1 -1 -1 -1 -1
+8.3.1  1  1   1  1 -1  1  1  1 -1 -1 -1 -1 -1 -1 -1
+8.4.1  1  1   1  1  1  1  1  1  1  1  1  1  1  1  1
+1.1.2 -1 -1  -1 -1 -1  1  1  1 -1 -1 -1  1  1  1  1
+1.2.2 -1 -1  -1 -1  1  1  1  1  1  1  1 -1 -1 -1 -1
+1.3.2 -1 -1  -1  1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+1.4.2 -1 -1  -1  1  1 -1 -1 -1  1  1  1  1  1  1  1
+2.1.2 -1 -1   1 -1 -1  1  1 -1 -1  1  1  1  1 -1 -1
+2.2.2 -1 -1   1 -1  1  1  1 -1  1 -1 -1 -1 -1  1  1
+2.3.2 -1 -1   1  1 -1 -1 -1  1 -1  1  1 -1 -1  1  1
+2.4.2 -1 -1   1  1  1 -1 -1  1  1 -1 -1  1  1 -1 -1
+3.1.2 -1  1  -1 -1 -1  1 -1  1  1 -1  1  1 -1  1 -1
+3.2.2 -1  1  -1 -1  1  1 -1  1 -1  1 -1 -1  1 -1  1
+3.3.2 -1  1  -1  1 -1 -1  1 -1  1 -1  1 -1  1 -1  1
+3.4.2 -1  1  -1  1  1 -1  1 -1 -1  1 -1  1 -1  1 -1
+4.1.2 -1  1   1 -1 -1  1 -1 -1  1  1 -1  1 -1 -1  1
+4.2.2 -1  1   1 -1  1  1 -1 -1 -1 -1  1 -1  1  1 -1
+4.3.2 -1  1   1  1 -1 -1  1  1  1  1 -1 -1  1  1 -1
+4.4.2 -1  1   1  1  1 -1  1  1 -1 -1  1  1 -1 -1  1
+5.1.2  1 -1  -1 -1 -1 -1  1  1  1  1 -1  1 -1 -1  1
+5.2.2  1 -1  -1 -1  1 -1  1  1 -1 -1  1 -1  1  1 -1
+5.3.2  1 -1  -1  1 -1  1 -1 -1  1  1 -1 -1  1  1 -1
+5.4.2  1 -1  -1  1  1  1 -1 -1 -1 -1  1  1 -1 -1  1
+6.1.2  1 -1   1 -1 -1 -1  1 -1  1 -1  1  1 -1  1 -1
+6.2.2  1 -1   1 -1  1 -1  1 -1 -1  1 -1 -1  1 -1  1
+6.3.2  1 -1   1  1 -1  1 -1  1  1 -1  1 -1  1 -1  1
+6.4.2  1 -1   1  1  1  1 -1  1 -1  1 -1  1 -1  1 -1
+7.1.2  1  1  -1 -1 -1 -1 -1  1 -1  1  1  1  1 -1 -1
+7.2.2  1  1  -1 -1  1 -1 -1  1  1 -1 -1 -1 -1  1  1
+7.3.2  1  1  -1  1 -1  1  1 -1 -1  1  1 -1 -1  1  1
+7.4.2  1  1  -1  1  1  1  1 -1  1 -1 -1  1  1 -1 -1
+8.1.2  1  1   1 -1 -1 -1 -1 -1 -1 -1 -1  1  1  1  1
+8.2.2  1  1   1 -1  1 -1 -1 -1  1  1  1 -1 -1 -1 -1
+8.3.2  1  1   1  1 -1  1  1  1 -1 -1 -1 -1 -1 -1 -1
+8.4.2  1  1   1  1  1  1  1  1  1  1  1  1  1  1  1
+1.1.3 -1 -1  -1 -1 -1  1  1  1 -1 -1 -1  1  1  1  1
+1.2.3 -1 -1  -1 -1  1  1  1  1  1  1  1 -1 -1 -1 -1
+1.3.3 -1 -1  -1  1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+1.4.3 -1 -1  -1  1  1 -1 -1 -1  1  1  1  1  1  1  1
+2.1.3 -1 -1   1 -1 -1  1  1 -1 -1  1  1  1  1 -1 -1
+2.2.3 -1 -1   1 -1  1  1  1 -1  1 -1 -1 -1 -1  1  1
+2.3.3 -1 -1   1  1 -1 -1 -1  1 -1  1  1 -1 -1  1  1
+2.4.3 -1 -1   1  1  1 -1 -1  1  1 -1 -1  1  1 -1 -1
+3.1.3 -1  1  -1 -1 -1  1 -1  1  1 -1  1  1 -1  1 -1
+3.2.3 -1  1  -1 -1  1  1 -1  1 -1  1 -1 -1  1 -1  1
+3.3.3 -1  1  -1  1 -1 -1  1 -1  1 -1  1 -1  1 -1  1
+3.4.3 -1  1  -1  1  1 -1  1 -1 -1  1 -1  1 -1  1 -1
+4.1.3 -1  1   1 -1 -1  1 -1 -1  1  1 -1  1 -1 -1  1
+4.2.3 -1  1   1 -1  1  1 -1 -1 -1 -1  1 -1  1  1 -1
+4.3.3 -1  1   1  1 -1 -1  1  1  1  1 -1 -1  1  1 -1
+4.4.3 -1  1   1  1  1 -1  1  1 -1 -1  1  1 -1 -1  1
+5.1.3  1 -1  -1 -1 -1 -1  1  1  1  1 -1  1 -1 -1  1
+5.2.3  1 -1  -1 -1  1 -1  1  1 -1 -1  1 -1  1  1 -1
+5.3.3  1 -1  -1  1 -1  1 -1 -1  1  1 -1 -1  1  1 -1
+5.4.3  1 -1  -1  1  1  1 -1 -1 -1 -1  1  1 -1 -1  1
+6.1.3  1 -1   1 -1 -1 -1  1 -1  1 -1  1  1 -1  1 -1
+6.2.3  1 -1   1 -1  1 -1  1 -1 -1  1 -1 -1  1 -1  1
+6.3.3  1 -1   1  1 -1  1 -1  1  1 -1  1 -1  1 -1  1
+6.4.3  1 -1   1  1  1  1 -1  1 -1  1 -1  1 -1  1 -1
+7.1.3  1  1  -1 -1 -1 -1 -1  1 -1  1  1  1  1 -1 -1
+7.2.3  1  1  -1 -1  1 -1 -1  1  1 -1 -1 -1 -1  1  1
+7.3.3  1  1  -1  1 -1  1  1 -1 -1  1  1 -1 -1  1  1
+7.4.3  1  1  -1  1  1  1  1 -1  1 -1 -1  1  1 -1 -1
+8.1.3  1  1   1 -1 -1 -1 -1 -1 -1 -1 -1  1  1  1  1
+8.2.3  1  1   1 -1  1 -1 -1 -1  1  1  1 -1 -1 -1 -1
+8.3.3  1  1   1  1 -1  1  1  1 -1 -1 -1 -1 -1 -1 -1
+8.4.3  1  1   1  1  1  1  1  1  1  1  1  1  1  1  1
+Warning message:
+In FrF2(32, 14, WPs = 8, nfac.WP = 2, randomize = FALSE, replications = 3) :
+  There are fewer factors than needed for a full factorial whole plot design. 1 dummy splitting factor(s) have been introduced.
+>   FrF2(32,14,WPs=8,nfac.WP=6,randomize=FALSE, replications=3)
+       A  B  C  F  G  H  D  E  J  K  L  M  N  O
+1.1.1 -1 -1 -1  1  1  1 -1 -1  1 -1  1 -1 -1  1
+1.2.1 -1 -1 -1  1  1  1 -1  1  1 -1 -1  1  1 -1
+1.3.1 -1 -1 -1  1  1  1  1 -1 -1  1  1 -1  1 -1
+1.4.1 -1 -1 -1  1  1  1  1  1 -1  1 -1  1 -1  1
+2.1.1 -1 -1  1  1 -1 -1 -1 -1  1  1  1  1 -1 -1
+2.2.1 -1 -1  1  1 -1 -1 -1  1  1  1 -1 -1  1  1
+2.3.1 -1 -1  1  1 -1 -1  1 -1 -1 -1  1  1  1  1
+2.4.1 -1 -1  1  1 -1 -1  1  1 -1 -1 -1 -1 -1 -1
+3.1.1 -1  1 -1 -1  1 -1 -1 -1  1  1  1  1  1  1
+3.2.1 -1  1 -1 -1  1 -1 -1  1  1  1 -1 -1 -1 -1
+3.3.1 -1  1 -1 -1  1 -1  1 -1 -1 -1  1  1 -1 -1
+3.4.1 -1  1 -1 -1  1 -1  1  1 -1 -1 -1 -1  1  1
+4.1.1 -1  1  1 -1 -1  1 -1 -1  1 -1  1 -1  1 -1
+4.2.1 -1  1  1 -1 -1  1 -1  1  1 -1 -1  1 -1  1
+4.3.1 -1  1  1 -1 -1  1  1 -1 -1  1  1 -1 -1  1
+4.4.1 -1  1  1 -1 -1  1  1  1 -1  1 -1  1  1 -1
+5.1.1  1 -1 -1 -1 -1  1 -1 -1 -1 -1 -1 -1 -1 -1
+5.2.1  1 -1 -1 -1 -1  1 -1  1 -1 -1  1  1  1  1
+5.3.1  1 -1 -1 -1 -1  1  1 -1  1  1 -1 -1  1  1
+5.4.1  1 -1 -1 -1 -1  1  1  1  1  1  1  1 -1 -1
+6.1.1  1 -1  1 -1  1 -1 -1 -1 -1  1 -1  1 -1  1
+6.2.1  1 -1  1 -1  1 -1 -1  1 -1  1  1 -1  1 -1
+6.3.1  1 -1  1 -1  1 -1  1 -1  1 -1 -1  1  1 -1
+6.4.1  1 -1  1 -1  1 -1  1  1  1 -1  1 -1 -1  1
+7.1.1  1  1 -1  1 -1 -1 -1 -1 -1  1 -1  1  1 -1
+7.2.1  1  1 -1  1 -1 -1 -1  1 -1  1  1 -1 -1  1
+7.3.1  1  1 -1  1 -1 -1  1 -1  1 -1 -1  1 -1  1
+7.4.1  1  1 -1  1 -1 -1  1  1  1 -1  1 -1  1 -1
+8.1.1  1  1  1  1  1  1 -1 -1 -1 -1 -1 -1  1  1
+8.2.1  1  1  1  1  1  1 -1  1 -1 -1  1  1 -1 -1
+8.3.1  1  1  1  1  1  1  1 -1  1  1 -1 -1 -1 -1
+8.4.1  1  1  1  1  1  1  1  1  1  1  1  1  1  1
+1.1.2 -1 -1 -1  1  1  1 -1 -1  1 -1  1 -1 -1  1
+1.2.2 -1 -1 -1  1  1  1 -1  1  1 -1 -1  1  1 -1
+1.3.2 -1 -1 -1  1  1  1  1 -1 -1  1  1 -1  1 -1
+1.4.2 -1 -1 -1  1  1  1  1  1 -1  1 -1  1 -1  1
+2.1.2 -1 -1  1  1 -1 -1 -1 -1  1  1  1  1 -1 -1
+2.2.2 -1 -1  1  1 -1 -1 -1  1  1  1 -1 -1  1  1
+2.3.2 -1 -1  1  1 -1 -1  1 -1 -1 -1  1  1  1  1
+2.4.2 -1 -1  1  1 -1 -1  1  1 -1 -1 -1 -1 -1 -1
+3.1.2 -1  1 -1 -1  1 -1 -1 -1  1  1  1  1  1  1
+3.2.2 -1  1 -1 -1  1 -1 -1  1  1  1 -1 -1 -1 -1
+3.3.2 -1  1 -1 -1  1 -1  1 -1 -1 -1  1  1 -1 -1
+3.4.2 -1  1 -1 -1  1 -1  1  1 -1 -1 -1 -1  1  1
+4.1.2 -1  1  1 -1 -1  1 -1 -1  1 -1  1 -1  1 -1
+4.2.2 -1  1  1 -1 -1  1 -1  1  1 -1 -1  1 -1  1
+4.3.2 -1  1  1 -1 -1  1  1 -1 -1  1  1 -1 -1  1
+4.4.2 -1  1  1 -1 -1  1  1  1 -1  1 -1  1  1 -1
+5.1.2  1 -1 -1 -1 -1  1 -1 -1 -1 -1 -1 -1 -1 -1
+5.2.2  1 -1 -1 -1 -1  1 -1  1 -1 -1  1  1  1  1
+5.3.2  1 -1 -1 -1 -1  1  1 -1  1  1 -1 -1  1  1
+5.4.2  1 -1 -1 -1 -1  1  1  1  1  1  1  1 -1 -1
+6.1.2  1 -1  1 -1  1 -1 -1 -1 -1  1 -1  1 -1  1
+6.2.2  1 -1  1 -1  1 -1 -1  1 -1  1  1 -1  1 -1
+6.3.2  1 -1  1 -1  1 -1  1 -1  1 -1 -1  1  1 -1
+6.4.2  1 -1  1 -1  1 -1  1  1  1 -1  1 -1 -1  1
+7.1.2  1  1 -1  1 -1 -1 -1 -1 -1  1 -1  1  1 -1
+7.2.2  1  1 -1  1 -1 -1 -1  1 -1  1  1 -1 -1  1
+7.3.2  1  1 -1  1 -1 -1  1 -1  1 -1 -1  1 -1  1
+7.4.2  1  1 -1  1 -1 -1  1  1  1 -1  1 -1  1 -1
+8.1.2  1  1  1  1  1  1 -1 -1 -1 -1 -1 -1  1  1
+8.2.2  1  1  1  1  1  1 -1  1 -1 -1  1  1 -1 -1
+8.3.2  1  1  1  1  1  1  1 -1  1  1 -1 -1 -1 -1
+8.4.2  1  1  1  1  1  1  1  1  1  1  1  1  1  1
+1.1.3 -1 -1 -1  1  1  1 -1 -1  1 -1  1 -1 -1  1
+1.2.3 -1 -1 -1  1  1  1 -1  1  1 -1 -1  1  1 -1
+1.3.3 -1 -1 -1  1  1  1  1 -1 -1  1  1 -1  1 -1
+1.4.3 -1 -1 -1  1  1  1  1  1 -1  1 -1  1 -1  1
+2.1.3 -1 -1  1  1 -1 -1 -1 -1  1  1  1  1 -1 -1
+2.2.3 -1 -1  1  1 -1 -1 -1  1  1  1 -1 -1  1  1
+2.3.3 -1 -1  1  1 -1 -1  1 -1 -1 -1  1  1  1  1
+2.4.3 -1 -1  1  1 -1 -1  1  1 -1 -1 -1 -1 -1 -1
+3.1.3 -1  1 -1 -1  1 -1 -1 -1  1  1  1  1  1  1
+3.2.3 -1  1 -1 -1  1 -1 -1  1  1  1 -1 -1 -1 -1
+3.3.3 -1  1 -1 -1  1 -1  1 -1 -1 -1  1  1 -1 -1
+3.4.3 -1  1 -1 -1  1 -1  1  1 -1 -1 -1 -1  1  1
+4.1.3 -1  1  1 -1 -1  1 -1 -1  1 -1  1 -1  1 -1
+4.2.3 -1  1  1 -1 -1  1 -1  1  1 -1 -1  1 -1  1
+4.3.3 -1  1  1 -1 -1  1  1 -1 -1  1  1 -1 -1  1
+4.4.3 -1  1  1 -1 -1  1  1  1 -1  1 -1  1  1 -1
+5.1.3  1 -1 -1 -1 -1  1 -1 -1 -1 -1 -1 -1 -1 -1
+5.2.3  1 -1 -1 -1 -1  1 -1  1 -1 -1  1  1  1  1
+5.3.3  1 -1 -1 -1 -1  1  1 -1  1  1 -1 -1  1  1
+5.4.3  1 -1 -1 -1 -1  1  1  1  1  1  1  1 -1 -1
+6.1.3  1 -1  1 -1  1 -1 -1 -1 -1  1 -1  1 -1  1
+6.2.3  1 -1  1 -1  1 -1 -1  1 -1  1  1 -1  1 -1
+6.3.3  1 -1  1 -1  1 -1  1 -1  1 -1 -1  1  1 -1
+6.4.3  1 -1  1 -1  1 -1  1  1  1 -1  1 -1 -1  1
+7.1.3  1  1 -1  1 -1 -1 -1 -1 -1  1 -1  1  1 -1
+7.2.3  1  1 -1  1 -1 -1 -1  1 -1  1  1 -1 -1  1
+7.3.3  1  1 -1  1 -1 -1  1 -1  1 -1 -1  1 -1  1
+7.4.3  1  1 -1  1 -1 -1  1  1  1 -1  1 -1  1 -1
+8.1.3  1  1  1  1  1  1 -1 -1 -1 -1 -1 -1  1  1
+8.2.3  1  1  1  1  1  1 -1  1 -1 -1  1  1 -1 -1
+8.3.3  1  1  1  1  1  1  1 -1  1  1 -1 -1 -1 -1
+8.4.3  1  1  1  1  1  1  1  1  1  1  1  1  1  1
+>   set.seed(123451)
+>   FrF2(32,14,WPs=8,nfac.WP=6,replications=3)
+       A  B  C  F  G  H  D  E  J  K  L  M  N  O
+5.2.1  1 -1 -1 -1 -1  1 -1  1 -1 -1  1  1  1  1
+5.4.1  1 -1 -1 -1 -1  1  1  1  1  1  1  1 -1 -1
+5.1.1  1 -1 -1 -1 -1  1 -1 -1 -1 -1 -1 -1 -1 -1
+5.3.1  1 -1 -1 -1 -1  1  1 -1  1  1 -1 -1  1  1
+1.2.1 -1 -1 -1  1  1  1 -1  1  1 -1 -1  1  1 -1
+1.3.1 -1 -1 -1  1  1  1  1 -1 -1  1  1 -1  1 -1
+1.1.1 -1 -1 -1  1  1  1 -1 -1  1 -1  1 -1 -1  1
+1.4.1 -1 -1 -1  1  1  1  1  1 -1  1 -1  1 -1  1
+8.4.1  1  1  1  1  1  1  1  1  1  1  1  1  1  1
+8.3.1  1  1  1  1  1  1  1 -1  1  1 -1 -1 -1 -1
+8.2.1  1  1  1  1  1  1 -1  1 -1 -1  1  1 -1 -1
+8.1.1  1  1  1  1  1  1 -1 -1 -1 -1 -1 -1  1  1
+4.1.1 -1  1  1 -1 -1  1 -1 -1  1 -1  1 -1  1 -1
+4.2.1 -1  1  1 -1 -1  1 -1  1  1 -1 -1  1 -1  1
+4.4.1 -1  1  1 -1 -1  1  1  1 -1  1 -1  1  1 -1
+4.3.1 -1  1  1 -1 -1  1  1 -1 -1  1  1 -1 -1  1
+3.3.1 -1  1 -1 -1  1 -1  1 -1 -1 -1  1  1 -1 -1
+3.2.1 -1  1 -1 -1  1 -1 -1  1  1  1 -1 -1 -1 -1
+3.4.1 -1  1 -1 -1  1 -1  1  1 -1 -1 -1 -1  1  1
+3.1.1 -1  1 -1 -1  1 -1 -1 -1  1  1  1  1  1  1
+7.3.1  1  1 -1  1 -1 -1  1 -1  1 -1 -1  1 -1  1
+7.1.1  1  1 -1  1 -1 -1 -1 -1 -1  1 -1  1  1 -1
+7.4.1  1  1 -1  1 -1 -1  1  1  1 -1  1 -1  1 -1
+7.2.1  1  1 -1  1 -1 -1 -1  1 -1  1  1 -1 -1  1
+2.4.1 -1 -1  1  1 -1 -1  1  1 -1 -1 -1 -1 -1 -1
+2.3.1 -1 -1  1  1 -1 -1  1 -1 -1 -1  1  1  1  1
+2.1.1 -1 -1  1  1 -1 -1 -1 -1  1  1  1  1 -1 -1
+2.2.1 -1 -1  1  1 -1 -1 -1  1  1  1 -1 -1  1  1
+6.1.1  1 -1  1 -1  1 -1 -1 -1 -1  1 -1  1 -1  1
+6.2.1  1 -1  1 -1  1 -1 -1  1 -1  1  1 -1  1 -1
+6.4.1  1 -1  1 -1  1 -1  1  1  1 -1  1 -1 -1  1
+6.3.1  1 -1  1 -1  1 -1  1 -1  1 -1 -1  1  1 -1
+6.2.2  1 -1  1 -1  1 -1 -1  1 -1  1  1 -1  1 -1
+6.1.2  1 -1  1 -1  1 -1 -1 -1 -1  1 -1  1 -1  1
+6.4.2  1 -1  1 -1  1 -1  1  1  1 -1  1 -1 -1  1
+6.3.2  1 -1  1 -1  1 -1  1 -1  1 -1 -1  1  1 -1
+4.3.2 -1  1  1 -1 -1  1  1 -1 -1  1  1 -1 -1  1
+4.4.2 -1  1  1 -1 -1  1  1  1 -1  1 -1  1  1 -1
+4.2.2 -1  1  1 -1 -1  1 -1  1  1 -1 -1  1 -1  1
+4.1.2 -1  1  1 -1 -1  1 -1 -1  1 -1  1 -1  1 -1
+7.4.2  1  1 -1  1 -1 -1  1  1  1 -1  1 -1  1 -1
+7.3.2  1  1 -1  1 -1 -1  1 -1  1 -1 -1  1 -1  1
+7.2.2  1  1 -1  1 -1 -1 -1  1 -1  1  1 -1 -1  1
+7.1.2  1  1 -1  1 -1 -1 -1 -1 -1  1 -1  1  1 -1
+3.1.2 -1  1 -1 -1  1 -1 -1 -1  1  1  1  1  1  1
+3.2.2 -1  1 -1 -1  1 -1 -1  1  1  1 -1 -1 -1 -1
+3.3.2 -1  1 -1 -1  1 -1  1 -1 -1 -1  1  1 -1 -1
+3.4.2 -1  1 -1 -1  1 -1  1  1 -1 -1 -1 -1  1  1
+2.3.2 -1 -1  1  1 -1 -1  1 -1 -1 -1  1  1  1  1
+2.1.2 -1 -1  1  1 -1 -1 -1 -1  1  1  1  1 -1 -1
+2.2.2 -1 -1  1  1 -1 -1 -1  1  1  1 -1 -1  1  1
+2.4.2 -1 -1  1  1 -1 -1  1  1 -1 -1 -1 -1 -1 -1
+5.3.2  1 -1 -1 -1 -1  1  1 -1  1  1 -1 -1  1  1
+5.1.2  1 -1 -1 -1 -1  1 -1 -1 -1 -1 -1 -1 -1 -1
+5.4.2  1 -1 -1 -1 -1  1  1  1  1  1  1  1 -1 -1
+5.2.2  1 -1 -1 -1 -1  1 -1  1 -1 -1  1  1  1  1
+1.2.2 -1 -1 -1  1  1  1 -1  1  1 -1 -1  1  1 -1
+1.1.2 -1 -1 -1  1  1  1 -1 -1  1 -1  1 -1 -1  1
+1.4.2 -1 -1 -1  1  1  1  1  1 -1  1 -1  1 -1  1
+1.3.2 -1 -1 -1  1  1  1  1 -1 -1  1  1 -1  1 -1
+8.4.2  1  1  1  1  1  1  1  1  1  1  1  1  1  1
+8.1.2  1  1  1  1  1  1 -1 -1 -1 -1 -1 -1  1  1
+8.2.2  1  1  1  1  1  1 -1  1 -1 -1  1  1 -1 -1
+8.3.2  1  1  1  1  1  1  1 -1  1  1 -1 -1 -1 -1
+6.3.3  1 -1  1 -1  1 -1  1 -1  1 -1 -1  1  1 -1
+6.2.3  1 -1  1 -1  1 -1 -1  1 -1  1  1 -1  1 -1
+6.1.3  1 -1  1 -1  1 -1 -1 -1 -1  1 -1  1 -1  1
+6.4.3  1 -1  1 -1  1 -1  1  1  1 -1  1 -1 -1  1
+4.2.3 -1  1  1 -1 -1  1 -1  1  1 -1 -1  1 -1  1
+4.1.3 -1  1  1 -1 -1  1 -1 -1  1 -1  1 -1  1 -1
+4.4.3 -1  1  1 -1 -1  1  1  1 -1  1 -1  1  1 -1
+4.3.3 -1  1  1 -1 -1  1  1 -1 -1  1  1 -1 -1  1
+7.2.3  1  1 -1  1 -1 -1 -1  1 -1  1  1 -1 -1  1
+7.3.3  1  1 -1  1 -1 -1  1 -1  1 -1 -1  1 -1  1
+7.1.3  1  1 -1  1 -1 -1 -1 -1 -1  1 -1  1  1 -1
+7.4.3  1  1 -1  1 -1 -1  1  1  1 -1  1 -1  1 -1
+5.1.3  1 -1 -1 -1 -1  1 -1 -1 -1 -1 -1 -1 -1 -1
+5.2.3  1 -1 -1 -1 -1  1 -1  1 -1 -1  1  1  1  1
+5.4.3  1 -1 -1 -1 -1  1  1  1  1  1  1  1 -1 -1
+5.3.3  1 -1 -1 -1 -1  1  1 -1  1  1 -1 -1  1  1
+2.2.3 -1 -1  1  1 -1 -1 -1  1  1  1 -1 -1  1  1
+2.4.3 -1 -1  1  1 -1 -1  1  1 -1 -1 -1 -1 -1 -1
+2.1.3 -1 -1  1  1 -1 -1 -1 -1  1  1  1  1 -1 -1
+2.3.3 -1 -1  1  1 -1 -1  1 -1 -1 -1  1  1  1  1
+1.4.3 -1 -1 -1  1  1  1  1  1 -1  1 -1  1 -1  1
+1.1.3 -1 -1 -1  1  1  1 -1 -1  1 -1  1 -1 -1  1
+1.3.3 -1 -1 -1  1  1  1  1 -1 -1  1  1 -1  1 -1
+1.2.3 -1 -1 -1  1  1  1 -1  1  1 -1 -1  1  1 -1
+3.3.3 -1  1 -1 -1  1 -1  1 -1 -1 -1  1  1 -1 -1
+3.1.3 -1  1 -1 -1  1 -1 -1 -1  1  1  1  1  1  1
+3.4.3 -1  1 -1 -1  1 -1  1  1 -1 -1 -1 -1  1  1
+3.2.3 -1  1 -1 -1  1 -1 -1  1  1  1 -1 -1 -1 -1
+8.3.3  1  1  1  1  1  1  1 -1  1  1 -1 -1 -1 -1
+8.2.3  1  1  1  1  1  1 -1  1 -1 -1  1  1 -1 -1
+8.4.3  1  1  1  1  1  1  1  1  1  1  1  1  1  1
+8.1.3  1  1  1  1  1  1 -1 -1 -1 -1 -1 -1  1  1
+> 
+> ## generators in combination!!!
+> 

@@ -28,6 +28,7 @@ pb <- function(nruns,nfactors=nruns-1,
                  boxtyssedal=TRUE, n12.taguchi=FALSE, 
                  replications=1, repeat.only=FALSE, 
                  randomize=TRUE,seed=NULL, ...){
+  if (default.levels[1]==default.levels[2]) stop("Both default levels are identical.")
   if (nruns == 8) {
       if (nfactors>4) warning("Plackett-Burman designs in 8 runs coincide with regular fractional factorials. 
           For screening more than four factors, you may want to consider increasing the number of runs to 12. 
@@ -109,12 +110,19 @@ pb <- function(nruns,nfactors=nruns-1,
     orig.no <- rownames(sel)
     rownames(sel) <- 1:(nruns*replications)
     desdf <- data.frame(sel)
-    for (i in 1:nfactors) desdf[,i] <- des.recode(desdf[,i],"-1=factor.names[[i]][1];1=factor.names[[i]][2]") 
+    for (i in 1:nfactors) {
+        desdf[,i] <- des.recode(desdf[,i],"-1=factor.names[[i]][1];1=factor.names[[i]][2]") 
+        if (is.character(desdf[,i])) {
+                 desdf[,i] <- factor(desdf[,i],levels=factor.names[[i]]) 
+                 contrasts(desdf[,i]) <- contr.FrF2(2)
+        }
+        }
     if (nruns>8 | nfactors>4)
     aus <- desdf
     attr(aus,"desnum") <- sel
     attr(aus,"run.order") <- cbind("run.no.in.std.order"=rand.ord,"run.no"=1:nrow(sel))
     attr(aus,"design.info") <- list(type="pb", 
+         nruns=nruns, nfactors=nfactors, factor.names=factor.names,
          replications=replications, repeat.only=repeat.only,
          randomize=randomize, seed=seed)
     class(aus) <- c("design","data.frame")

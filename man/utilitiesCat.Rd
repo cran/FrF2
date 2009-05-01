@@ -27,8 +27,8 @@
 }
 \usage{
 mult.gen(liste) 
-mult.gen.a(string.vec)
-words.all(k, gen, max.length=7)
+mult.gen.a(string.vec,sep="")
+words.all(k, gen, design = NULL, max.length=7, select.catlg = catlg)
 alias3fi(k, gen, order = 3)
 fac.design(nlevels=NULL, nfactors=NULL, factor.names = NULL, 
         replications=1, repeat.only = FALSE, randomize=TRUE, seed=NULL)
@@ -56,11 +56,15 @@ Letters
 \arguments{
   \item{liste}{ list of words in terms of vectors of factor numbers to be combined into one new word }
   \item{string.vec}{ vector of words in terms of factor letter combinations (e.g. \dQuote{ABC}) to be combined into one new word }
+  \item{sep}{ character by which interaction terms are separated or concatenated; default is empty, i.e. ABC are separated into A, B and C; 
+          for more than 50~factors, a colon is needed so that F1:F2:F127 can be separated into F1, F2 and F127, for example.}
   \item{k}{ number of factors spanning a full factorial with the desired number of runs (i.e. \code{log2(nruns)}) }
   \item{gen}{ generators in any admissible format (\code{gen.check} transforms any admissible format to the default needed for calculations)) }
+  \item{design}{ character string that contains a name of a design from \code{select.catlg}, like in \code{\link{FrF2}} }
   \item{max.length}{ the maximum word length to be calculated for the words list; in large design, choosing this to be 4 or 5 may substantially speed things up! }
+  \item{select.catlg}{ catalogue of fractional factorial 2-level designs of class \code{catlg} }
   \item{order}{ 2 or 3, order of interactions to be shown }
-  \item{nlevels}{ number(s) of levels }
+  \item{nlevels}{ number(s) of levels, vector with \code{nfactors} entries or single number }
   \item{nfactors}{ like in \code{\link{FrF2}} }
   \item{factor.names}{ like in \code{\link{FrF2}} }
   \item{replications}{ like in \code{\link{FrF2}} }
@@ -73,7 +77,6 @@ Letters
   \item{clear}{ like in \code{\link{FrF2}} }
   \item{res3}{ like in \code{\link{FrF2}} }
   \item{max.time}{ like in \code{\link{FrF2}} }
-  \item{select.catlg}{ like in \code{\link{FrF2}} }
   \item{perm.start}{ like in \code{\link{FrF2}} }
   \item{perms}{ like in \code{\link{FrF2}} }
   \item{map}{ map of experiment factors to design factors, used in \code{estimable} }

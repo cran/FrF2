@@ -102,35 +102,6 @@ mapcalc.distinct <- function(estimable, nfac, nruns, res3=FALSE, max.time=60, se
      map
 }
 
-getNext <- function(perm)
-{
-   ## function for next permutation in lexicographical order
-   ## adapted from http://www.cut-the-knot.org/do_you_know/AllPerm.shtml
-   ##     provided by Alexander Bogomolny, based on Dijkstra 1997 p.71
-    N <- length(perm)
-    i <- N
-
-    while (perm[i-1] >= perm[i] & i>2) i <- i-1
- 
-    j <- N+1
-
-    while (perm[j-1] <= perm[i-1] & j>2) {
-         j <- j-1
-       }
-
-   ## swap values at positions (i-1) and (j-1)
-    perm[c(i-1, j-1)] <- perm[c(j-1, i-1)]
-
-    i <- i+1; j <- N+1
-
-    while (i < j)
-    {
-      perm[c(i-1, j-1)] <- perm[c(j-1, i-1)]
-      i <- i+1; j <- j-1
-    }
-    perm
-}
-
 check.subisomorphic.special <- function(estimable, nfac, hilf2, hilf3=NULL, res3=FALSE, max.time=60, perm.start=1:nfac, 
     begin_time=Sys.time(), name=NA){
     ## hilf2 contains the list of length 4 words, hilf3 length 3 words (if applicable)

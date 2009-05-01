@@ -1,9 +1,9 @@
 Package: FrF2
 Title: Fractional Factorial designs with 2-level factors
-Version: 0.91-1
-Depends: R(>= 2.7.0), BsMD, scatterplot3d, igraph
+Version: 0.92-1
+Depends: R(>= 2.7.0), BsMD, scatterplot3d, igraph, sfsmisc
 Suggests: BHH2
-Date: 2009-04-15
+Date: 2009-05-01
 Author: Ulrike Groemping
 Maintainer: Ulrike Groemping <groemping@bht-berlin.de>
 Description: This package creates regular and non-regular Fractional
@@ -19,6 +19,6 @@ License: GPL (>= 2)
 LazyLoad: yes
 LazyData: yes
 Encoding: latin1
-Packaged: Wed Apr 15 09:01:46 2009; Grömping
+Packaged: Fri May 1 16:52:09 2009; Grömping
 Repository: CRAN
-Date/Publication: 2009-04-15 08:16:40
+Date/Publication: 2009-05-04 10:17:20

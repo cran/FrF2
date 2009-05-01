@@ -1,8 +1,44 @@
 Changes to package FrF2 
 
-The package is currently under intensive development. It will 
-see new features in the near future, but possibly also changes 
-in current structure. 
+The package is currently under intensive development. 
+Most features have now been created, but there may still 
+be some changes. Suggestions and bug reports are very welcome.
+
+Version 0.92-1, 01/05/2009
+   Bug fixes
+   - hard to change factor number equal to nfactors gave indexing error;
+     prevented by error message, since this does not make sense anyway
+   - hard to change order was not the intended one --> changed
+
+Version 0.92, 30/04/2009
+   Substantial additions to function FrF2:
+   - split-plot and blocking facilities
+       including also functions splitpick, blockpick, blockpick.big
+       and leftadjust that investigate the structure of 
+       designs and may be useful for expert users
+   - treatment of hard-to-change factors 
+   Further changes to function FrF2 and its output:
+   - made output object (class design) more informative
+   - row numbers of design reflect replication structure
+   - option select.catlg moved to an earlier position, 
+     and made effective for more scenarios than before
+   Additions to catalogues and catalogue utilities:
+   - added print method for objects of class catlg in 
+     support of inspecting available catalogue entries
+   - extended standard catalogue catlg by some good larger designs
+   Improvements to further utility functions:
+   - added accessor functions for class design
+   - added contrast contr.FrF2 for -1/+1 contrasts
+     in line with 2-level fractional factorials
+   - made character vectors in class design data frames 
+     from package FrF2 into factors with contrasts contr.FrF2
+   - made internal function alias3fi capable of handling more than 
+     50 factors
+   Bug fixes to documentation and error messages
+   added examples and test cases (tests directory)
+
+   far too many changes to be all mentioned in detail
+
 
 Version 0.91-1, 15/04/2009
    Bug fix in documentation to function FrF2 

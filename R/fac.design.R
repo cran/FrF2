@@ -59,7 +59,8 @@ fac.design <- function(nlevels=NULL, nfactors=NULL, factor.names = NULL,
       if (is.list(factor.names)) if (any(sapply(factor.names,length)==1)) 
                  for (i in 1:nfactors) if (length(factor.names[[i]])==1) factor.names[[i]] <- 1:nlevels[i]
       design <- expand.grid(factor.names)
-      row.names(design) <- 1:nrow(design) 
+      nruns <- nrow(design)
+      row.names(design) <- 1:nruns 
       if (all(nlevels==2)) {factor.names[1:nfactors] <- rep(list(c(-1,1)),nfactors)
                  desnum <- as.matrix(expand.grid(factor.names))
                  row.names(desnum) <- 1:nrow(design) 
@@ -73,7 +74,8 @@ fac.design <- function(nlevels=NULL, nfactors=NULL, factor.names = NULL,
       aus <- design[rand.ord,]
       attr(aus,"desnum") <- desnum[rand.ord,]
       attr(aus,"run.order") <- cbind("run.no.in.std.order"=rand.ord,"run.no"=1:nrow(aus))
-      attr(aus,"design.info") <- list(type="full factorial",
+      attr(aus,"design.info") <- list(type="full factorial", 
+          nruns=nruns, nfactors=nfactors, nlevels=nlevels, factor.names=factor.names,
           replications=replications, repeat.only=repeat.only, 
           randomized=randomize, seed=seed)
       class(aus) <- c("design","data.frame")

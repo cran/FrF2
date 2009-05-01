@@ -1,8 +1,12 @@
      import(BsMD)
      export("DanielPlot", "aliases", "IAPlot", "MEPlot", 
             "cubePlot", "cubedraw", "cubecorners", "cubelabel",
-            "FrF2","pb","nruns.catlg", "nfac.catlg", "nclear.2fis.catlg",
+            "FrF2","pb","blockpick","blockpick.big","splitpick","leftadjust",
+            "nruns.catlg", "nfac.catlg", "nclear.2fis.catlg",
             "clear.2fis.catlg","all.2fis.clear.catlg","res.catlg","WLP.catlg",
-            "catlg","desnum", "run.order", "design.info", "Yates","Letters","pb.list")
+            "catlg","desnum", "run.order", "design.info", "ord", "Yates","Letters",
+            "block.catlg","pb.list")
 
      S3method("[",catlg)
+     S3method(print,catlg)
+     S3method("[",design)

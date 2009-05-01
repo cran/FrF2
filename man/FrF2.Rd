@@ -12,11 +12,15 @@
 FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
         if (nfactors <= 50) Letters[1:nfactors] else 
                              paste("F", 1:nfactors, sep = "")} else NULL, 
-        default.levels = c(-1, 1), generators = NULL, resolution = NULL, 
+        default.levels = c(-1, 1), generators = NULL, design = NULL, 
+        resolution = NULL, select.catlg=catlg, 
         estimable = NULL, clear = TRUE, res3 = FALSE, max.time = 60, 
-        select.catlg=catlg, perm.start=NULL, perms = NULL, 
+        perm.start=NULL, perms = NULL, 
         MaxC2 = FALSE, replications = 1, repeat.only = FALSE, 
-        randomize = TRUE, seed = NULL, alias.info = 2, ...)
+        randomize = TRUE, seed = NULL, alias.info = 2, 
+        blocks = 1, block.name = "Blocks", bbreps=replications, wbreps=1, 
+        alias.block.2fis = FALSE, hard = NULL, check.hard=10, WPs=1,nfac.WP=0,
+        WPfacs=NULL, check.WPs = 10, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -28,21 +32,46 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
       If the smallest possible design is a full factorial or not catalogued, 
       the function stops with an error.
       
-      If estimable is specified and nruns omitted, 
-      nruns becomes the size of the smallest design that 
+      If \code{generators} is specified, \code{nruns} is required.
+      
+      If estimable is specified and \code{nruns} omitted, 
+      \code{nruns} becomes the size of the smallest design that 
       MIGHT accomodate the effects requested in \code{estimable}. 
       If this run size turns out to be too low, an error is thrown. 
-      In that case, explicitly double the run size and retry. }
-  \item{nfactors}{ The number of 2-level factors to be investigated. 
-      Can be omitted, if it is obvious from the \code{factor.names}, 
-      or \code{nruns} together with \code{generators}, or 
-      \code{estimable}. If \code{estimable} is used for determining 
-      run size, it is assumed that the largest main effect position number 
-      occurring in all \code{estimable} coincides with \code{nfactors}. }
-  \item{factor.names}{ a character vector of factor names (length up to nfactors) 
-      or a named list with names representing factor names and elements vectors 
-      of length 2 with factor levels for each factor. Elements can be empty strings. 
-      In this case, default levels are used for the respective factor. }
+      In that case, explicitly choose \code{nruns} as twice the run size 
+      given in the error message and retry. }
+  \item{nfactors}{ is the number of 2-level factors to be investigated. 
+      It can be omitted, if it is obvious from \code{factor.names}, 
+      a specific catalogued design given in \code{design}, 
+      \code{nruns} together with \code{generators}, or 
+      \code{estimable}. 
+      
+      If \code{estimable} is used for determining 
+      the number of factors, it is assumed that the largest main effect position number 
+      occurring in \code{estimable} coincides with \code{nfactors}. 
+      
+      For blocked designs, block generator columns are not included in 
+      \code{nfactors}, except if 
+      the user explicitly specifies 2-level block generation factors as 
+      part of the fractional factorial design (e.g. a factor shift with levels 
+      morning and afternoon). 
+      
+      For automatically-generated split-plot designs (cf. details section), 
+      \code{nfactors} simply is the number of all factors (whole plot and split plot together). 
+      If \code{nfac.WP < log2(WPs)}, the algorithm will add (an) artificial plot generation factor(s). 
+      \cr
+      For manually-specified split-plot designs (through options \code{generators} or 
+      \code{design} together with \code{WPfacs}), the user must specify at least \code{log2(WPs)} 
+      split plot factors, i.e. \code{nfac.WP >= log2(WPs)} is required (and must, if necessary, 
+      be achieved by adding \code{log2(WPs) - nfac.WP} extra independent generator columns 
+      for the whole plot structure, which have to be counted in \code{nfac.WP} and \code{nfactors}).}
+  \item{factor.names}{ a character vector of \code{nfactors} factor names 
+      or a named list with \code{nfactors} elements, for which the names represent factor names 
+      and the elements are \cr
+      EITHER vectors of length 2 with factor levels for the respective factor\cr
+      OR empty strings. 
+      For each factor with an empty string in factor.names, the levels given in 
+      \code{default.levels} are used. }
   \item{default.levels}{ default levels (vector of length 2) for all factors for 
       which no specific levels are given }
   \item{generators}{ There are \code{log2(nruns)} basic factors the full factorial 
@@ -59,35 +88,47 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
         
         a vector of columns numbers in Yates order (e.g. 11 stands for ABD)
         }
+  \item{design}{ is a character string specifying the name of a design listed 
+        in the catalogue specified as \code{select.catlg}, which is usually 
+        the catalogue \code{\link{catlg}}
+        }
   \item{resolution}{ is the arabic numeral for the requested resolution of the design. 
         \code{FrF2} looks for a design with at least this resolution. 
+        Option \code{resolution} does not work, if \code{estimable}, \code{blocks} 
+        or \code{WPs} are specified, and neither if \code{nruns} is given.\cr
         A design with resolution III (resolution=3) confounds main effects 
         with 2-factor interactions, a design with resolution IV confounds main 
         effects with three-factor interactions or 2-factor interactions with each other, 
         and designs with resolution V or higher are usually regarded as very strong, 
         because all 2-factor interactions are unconfounded with each other and 
         with main effects.}
+  \item{select.catlg}{ specifies a catalogue of class \code{catlg} from 
+        which an adequate design is selected and adapted. \cr
+        The specified catalogue is used for design construction, 
+        unless \code{generators} explicitly constructs a 
+        non-catalogued design. The default \code{\link{catlg}} is adequate for most 
+        applications. 
+        
+        If a specific different catalogue of designs is available, 
+        this can be specified here. \cr
+        Specification of a smaller subset of designs is useful, if \code{estimable} 
+        has been given and \code{clear=FALSE}, for restricting the search 
+        to promising designs.
+        }
   \item{estimable}{ indicates the 2-factor interactions (2fis) that are to be estimable in 
         the design. Consult the details section for two different approaches of 
         requesting estimability, as indicated by the status of the \code{clear} option. 
 
-        \code{estimable} can be 
-        
+        \code{estimable} can be\cr 
         a numeric matrix with two rows, each column of which indicates one interaction,
-        e.g. column 1 3 for interaction of the first with the third factor
-        
-        OR
-        
+        e.g. column 1 3 for interaction of the first with the third factor\cr
+        OR\cr
         a character vector containing strings of length 2 with capital letters from \code{\link{Letters}} 
-        for the first 25 factors and small letters for the last 25 (e.g. \code{c(\"AB\",\"BE\")} 
-        
-        OR
-        
-        a formula that contains an adequate model formula, e.g. 
-        
-        \code{formula(\"~A+B+C+D+E+(F+G+H+J+K+L)^2\")} 
-        
-        for a model with (at least) eleven factors. 
+        for the first 25 factors and small letters for the last 25 (e.g. \code{c(\"AB\",\"BE\")} \cr
+        OR\cr
+        a formula that contains an adequate model formula, e.g. \cr
+        \code{formula(\"~A+B+C+D+E+(F+G+H+J+K+L)^2\")} \cr
+        for a model with (at least) eleven factors. \cr
         The names of the factors used in the formula can be the same letters usable in 
         the character vector (cf. above, A the first factor, B the second etc.), 
         or they can correspond to the factor names from 
@@ -103,15 +144,12 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
         set max.time to Inf if you want to force a search over an extended period of 
         time; however, be aware that it may still take longer than feasible 
         (cf. also details section)}
-  \item{select.catlg}{ applicable only for the case \code{\"clear = FALSE\"}.
-        Provides a catalogue in which the search is to be conducted 
-        }
-  \item{perm.start}{ applicable only for the case \code{\"clear = FALSE\"}.
+  \item{perm.start}{ used only if \code{clear=FALSE}.\cr
         Provides a start permutation for permuting experiment factors (numeric vector). 
         This is useful for the case that a previous search was not (yet) successful 
         because of a time limit, since the algorithm notifies the user about the 
         permutation at which it had to stop.}
-  \item{perms}{ applicable only for the case \code{\"clear = FALSE\"}.
+  \item{perms}{ used only if \code{clear=FALSE}.\cr
         Provides the matrix of permutations of experiment factors to be tried; each 
         row is a permutation. For example, for an 11-factor design with the 
         first six factors and their 2fis 
@@ -119,7 +157,7 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
         to the first six experiment factors, and these as well as the other five factors can be 
         in arbitrary order. This reduces the number of required permutations from 
         about 40 Mio to 462. 
-        It is recommended to use \code{perms} whenever possible, if \code{\"clear = FALSE\"}, 
+        It is recommended to use \code{perms} whenever possible, if \code{clear=FALSE}, 
         since this dramatically improves performance of the algorithm.
         
         It is planned to automatically generate perms for certain structures like 
@@ -154,17 +192,256 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
   \item{alias.info}{ can be 2 or 3, gives the order of interaction effects for which 
        alias information is to be included in the \code{aliased} component of the 
        \code{design.info} element of the output object. }
+  \item{blocks}{ is EITHER \cr 
+       the number of blocks into which the experiment is subdivided \cr
+       OR a character vector of names of independent factors that are used as block constructors \cr
+       OR a vector or list of generators similar to \code{generators}. \cr
+       In the latter case, 
+       the differences to \code{generators} are \cr 
+       that single numbers are not possible (would be interpreted as one Yates columns for \code{generators}), \cr
+       that numbers/letters can refer to all \code{nfactors} factors rather than the log2(nruns) base factors only and \cr
+       that individual numbers are allowed (i.e. factors specified in the experiment can be used as block factors). 
+       
+       If \code{blocks} is a single number, it must be a power of 2. 
+       A blocked design can have at most \code{nruns-blocks} treatment 
+       factors, but should usually have fewer than that. 
+       
+       If the experiment is randomized, randomization happens within blocks. 
+       }
+  \item{block.name}{ name of the block factor, default \dQuote{Blocks}}
+  \item{bbreps}{ between block replications; these are always taken as genuine replications, 
+       not repeat runs; default: equal to \code{replications};
+       CAUTION: you should not modify \code{bbreps} if you do not work with blocks, 
+       because the program code uses it instead of \code{replications} in some places }
+  \item{wbreps}{ within block replications; whether or not these are taken as genuine replications 
+       depends on the setting of \code{repeat.only}}
+  \item{alias.block.2fis}{ logical indicating whether blocks may be aliased 
+       with 2fis (default: \code{FALSE}); \cr
+       the option is effective only for automatic block assignment (cf. details section);\cr 
+       it will often be necessary to modify this option, because there is otherwise no solution.\cr 
+       CAUTION: If \code{alias.block.2fis=TRUE}, no effort is made to avoid aliasing 
+       of 2fis with block main effects, even if complete de-aliasing were possible.}
+  \item{hard}{ gives the number of hard to change factors. These must be the 
+       first factors in \code{factor.names}. Implementation is via a split-plot 
+       design with as few as possible whole plots (number of possible whole plots is 
+       determined via left-adjustment) and as few as possible non-hard factors 
+       within the whole plot structure (by applying split-plot after left-adjustment).
+       If a different implementation is desired, it is of course possible to 
+       explicitly treat the hard to change factors as whole-plot factors via 
+       \code{WPs} and \code{nfac.WP}.}
+  \item{check.hard}{ is the number of candidate designs from the catalogue specified 
+       in \code{select.catlg} that are checked for making hard-to-change factors 
+       change as little as possible.\cr
+       The default is 10 - if too many changes are needed, a larger choice might 
+       help find a design with fewer level changes (but will also take longer run time
+       and will find a worse design in terms of resolution / aberration). \cr
+       If you want to use the best design and do not want to compromise the confounding 
+       structure for ease-of-change reasons, set check.hard to 1.}  
+  \item{WPs}{ is the number of whole plots and must be a power of 2.
+       If \code{WPs = 1}, all settings for split-plot related options are ignored.}
+  \item{nfac.WP}{ is the number of whole plot factors and must be smaller than \code{WPs}.
+       
+       The \code{nfac.WP} whole plot factors are counted within \code{nfactors}. 
+       If \code{WPfacs} is specified (manual specification of whole plot factors instead 
+       of the default first \code{nfac.WP}), \code{nfac.WP} must be at least \code{log2(WPs)} 
+       in order to support generation of \code{WPs} whole plots.
+       
+       If \code{nfac.WP} is 0 and \code{WPs} > 1, an error is thrown, 
+       because the situation is a block rather than a split-plot situation 
+       (and either it was forgotten to specify 
+       the number of whole plot factors, or blocks should be specified).
+        }
+  \item{WPfacs}{ is per default NULL. In this case, the first \code{nfac.WP} factors are 
+       considered whole plot factors (and are, if necessary, automatically supplemented by 
+       additional whole plot constructor factors). \cr
+       If \code{WPfacs} is specified, \code{nfac.WP} needs to be at least \code{log2(WPs)}, 
+       and \code{WPfacs} must have this many entries. A custom design must be specified 
+       with options \code{design} or \code{generators}, and the requested factors in 
+       \code{WPfacs} must indeed create a split-plot structure with \code{WPs} whole plots. 
+       If the number of whole plots created by the whole plot factors differs from 
+       \code{WPs} or factors other than the specified factors from \code{WPfacs} would 
+       in fact become whole plot factors as well, an error is thrown.
+       
+       \code{WPfacs} can be any of\cr 
+       a vector or list of factor position numbers\cr
+       OR\cr
+       a character vector of factor position letters from \code{\link{Letters}}\cr
+       OR\cr
+       a character vector with entries \dQuote{F} followed by factor position number\cr
+       OR\cr
+       a character vector of factor names (this takes precedence over factor letters, 
+       i.e. if the factor names were B, A, C, D, and E, factor letter entries in the \code{nfac.WP} 
+       are interpreted as factor names, not position letters).\cr
+       It is currently not possible to specify additional whole plot generators 
+       from interaction effects manually through \code{WPfacs}. 
+       Rather, all whole plot factors - even artificial ones needed only to increase the number 
+       of plots - need to be included in the design factors. }
+  \item{check.WPs}{ is the number of potential split-plot designs that are 
+       compared by function \code{splitpick} w.r.t. resolution of the whole plot
+       portion of the design. This option is effective, if \code{nfac.WP>k.WP} 
+       (i.e. bad resolution possible) and nfac.WP not larger than half 
+       the number of plots (i.e. resolution better than III is possible). 
+       The default is 10 - if not satisfied with the structure of the whole plot 
+       factors, a larger choice might help find a better design (but also take 
+       longer run time). }
   \item{\dots}{ currently not used }
 }
 \details{
-  The function works on the basis of the catalogued designs by Chen, Sun and Wu (1993), 
-  which are available as \code{\link{catlg}} (a list object of class \code{catlg}). 
-  The function output is a data frame of class \code{design} and has attributes that can be accessed 
+  Per default, the function works on the basis of automatically-selected catalogued designs. The 
+  default catalogue used is \code{\link{catlg}} (a list object of class \code{catlg}). 
+  The result from function \code{FrF2} is a data frame of class \code{design} 
+  and has attributes that can be accessed 
   by functions \code{\link{desnum}}, \code{\link{run.order}} and \code{\link{design.info}}.
   
+  Alternatively, the user can explicitly specify a design through accessing 
+  a specific catalogued design using the \code{design} option or specifying non-catalogued 
+  generators via the \code{generators} option.
+
+  Apart from generation of simple fractional factorial designs based on catalogued 
+  or non-catalogued generators, function \code{FrF2} allows specification of blocked designs 
+  and split-plot designs, as well as specification of a set of 2fis that are required to be estimable. 
+  The implementation of these possibilities is explained below. 
+
+  \describe{
+  \item{Blocked and split-plot designs}{
+  There are two principal ways to handle blocked and split-plot designs, manual definition 
+  (i.e. the user specifies exactly which columns are to be used for which purpose) and automatic 
+  definition. Each situation has its specifics. These are detailed below. For users with 
+  not so much mathematical/statistical background, it will often be best to use the automatic way, 
+  specifying the treatement factors of interest via \code{nfactors} or \code{factor.names} 
+  and a single number for \code{blocks} or \code{WPs}. 
+  Users with more mathematical background may want to use the manual definitions, perhaps 
+  in conjunction with published catalogues of good block or split-plot designs, or 
+  after inspecting possibilities with functions \code{\link{blockpick}} or \code{\link{splitpick}}.
+  
+  \describe{
+  \item{Manual definition of blocked designs}{
+  The user can start from a design with a number of factors and manually specify which factors or 
+  interactions are to be used as block generators. If this route is chosen, \code{blocks} 
+  can be a vector of factor names or factor letters, or of the same form as generators, except that 
+  not only base factors but all factors can be used and single factors are permitted 
+  (which would lead to resolution II designs if used in generators). For example, \cr
+    \code{block = Letters[c(2,4,5)]} \cr
+  or \cr
+    \code{block = list(2,4,5)} \cr
+  specify that the 2nd, 4th and 5th factor are to be used as block generators, while \cr
+    \code{block = c("Day","Shift")}\cr
+  indicates that the named factors \dQuote{Day} and \dQuote{Shift} specified in \code{factor.names} 
+  are to be treated as blocking factors). In this case, the number of blocks or whole plots is calculated, 
+  and a new factor with the default name \dQuote{Blocks} (in general the name chosen in 
+  option \code{block.name}) is generated, which would for example contain as levels 
+  the Day/Shift combinations. It is also possible to choose interaction effects rather than factors themselves 
+  as block generators, e.g. \cr
+    \code{block = c("ABCD","EFGH") } \cr
+  or\cr
+    \code{block = list(c(1,2,3,4),c(5,6,7,8)) }. \cr
+  The chosen effects and all interactions between them generate the blocks. 
+  CAUTION: If the user manually generates a blocked design, it is his/her responsibility to ensure a 
+  good choice of design (e.g. by using a catalogued design from Bisgaard 1994, 
+  Sun, Wu and Chen 1997, or Cheng and Wu 2002).
+  }
+  \item{Manual definition of split-plot designs}{
+  The user can specify a design with the \code{design} or the \code{generators} option 
+  and specify manually with the \code{WPfacs} option, which factors are whole plot factors 
+  (i.e. factors that do not change within a plot). 
+  The other factors become split-plot factors (i.e. factors that do change within a plot). 
+  If the user chooses this route, \code{WPfacs} must be character vectors of factor names, factor letters, 
+  factor numbers preceded by capital F, or a list of factor position numbers (NOT: Yates column numbers). 
+  Caution: It is the users responsibility to ensure a 
+  good choice of split-plot design (e.g. by using a catalogued design from Huang, Chen and Voelkel 1998, 
+  Bingham and Sitter 2003, or Bingham Schoen and Sitter 2004).
+  In case of a user-mistake such that the resulting design is not a split-plot design with 
+  the alleged number of whole plots, an error is thrown.
+  }
+    \item{Automatic definition of blocked designs}{
+  If the user only specifies the number of blocks required for the experiment, function \code{FrF2} 
+  automatically generates the blocks. For full factorial designs, function \code{FrF2} uses 
+  the Sun, Wu and Chen (1997) catalogue of blocked designs (implemented in function \code{blockpick}). 
+  Otherwise, depending on the size of the problem, 
+  function \code{FrF2} uses function \code{\link{blockpick}} or function \code{\link{blockpick.big}} 
+  for finding an appropriate allocation of block generator columns: 
+  Smaller problems \cr
+  (\code{choose(nruns-1-nfactors,k.block) < 100000}) \cr
+  are treated with \code{\link{blockpick}}. 
+  
+  The search for an appropriate blocked design starts with the best design (in terms of aberration or MaxC2, if requested). 
+  If the best design does not yield an adequate blocking possibility, the search continues with 
+  the next best design and so forth. \cr
+  For the smaller problems, function \code{\link{blockpick}} 
+  looks for \code{k.block} independent subsets among the eligible columns of the design. 
+  (The eligible columns are all columns of the Yates matrix that are not occupied by treatment main effects 
+  (if \code{alias.block.2fis=TRUE}) or all columns of the Yates matrix that are neither occupied 
+  by treatment main effects nor by 2fis among treatments (if \code{alias.block.2fis=FALSE}.) For the larger problems, 
+  function \code{\link{blockpick.big}} permutes the k~base factors of candidate designs with \code{nfactors + k.block} factors 
+  in search of a design the first \code{k.block}~factors of which can be used for block construction. In the latter case, any 
+  specification of design (via options \code{design} or \code{generators}) is ignored. Note that function 
+  \code{\link{blockpick.big}} is not guaranteed to find an existing blocked design.
+  
+  Sun, Wu and Chen (1997) provide a catalogue of blocked designs 
+  with a few quality criteria, and they state that there is no single best design, but that the choice 
+  depends on the situation. \code{FrF2} always comes up with one specific solution design. 
+  Comparisons to the catalogued designs in Sun, Wu and Chen (1997) have shown that 
+  the designs found in \code{FrF2} are often but not always isomorphic to the catalogued ones. 
+  Differences do occur, especially if the base designs are resolution III, or if \code{\link{blockpick.big}} 
+  has to be used. Users who want to be certain to use a \dQuote{best} blocked design should manually 
+  implement a specific catalogued design or inspect several solutions from functions \code{\link{blockpick}} 
+  \code{\link{blockpick.big}}. 
+  }
+  \item{Automatic definition of split-plot designs}{
+  Split-plot designs differ from block designs by the fact that the block main 
+  effects are purely nuisance parameters which are assumed (based on prior knowledge) 
+  to be relevant but are not of interest, while the plots are structured by 
+  \code{nfac.WP} whole plot factors, which are of interest. 
+  The user has to decide on a number of whole plots (\code{WPs}) as well as 
+  the number of whole plot factors \code{nfac.WP}. 
+  If \code{log2(WPs) <= nfac.WP <= WPs-1}, it is obviously in principle possible to accomodate the 
+  desired number of whole plot factors in the desired number of whole plots. If \code{nfac.WP > WPs/2}, 
+  the base design for the split-plot structure has to be of resolution III. Sometimes, 
+  subject matter considerations limit whole plot sizes, and there are only few interesting 
+  whole plot factors, i.e. \code{nfac.WP < log2(WPs)}. 
+  In this case, it is of course nevertheless necessary to 
+  have a total of \code{log2(WPs)} whole plot construction factors; 
+  the missing \code{log2(WPs) - nfac.WP} factors are added 
+  to the design (names starting with \code{WP}), and \code{nfactors} is increased accordingly. 
+  
+  In all cases, the first \code{nfac.WPs} user-specified factors are treated as whole plot factors, the 
+  remaining factors as split-plot factors. 
+  
+  From there, function \code{FrF2} proceeds like in the blocked situation by starting 
+  with the best design and working its way down to worse designs, if the best design cannot 
+  accomodate the desired split-plot structure. For each design, function \code{FrF2} 
+  calls function \code{splitpick}, which permutes base factors until 
+  the requested whole plot / split-plot structure is achieved, or until impossibility for 
+  this design with these base factors has been ascertained. In the latter case, function \code{FrF2} 
+  proceeds to the next best design and so forth. 
+  
+  If several competing split-plot designs based on the same base design exist, 
+  the best possible resolution among the first \code{check.WPs} such designs is chosen. 
+  No further criteria are automatically implemented, and no more than \code{check.WPs} 
+  designs are checked. If not satisfied with the structure of the whole plot portion of the experiment, 
+  increasing \code{check.WPs} vs. the default 10 may help. 
+  Expert users may want to inspect possibilities, 
+  using function \code{\link{splitpick}} directly.
+  
+  Note that the algorithm does not necessarily find an existing split-plot design. 
+  It has been checked out which catalogued designs it can find: designs for all catalogued situations 
+  from Bingham and Sitter (2003) have been found, as well as for most catalogued situations 
+  from Huang, Chen and Voelkel (1998). Occasionally, a better design than catalogued has been found, e.g. 
+  for 4 whole plot and 10 split plot factors in 32 runs with 16 whole plots, the design found by the algorithm 
+  is resolution IV, while Huang, Chen and Voelkel propose a resolution III design. 
+  The algorithm has the largest difficulties with extreme designs in the sense that a large number of 
+  whole plots with a small number of whole plot factors are to be accomodated; thus it does not find designs for 
+  the more extreme situations in Bingham, Schoen and Sitter (2004).
+  }
+  } 
+  }
+  
+  \item{Estimable two-factor interactions (2fis)}{
   The option \code{estimable} allows to specify 2-factor interactions (2fis) that 
   have to be estimable in the model. Per default, it is assumed that a resolution IV 
-  model is intended. With option \code{clear=TRUE}, \code{FrF2} searches for 
+  model is intended. 
+  
+  With option \code{clear=TRUE}, \code{FrF2} searches for 
   a model for which all main effects and all 2fis given in \code{estimable} are 
   clear of aliasing with any other 2fis. This is a weaker requirement than resolution V, 
   because 2fis outside those specified in \code{estimable} may be aliased with 
@@ -194,15 +471,11 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
   order of checking permutations - the initial order of the factors has a strong influence 
   on the run time for larger or unlucky problems. For example, consider 
   an experiment in 32~runs and 11~factors, for six of which the pairwise interactions are to be estimable 
-  (Example 1 in Wu and Chen 1992). \code{estimable} for this model can be specified as 
-  
-  \code{formula(\dQuote{~(F+G+H+J+K+L)^2})} 
-  
-  OR 
-  
-  \code{formula(\dQuote{~(A+B+C+D+E+F)^2})}.
-  
-  The former runs a lot faster than the latter (I have not yet seen the latter finish 
+  (Example 1 in Wu and Chen 1992). \code{estimable} for this model can be specified as \cr
+    \code{formula("~(F+G+H+J+K+L)^2")} \cr
+  OR \cr
+    \code{formula("~(A+B+C+D+E+F)^2")}.\cr
+    The former runs a lot faster than the latter (I have not yet seen the latter finish 
   the first catalogued design, if \code{perms} is not specified). 
   The reason is that the latter needs more permutations of the experiment factors than 
   the former, since the factors with high positions 
@@ -226,12 +499,12 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
   requested interaction terms fast as well, since up to almost 40 Mio permutations of experiment 
   factors are reduced to at most 462. Thus, whenever possible, 
   one should try to limit the permutations necessary in case of \code{clear=FALSE}.
+  }
+  }
   
-  Various improvements to function \code{FrF2} are planned for the coming weeks and months, among others 
-  blocking and split plot facilities (based on further catalogues), and inclusion of four-level factors. 
-  Also, input and output possibilities will be improved.
-  
-  Please contact me with any suggestions.
+  Function \code{FrF2} is still under development, although most features are 
+  now included, and the principle structure of inputs and outputs should not change 
+  much any more. Please contact me with any suggestions for improvements.
 }
 \value{
   Value is a data frame of S3 class \code{\link{design}} with attributes attached. 
@@ -243,29 +516,107 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
        useful for switching back and forth between actual and standard run 
        number}
   \item{design.info }{list with the entries 
-  \itemize{
-  \item{type }{ character string \dQuote{full factorial}, \dQuote{FrF2}, 
-       \dQuote{FrF2.estimable} or \dQuote{FrF2.generators}, depending on the 
-       type of design}
-  \item{catlg.entry }{ for type \code{FrF2} only; 
-       list with one element, which is the entry of \code{catlg} 
-       on which the design is based}
-  \item{gen.display }{ for type \code{FrF2.generators} only; 
-       character vector of generators in the form D=ABC etc.}
-  \item{aliased }{ alias structure of main effects, 2fis and possibly 3fis,
-       depending on the choice of \code{alias.info}; 
-       itself a list the two or three components main, fi2, and optionally fi3}
-  \item{replication }{ option setting in call to \code{FrF2} }
-  \item{repeat.only }{ option setting in call to \code{FrF2} }
-  \item{randomize }{ option setting in call to \code{FrF2} }
-  \item{seed }{ option setting in call to \code{FrF2} }
-       }
+  \describe{
+    \item{type }{ character string \dQuote{full factorial}, \dQuote{FrF2}, 
+         \dQuote{FrF2.estimable}, \dQuote{FrF2.generators}, \dQuote{FrF2.blocked} 
+         or \dQuote{FrF2.splitplot} depending on the 
+         type of design}
+    \item{nruns }{ number of runs (replications are not counted) }
+    \item{nfactors }{ number of factors; 
+         not for designs of type \code{FrF2.blocked}, 
+         where \code{ntreat} takes this role, and for designs of type 
+         \code{FrF2.splitplot}, where \code{nfac.WP} and \code{nfac.SP} 
+         together take this role}
+    \item{ntreat }{ for designs of type \code{FrF2.blocked} only; \cr
+         number of treatment factors }
+    \item{nfac.WP }{ for designs of type \code{FrF2.splitplot} only; \cr
+         number of whole plot factors (including extra factors that may have been 
+         added for whole plot construction); these are the first factors in the 
+         design data frame }
+    \item{nfac.SP }{ for designs of type \code{FrF2.splitplot} only; \cr
+         number of split-plot factors }
+    \item{nlevels}{for designs of type \code{full factorial} only; \cr
+         vector with number of levels for each factor 
+         (of course, all the \code{nfactors} entries are \dQuote{2} for \code{FrF2})}
+    \item{factor.names }{ list named with (treatment) factor names and containing as 
+         entries vectors of length two each with coded factor levels }
+    \item{nblocks}{for designs of type \code{FrF2.blocked} only; \cr
+         number of blocks}
+    \item{blocksize}{for designs of type \code{FrF2.blocked} only; \cr
+         size of each block (without consideration of \code{wbreps})}
+    \item{nWPs}{for designs of type \code{FrF2.splitplot} only; \cr
+         number of whole plots}
+    \item{plotsize}{for designs of type \code{FrF2.splitplot} only; \cr
+         size of each plot (without consideration of repeat.only replications if applicable)}
+    \item{catlg.entry }{ for designs of type \code{FrF2} only; \cr
+         list with one element, which is the entry of \code{catlg} 
+         on which the design is based}
+    \item{gen.display }{ for designs of type \code{FrF2.generators} only; \cr
+         character vector of generators in the form D=ABC etc.}
+    \item{base.design }{ for designs of type \code{FrF2.blocked} or \code{FrF2.splitplot} only; \cr
+         gives a character string that contains the name of the base design 
+         in the catalogue or the column numbers of generating columns in Yates matrix; 
+         in case of automatic block generation, the exclusion or inclusion of \code{k.block} 
+         in the number of design factors / generators 
+         indicates whether the design was generated using function 
+         \code{\link{blockpick}} or \code{\link{blockpick.big}}.}
+    \item{aliased.with.blocks }{ for designs of type \code{FrF2.blocked} only; \cr
+         treatment effects that are aliased with block main effects,
+         up to 2fis or 3fis, depending on the choice of \code{alias.info}}
+    \item{aliased }{ alias structure of main effects, 2fis and possibly 3fis,
+         depending on the choice of \code{alias.info}; 
+         For non-blocked and non-split-plot designs, \code{aliased} is 
+         itself a list of the two or three components main, fi2, and optionally fi3, given 
+         in terms of factor letters from \code{\link{Letters}} (up to 50~factors) 
+         or \code{F1}, \code{F2}, and so forth (more than 50~factors). 
+         For blocked and split-plot designs, \code{aliased} is a single list 
+         with an entry for each column of the Yates matrix that accomodates 
+         aliased low-order effects, and entries are in terms of factor names.)}
+    \item{replication }{ option setting in call to \code{FrF2} }
+    \item{repeat.only }{ option setting in call to \code{FrF2} }
+    \item{bbreps}{for designs of type \code{FrF2.blocked} only; 
+         number of between block replications}
+    \item{wbreps}{for designs of type \code{FrF2.blocked} only; 
+         number of within block replications;\cr
+         \code{repeat.only} indicates whether these are replications or repetitions only}
+    \item{randomize }{ option setting in call to \code{FrF2} }
+    \item{seed }{ option setting in call to \code{FrF2} }
+         }
        }
 }
 \references{
+Bingham, D.R., Schoen, E.D. and Sitter, R.R. (2004). 
+Designing Fractional Factorial Split-Plot Experiments with Few Whole-Plot Factors. 
+\emph{Applied Statistics} \bold{53}, 325-339.
+
+Bingham, D. and Sitter, R.R. (2003). Fractional Factorial Split-Plot Designs
+for Robust Parameter Experiments. \emph{Technometrics} \bold{45}, 80-89.
+
+Bisgaard, S. (1994a). Blocking generators for small 2\^(k-p) designs. 
+\emph{J. Quality Technology} \bold{26}, 288-294.
+
 Chen, J., Sun, D.X. and Wu, C.F.J. (1993) 
 A catalogue of 2-level and 3-level orthogonal arrays. 
 \emph{International Statistical Review} \bold{61}, 131-145. 
+
+Cheng, C.-S., Martin, R.J., and Tang, B. (1998). 
+Two-level factorial designs with extreme numbers of level changes. \emph{Annals of Statistics} 
+\bold{26}, 1522-1539.
+
+Cheng, C.-S. and Tsai, P.-W. (2009). 
+Optimal two-level regular fractional factorial block and split-plot designs. 
+\emph{Biometrika} \bold{96}, 83-93.
+
+Cheng, S.W. and Wu, C.F.J. (2002). 
+Choice of optimal blocking schemes in 2-level and 3-level designs. 
+\emph{Technometrics} \bold{44}, 269-277. 
+
+Huang, P., Chen, D. and Voelkel, J.O. (1998). Minimum-Aberration Two-Level Split-Plot Designs. 
+\emph{Technometrics} \bold{40}, 314-326. 
+
+Sun, D.X., Wu, C.F.J. and Chen, Y.Y. (1997). 
+Optimal blocking schemes for 2\^p and 2\^(n-p) designs. \emph{Technometrics} \bold{39}, 
+298-307. 
 
 Wu, C.F.J. and Chen, Y. (1992) 
 A graph-aided method for planning two-level experiments when certain interactions 
@@ -321,7 +672,71 @@ run.order(FrF2(8,4,replication=2,repeat.only=TRUE,randomize=FALSE))
 run.order(FrF2(8,4,replication=2))
 run.order(FrF2(8,4,replication=2,repeat.only=TRUE))
 
-## usage of estimable
+########## automatic blocked designs ###################
+## from a full factorial ##
+FrF2(8,3,blocks=2)
+## with replication
+run.order(FrF2(8,3,blocks=2,wbreps=2))
+run.order(FrF2(8,3,blocks=2,wbreps=2,repeat.only=TRUE))
+run.order(FrF2(8,3,blocks=2,bbreps=2))
+run.order(FrF2(8,3,blocks=2,bbreps=2,wbreps=2))
+
+## automatic blocked design with fractions
+FrF2(16,7,blocks=4,alias.block.2fis=TRUE)
+## isomorphic non-catalogued design as basis
+FrF2(16,gen=c(7,11,14),blocks=4,alias.block.2fis=TRUE)
+## FrF2 uses blockpick.big and ignores the generator
+FrF2(64,gen=c(7,11,14),blocks=16,alias.block.2fis=TRUE)
+
+########## manual blocked design ####################
+### example that shows why order of blocks is not randomized
+### can of course be randomized by user, if appropriate
+FrF2(32,9,blocks=c("Day","Shift"),alias.block.2fis=TRUE, 
+    factor.names=list(Day=c("Wednesday","Thursday"), Shift=c("Morning","Afternoon"),
+        F1="",F2="",F3="",F4="",F5="",F6="",F7=""), default.levels=c("current","new"))
+
+########## hard to change factors ####################
+## example from Bingham and Sitter Technometrics 19999
+## MotorSpeed, FeedMode,FeedSizing,MaterialType are hard to change
+BS.ex <- FrF2(16,7,hard=4,
+     factor.names=c("MotorSpeed", "FeedMode","FeedSizing","MaterialType",
+                  "Gain","ScreenAngle","ScreenVibLevel"), 
+     default.levels=c("-","+"),randomize=FALSE)
+design.info(BS.ex)
+BS.ex
+## NOTE: the design has 8 whole plots.
+## If randomize=FALSE is used like here, the first hard-to-change factors 
+## do not always change between whole plots. 
+## A conscious and honest decision is required whether this is 
+##    acceptable for the situation at hand!
+## randomize=TRUE would cause more changes in the first four factors.
+
+########## automatic generation for split plot ##########
+## 3 control factors, 5 noise factors, control factors are whole plot factors
+## 8 plots desired in a total of 32 runs
+## Bingham Sitter 2003
+BS.ex2a <- FrF2(32, 8, WPs=8, nfac.WP=3, 
+      factor.names=c(paste("C",1:3,sep=""), paste("N",1:5,sep="")),randomize=TRUE)
+
+## manual generation of this same design
+BS.ex2m <- FrF2(32, 8, generators=c("ABD","ACD","BCDE"),WPs=8, WPfacs=c("C1","C2","C3"), nfac.WP=3, 
+      factor.names=c(paste("C",1:3,sep=""),paste("N",1:5,sep="")),randomize=TRUE)
+
+## design with few whole plot factors
+## 2 whole plot factors, 7 split plot factors
+## 8 whole plots, i.e. one extra WP factor needed
+BSS.cheese.exa <- FrF2(32, 9, WPs=8, nfac.WP=2, 
+      factor.names=c("A","B","p","q","r","s","t","u","v"))
+design.info(BSS.cheese.exa)
+## manual generation of the design used by Bingham, Schoen and Sitter
+## note that the generators include a generator for the 10th spplitting factor
+    ## s= ABq, t = Apq, u = ABpr and v = Aqr, splitting factor rho=Apqr
+BSS.cheese.exm <- FrF2(32, gen=list(c(1,2,4),c(1,3,4),c(1,2,3,5),c(1,4,5),c(1,3,4,5)), 
+      WPs=8, nfac.WP=3, WPfacs=c(1,2,10),
+      factor.names=c("A","B","p","q","r","s","t","u","v","rho"))
+design.info(BSS.cheese.exm)
+
+########## usage of estimable ###########################
   ## design with all 2fis of factor A estimable on distinct columns in 16 runs
   FrF2(16, nfactors=6, estimable = rbind(rep(1,5),2:6), clear=FALSE)
   FrF2(16, nfactors=6, estimable = c("AB","AC","AD","AE","AF"), clear=FALSE)

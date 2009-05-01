@@ -79,8 +79,15 @@ pb.list
        number}
   \item{design.info }{list with entries   
   \itemize{
-  \item{type }{ character string \dQuote{pb}, except for 8~runs with up to 
+        \item{type }{ character string \dQuote{pb}, except for 8~runs with up to 
            4~factors, for which a type \dQuote{FrF2} design is output}
+        \item{nruns }{ number of runs (replications are not counted) }
+        \item{nfactors }{ number of factors; not for designs of type \code{FrF2.blocked}, 
+           where \code{ntreat} takes this role}
+        \item{ntreat }{ for designs of type \code{FrF2.blocked} only; \cr
+           number of treatment factors }
+        \item{factor.names }{ list named with (treatment) factor names and containing as 
+           entries vectors of length two each with coded factor levels }
        \item{replication }{ option setting in call to \code{pb} }
        \item{repeat.only }{ option setting in call to \code{pb} }
        \item{randomize }{ option setting in call to \code{pb} }
