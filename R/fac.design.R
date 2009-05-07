@@ -72,8 +72,14 @@ fac.design <- function(nlevels=NULL, nfactors=NULL, factor.names = NULL,
                   rand.ord[((i-1)*nrow(design)+1):(i*nrow(design))] <- sample(nrow(design))
       if (randomize & repeat.only) rand.ord <- rep(sample(1:nrow(design)), each=replications)
       aus <- design[rand.ord,]
+      orig.no <- orig.no.rp <- rownames(aus)
+      if (replications>1) {
+           if (repeat.only) orig.no.rp <- paste(orig.no.rp,rep(1:replications,nruns),sep=".")
+           else orig.no.rp <- paste(orig.no.rp,rep(1:replications,each=nruns),sep=".")
+        }
+
       attr(aus,"desnum") <- desnum[rand.ord,]
-      attr(aus,"run.order") <- cbind("run.no.in.std.order"=rand.ord,"run.no"=1:nrow(aus))
+      attr(aus,"run.order") <- data.frame("run.no.in.std.order"=orig.no,"run.no"=1:nrow(aus),"run.no.std.rp"=orig.no.rp)
       attr(aus,"design.info") <- list(type="full factorial", 
           nruns=nruns, nfactors=nfactors, nlevels=nlevels, factor.names=factor.names,
           replications=replications, repeat.only=repeat.only, 

@@ -511,8 +511,10 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
   The data frame itself contains the design with levels coded as requested.
   The following attributes are attached to it: 
   \item{desnum }{Design matrix in -1/1 coding}
-  \item{run.order }{two column matrix, first columns contains the run number in 
-       standard order, second column the run number as randomized;
+  \item{run.order }{three column data frame, first column contains the run number in 
+       standard order, second column the run number as randomized, third column the 
+       run number with replication number as postfix (in blocked designs, there may be 
+       two postfixes for within and between block replications);
        useful for switching back and forth between actual and standard run 
        number}
   \item{design.info }{list with the entries 

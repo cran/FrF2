@@ -4,6 +4,21 @@ The package is currently under intensive development.
 Most features have now been created, but there may still 
 be some changes. Suggestions and bug reports are very welcome.
 
+Version 0.92-2, 07/05/2009
+   Bug fixes
+   - blockpick.big displayed wrong information about which effects 
+     are aliased with blocks; corrected; 
+     this bug only affected direct use of function blockpick.big
+     and did not affect any automatic calculations within FrF2, 
+     alias information in design.info attribute was always correct.
+   - replication information attached to run order also for full factorial 
+     designs and Plackett-Burman designs (functions fac.design (used by FrF2) 
+     and pb)
+   - corrected documentation of class design and functions pb and 
+     FrF2 regarding the run.order attribute of class design output 
+     (from 2-column matrix to 3-column data frame 
+     with third column including replication information)
+
 Version 0.92-1, 01/05/2009
    Bug fixes
    - hard to change factor number equal to nfactors gave indexing error;

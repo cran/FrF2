@@ -107,8 +107,8 @@ blockpick.big <- function(k, gen, k.block, design=NULL, show=10, alias.block.2fi
         for (i in 1:show) {
                        treats <- c(2^(k.block:(k-1)),ergeb[pick[i],])
                        hilf <- outer(treats,treats,
-                                      function(X,Y) as.integer((reord(digitsBase(X,ndigits=k),invperm(perm[i,])) + 
-                                                                reord(digitsBase(Y,ndigits=k),invperm(perm[i,]))) %% 2)) 
+                                      function(X,Y) as.integer((digitsBase(X,ndigits=k) + 
+                                                                digitsBase(Y,ndigits=k)) %% 2)) 
                        hilf <- hilf[upper.tri(hilf)]
                        alias.2fis.block[[i]] <- nam2fis[hilf<blocks]
         }

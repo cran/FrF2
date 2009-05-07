@@ -107,7 +107,11 @@ pb <- function(nruns,nfactors=nruns-1,
     colnames(sel) <- names(factor.names)
     rownames(sel) <- 1:nruns
     sel <- sel[rand.ord,]
-    orig.no <- rownames(sel)
+    orig.no <- orig.no.rp <- rownames(sel)
+    if (replications>1) {
+        if (repeat.only) orig.no.rp <- paste(orig.no.rp,rep(1:replications,nruns),sep=".")
+        else orig.no.rp <- paste(orig.no.rp,rep(1:replications,each=nruns),sep=".")
+        }
     rownames(sel) <- 1:(nruns*replications)
     desdf <- data.frame(sel)
     for (i in 1:nfactors) {
@@ -120,7 +124,7 @@ pb <- function(nruns,nfactors=nruns-1,
     if (nruns>8 | nfactors>4)
     aus <- desdf
     attr(aus,"desnum") <- sel
-    attr(aus,"run.order") <- cbind("run.no.in.std.order"=rand.ord,"run.no"=1:nrow(sel))
+    attr(aus,"run.order") <- data.frame("run.no.in.std.order"=orig.no,"run.no"=1:nrow(sel),"run.no.std.rp"=orig.no.rp)
     attr(aus,"design.info") <- list(type="pb", 
          nruns=nruns, nfactors=nfactors, factor.names=factor.names,
          replications=replications, repeat.only=repeat.only,

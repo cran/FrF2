@@ -53,7 +53,8 @@ ord(matrix, decreasing=FALSE)
 }
 \value{
     \item{desnum}{returns a numeric matrix,}
-    \item{run.order}{returns a 2-column matrix with standard and actual run order,}
+    \item{run.order}{returns a 3-column data frame with standard and actual run order 
+         as well as a run order with replication identifiers attached,}
     \item{design.info}{returns a list with first element \code{type}, 
         further info on the design, and some options of the design call regarding 
         randomization and replication}
