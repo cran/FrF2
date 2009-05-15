@@ -4,6 +4,15 @@ The package is currently under intensive development.
 Most features have now been created, but there may still 
 be some changes. Suggestions and bug reports are very welcome.
 
+Version 0.92-4, 15/05/2009
+   Bugfixes and small changes regarding row numbering
+   - third column of run.order for blocked designs was wrong
+   - added original row number of design to columns 1 and 3 of run.order in case 
+     of blocked and split-plot designs
+   - row numbers of design itself and attribute desnum unified to always be the numbering 
+     from 1 to number of rows (i.e. second column of 
+     attribute run.order) regardless of design
+
 Version 0.92-2, 07/05/2009
    Bug fixes
    - blockpick.big displayed wrong information about which effects 

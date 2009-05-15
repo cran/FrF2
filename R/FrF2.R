@@ -560,29 +560,29 @@ else {
                     }
           }
       }          
-
+    orig.no <- rownames(desmat)
+    orig.no <- orig.no[rand.ord]
+    rownames(desmat) <- NULL
     desmat <- desmat[rand.ord,]
-    
-    
+        
     if (is.list(blocks)) {
               Blocks <- Blocks[rand.ord]
               block.no <- block.no[rand.ord]
               }
     if (WPs > 1) wp.no <- wp.no[rand.ord]
-    colnames(desmat) <- names(factor.names)
-    orig.no <- rownames(desmat)
-    ## adapt original number to replications
-    if (is.list(blocks)) orig.no <- block.no
-    if (WPs > 1) orig.no <- wp.no
-    orig.no.rp <- orig.no
-    if (bbreps * wbreps > 1){
+      colnames(desmat) <- names(factor.names)
+      ## adapt original number to replications
+      if (is.list(blocks)) orig.no <- paste(orig.no,block.no,sep=".")
+      if (WPs > 1) orig.no <- paste(orig.no,wp.no,sep=".")
+      orig.no.rp <- orig.no
+      if (bbreps * wbreps > 1){
            if (bbreps > 1) {
                 ## !repeat.only covers all blocked cases and the repeat.only standard cases
                 ## since bbreps stands in for replications
-                if (repeat.only)
-                orig.no.rp <- paste(orig.no.rp, rep(1:bbreps,nruns*wbreps),sep=".")
+                if (repeat.only & !is.list(blocks))
+                orig.no.rp <- paste(orig.no.rp, rep(1:bbreps,nruns),sep=".")
                 else
-                orig.no.rp <- paste(orig.no.rp, rep(1:bbreps,each=nruns),sep=".")
+                orig.no.rp <- paste(orig.no.rp, rep(1:bbreps,each=nruns*wbreps),sep=".")
            }
            if (wbreps > 1){
                 ## blocked with within block replications
@@ -591,24 +591,7 @@ else {
                 else orig.no.rp <- paste(orig.no.rp, rep(1:wbreps,each=blocksize,nblocks*bbreps),sep=".")
            }
     }
-    rownames(desmat) <- orig.no.rp   ## without blocks, replications=bbreps
 
-#    if (is.list(blocks)) {
-#         if (repeat.only)
-#         rn <- paste(Blocks,rep(1:blocksize,each=wbreps,nblocks*bbreps),
-#                     rep(1:bbreps,each=nruns*wbreps),rep(1:wbreps,nruns*bbreps),sep=".")
-#         else 
-#         rn <- paste(Blocks,rep(1:blocksize,nblocks*bbreps*wbreps),
-#                     rep(1:bbreps,each=nruns*wbreps),rep(1:wbreps,each=blocksize,nblocks*bbreps),sep=".")
-#         rownames(desmat) <- rn
-#         }
-#    if (WPs > 1) {
-#                if (repeat.only) rownames(desmat) <- paste(rep(1:WPs,each=plotsize*replications),
-#                           rep(1:plotsize,each=replications,WPs),rep(1:replications,WPs*plotsize),sep=".")
-#                    else rownames(desmat) <- paste( rep(1:WPs,each=plotsize,replications),
-#                           rep(1:plotsize,WPs*replications),rep(1:replications,each=WPs*plotsize),sep=".")
-#           }
-    
     desdf <- data.frame(desmat)
     for (i in 1:nfactors) {
         desdf[,i] <- des.recode(desdf[,i],"-1=factor.names[[i]][1];1=factor.names[[i]][2]") 
@@ -719,6 +702,7 @@ else {
                aliased = alias3fi(k,generators,order=alias.info))
          }
     aus <- desdf
+      rownames(aus) <- rownames(desmat) <- 1:nrow(aus)
     attr(aus,"desnum") <- desmat
     attr(aus,"run.order") <- data.frame("run.no.in.std.order"=orig.no,"run.no"=1:nrow(desmat),"run.no.std.rp"=orig.no.rp)
     attr(aus,"design.info") <- c(design.info, replications=replications, repeat.only=repeat.only,

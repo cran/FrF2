@@ -123,6 +123,8 @@ pb <- function(nruns,nfactors=nruns-1,
         }
     if (nruns>8 | nfactors>4)
     aus <- desdf
+    rownames(aus) <- rownames(sel) <- 1:nrow(aus)
+
     attr(aus,"desnum") <- sel
     attr(aus,"run.order") <- data.frame("run.no.in.std.order"=orig.no,"run.no"=1:nrow(sel),"run.no.std.rp"=orig.no.rp)
     attr(aus,"design.info") <- list(type="pb", 

@@ -1,11 +1,10 @@
 ## full factorials of all kinds
-## error checking not yet done
 
 ## eventually in the wrapper package
 
 fac.design <- function(nlevels=NULL, nfactors=NULL, factor.names = NULL, 
         replications=1, repeat.only = FALSE, randomize=TRUE, seed=NULL){
-        ## nlevels either length 1 (if all equal) or numeric vector of length nafactors, 
+        ## nlevels either length 1 (if all equal) or numeric vector of length nfactors, 
         ## factor.names analogous to FrF2 (character vector or named list of levels)
 
         ## vector version of nlevels is sufficient
@@ -65,6 +64,7 @@ fac.design <- function(nlevels=NULL, nfactors=NULL, factor.names = NULL,
                  desnum <- as.matrix(expand.grid(factor.names))
                  row.names(desnum) <- 1:nrow(design) 
              } else desnum <- NULL
+
       rand.ord <- rep(1:nrow(design),replications)
       if (replications > 1 & repeat.only) rand.ord <- rep(1:nrow(design),each=replications)
       if (randomize & !is.null(seed)) set.seed(seed)
@@ -78,7 +78,11 @@ fac.design <- function(nlevels=NULL, nfactors=NULL, factor.names = NULL,
            else orig.no.rp <- paste(orig.no.rp,rep(1:replications,each=nruns),sep=".")
         }
 
-      attr(aus,"desnum") <- desnum[rand.ord,]
+      if (is.null(desnum)) desnum <- model.matrix(lm(1:nrow(aus)~.,data=aus)) else
+           desnum <- desnum[rand.ord,]
+      rownames(aus) <- rownames(desnum) <- 1:nrow(aus)
+
+      attr(aus,"desnum") <- desnum
       attr(aus,"run.order") <- data.frame("run.no.in.std.order"=orig.no,"run.no"=1:nrow(aus),"run.no.std.rp"=orig.no.rp)
       attr(aus,"design.info") <- list(type="full factorial", 
           nruns=nruns, nfactors=nfactors, nlevels=nlevels, factor.names=factor.names,
