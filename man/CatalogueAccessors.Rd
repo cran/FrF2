@@ -91,17 +91,16 @@ block.catlg
   obtained by evaluating designs from the complete catalogue by Xu (2009, catalogue on his website),
   for 25 to 64 factors taken from Block and Mee (2005, with corrigendum 2006)
   
-  \item all resolution V designs in 256 and 512 runs, all resolution VI designs in 1024 runs, 
-  all resolution VII designs in 2048 runs and all resolution VIII designs in 4096 runs, 
-  as provided by Xu (2009) on his website
+  \item the best (MA) resolution V design for each number of factors in 256 and 512 runs, 
+  the best resolution VI design for each number of factors in 1024 runs, 
+  the best resolution VII design for each number of factors  in 2048 runs 
+  and the best resolution VIII design each number of factors in 4096 runs. 
+  These are taken from the website of Xu (2009), where complete catalogues of these designs 
+  are provided. 
   }
   
-  Further designs may eventually be added to the catalogue \code{catlg}, 
-  e.g. the \dQuote{good designs} provided by Xu (2009). 
-  The complete catalogue of 128 run resolution IV designs with up to 24 factors is available for 
-  download on the author's website (beware, the file is very large). 
-  It (or preferrably parts of it) can be used with the functions 
-  in package \pkg{FrF2}.
+  It is planned to extend the availability of large designs in catalogue \code{catlg}, e.g. by 
+  adding good resolution IV designs of 256 runs or other \dQuote{good designs} provided by Xu (2009). 
 }
 
 \value{

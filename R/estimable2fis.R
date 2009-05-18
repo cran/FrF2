@@ -234,6 +234,7 @@ estimable.check <- function(estimable,nfac,factor.names){
     ## function to check validity of estimable entries
     ## returns estimable in matrix form
     ## in case of formula, factor.names is used for making sure that correct factors are picked
+    if (is.character(factor.names)) fn <- factor.names else fn <- names(factor.names)
     if (!(is.matrix(estimable) | inherits(estimable,"formula") | is.character(estimable)))
          stop("estimable must be a numeric matrix with two rows or a formula or a character vector with length two entries")
     if (is.character(estimable)){
@@ -256,7 +257,7 @@ estimable.check <- function(estimable,nfac,factor.names){
           ### implement comparison to factor.names ###
           hilf <- row.names(attr(terms(formula(estimable)),"factors"))
           hilf2 <- 1:length(hilf)
-          if (!length(setdiff(hilf,names(factor.names)))==0){
+          if (!length(setdiff(hilf,fn))==0){
                  if (!length(setdiff(hilf,Letters))==0)
                       stop("formula must refer to elements of Letters or to factor names.")
                  if (!is.null(nfac)) if (!length(setdiff(hilf,Letters[1:nfac]))==0)
@@ -267,7 +268,7 @@ estimable.check <- function(estimable,nfac,factor.names){
           }
           else { 
                  for (i in 1:length(hilf)){
-                     hilf2[i] <- which(names(factor.names) == hilf[i])
+                     hilf2[i] <- which(fn == hilf[i])
                      ## nfac is known from factor.names
                }
           }

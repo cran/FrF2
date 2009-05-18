@@ -750,6 +750,17 @@ design.info(BSS.cheese.exm)
   ## estimable does not need any other input
   FrF2(estimable=formula("~(A+B+C)^2+D+E"))
 
+  ## estimable with factor names 
+  ## resolution three must be permitted, as FrF2 first determines that 8 runs 
+  ##     would be sufficient degrees of freedom to estimate all effects 
+  ##     and then tries to accomodate the 2fis from the model clear of aliasing in 8 runs
+  FrF2(estimable=formula("~one+two+three+four+two:three+two:four"), 
+       factor.names=c("one","two","three","four"), res3=TRUE)
+  ## clear=FALSE allows to allocate all effects on distinct columns in the 
+  ##     8 run MA resolution IV design
+  FrF2(estimable=formula("~one+two+three+four+two:three+two:four"), 
+       factor.names=c("one","two","three","four"), clear=FALSE)
+
   ## 7 factors instead of 6, but no requirements for factor G
   FrF2(16, nfactors=7, estimable = formula("~A+B+C+D+E+F+A:(B+C+D+E+F)"), 
        clear=FALSE)

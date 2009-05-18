@@ -31,7 +31,7 @@ fac.design <- function(nlevels=NULL, nfactors=NULL, factor.names = NULL,
              stop("If factor.names does not specify the factor levels, nlevels must be given!")
       if (is.null(nlevels) & is.list(factor.names)) if (!min(hilf <- sapply(factor.names,length))>1) 
              stop("If factor.names does not specify the levels for all factors, nlevels must be given!")
-      if (!(is.null(nlevels) | is.null(nfactors))) if (length(nlevels)>1 & nfactors==length(nlevels))
+      if (!(is.null(nlevels) | is.null(nfactors))) if (length(nlevels)>1 & !nfactors==length(nlevels))
                           stop("nfactors does not match the length of nlevels.")
       if (is.null(nlevels)) {nlevels <- hilf
                       if (!is.null(nfactors)) if (!length(nfactors)==length(nlevels))

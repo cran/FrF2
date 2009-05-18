@@ -4,6 +4,19 @@ The package is currently under intensive development.
 Most features have now been created, but there may still 
 be some changes. Suggestions and bug reports are very welcome.
 
+Version 0.92-5, 18/05/2009
+   Bugfixes 
+   - simultaneous specification of nfactors and nlevels of length > 1 did not work 
+     in internal function fac.design;
+     this was not relevant for FrF2, but nevertheless wrong
+   - estimable did not work with a formula using factor names rather than factor letters;
+     this has been fixed, and an example with this feature has been added
+   - catalogue catlg currently contains only one design each for large resolution V+ 
+     situations (256 runs and more). The documentation of this aspect has been corrected.
+   - deleted wrong statement in the documentation, that the complete catalogue of 
+     128 run resolution IV designs with up to 24 factors is downloadable from the 
+     authors website (it is simply too large and could not be uploaded)
+
 Version 0.92-4, 15/05/2009
    Bugfixes and small changes regarding row numbering
    - third column of run.order for blocked designs was wrong
