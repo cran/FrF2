@@ -69,7 +69,7 @@ pb.list
   It is recommended to use the 12~run design instead for screening more than 4~factors. 
 }
 \value{
-  Value is a data frame of S3 class \code{\link{design}} with attributes attached. 
+  Value is a data frame of S3 class \code{design} with attributes attached. 
   The data frame itself contains the design with levels coded as requested.
   The following attributes are attached to it:
   \item{desnum }{Design matrix in -1/1 coding}

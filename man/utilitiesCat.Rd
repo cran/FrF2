@@ -3,7 +3,6 @@
 \alias{mult.gen.a}
 \alias{words.all}
 \alias{alias3fi}
-\alias{fac.design}
 \alias{gen.check}
 \alias{estimable.check}
 \alias{mapcalc}
@@ -16,22 +15,19 @@
 \alias{getNext}
 \alias{estimable}
 \alias{Yates}
-\alias{Letters}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{ ~~ Internal utility functions and user-visible constants for working with regular fractional factorials ~~ }
+\title{ ~~ Internal utility functions and a user-visible constant for working with regular fractional factorials ~~ }
 \description{
   ~~ Internal functions, mainly for deriving words, alias structures and so forth from catalogue information for regular 2-level fractional factorials. 
   They need not be accessed for normal use of the package - some of them may be made user-usable for future versions of the package. 
   
-  The constants Yates and Letters are user-visible, as they can be useful for expert users. ~~
+  The constant Yates is user-visible, as it can be useful for expert users. ~~
 }
 \usage{
 mult.gen(liste) 
 mult.gen.a(string.vec,sep="")
 words.all(k, gen, design = NULL, max.length=7, select.catlg = catlg)
 alias3fi(k, gen, order = 3)
-fac.design(nlevels=NULL, nfactors=NULL, factor.names = NULL, 
-        replications=1, repeat.only = FALSE, randomize=TRUE, seed=NULL)
 gen.check(k, gen)
 estimable.check(estimable, nfac, factor.names)
 estimable(estimable, nfac, nruns, clear=FALSE, res3=FALSE, max.time=60, 
@@ -50,7 +46,6 @@ check.subisomorphic.matrix(estimable, nfac, hilf2, hilf3=NULL,
     begin_time=Sys.time(), name=NA, perms=perms)
 getNext(perm)
 Yates
-Letters
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -64,15 +59,10 @@ Letters
   \item{max.length}{ the maximum word length to be calculated for the words list; in large design, choosing this to be 4 or 5 may substantially speed things up! }
   \item{select.catlg}{ catalogue of fractional factorial 2-level designs of class \code{catlg} }
   \item{order}{ 2 or 3, order of interactions to be shown }
-  \item{nlevels}{ number(s) of levels, vector with \code{nfactors} entries or single number }
-  \item{nfactors}{ like in \code{\link{FrF2}} }
-  \item{factor.names}{ like in \code{\link{FrF2}} }
-  \item{replications}{ like in \code{\link{FrF2}} }
-  \item{repeat.only}{ like in \code{\link{FrF2}} }
-  \item{randomize}{ like in \code{\link{FrF2}} }
-  \item{seed}{ like in \code{\link{FrF2}} }
   \item{estimable}{ like in \code{\link{FrF2}} }
   \item{nfac}{ number of factors, like \code{nfactors} in \code{\link{FrF2}} }
+  \item{factor.names}{ a named list with \code{nfac} elements, 
+      for which the names represent factor names }
   \item{nruns}{ like in \code{\link{FrF2}} }
   \item{clear}{ like in \code{\link{FrF2}} }
   \item{res3}{ like in \code{\link{FrF2}} }
@@ -91,28 +81,17 @@ Letters
                next permutation in lexicographic order }
 }
 \details{
-   \code{Yates} and \code{Letters} are user-visible constants that are useful in design construction: 
+   \code{Yates} is a user-visible constant that is useful in design construction: 
    
        \code{Yates} is a list of design column generators in Yates order (for 4096 runs), e.g. \code{Yates[1:8]} is identical to 
        
        \code{list(1,2,c(1,2),3,c(1,3),c(2,3),c(1,2,3))}.
        
-       \code{Letters} is the vector of all capital and lower case letters of the Roman alphabet except \code{I} and \code{i}. 
-       It is used for default factor names and has been obtained as 
-       
-       \code{Letters <- c(LETTERS[-9],letters[-9])}.
-   
-   \code{fac.design} is currently not exported but will eventually be part of another package 
-   for general DoE functionality. It creates full factorial designs of all kinds, but has currently only 
-   been tested for 2-level fractional factorials.
 }
 \value{
     \code{mult.gen} and \code{mult.gen.a} determine a new word as the product of the argument words (numeric vector or character string respectively), 
     \code{words.all} calculates a word list object with word length pattern, the word list itself and a max.length entry, 
     \code{alias3fi} calculates an alias pattern based on the structure of the design (less demanding than the word list approach.
-    
-    \code{fac.design} determines a general full factorial and will be made available for that purpose in the future more generally. 
-    It returns a data frame of S3 class \code{\link{design}} with attributes attached. 
     
     \code{gen.check} produces a list of vectors with integers from 1 to k for denoting the generators, 
     which may have come as a vector of factor letter combinations or a vector of column numbers in Yates order,
@@ -122,7 +101,7 @@ Letters
     function \code{estimable} calculates the appropriate design if a certain effects have been requested to be estimable, and 
     all subsequent functions are auxiliary functions to function \code{estimable}.
     
-   \code{Yates} and \code{Letters} are user-visible constants (cf. details section). 
+   \code{Yates} is a user-visible constant (cf. details section). 
 }
 \references{ 
   Hedayat, A.S., Sloane, N.J.A. and Stufken, J. (1999) \emph{Orthogonal Arrays: Theory and Applications}, Springer, New York. 

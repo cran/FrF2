@@ -123,7 +123,8 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
         a numeric matrix with two rows, each column of which indicates one interaction,
         e.g. column 1 3 for interaction of the first with the third factor\cr
         OR\cr
-        a character vector containing strings of length 2 with capital letters from \code{\link{Letters}} 
+        a character vector containing strings of length 2 with capital letters from \code{Letters} 
+        (cf. package \pkg{DoE.base})
         for the first 25 factors and small letters for the last 25 (e.g. \code{c(\"AB\",\"BE\")} \cr
         OR\cr
         a formula that contains an adequate model formula, e.g. \cr
@@ -265,7 +266,7 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
        \code{WPfacs} can be any of\cr 
        a vector or list of factor position numbers\cr
        OR\cr
-       a character vector of factor position letters from \code{\link{Letters}}\cr
+       a character vector of factor position letters from \code{Letters}\cr
        OR\cr
        a character vector with entries \dQuote{F} followed by factor position number\cr
        OR\cr
@@ -291,7 +292,7 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
   default catalogue used is \code{\link{catlg}} (a list object of class \code{catlg}). 
   The result from function \code{FrF2} is a data frame of class \code{design} 
   and has attributes that can be accessed 
-  by functions \code{\link{desnum}}, \code{\link{run.order}} and \code{\link{design.info}}.
+  by functions \code{desnum}, \code{run.order} and \code{design.info} from package \pkg{DoE.base}.
   
   Alternatively, the user can explicitly specify a design through accessing 
   a specific catalogued design using the \code{design} option or specifying non-catalogued 
@@ -507,7 +508,7 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
   much any more. Please contact me with any suggestions for improvements.
 }
 \value{
-  Value is a data frame of S3 class \code{\link{design}} with attributes attached. 
+  Value is a data frame of S3 class \code{design} (cf. package \pkg{DoE.base}) with attributes attached. 
   The data frame itself contains the design with levels coded as requested.
   The following attributes are attached to it: 
   \item{desnum }{Design matrix in -1/1 coding}
@@ -569,7 +570,7 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
          depending on the choice of \code{alias.info}; 
          For non-blocked and non-split-plot designs, \code{aliased} is 
          itself a list of the two or three components main, fi2, and optionally fi3, given 
-         in terms of factor letters from \code{\link{Letters}} (up to 50~factors) 
+         in terms of factor letters from \code{Letters} (up to 50~factors) 
          or \code{F1}, \code{F2}, and so forth (more than 50~factors). 
          For blocked and split-plot designs, \code{aliased} is a single list 
          with an entry for each column of the Yates matrix that accomodates 

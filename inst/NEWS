@@ -4,6 +4,15 @@ The package is currently under intensive development.
 Most features have now been created, but there may still 
 be some changes. Suggestions and bug reports are very welcome.
 
+Version 0.93, 24/05/2009
+   - The constant Letters and some functions have been moved to new package DoE.base, 
+     in preparation of the collaborating package group of FrF2, DoE.base, DoE.wrapper and 
+     RcmdrPlugin.DoE.
+   - documentation of factor.names in UtilitiesCat.Rd has been corrected 
+     (not user-relevant, as affected function estimable.check is not to be called 
+     directly by users)
+   - removed unnecessary suggests for BHH2
+
 Version 0.92-5, 18/05/2009
    Bugfixes 
    - simultaneous specification of nfactors and nlevels of length > 1 did not work 

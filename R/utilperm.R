@@ -39,16 +39,6 @@ reord <- function(hilf, perm){
     aus
   }
 
-ord <- function(matrix, decreasing=FALSE){
-    ## determines ordering vector that orders matrix 
-    ##      w.r.t. first columns, second column etc.
-    text <- "order(matrix[,1]"
-    if (ncol(matrix)>1)
-    for (i in 2:ncol(matrix)) text <- paste(text,",matrix[,",i,"]",sep="")
-    text <- paste(text,", decreasing=",decreasing,")")
-    eval(parse(text=text))
-}
-
 getNext <- function(perm)
 {
    ## function for next permutation in lexicographical order

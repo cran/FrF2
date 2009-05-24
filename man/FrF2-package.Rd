@@ -85,7 +85,7 @@ Maintainer: Ulrike Groemping <groemping@bht-berlin.de>
 \keyword{ array }
 \keyword{ design }
 \seealso{
-\code{BsMD-package}, \code{\link{MEPlot}}, \code{\link{IAPlot}}, 
+\code{BsMD-package}, \code{DoE.base-package}, \code{\link{MEPlot}}, \code{\link{IAPlot}}, 
 \code{\link{cubePlot}}, \code{\link{DanielPlot}}, \code{\link{aliases}}, 
 \code{\link{FrF2}}, \code{\link{pb}}
 }
