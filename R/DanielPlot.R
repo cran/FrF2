@@ -131,7 +131,7 @@ function (fit, code = FALSE, autolab = TRUE, alpha=0.05,
     else {
         if (!is.list(faclab)) 
             stop("* Argument 'faclab' has to be NULL or a list with idx and lab objects")
-        text(tn$x[faclab$idx], tn$y[faclab$idx], labels = faclab$lab, 
+        if (length(faclab$lab)>0) text(tn$x[faclab$idx], tn$y[faclab$idx], labels = faclab$lab, 
             cex = cex.fac, adj = 0)
     }
     invisible(cbind(as.data.frame(tn), no = 1:length(tn$x), effect=names(factor.effects)))

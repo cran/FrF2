@@ -4,18 +4,21 @@ leftadjust <- function(k, gen, early=NULL, show=10){
   ##  ?? how can these be chosen ??
   ## for practical purposes, this will presumably be sufficient most of the time
   
-  hilf <- c(k,gen,show)
+  hilf <- c(k,abs(gen),show)
   if (!is.null(early)) hilf <- c(hilf,early)
   if (!is.numeric(hilf))
       stop ("All inputs to leftadjust must be numeric.")
   if (!all(hilf == floor(hilf) & hilf > 0))
-      stop ("All inputs to leftadjust must contain positive integer numbers.")
+      stop ("All inputs to leftadjust must contain integer numbers.")
   if (!k >= 3) stop ("leftadjust requires k>=3.")
+  g <- length(gen)
+  minus <- sign(gen)
+  gen <- abs(gen)
   if (any(gen %in% 2^(0:(k-1)))) 
         stop ("gen must not contain column numbers of base factors.")
   if (any(!gen %in% 3:(2^k-1))) 
         stop ("Column numbers in gen must be smaller than ", 2^k,".")
-  g <- length(gen)
+  
   if (!is.null(early))
    if(early > k + g) stop ("early must not be larger than the total number of factors.")
   
@@ -45,7 +48,8 @@ leftadjust <- function(k, gen, early=NULL, show=10){
   }
   if (is.null(early)) reorder <- ord(ergeb)
   else reorder <- ord(cbind(k.early,maxpos,ergeb))
-  list(orig=gen,basics=c(nruns=2^k, nfactors=k+g, early=early),
+  
+  list(orig=gen*minus,basics=c(nruns=2^k, nfactors=k+g, early=early),
          perms=perm[reorder[1:show],],
          maxpos=maxpos[reorder[1:show]],k.early=k.early[reorder[1:show]],
          gen=ergeb[reorder[1:show],])

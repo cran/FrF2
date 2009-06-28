@@ -9,6 +9,7 @@ FrF2 <- function(nruns=NULL, nfactors=NULL,
                  randomize=TRUE, seed=NULL, alias.info=2, 
                  blocks=1, block.name="Blocks", bbreps=replications, wbreps=1, alias.block.2fis = FALSE,
                  hard=NULL, check.hard=10, WPs=1, nfac.WP=0, WPfacs=NULL, check.WPs=10, ...){
+creator <- sys.call()
 ## check that no incompatible options are used together
 if (!(is.null(design) | is.null(estimable))) stop("design and estimable must not be specified together.")
 if (!(is.null(generators) | is.null(design))) stop("generators and design must not be specified together.")
@@ -23,6 +24,8 @@ if (!(identical(WPs,1) | is.null(hard))) stop("WPs and hard must not be specifie
 if (identical(blocks,1) & !identical(wbreps,1)) stop("wbreps must not differ from 1, if blocks = 1.")
 if (!(is.null(WPfacs) | identical(WPs,1)) & is.null(design) & is.null(generators))
           stop("WPfacs requires explicit definition of a design via design or generators.")
+if (identical(nfac.WP,0) & is.null(WPfacs) & !identical(WPs,1)) 
+          stop("WPs whole plots require specification of whole plot factors through nfac.WP or WPfacs!")
     ## thus, wbreps = 1 can always be assumed for non-split-plot situations,
     ## which reduces necessary case distinctions
 #if ((!identical(WPs,1)) & is.null(nruns)) stop("WPs only works if nruns is specified.")
@@ -156,9 +159,12 @@ if (!(is.null(WPfacs) | identical(WPs,1)) & is.null(design) & is.null(generators
                else if (g<15) res="6+"
                else if (g<20) res="5+"}
 
+               gen <- sapply(generators,function(obj) which(sapply(Yates[1:(nruns-1)],
+                             function(obj2) isTRUE(all.equal(sort(abs(obj)),obj2)))))
+               gen <- gen*sapply(generators, function(obj) sign(obj[1]))
+
                cand <- list(custom=list(res=res, nfac=nfactors, nruns=nruns, 
-                    gen=sapply(generators,function(obj) which(sapply(Yates[1:(nruns-1)],
-                             function(obj2) isTRUE(all.equal(sort(obj),obj2))))), 
+                    gen=gen, 
                     WLP=WLP, nclear.2fis=nclear.2fis, clear.2fis=clear.2fis, all.2fis.clear=all.2fis.clear))
                    ## needs to be list of list, because access later is always via cand[1]
                class(cand) <- c("catlg","list")
@@ -190,7 +196,7 @@ if (!(is.null(WPfacs) | identical(WPs,1)) & is.null(design) & is.null(generators
            cand <- select.catlg[which(nfac.catlg(select.catlg)==nfactors & nruns.catlg(select.catlg)==nruns)]
       if (hard == nfactors) stop("It does not make sense to choose hard equal to nfactors.")
       if (hard >= nruns/2) 
-          warning ("Did you really need to declare so many factors as hard-to-change ?")
+          warning ("Do you really need to declare so many factors as hard-to-change ?")
       nfac.WP <- hard
          if (hard < nruns/2){
          WPs <- NA
@@ -218,6 +224,11 @@ if (!(is.null(WPfacs) | identical(WPs,1)) & is.null(design) & is.null(generators
              if (WPs > nruns/2) stop("There cannot be more whole plots (WPs) than half the run size.")
              k.WP <- round(log2(WPs))
              if (!WPs == 2^k.WP) stop("WPs must be a power of 2.")
+             if (!is.null(WPfacs) & nfac.WP==0){
+                    nfac.WP <- length(WPfacs)
+                    if (nfac.WP < k.WP) stop("WPfacs must specify at least log2(WPs) whole plot factors.")
+                 }
+             if (nfac.WP==0) stop("If WPs > 1, a positive nfac.WP or WPfacs must also be given.")
              if (nfac.WP < k.WP) {
                  add <- k.WP - nfac.WP
                  names.add <- rep(list(default.levels),add)
@@ -291,8 +302,9 @@ if (!(is.null(WPfacs) | identical(WPs,1)) & is.null(design) & is.null(generators
                     ### small case
                     if (g==0 | choose(nruns - 1 - nfactors, k.block) < 100000){
                     for (i in 1:length(cand)){
-                      if (g==0) blockpick.out <- try(blockpick(k, gen=0, 
+                      if (g==0) {blockpick.out <- try(blockpick(k, gen=0, 
                             k.block=k.block, show=1, alias.block.2fis = alias.block.2fis),TRUE)
+                            }
                       else {
                       if (is.null(generators))
                       blockpick.out <- try(blockpick(k, design=names(cand[i]), 
@@ -421,9 +433,9 @@ else {
              }
        if (g>0)
        for (i in 1:g) 
-       desmat <- cbind(desmat, apply(desmat[,unlist(Yates[cand[[1]]$gen[i]])],1,prod))
+       desmat <- cbind(desmat, sign(cand[[1]]$gen[i][1])*apply(desmat[,unlist(Yates[abs(cand[[1]]$gen[i])])],1,prod))
        if (WPs > 1) {if (!WP.auto) {
-            hilf <- apply(desmat[,WPsorig],1,paste,collapse="")
+            hilf <- apply(desmat[,WPsorig,drop=FALSE],1,paste,collapse="")
             if (!length(table(hilf))==WPs) 
             stop("The specified design creates ",
                  length(table(hilf)), " and not ", WPs, " whole plots.")
@@ -435,7 +447,7 @@ else {
        
        ## slow changing order, if required
        if ((!is.character(WPfacs)) & !is.null(hard) ) 
-           desmat <- desmat[,order(c(2^(0:(k-1)),cand[[1]]$gen))]
+           desmat <- desmat[,order(c(2^(0:(k-1)),abs(cand[[1]]$gen)))]
 
        if (is.list(blocks)) {
             hilf <- blocks
@@ -697,7 +709,7 @@ else {
     if ((!is.null(generators)) & !is.list(blocks) & !WPs > 1) {
          names(generators) <- Letters[(k+1):nfactors]
          gen.display <- paste(Letters[(k+1):nfactors],sapply(generators,function(obj) 
-               paste(Letters[obj],collapse="")),sep="=")
+               paste(if (obj[1]<0) "-" else "", paste(Letters[abs(obj)],collapse=""),sep="")),sep="=")
          design.info <- list(type="FrF2.generators", nruns=nruns, nfactors=nfactors, factor.names=factor.names, generators=gen.display, 
                aliased = alias3fi(k,generators,order=alias.info))
          }
@@ -706,7 +718,7 @@ else {
     attr(aus,"desnum") <- desmat
     attr(aus,"run.order") <- data.frame("run.no.in.std.order"=orig.no,"run.no"=1:nrow(desmat),"run.no.std.rp"=orig.no.rp)
     attr(aus,"design.info") <- c(design.info, replications=replications, repeat.only=repeat.only,
-      randomize=randomize, seed=seed)
+      randomize=randomize, seed=seed, creator=creator)
     class(aus) <- c("design","data.frame")
     aus
 } 

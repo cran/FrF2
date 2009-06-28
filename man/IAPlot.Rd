@@ -14,7 +14,7 @@
 MEPlot(obj, main = paste("Main effects plot for", respnam), 
     pch = 15, cex.xax = par("cex.axis"), cex.yax = cex.xax, mgp.ylab = 4, 
     cex.title = 1.5, cex.main = par("cex.main"), 
-    lwd = par("lwd"), abbrev = 3)
+    lwd = par("lwd"), abbrev = 3, select = NULL)
 
 IAPlot(obj, main = paste("Interaction plot matrix for", respnam), 
     pch = c(15, 17), cex.lab = par("cex.lab"), cex = par("cex"), 
@@ -31,10 +31,9 @@ remodel(obj)
 
 \arguments{
   \item{obj}{ a linear model object with 2-level factors or numerical 
-              2-level variables (CAUTION: numerical x-variable have to be 
-              coded as -1 and +1 only!); 
+              2-level variables; 
               the structure must be such that effects are either fully 
-              aliased or orthogonal, like in a fractional factorial 2-level 
+              aliased or orthogonal, like in a regular fractional factorial 2-level 
               design}
   \item{main}{ overall title for the plot assembly }
   \item{pch}{ Plot symbol number \code{MEPlot}, 
@@ -51,6 +50,11 @@ remodel(obj)
   \item{cex}{ size of plot symbols in interaction plots }
   \item{lwd}{ line width for plot lines and axes }
   \item{abbrev}{ number of characters shown for factor levels }
+  \item{select}{ vector with position numbers of the main effects to be displayed; \cr
+              default: all main effects; \cr
+              will eventually also be implemented for function IAPlot;
+              currently, the model must be reduced in order to omit effects 
+              from IAPlot}
   \item{show.alias}{ if TRUE, the interaction plot shows the number 
               of the list entry from aliases(obj)\$aliases 
               (cf. \code{\link{aliases}}) in order to support immediate 
@@ -68,11 +72,12 @@ remodel(obj)
   \code{check} is an internal function for checking whether the model complies 
               with assumptions (fractional factorial of 2-level factors 
               with full or no aliasing, not partial aliasing),
-  \code{remodel} is an internal function that redoes the model into -1 and 1 
-              coding, regardless of the 
-              contrasts that have been used for the factors (note that numerical
-              data are not changed, i.e. they have to be in -1 and 1 coding in 
-              order for the package to work).
+  \code{remodel} is an internal function that redoes factor values into -1 and 1 
+              coding, regardless of the contrasts that have been used for the 
+              original factors;
+              numerical data are transformed by subtracting the mean and dividing 
+              by half the range (max-min), which also transforms them to -1 and 1 
+              coding in the 2-level case (and leads to an error otherwise)
 }
 \value{
   \code{MEPlot} and \code{IAPlot} are used for their side effects only. 

@@ -18,11 +18,13 @@ splitpick <- function(k, gen, k.WP, nfac.WP, show=10){
   ## enhance output by alias structure, if requested
   ## alias for whole plot separate as well
   
-  hilf <- c(k,gen,k.WP,nfac.WP,show)
+  hilf <- c(k,abs(gen),k.WP,nfac.WP,show)
   if (!is.numeric(hilf))
       stop ("All inputs to splitpick must be numeric.")
   if (!all(hilf == floor(hilf) & hilf > 0))
-      stop ("All inputs to splitpick must contain positive integer numbers.")
+      stop ("All inputs to splitpick must contain integer numbers.")
+  minus <- which(gen<0)
+  gen <- abs(gen)
   if (!k >= 3) stop ("splitpick requires k>=3.")
   if (!k.WP < k) stop ("splitpick requires k.WP < k.")
   if (!nfac.WP < 2^k.WP) stop ("nfac.WP >= 2^k.WP is not permitted.")
@@ -60,6 +62,10 @@ splitpick <- function(k, gen, k.WP, nfac.WP, show=10){
     reorder <- sort(res.WP,index.return=TRUE,decreasing=TRUE)$ix
     ## if > 7, res.WP=Inf
 
+    gen[minus] <- -gen[minus]
+    ## for documentation purposes only
+    ## does not affect the resulting design whether or not there is a minus there
+    
     list(orig=gen, basics=c(nruns=2^k, nWPs=2^k.WP, nfac.WP=nfac.WP, nfac.SP=k+g-nfac.WP),
          perms=perm[pick[1:show][reorder],],
          res.WP=res.WP[reorder], gen=gens[reorder,,drop=FALSE])

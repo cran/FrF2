@@ -1,7 +1,8 @@
 `MEPlot` <-
 function(obj, main=paste("Main effects plot for", respnam), pch=15, 
          cex.xax = par("cex.axis"), cex.yax = cex.xax, mgp.ylab = 4, 
-         cex.title=1.5, cex.main=par("cex.main"), lwd=par("lwd"), abbrev=3){
+         cex.title=1.5, cex.main=par("cex.main"), lwd=par("lwd"), 
+         abbrev=3, select=NULL){
    # main      overall title
    # pch       plot character
    # lwd       line width
@@ -25,13 +26,22 @@ function(obj, main=paste("Main effects plot for", respnam), pch=15,
    mm <- model.matrix(obj)
    if (intcol > 0) mm <- mm[,-intcol]
    terms1 <- colnames(mm)[which(term.ord==1)]
+   if (is.null(select)) select <- 1:nmain
+   else {
+       if (!is.numeric(select)) stop("select must be numeric")
+       if (!all(floor(select)==select)) stop("select must contain integer numbers")
+       if (any(select<1 | select>nmain)) stop("select must contain numbers betweeen 1 and ", nmain, " only")
+   }
    predmat <- matrix(rep(0,2*nmain),2,nmain)
    colnames(predmat) <- terms1
+   predmat <- predmat[,select]
+   nmain <- length(select)
+   terms1 <- terms1[select]
+   labs <- labs[select]
    #addnam <- setdiff(colnames(obj$model), terms1)
    #names <- c(terms1,addnam)
    for (i in 1:nmain)
       predmat[,i] <- ymean+c(-1,1)*coef(obj)[terms1[i]]
-   
    omfrow <- par("mfrow")   
    omar <- par("mar")
    ooma <- par("oma")

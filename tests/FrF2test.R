@@ -19,6 +19,10 @@ str(FrF2(16,6,randomize=FALSE, factor.names=list(eins=c(1,2),zwei=c(43,87),drei=
 str(FrF2(16,randomize=FALSE, factor.names=list(eins=c(1,2),zwei=c(43,87),drei=c("alt","neu"),vier="",fuenf="",sechs="")))
 str(FrF2(16,design="6-2.2",randomize=FALSE))
 str(FrF2(16,generators=catlg[["6-2.2"]]$gen,randomize=FALSE,factor.names=list(eins=c(1,2),zwei=c(43,87),drei=c("alt","neu"),vier="",fuenf="",sechs="")))
+## alias structure for three generators that differ only by sign
+design.info(FrF2(16,generators=c(7,13,15),randomize=FALSE))$aliased
+design.info(FrF2(16,generators=c(7,-13,15),randomize=FALSE))$aliased
+design.info(FrF2(16,generators=c(-7,-13,-15),randomize=FALSE))$aliased
 
 str(FrF2(16,design="6-2.2",randomize=FALSE,factor.names=list(eins=c(1,2),zwei=c(43,87),drei=c("alt","neu"),vier="",fuenf="",sechs="")))
 str(FrF2(16,design="6-2.2",nfactors=6,randomize=FALSE))

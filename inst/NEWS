@@ -4,6 +4,29 @@ The package is currently under intensive development.
 Most features have now been created, but there may still 
 be some changes. Suggestions and bug reports are very welcome.
 
+Version 0.94, 28/06/2009
+   - added element creator to design.info attribute of designs created by 
+     functions FrF2 and pb, and documented objects accordingly; this element 
+     contains the call, but is called creator to allow it also to include 
+     stored menu settings instead
+   - added possibility to have negative generators (e.g. -ABD or -c(1,2,4))
+     (before, levels had to be swapped) 
+   - improved usage comfort and documentation for split plot designs in function 
+     FrF2 (with WPfacs, specification of nfac.WP is no longer necessary; 
+     the documentation of this aspect has been confusing and has been improved) 
+   - started decoupling statistical and technical information in the documentation;
+     purpose of this: shorter individual help texts and the possibility to re-use 
+     the statistical texts for help from within R-commander in future package 
+     RcmdrPlugin.DoE 
+   - a few further improvements to the documentation have been made
+   - modified function remodel to allow numeric variables with two levels 
+     not equal to -1 and 1 
+   - improvement of MEPlot: user can select effects to be displayed (option select) 
+     (a similar possibility for IAPlot is not in place yet; so far, the model has 
+     to be reduced in order to select effects for IAPlot)
+   Bugfix: function DanielPlot gave error message in case 
+     of non-significant effects only
+
 Version 0.93, 24/05/2009
    - The constant Letters and some functions have been moved to new package DoE.base, 
      in preparation of the collaborating package group of FrF2, DoE.base, DoE.wrapper and 

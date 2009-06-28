@@ -54,10 +54,25 @@ pb.list
   \item{\dots}{ currently not used }
 }
 \details{
-  For most run numbers, designs from Plackett and Burman (1946) are used, and columns are filled from left to right. The generating rows for these designs can be found in \code{pb.list} (a 0 entry indicates that the design is constructed by a different method, e.g. doubling).
+  \code{pb} stands for Plackett-Burman. Plackett-Burman designs (Plackett and Burman 1946) are generally 
+  used for screening many variables in relatively few runs, when interest is in 
+  main effects only, at least initially. Different from the regular 
+  fractional factorial designs created by function \code{\link{FrF2}}, they 
+  do not perfectly confound interaction terms with main effects but distribute 
+  interaction effects over several main effects. The designs with number of runs 
+  a power of 2 are an exception to this rule: they are just the resolution III 
+  regular fractional factorial designs and are as such not very suitable for 
+  screening because of a high risk of very biased estimates for the main effects 
+  of the factors. Where possible, these are therefore replaced by different designs (cf. below).
+  
+  For most run numbers, function \code{pb} uses Plackett-Burman designs, 
+  and simply fills columns from left to right. 
+  The generating rows for these designs can be found in the list \code{pb.list} 
+  (a 0 entry indicates that the design is constructed by a different method, e.g. doubling).
   
   For 12 runs, the isomorphic design by Taguchi can be requested. 
-  For 16 runs, the default is to use the designs suggested by Box and Tyssedal (2001), which up to 14 factors do not suffer from perfect aliasing. 
+  For 16 runs, the default is to use the designs suggested by Box and Tyssedal (2001), 
+  which up to 14 factors do not suffer from perfect aliasing. 
   For 32 runs, a cyclic design with generating row given in Samset and Tyssedal (1999) is used. 
   For 64 runs, the 32 run design is doubled.
   For 92 runs, a design is constructed according to the Williamson construction with matrices A, B, C and D from Hedayat and Stufken (1999), p. 160. 
@@ -93,6 +108,9 @@ pb.list
        \item{repeat.only }{ option setting in call to \code{pb} }
        \item{randomize }{ option setting in call to \code{pb} }
        \item{seed }{ option setting in call to \code{pb} }
+       \item{creator }{ call to function pb 
+          (or stored menu settings, if the function has been called via the R commander plugin 
+          \pkg{RcmdrPlugin.DoE}) }
        }
        }
 }

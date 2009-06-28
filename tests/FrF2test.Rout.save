@@ -20,6 +20,7 @@ Loading required package: BsMD
 Loading required package: scatterplot3d
 Loading required package: igraph
 Loading required package: sfsmisc
+Loading required package: DoE.base
 
 Attaching package: 'FrF2'
 
@@ -141,7 +142,7 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
   ..$ run.no.in.std.order: Factor w/ 16 levels "1","10","11",..: 1 9 10 11 12 13 14 15 16 2 ...
   ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
   ..$ run.no.std.rp      : Factor w/ 16 levels "1","10","11",..: 1 9 10 11 12 13 14 15 16 2 ...
- - attr(*, "design.info")=List of 9
+ - attr(*, "design.info")=List of 10
   ..$ type        : chr "FrF2"
   ..$ nruns       : num 16
   ..$ nfactors    : num 6
@@ -169,6 +170,7 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
   ..$ replications: num 1
   ..$ repeat.only : logi FALSE
   ..$ randomize   : logi FALSE
+  ..$ creator     : language FrF2(16, 6, randomize = FALSE, factor.names = list(eins = c(1,      2), zwei = c(43, 87), drei = c("alt", "neu"), vier = "",  ...
 > str(FrF2(16,randomize=FALSE, factor.names=list(eins=c(1,2),zwei=c(43,87),drei=c("alt","neu"),vier="",fuenf="",sechs="")))
 Classes 'design' and 'data.frame':	16 obs. of  6 variables:
  $ eins : num  1 2 1 2 1 2 1 2 1 2 ...
@@ -189,7 +191,7 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
   ..$ run.no.in.std.order: Factor w/ 16 levels "1","10","11",..: 1 9 10 11 12 13 14 15 16 2 ...
   ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
   ..$ run.no.std.rp      : Factor w/ 16 levels "1","10","11",..: 1 9 10 11 12 13 14 15 16 2 ...
- - attr(*, "design.info")=List of 9
+ - attr(*, "design.info")=List of 10
   ..$ type        : chr "FrF2"
   ..$ nruns       : num 16
   ..$ nfactors    : int 6
@@ -217,6 +219,7 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
   ..$ replications: num 1
   ..$ repeat.only : logi FALSE
   ..$ randomize   : logi FALSE
+  ..$ creator     : language FrF2(16, randomize = FALSE, factor.names = list(eins = c(1, 2),      zwei = c(43, 87), drei = c("alt", "neu"), vier = "", fuenf = "",  ...
 > str(FrF2(16,design="6-2.2",randomize=FALSE))
 Classes 'design' and 'data.frame':	16 obs. of  6 variables:
  $ A: num  -1 1 -1 1 -1 1 -1 1 -1 1 ...
@@ -233,7 +236,7 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
   ..$ run.no.in.std.order: Factor w/ 16 levels "1","10","11",..: 1 9 10 11 12 13 14 15 16 2 ...
   ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
   ..$ run.no.std.rp      : Factor w/ 16 levels "1","10","11",..: 1 9 10 11 12 13 14 15 16 2 ...
- - attr(*, "design.info")=List of 9
+ - attr(*, "design.info")=List of 10
   ..$ type        : chr "FrF2"
   ..$ nruns       : num 16
   ..$ nfactors    : num 6
@@ -261,6 +264,7 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
   ..$ replications: num 1
   ..$ repeat.only : logi FALSE
   ..$ randomize   : logi FALSE
+  ..$ creator     : language FrF2(16, design = "6-2.2", randomize = FALSE)
 > str(FrF2(16,generators=catlg[["6-2.2"]]$gen,randomize=FALSE,factor.names=list(eins=c(1,2),zwei=c(43,87),drei=c("alt","neu"),vier="",fuenf="",sechs="")))
 Classes 'design' and 'data.frame':	16 obs. of  6 variables:
  $ eins : num  1 2 1 2 1 2 1 2 1 2 ...
@@ -281,7 +285,7 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
   ..$ run.no.in.std.order: Factor w/ 16 levels "1","10","11",..: 1 9 10 11 12 13 14 15 16 2 ...
   ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
   ..$ run.no.std.rp      : Factor w/ 16 levels "1","10","11",..: 1 9 10 11 12 13 14 15 16 2 ...
- - attr(*, "design.info")=List of 9
+ - attr(*, "design.info")=List of 10
   ..$ type        : chr "FrF2.generators"
   ..$ nruns       : num 16
   ..$ nfactors    : int 6
@@ -299,6 +303,30 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
   ..$ replications: num 1
   ..$ repeat.only : logi FALSE
   ..$ randomize   : logi FALSE
+  ..$ creator     : language FrF2(16, generators = catlg[["6-2.2"]]$gen, randomize = FALSE,      factor.names = list(eins = c(1, 2), zwei = c(43, 87), drei = c("alt",  ...
+> ## alias structure for three generators that differ only by sign
+> design.info(FrF2(16,generators=c(7,13,15),randomize=FALSE))$aliased
+$main
+[1] "B=FG"    "D=EG"    "E=DG"    "F=BG"    "G=BF=DE"
+
+$fi2
+[1] "AB=CE"    "AC=BE=DF" "AD=CF"    "AE=BC"    "AF=CD"    "BD=EF"   
+
+> design.info(FrF2(16,generators=c(7,-13,15),randomize=FALSE))$aliased
+$main
+[1] "B=-FG"    "D=EG"     "E=DG"     "F=-BG"    "G=-BF=DE"
+
+$fi2
+[1] "AB=CE"     "AC=BE=-DF" "AD=-CF"    "AE=BC"     "AF=-CD"    "BD=-EF"   
+
+> design.info(FrF2(16,generators=c(-7,-13,-15),randomize=FALSE))$aliased
+$main
+[1] "B=FG"    "D=EG"    "E=DG"    "F=BG"    "G=BF=DE"
+
+$fi2
+[1] "AB=-CE"     "AC=-BE=-DF" "AD=-CF"     "AE=-BC"     "AF=-CD"    
+[6] "BD=EF"     
+
 > 
 > str(FrF2(16,design="6-2.2",randomize=FALSE,factor.names=list(eins=c(1,2),zwei=c(43,87),drei=c("alt","neu"),vier="",fuenf="",sechs="")))
 Classes 'design' and 'data.frame':	16 obs. of  6 variables:
@@ -320,7 +348,7 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
   ..$ run.no.in.std.order: Factor w/ 16 levels "1","10","11",..: 1 9 10 11 12 13 14 15 16 2 ...
   ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
   ..$ run.no.std.rp      : Factor w/ 16 levels "1","10","11",..: 1 9 10 11 12 13 14 15 16 2 ...
- - attr(*, "design.info")=List of 9
+ - attr(*, "design.info")=List of 10
   ..$ type        : chr "FrF2"
   ..$ nruns       : num 16
   ..$ nfactors    : num 6
@@ -348,6 +376,7 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
   ..$ replications: num 1
   ..$ repeat.only : logi FALSE
   ..$ randomize   : logi FALSE
+  ..$ creator     : language FrF2(16, design = "6-2.2", randomize = FALSE, factor.names = list(eins = c(1,      2), zwei = c(43, 87), drei = c("alt", "neu"), vier = "",  ...
 > str(FrF2(16,design="6-2.2",nfactors=6,randomize=FALSE))
 Classes 'design' and 'data.frame':	16 obs. of  6 variables:
  $ A: num  -1 1 -1 1 -1 1 -1 1 -1 1 ...
@@ -364,7 +393,7 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
   ..$ run.no.in.std.order: Factor w/ 16 levels "1","10","11",..: 1 9 10 11 12 13 14 15 16 2 ...
   ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
   ..$ run.no.std.rp      : Factor w/ 16 levels "1","10","11",..: 1 9 10 11 12 13 14 15 16 2 ...
- - attr(*, "design.info")=List of 9
+ - attr(*, "design.info")=List of 10
   ..$ type        : chr "FrF2"
   ..$ nruns       : num 16
   ..$ nfactors    : num 6
@@ -392,6 +421,7 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
   ..$ replications: num 1
   ..$ repeat.only : logi FALSE
   ..$ randomize   : logi FALSE
+  ..$ creator     : language FrF2(16, design = "6-2.2", nfactors = 6, randomize = FALSE)
 > str(FrF2(16,design="6-2.2",randomize=FALSE,factor.names=list(eins=c(1,2),zwei=c(43,87),drei=c("alt","neu"),vier="",fuenf="",sechs="")))
 Classes 'design' and 'data.frame':	16 obs. of  6 variables:
  $ eins : num  1 2 1 2 1 2 1 2 1 2 ...
@@ -412,7 +442,7 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
   ..$ run.no.in.std.order: Factor w/ 16 levels "1","10","11",..: 1 9 10 11 12 13 14 15 16 2 ...
   ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
   ..$ run.no.std.rp      : Factor w/ 16 levels "1","10","11",..: 1 9 10 11 12 13 14 15 16 2 ...
- - attr(*, "design.info")=List of 9
+ - attr(*, "design.info")=List of 10
   ..$ type        : chr "FrF2"
   ..$ nruns       : num 16
   ..$ nfactors    : num 6
@@ -440,6 +470,7 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
   ..$ replications: num 1
   ..$ repeat.only : logi FALSE
   ..$ randomize   : logi FALSE
+  ..$ creator     : language FrF2(16, design = "6-2.2", randomize = FALSE, factor.names = list(eins = c(1,      2), zwei = c(43, 87), drei = c("alt", "neu"), vier = "",  ...
 > 
 > ## estimable in examples
 > ## replications in examples
@@ -710,7 +741,7 @@ Classes 'design' and 'data.frame':	32 obs. of  7 variables:
   ..$ run.no.in.std.order: Factor w/ 32 levels "1.1.1","10.3.2",..: 1 12 23 27 28 29 30 31 32 2 ...
   ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
   ..$ run.no.std.rp      : Factor w/ 32 levels "1.1.1","10.3.2",..: 1 12 23 27 28 29 30 31 32 2 ...
- - attr(*, "design.info")=List of 15
+ - attr(*, "design.info")=List of 16
   ..$ type               : chr "FrF2.blocked"
   ..$ block.name         : chr "Blocks"
   ..$ nruns              : num 32
@@ -734,6 +765,7 @@ Classes 'design' and 'data.frame':	32 obs. of  7 variables:
   ..$ replications       : num 1
   ..$ repeat.only        : logi FALSE
   ..$ randomize          : logi FALSE
+  ..$ creator            : language FrF2(32, 8, blocks = list(2, 5, c(6, 7)), randomize = FALSE)
 >   ## with factor names
 >   str(FrF2(32,blocks=c("ABC","DE"),
 +        factor.names=list(first=c("-","+"),second=c("old","new"),
@@ -767,7 +799,7 @@ Classes 'design' and 'data.frame':	32 obs. of  7 variables:
   ..$ run.no.in.std.order: Factor w/ 32 levels "1.1.1","10.2.2",..: 1 12 23 27 28 29 30 31 32 2 ...
   ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
   ..$ run.no.std.rp      : Factor w/ 32 levels "1.1.1","10.2.2",..: 1 12 23 27 28 29 30 31 32 2 ...
- - attr(*, "design.info")=List of 15
+ - attr(*, "design.info")=List of 16
   ..$ type               : chr "FrF2.blocked"
   ..$ block.name         : chr "Blocks"
   ..$ nruns              : num 32
@@ -789,6 +821,7 @@ Classes 'design' and 'data.frame':	32 obs. of  7 variables:
   ..$ replications       : num 1
   ..$ repeat.only        : logi FALSE
   ..$ randomize          : logi FALSE
+  ..$ creator            : language FrF2(32, blocks = c("ABC", "DE"), factor.names = list(first = c("-",      "+"), second = c("old", "new"), third = c(1000, 2000), fourth = "",  ...
 >   str(dat <- FrF2(32,blocks=c(7,20,25),
 +        factor.names=list(first=c("-","+"),second=c("old","new"),
 +                          third=c(1000,2000),fourth="",fifth="",sixth=""),
@@ -821,7 +854,7 @@ Classes 'design' and 'data.frame':	32 obs. of  7 variables:
   ..$ run.no.in.std.order: Factor w/ 32 levels "1.1.1","10.3.2",..: 1 12 23 27 28 29 30 31 32 2 ...
   ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
   ..$ run.no.std.rp      : Factor w/ 32 levels "1.1.1","10.3.2",..: 1 12 23 27 28 29 30 31 32 2 ...
- - attr(*, "design.info")=List of 15
+ - attr(*, "design.info")=List of 16
   ..$ type               : chr "FrF2.blocked"
   ..$ block.name         : chr "Blocks"
   ..$ nruns              : num 32
@@ -849,6 +882,7 @@ Classes 'design' and 'data.frame':	32 obs. of  7 variables:
   ..$ replications       : num 1
   ..$ repeat.only        : logi FALSE
   ..$ randomize          : logi FALSE
+  ..$ creator            : language FrF2(32, blocks = c(7, 20, 25), factor.names = list(first = c("-",      "+"), second = c("old", "new"), third = c(1000, 2000), fourth = "",  ...
 >   str(FrF2(32,blocks=list(1,2),
 +        factor.names=list(first=c("-","+"),second=c("old","new"),
 +                          third=c(1000,2000),fourth="",fifth="",sixth="",seven="",eight="",nine=""),
@@ -874,7 +908,7 @@ Classes 'design' and 'data.frame':	32 obs. of  8 variables:
   ..$ run.no.in.std.order: Factor w/ 32 levels "1.1.1","10.2.2",..: 1 12 23 27 28 29 30 31 32 2 ...
   ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
   ..$ run.no.std.rp      : Factor w/ 32 levels "1.1.1","10.2.2",..: 1 12 23 27 28 29 30 31 32 2 ...
- - attr(*, "design.info")=List of 15
+ - attr(*, "design.info")=List of 16
   ..$ type               : chr "FrF2.blocked"
   ..$ block.name         : chr "Blocks"
   ..$ nruns              : num 32
@@ -903,6 +937,7 @@ Classes 'design' and 'data.frame':	32 obs. of  8 variables:
   ..$ replications       : num 1
   ..$ repeat.only        : logi FALSE
   ..$ randomize          : logi FALSE
+  ..$ creator            : language FrF2(32, blocks = list(1, 2), factor.names = list(first = c("-",      "+"), second = c("old", "new"), third = c(1000, 2000), fourth = "",  ...
 >   ## using blockpick.big
 >   str(FrF2(64,7,blocks=32,alias.block.2fis=TRUE,randomize=FALSE))
 Classes 'design' and 'data.frame':	64 obs. of  8 variables:
@@ -926,7 +961,7 @@ Classes 'design' and 'data.frame':	64 obs. of  8 variables:
   ..$ run.no.in.std.order: Factor w/ 64 levels "1.1.1","10.5.2",..: 1 12 23 34 45 56 62 63 64 2 ...
   ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
   ..$ run.no.std.rp      : Factor w/ 64 levels "1.1.1","10.5.2",..: 1 12 23 34 45 56 62 63 64 2 ...
- - attr(*, "design.info")=List of 15
+ - attr(*, "design.info")=List of 16
   ..$ type               : chr "FrF2.blocked"
   ..$ block.name         : chr "Blocks"
   ..$ nruns              : num 64
@@ -949,6 +984,7 @@ Classes 'design' and 'data.frame':	64 obs. of  8 variables:
   ..$ replications       : num 1
   ..$ repeat.only        : logi FALSE
   ..$ randomize          : logi FALSE
+  ..$ creator            : language FrF2(64, 7, blocks = 32, alias.block.2fis = TRUE, randomize = FALSE)
 > 
 > ## split plot
 >   ## automatic selection
@@ -1048,7 +1084,7 @@ Classes 'design' and 'data.frame':	32 obs. of  14 variables:
   ..$ run.no.in.std.order: Factor w/ 32 levels "1.1.1","10.3.2",..: 26 25 24 22 21 20 19 18 17 16 ...
   ..$ run.no             : int  32 31 30 29 28 27 26 25 24 23 ...
   ..$ run.no.std.rp      : Factor w/ 32 levels "1.1.1","10.3.2",..: 26 25 24 22 21 20 19 18 17 16 ...
- - attr(*, "design.info")=List of 13
+ - attr(*, "design.info")=List of 14
   ..$ type        : chr "FrF2.splitplot"
   ..$ nruns       : num 32
   ..$ nfac.WP     : num 6
@@ -1105,6 +1141,7 @@ Classes 'design' and 'data.frame':	32 obs. of  14 variables:
   ..$ replications: num 1
   ..$ repeat.only : logi FALSE
   ..$ randomize   : logi FALSE
+  ..$ creator     : language FrF2(32, 14, WPs = 8, nfac.WP = 6, randomize = FALSE)
 >   str(test[14:1,])
 'data.frame':	14 obs. of  14 variables:
  $ A: num  -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
@@ -1164,7 +1201,7 @@ Classes 'design' and 'data.frame':	14 obs. of  14 variables:
  - attr(*, "design.info")=List of 3
   ..$ type            : chr "subset of design"
   ..$ subset.rows     : int  14 13 12 11 10 9 8 7 6 5 ...
-  ..$ orig.design.info:List of 13
+  ..$ orig.design.info:List of 14
   .. ..$ type        : chr "FrF2.splitplot"
   .. ..$ nruns       : num 32
   .. ..$ nfac.WP     : num 6
@@ -1221,6 +1258,7 @@ Classes 'design' and 'data.frame':	14 obs. of  14 variables:
   .. ..$ replications: num 1
   .. ..$ repeat.only : logi FALSE
   .. ..$ randomize   : logi FALSE
+  .. ..$ creator     : language FrF2(32, 14, WPs = 8, nfac.WP = 6, randomize = FALSE)
 > 
 > ## replications in combination with blocks
 > ## (with randomization in examples)

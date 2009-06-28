@@ -1,5 +1,6 @@
 mult.gen <- function(liste){
    ## omitted error check, because slows down very much
+   ## must be applied to absolute values of generators!!!
    if (is.list(liste)) hilf <- table(unlist(liste))%%2
    else hilf <- table(liste)%%2
    as.numeric(names(hilf[hilf==1]))
@@ -7,6 +8,7 @@ mult.gen <- function(liste){
 
 mult.gen.a <- function(string.vec,sep=""){
    ## omitted error check, because slows down very much
+   ## must be applied to absolute values of generators!!!
    hilf <- table(unlist(strsplit(string.vec,sep)))%%2
    paste(names(hilf[hilf==1]),collapse=sep)
 }
@@ -23,6 +25,9 @@ words.all <- function(k, gen, design=NULL, max.length=7, select.catlg=catlg){
    if (is.character(design)) gen <- select.catlg[[design]]$gen
    ### check generator entry and transform to list of vector of numbers
    gen <- gen.check(k,gen)
+   
+   minus <- which(sapply(gen, function(obj) all(obj<0)))
+   gen <- lapply(gen, "abs")
 
    g <- length(gen)
    words <- as.list(rep(0,2^min(g,max.length)-1))
@@ -30,6 +35,7 @@ words.all <- function(k, gen, design=NULL, max.length=7, select.catlg=catlg){
    gen <- mapply(c,gen,as.list((k+1):(k+g)),SIMPLIFY=FALSE)
    if (is.null(max.length)) max.length <- k+g
    words[1:g] <- gen
+   words[minus] <- lapply(words[minus],"-")
    if (g>1) {
       cur <- g
       if (max.length >= floor((g+1)/2))
@@ -39,15 +45,18 @@ words.all <- function(k, gen, design=NULL, max.length=7, select.catlg=catlg){
             hilf <- combn(g,i)
             for (j in 1:ncol(hilf)){
                cur <- cur+1
-               words[[cur]] <- mult.gen(gen[hilf[,j]])}
+               words[[cur]] <- mult.gen(gen[hilf[,j]])
+               if (length(which(hilf[,j] %in% minus))%%2 == 1) words[[cur]] <- -words[[cur]]
+               }
             }
    }
    if (g<=max.length) words[[2^g-1]] <- mult.gen(gen)
+   if (length(minus)%%2==1) words[[2^g-1]] <-  - words[[2^g-1]] 
    WLP <- sapply(words, FUN=length)
       sellang <- WLP<=max.length
    WLP <- WLP[sellang]
    wl <- list(table(WLP),words[sellang][order(WLP)])
-   wl[[2]]<-wl[[2]][1:sum(wl[[1]][as.numeric(names(wl[[1]]))<=max.length])]
+   wl[[2]] <- wl[[2]][1:sum(wl[[1]][as.numeric(names(wl[[1]]))<=max.length])]
    wl[[3]] <- max.length
 
    names(wl) <- c("WLP", paste("words.up.to.length",max.length,sep="."),"max.length")
@@ -58,6 +67,7 @@ words.all <- function(k, gen, design=NULL, max.length=7, select.catlg=catlg){
 ##wl <- words.all(5,list(c(1,2),c(1,3,4),c(1,3,5),c(1,4,5),c(2,3,4,5)))
 
 words.four <- function(wl, f4, max.length=wl$max.length){
+### !!! not adapted to the new possibility of negative sign generators!!!
    if (!inherits(wl,"wordlist")) stop("wl must be a wordlist object.")
    if (!(is.vector(f4) | is.list(f4))) stop("f4 must be a vector of defining factors for 4-level factors or a list of such vectors.")
    if (!is.list(f4) & !length(f4) %in% c(2,3)) stop("The vector f4 must be of length 2 or 3. For more than one 4-level factor, use a list of vectors.")
@@ -97,11 +107,13 @@ print.wordlist <- function(wl){
    if (!inherits(wl,"wordlist")) stop("This function prints wordlist objects only.")
    print(wl[[1]])
    cat("\n\nWord list (up to length ",wl$max.length,"):\n",sep="")
-   if (max(unlist(wl[[2]]))>50) print(sapply(wl[[2]],function(obj) paste("(",paste(obj,collapse=","),")",sep=""),quote=FALSE))
-   else print(sapply(wl[[2]],function(obj) paste(Letters[obj],collapse="")),quote=FALSE)
+   if (max(unlist(wl[[2]]))>50) print(sapply(wl[[2]],function(obj) 
+                          paste(sign(obj[1]),"(",paste(abs(obj),collapse=","),")",sep=""),quote=FALSE))
+   else print(sapply(wl[[2]],function(obj) paste(if (obj[1]<0) "-" else "",paste(Letters[abs(obj)],collapse=""),sep="")),quote=FALSE)
 }
 
 print.wordlist4 <- function(wl){
+### !!! not adapted to the new possibility of negative sign generators!!!
    if (!inherits(wl,"wordlist4")) stop("This function prints wordlist4 objects only.")
    print(wl[[1]])
    cat("\n\nWord list with 4-level factor internal words removed:\n")
@@ -122,8 +134,6 @@ alias3fi <- function(k, gen, order=3){
    gen <- gen.check(k, gen)
    if (!(k>0 & floor(k)==k)) stop("k must be a positive integer number.")
    if (!is.list(gen)) stop("gen must be a list of generator vectors.")
-   if (any(sapply(gen,function(obj) any(obj<1 | obj>k | !floor(obj)==obj) )))
-      stop("All generators must contain integer numbers between 1 and k only.")
    g <- length(gen)  ## number of generators
    struc <- NULL
    sep <- ""
@@ -133,8 +143,12 @@ alias3fi <- function(k, gen, order=3){
       sep <- ":"
       }
 
+   minus <- c(rep("",k),sapply(gen, function(obj) if (all(obj<0)) "-" else ""))
+   gen <- lapply(gen, "abs")
+   
    ## vector of main effects in terms of generators in character form
-   all1 <- sapply(c(as.list(1:k),gen),function(obj) paste(Letters[obj],collapse=sep))
+   absall1 <- sapply(c(as.list(1:k),gen),function(obj) paste(Letters[obj],collapse=sep))
+   all1 <- paste(minus,absall1,sep="")
    names(all1) <- Letters[1:(g+k)]
 
    ## vector of 2fis in terms of generators in character form
@@ -155,7 +169,8 @@ alias3fi <- function(k, gen, order=3){
 
    ## pattern contains number of occurrences of each effect among main to 3fis
    ## or 2fis only in case of order=2
-   pattern <- table(all3 <- c(all1,all2,all3))
+   all3 <- c(all1,all2,all3)
+   pattern <- table(absall3 <- sub("-","",all3))
        ## now all3 contains all lengths
    if (max(pattern)==1){
           if (order==2)
@@ -165,9 +180,29 @@ alias3fi <- function(k, gen, order=3){
    }
    else {
           struc <- as.list(rep(0,length(pattern)))
-          for (i in 1:length(pattern)) 
-                  struc[[i]] <- names(all3)[which(all3==names(pattern)[i])]
-          struc <- sapply(struc[which(sapply(struc,length)>1)], function(obj) paste(obj,collapse="="))
+          for (i in 1:length(pattern)){ 
+               ## make sure that alias information apears in systematic order
+                  struc[[i]] <- c(names(all3)[all3==names(pattern)[i]], 
+                        paste("-",names(all3)[which(all3==paste("-",names(pattern)[i],sep=""))],sep=""))
+                  struc[[i]] <- struc[[i]][sort(gsub("-","",struc[[i]]),index.return=TRUE)$ix]
+                  hilf <- gsub("-","",struc[[i]])
+                  struc[[i]] <- struc[[i]][which(nchar(hilf)>0)]
+                  hilf <- hilf[which(nchar(hilf)>0)]
+                  hilf <- sort(nchar(hilf),index.return=TRUE)$ix
+                  struc[[i]] <- struc[[i]][hilf]
+                  }
+          struc <- sapply(struc[which(sapply(struc,length)>1)], "paste",collapse="=")
+          ## make every equation start positive
+          struc <- sapply(struc, function(obj){
+               if (length(grep("^-",obj))==1){
+                   obj <- gsub("-","~",obj)
+                   obj <- gsub("=","=-",obj)
+                   obj <- gsub("=-~","=",obj)
+                   obj <- gsub("~","",obj)
+               } 
+               obj
+               })
+          names(struc) <- NULL
    ## sort in ascending order
    ## with main effect
    if (k+g<=50){
@@ -195,14 +230,22 @@ alias3fi <- function(k, gen, order=3){
    gen.check <- function(k,gen){   if (!is.list(gen)) {
                  if (!(is.numeric(gen) | is.character(gen))) 
                       stop("gen must be a list of generator vectors, a vector of column numbers or a character vector of generators.")
-                 if (is.character(gen)) gen <- lapply(strsplit(gen,""), function(obj) which(Letters %in% obj))
+                 if (is.character(gen)){
+                     absgen <- sub("-","",gen)
+                     minus <- grep("^-",gen)
+                     gen <- lapply(strsplit(absgen,""), function(obj) which(Letters %in% obj))
+                 }
                  else {
+                 ## numeric gen
+                 absgen <- abs(gen)
+                 minus <- which(gen<0)
                  if (any(!gen==floor(gen))) stop("All entries in gen must be integer numbers.")
-                 if (any(2^(0:(k-1)) %in% gen)) stop("This design is of resolution II and is not permitted in package FrF2.")
-                 if (min(gen)<1 | max(gen)>2^k-1) stop("Column numbers in gen must be in the range of 3 to 2^k-1.")
-                 gen <- Yates[gen]}
+                 if (any(2^(0:(k-1)) %in% absgen)) stop("This design is of resolution II and is not permitted in package FrF2.")
+                 if (min(absgen)<1 | max(absgen)>2^k-1) stop("Column numbers in gen must be in the range of 3 to 2^k-1.")
+                 gen <- Yates[absgen]}
+                 gen[minus] <- lapply(gen[minus],"-")
               }
-              if (any(sapply(gen,function(obj) any(obj<1 | obj>k | !floor(obj)==obj) )))
+              if (any(sapply(gen,function(obj) any(abs(obj)<1 | obj>k | !floor(obj)==obj) )))
                    stop(paste("All generators must contain integer numbers from 1 to", k, 
                      "\n or letters from",Letters[1],"to", Letters[k], "only."))
               gen

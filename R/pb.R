@@ -28,6 +28,7 @@ pb <- function(nruns,nfactors=nruns-1,
                  boxtyssedal=TRUE, n12.taguchi=FALSE, 
                  replications=1, repeat.only=FALSE, 
                  randomize=TRUE,seed=NULL, ...){
+  creator <- sys.call()
   if (default.levels[1]==default.levels[2]) stop("Both default levels are identical.")
   if (nruns == 8) {
       if (nfactors>4) warning("Plackett-Burman designs in 8 runs coincide with regular fractional factorials. 
@@ -130,7 +131,7 @@ pb <- function(nruns,nfactors=nruns-1,
     attr(aus,"design.info") <- list(type="pb", 
          nruns=nruns, nfactors=nfactors, factor.names=factor.names,
          replications=replications, repeat.only=repeat.only,
-         randomize=randomize, seed=seed)
+         randomize=randomize, seed=seed, creator=creator)
     class(aus) <- c("design","data.frame")
     aus
 }

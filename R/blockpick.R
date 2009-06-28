@@ -37,12 +37,17 @@ blockpick <- function(k, gen, k.block, design=NULL, show=10, alias.block.2fis=FA
       else stop("This full factorial is not in the catalogue.")
       }
   g <- length(gen)
+  minus <- 1
+  if (g>0){
+     minus <- which(gen<0)
+     gen <- abs(gen)
+  }
 
   hilf <- c(k,gen,k.block,show)
   if (!is.numeric(hilf))
       stop ("k, gen, k.block and show must be numeric.")
   if (!all(hilf == floor(hilf) & hilf > 0))
-      stop ("k, gen, k.block and show must contain positive integer numbers.")
+      stop ("k, gen, k.block and show must contain integer numbers.")
   if (!k >= 3) stop ("blockpick requires k>=3.")
   if (!k.block < k) stop ("blockpick requires k.block < k.")
   if (any(gen %in% 2^(0:(k-1)))) 
@@ -55,6 +60,8 @@ blockpick <- function(k, gen, k.block, design=NULL, show=10, alias.block.2fis=FA
   hilf <- cols(k, gen)
   fi2s <- hilf$fi2s
         names(fi2s) <- apply(combn(k+g,2),2,function(obj) paste(Letters[obj],collapse=""))
+        minus2fis <- which(apply(combn(k+g,2),2,function(obj) length(obj %in% minus)==1))
+        names(fi2s)[minus2fis] <- paste("-",names(fi2s)[minus2fis],sep="")
   nfi2s <- table(fi2s)   
   fi2cols <- as.numeric(names(nfi2s))
   if (is.null(design)) {
@@ -137,7 +144,7 @@ blockpick <- function(k, gen, k.block, design=NULL, show=10, alias.block.2fis=FA
     if (alias.block.2fis){
         alias.2fis.block <- vector("list",show)
         for (i in 1:show) 
-                 alias.2fis.block[[i]] <- names(fi2s)[which(fi2s %in% blockcols[i,])]
+                 alias.2fis.block[[i]] <- names(fi2s)[which(abs(fi2s) %in% blockcols[i,])]
     }
     else alias.2fis.block <- "none"
     nclear.2fis <- n2fis.clear[pick[1:show]]
@@ -149,6 +156,7 @@ blockpick <- function(k, gen, k.block, design=NULL, show=10, alias.block.2fis=FA
              setdiff(as.numeric(names(nfi2s))[which(nfi2s==1)], c(2^(0:(k-1)),gen,blockcols[i,])))]
         }
     else clear.2fis <- character(0)
+    gen[minus] <- -gen[minus]
     list(gen=gen, 
            basics = c(nruns=2^k,nblocks=blocks, ntreat=ntreat, res.base=res), 
            blockcols=blockcols[,2^(0:(k.block-1))],
