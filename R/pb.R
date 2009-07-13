@@ -114,25 +114,27 @@ pb <- function(nruns,nfactors=nruns-1,
         else orig.no.rp <- paste(orig.no.rp,rep(1:replications,each=nruns),sep=".")
         }
     rownames(sel) <- 1:(nruns*replications)
+    quant <- rep(FALSE,nfactors)
     desdf <- data.frame(sel)
     for (i in 1:nfactors) {
         desdf[,i] <- des.recode(desdf[,i],"-1=factor.names[[i]][1];1=factor.names[[i]][2]") 
-        if (is.character(desdf[,i])) {
-                 desdf[,i] <- factor(desdf[,i],levels=factor.names[[i]]) 
-                 contrasts(desdf[,i]) <- contr.FrF2(2)
+        quant[i] <- is.numeric(desdf[,i])
+        desdf[,i] <- factor(desdf[,i],levels=factor.names[[i]]) 
+        contrasts(desdf[,i]) <- contr.FrF2(2)
         }
-        }
-    if (nruns>8 | nfactors>4)
-    aus <- desdf
-    rownames(aus) <- rownames(sel) <- 1:nrow(aus)
-
-    attr(aus,"desnum") <- sel
-    attr(aus,"run.order") <- data.frame("run.no.in.std.order"=orig.no,"run.no"=1:nrow(sel),"run.no.std.rp"=orig.no.rp)
-    attr(aus,"design.info") <- list(type="pb", 
-         nruns=nruns, nfactors=nfactors, factor.names=factor.names,
-         replications=replications, repeat.only=repeat.only,
-         randomize=randomize, seed=seed, creator=creator)
-    class(aus) <- c("design","data.frame")
+    if (nruns>8 | nfactors>4){ 
+      aus <- desdf
+          ## otherwise, aus has already been defined earlier
+      rownames(aus) <- rownames(sel) <- 1:nrow(aus)
+  
+      attr(aus,"desnum") <- sel
+      attr(aus,"run.order") <- data.frame("run.no.in.std.order"=orig.no,"run.no"=1:nrow(sel),"run.no.std.rp"=orig.no.rp)
+      attr(aus,"design.info") <- list(type="pb", 
+           nruns=nruns, nfactors=nfactors, factor.names=factor.names,
+           replications=replications, repeat.only=repeat.only,
+           randomize=randomize, seed=seed, creator=creator)
+      class(aus) <- c("design","data.frame")
+    }
     aus
 }
 

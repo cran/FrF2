@@ -1,4 +1,4 @@
-`MEPlot` <-
+MEPlot <-
 function(obj, main=paste("Main effects plot for", respnam), pch=15, 
          cex.xax = par("cex.axis"), cex.yax = cex.xax, mgp.ylab = 4, 
          cex.title=1.5, cex.main=par("cex.main"), lwd=par("lwd"), 

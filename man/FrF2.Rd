@@ -24,7 +24,7 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{nruns}{ Number of runs, must be a power of 2, if given. 
+  \item{nruns}{ Number of runs, must be a power of 2 (4 to 4096), if given. 
   
       The number of runs can also be omitted. In that case, 
       if \code{resolution} is specified, the function looks for the smallest 
@@ -446,6 +446,9 @@ Choice of optimal blocking schemes in 2-level and 3-level designs.
 
 Huang, P., Chen, D. and Voelkel, J.O. (1998). Minimum-Aberration Two-Level Split-Plot Designs. 
 \emph{Technometrics} \bold{40}, 314-326. 
+
+Mee, R. (2009). \emph{A Comprehensive Guide to Factorial Two-Level Experimentation}. 
+New York: Springer.
 
 Sun, D.X., Wu, C.F.J. and Chen, Y.Y. (1997). 
 Optimal blocking schemes for 2\^p and 2\^(n-p) designs. \emph{Technometrics} \bold{39}, 

@@ -221,8 +221,10 @@ map2design <- function(map){
 ## aliases(lm(rnorm(nrow(test))~.^2,test))
 
 formula2matrix <- function(formula) {
-          apply(attr(terms(formula(formula)),"factors")[,
+          aus <- apply(attr(terms(formula(formula)),"factors")[,
                 attr(terms(formula(formula)),"order")==2,drop=FALSE],2,function(obj) which(obj==1))
+          if (!is.matrix(aus)) stop("The formula for option estimable must contain main effects for all factors that occur in interactions!")
+          aus
     }
 
 char2num <- function(char){

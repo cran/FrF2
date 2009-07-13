@@ -19,7 +19,7 @@ MEPlot(obj, main = paste("Main effects plot for", respnam),
 IAPlot(obj, main = paste("Interaction plot matrix for", respnam), 
     pch = c(15, 17), cex.lab = par("cex.lab"), cex = par("cex"), 
     cex.xax = par("cex.axis"), cex.yax = cex.xax, cex.title = 1.5, 
-    lwd = par("lwd"), abbrev = 4, show.alias = FALSE)
+    lwd = par("lwd"), abbrev = 4, select = NULL, show.alias = FALSE)
          
 intfind(i, j, mat)
 
@@ -31,10 +31,12 @@ remodel(obj)
 
 \arguments{
   \item{obj}{ a linear model object with 2-level factors or numerical 
-              2-level variables; 
+              2-level variables; \cr
               the structure must be such that effects are either fully 
               aliased or orthogonal, like in a regular fractional factorial 2-level 
-              design}
+              design;\cr
+              note that \code{IAPlot} currently requires the response in \code{obj} to be 
+              a pre-defined variable and not a calculated quantity}
   \item{main}{ overall title for the plot assembly }
   \item{pch}{ Plot symbol number \code{MEPlot}, 
               or vector of two plot symbol numbers for the lower 
@@ -51,10 +53,18 @@ remodel(obj)
   \item{lwd}{ line width for plot lines and axes }
   \item{abbrev}{ number of characters shown for factor levels }
   \item{select}{ vector with position numbers of the main effects to be displayed; \cr
-              default: all main effects; \cr
-              will eventually also be implemented for function IAPlot;
-              currently, the model must be reduced in order to omit effects 
-              from IAPlot}
+              default: all main effects; the default implies the full interaction plot matrix 
+              for \code{IAPlot}.\cr
+              For \code{IAPlot}, the full interaction plot matrix for the selected 
+              factors is displayed. Of course, at least two factors must be selected. 
+              Furthermore, the linear model \code{obj} must at least contain one 
+              interaction term among the selected variables. 
+              For interactions that do not occur in the linear model, not plot is shown.
+              An interaction plot matrix of data means can be obtained by 
+              specifying the model with all possible 2-factor interactions (e.g. formula 
+              \code{y~(.)^2} for a regular 2-level fractional factorial, for which 
+              \code{y} is the only response and all other variables are 2-level factors).
+              }
   \item{show.alias}{ if TRUE, the interaction plot shows the number 
               of the list entry from aliases(obj)\$aliases 
               (cf. \code{\link{aliases}}) in order to support immediate 
@@ -66,18 +76,25 @@ remodel(obj)
 }
 
 \details{
-  \code{MEPlot} produces plots of all main effects in the model,
-  \code{IAPlot} produces plots of all interaction effects in the model,
-  \code{intfind} is an internal function not directly useful for users.
-  \code{check} is an internal function for checking whether the model complies 
+  \describe{
+  \item{MEPlot}{produces plots of all main effects in the model, 
+              or selected ones if \code{select} is specified}
+  \item{IAPlot}{produces plots of all interaction effects in the model,
+              or selected ones if \code{select} is specified}
+  \item{intfind}{is an internal function not directly useful for users}
+  \item{check}{is an internal function for checking whether the model complies 
               with assumptions (fractional factorial of 2-level factors 
-              with full or no aliasing, not partial aliasing),
-  \code{remodel} is an internal function that redoes factor values into -1 and 1 
+              with full or no aliasing, not partial aliasing; 
+              this implies that Plackett-Burman designs with partial aliasing 
+              of 2-factor interactions give an OK (=TRUE) in \code{check} for 
+              pure main effects models only.)}
+  \item{remodel}{is an internal function that redoes factor values into -1 and 1 
               coding, regardless of the contrasts that have been used for the 
               original factors;
               numerical data are transformed by subtracting the mean and dividing 
               by half the range (max-min), which also transforms them to -1 and 1 
-              coding in the 2-level case (and leads to an error otherwise)
+              coding in the 2-level case (and leads to an error otherwise)}
+  }
 }
 \value{
   \code{MEPlot} and \code{IAPlot} are used for their side effects only. 
@@ -97,7 +114,6 @@ remodel(obj)
               -1 and 1 notation and aov objects made into \dQuote{pure} lm objects}
       \item{labs }{is a list preserving the level information from original factors
                (levels are minus and plus for numerical variables)}
-
 }
 
 \references{ 

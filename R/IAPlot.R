@@ -1,7 +1,8 @@
-`IAPlot` <-
+IAPlot <-
 function(obj, main=paste("Interaction plot matrix for",respnam), pch=c(15,17), 
     cex.lab=par("cex.lab"), cex=par("cex"), cex.xax=par("cex.axis"), 
-    cex.yax=cex.xax, cex.title = 1.5, lwd=par("lwd"), abbrev=4, show.alias=FALSE){
+    cex.yax=cex.xax, cex.title = 1.5, lwd=par("lwd"), abbrev=4, select=NULL, 
+    show.alias=FALSE){
     # obj     a linear model
     # pch     plot characters used
     # cex     plot character size
@@ -21,24 +22,52 @@ function(obj, main=paste("Interaction plot matrix for",respnam), pch=c(15,17),
    mod <- obj$model
    respnam <- colnames(mod)[attr(attr(mod,"terms"),"response")]
    ## for some reason, this does not work when using obj instead of mod
-   
+   ## it neither works if respnam is something like rnorm(16)
+      ## how do I fix or at least report this ?
+  
    if (!check(obj))
      stop("This routine is applicable for 2-level factorial designs without partial aliasing only.")
-   
+     
    ## prepare for simple access of important quantities
    term.ord <- attr(terms(obj),"order")
-   nmain <- length(which(term.ord==1))
-   nint <- length(which(term.ord==2))
+   mains <- which(term.ord==1)
+   ints <- which(term.ord==2)
+   nmain <- length(mains)
+   nint <- length(ints)
    intcol <- attr(terms(obj),"intercept")
-   mm<-model.matrix(obj)
+   termnames <- attr(terms(obj),"term.labels")
+   
+   if (!is.null(select)){
+       ## take care of selecting only part of the interactions
+       if (!is.numeric(select)) stop("select must be numeric")
+       if (!all(floor(select)==select)) stop("select must contain integer numbers")
+       if (any(select<1 | select>nmain)) stop("select must contain numbers betweeen 1 and ", nmain, " only")
+       select <- unique(select)
+       if (length(select)<2) stop("at least 2 effects must be selected for an interaction plot matrix")
+       selnam <- termnames[select]
+       hilf <- strsplit(termnames[ints],":")
+       selected <- sapply(hilf, function(.obj1) all(.obj1 %in% selnam))
+       intselnam <- termnames[ints[selected]]
+       if (!is.name(respnam)) formulasel <- paste(respnam, "~", paste(c(selnam,intselnam),collapse="+"))
+       formulasel <- paste(respnam, "~", paste(c(selnam,intselnam),collapse="+"))
+       obj <- lm(formulasel, data=mod)
+       term.ord <- attr(terms(obj),"order")
+       mains <- which(term.ord==1)
+       ints <- which(term.ord==2)
+       nmain <- length(mains)
+       nint <- length(ints)
+       intcol <- attr(terms(obj),"intercept")
+   }
+   mm <- model.matrix(obj)
    ## omit intercept, if present
    if (intcol > 0) mm <- mm[,-intcol]
+   
    coefs <- coef(obj)
    if (intcol > 0) coefs <- coefs[-intcol] 
 
  
-   terms1 <- colnames(mm)[which(term.ord==1)]
-   terms2 <- colnames(mm)[which(term.ord==2)]
+   terms1 <- colnames(mm)[mains]
+   terms2 <- colnames(mm)[ints]
    ## used for easy prediction
    addnam <- setdiff(colnames(obj$model), terms1)
    names <- c(terms1, addnam)

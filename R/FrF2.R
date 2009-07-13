@@ -87,7 +87,7 @@ if (identical(nfac.WP,0) & is.null(WPfacs) & !identical(WPs,1))
     if (!is.null(nruns)){
        k <- round(log2(nruns))
        if (!2^k==nruns) stop("nruns must be a power of 2.")
-       if (nruns < 8 | nruns > 4096) stop("less than 8 or more than 4096 runs are not covered by FrF2.")
+       if (nruns < 4 | nruns > 4096) stop("less than 4 or more than 4096 runs are not covered by FrF2.")
        }
 
     ## check factor specifications
@@ -452,7 +452,6 @@ else {
        if (is.list(blocks)) {
             hilf <- blocks
             for (i in 1:k.block) hilf[[i]] <- apply(desmat[,hilf[[i]],drop=FALSE],1,prod)
-
             Blocks <- factor(as.numeric(factor(apply(matrix(as.character(unlist(hilf)),ncol=k.block),
                         1,paste,collapse=""))))
             hilf <- order(Blocks)
@@ -605,12 +604,13 @@ else {
     }
 
     desdf <- data.frame(desmat)
+    quant <- rep(FALSE,nfactors)
     for (i in 1:nfactors) {
+        ## make all variables into factors
         desdf[,i] <- des.recode(desdf[,i],"-1=factor.names[[i]][1];1=factor.names[[i]][2]") 
-        if (is.character(desdf[,i])) {
-                 desdf[,i] <- factor(desdf[,i],levels=factor.names[[i]]) 
-                 contrasts(desdf[,i]) <- contr.FrF2(2)
-        }
+        quant[i] <- is.numeric(desdf[,i])
+        desdf[,i] <- factor(desdf[,i],levels=factor.names[[i]]) 
+        contrasts(desdf[,i]) <- contr.FrF2(2)
         }
 
     if (is.list(blocks)) {
@@ -680,6 +680,8 @@ else {
                 list(base.design="full factorial"))
                 }
            else design.info <- c(design.info, list(base.design=names(cand[1])))
+        if (bbreps>1) desdf[,1] <- paste(desdf[,1], rep(1:bbreps, each=nruns*wbreps),sep=".")
+                 ## make block names reflect the between block replication
         }   ## end of blocked designs
 
         if (WPs > 1){

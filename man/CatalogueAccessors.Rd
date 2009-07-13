@@ -80,7 +80,7 @@ block.catlg
   is of class \code{catlg} and currently contains 
   \itemize{
   \item the Chen, Sun and Wu (1993) 2-level designs 
-  (complete list of 2-level fractional factorials up to 32~runs, 
+  (complete list of 2-level fractional factorials from 4 to 32~runs, 
   complete list of resolution IV 2-level fractional factorials with 64~runs). 
   Note that the Chen Sun Wu paper only shows a selection of the 64~run designs, the 
   complete catalogue has been obtained from Don Sun and is numbered according to 
@@ -100,7 +100,8 @@ block.catlg
   }
   
   It is planned to extend the availability of large designs in catalogue \code{catlg}, e.g. by 
-  adding good resolution IV designs of 256 runs or other \dQuote{good designs} provided by Xu (2009). 
+  adding good resolution IV designs of 256 runs or other \dQuote{good designs} provided by 
+  Mee (2009) and by Xu (2009). 
 }
 
 \value{
@@ -116,6 +117,9 @@ Block, R. and Mee, R. (2006) Corrigenda \emph{Journal of Quality Technology} \bo
 
 Chen, J., Sun, D.X. and Wu, C.F.J. (1993) A catalogue of 2-level and 3-level orthogonal arrays. \emph{Int. Statistical Review} \bold{61}, 131-145.
 
+Mee, R. (2009). \emph{A Comprehensive Guide to Factorial Two-Level Experimentation}. 
+New York: Springer.
+    
 Sun, D.X., Wu, C.F.J. and Chen, Y.Y. (1997). 
 Optimal blocking schemes for 2\^p and 2\^(n-p) designs. \emph{Technometrics} \bold{39}, 
 298-307. 

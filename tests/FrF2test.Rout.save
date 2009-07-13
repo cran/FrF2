@@ -21,6 +21,16 @@ Loading required package: scatterplot3d
 Loading required package: igraph
 Loading required package: sfsmisc
 Loading required package: DoE.base
+Loading required package: tcltk
+Loading Tcl/Tk interface ... done
+
+Attaching package: 'DoE.base'
+
+
+	The following object(s) are masked from package:utils :
+
+	 fix 
+
 
 Attaching package: 'FrF2'
 
@@ -124,16 +134,36 @@ Attaching package: 'FrF2'
 > 
 > str(FrF2(16,6,randomize=FALSE, factor.names=list(eins=c(1,2),zwei=c(43,87),drei=c("alt","neu"),vier="",fuenf="",sechs="")))
 Classes 'design' and 'data.frame':	16 obs. of  6 variables:
- $ eins : num  1 2 1 2 1 2 1 2 1 2 ...
- $ zwei : num  43 43 87 87 43 43 87 87 43 43 ...
+ $ eins : Factor w/ 2 levels "1","2": 1 2 1 2 1 2 1 2 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "1" "2"
+  .. .. ..$ : NULL
+ $ zwei : Factor w/ 2 levels "43","87": 1 1 2 2 1 1 2 2 1 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "43" "87"
+  .. .. ..$ : NULL
  $ drei : Factor w/ 2 levels "alt","neu": 1 1 1 1 2 2 2 2 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
   .. .. ..$ : chr  "alt" "neu"
   .. .. ..$ : NULL
- $ vier : num  -1 -1 -1 -1 -1 -1 -1 -1 1 1 ...
- $ fuenf: num  -1 1 1 -1 1 -1 -1 1 -1 1 ...
- $ sechs: num  -1 1 1 -1 -1 1 1 -1 1 -1 ...
+ $ vier : Factor w/ 2 levels "-1","1": 1 1 1 1 1 1 1 1 2 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ fuenf: Factor w/ 2 levels "-1","1": 1 2 2 1 2 1 1 2 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ sechs: Factor w/ 2 levels "-1","1": 1 2 2 1 1 2 2 1 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
  - attr(*, "desnum")= num [1:16, 1:6] -1 1 -1 1 -1 1 -1 1 -1 1 ...
   ..- attr(*, "dimnames")=List of 2
   .. ..$ : chr  "1" "2" "3" "4" ...
@@ -173,16 +203,36 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
   ..$ creator     : language FrF2(16, 6, randomize = FALSE, factor.names = list(eins = c(1,      2), zwei = c(43, 87), drei = c("alt", "neu"), vier = "",  ...
 > str(FrF2(16,randomize=FALSE, factor.names=list(eins=c(1,2),zwei=c(43,87),drei=c("alt","neu"),vier="",fuenf="",sechs="")))
 Classes 'design' and 'data.frame':	16 obs. of  6 variables:
- $ eins : num  1 2 1 2 1 2 1 2 1 2 ...
- $ zwei : num  43 43 87 87 43 43 87 87 43 43 ...
+ $ eins : Factor w/ 2 levels "1","2": 1 2 1 2 1 2 1 2 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "1" "2"
+  .. .. ..$ : NULL
+ $ zwei : Factor w/ 2 levels "43","87": 1 1 2 2 1 1 2 2 1 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "43" "87"
+  .. .. ..$ : NULL
  $ drei : Factor w/ 2 levels "alt","neu": 1 1 1 1 2 2 2 2 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
   .. .. ..$ : chr  "alt" "neu"
   .. .. ..$ : NULL
- $ vier : num  -1 -1 -1 -1 -1 -1 -1 -1 1 1 ...
- $ fuenf: num  -1 1 1 -1 1 -1 -1 1 -1 1 ...
- $ sechs: num  -1 1 1 -1 -1 1 1 -1 1 -1 ...
+ $ vier : Factor w/ 2 levels "-1","1": 1 1 1 1 1 1 1 1 2 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ fuenf: Factor w/ 2 levels "-1","1": 1 2 2 1 2 1 1 2 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ sechs: Factor w/ 2 levels "-1","1": 1 2 2 1 1 2 2 1 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
  - attr(*, "desnum")= num [1:16, 1:6] -1 1 -1 1 -1 1 -1 1 -1 1 ...
   ..- attr(*, "dimnames")=List of 2
   .. ..$ : chr  "1" "2" "3" "4" ...
@@ -222,12 +272,36 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
   ..$ creator     : language FrF2(16, randomize = FALSE, factor.names = list(eins = c(1, 2),      zwei = c(43, 87), drei = c("alt", "neu"), vier = "", fuenf = "",  ...
 > str(FrF2(16,design="6-2.2",randomize=FALSE))
 Classes 'design' and 'data.frame':	16 obs. of  6 variables:
- $ A: num  -1 1 -1 1 -1 1 -1 1 -1 1 ...
- $ B: num  -1 -1 1 1 -1 -1 1 1 -1 -1 ...
- $ C: num  -1 -1 -1 -1 1 1 1 1 -1 -1 ...
- $ D: num  -1 -1 -1 -1 -1 -1 -1 -1 1 1 ...
- $ E: num  1 -1 -1 1 1 -1 -1 1 1 -1 ...
- $ F: num  -1 1 -1 1 1 -1 1 -1 1 -1 ...
+ $ A: Factor w/ 2 levels "-1","1": 1 2 1 2 1 2 1 2 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ B: Factor w/ 2 levels "-1","1": 1 1 2 2 1 1 2 2 1 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ C: Factor w/ 2 levels "-1","1": 1 1 1 1 2 2 2 2 1 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ D: Factor w/ 2 levels "-1","1": 1 1 1 1 1 1 1 1 2 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ E: Factor w/ 2 levels "-1","1": 2 1 1 2 2 1 1 2 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ F: Factor w/ 2 levels "-1","1": 1 2 1 2 2 1 2 1 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
  - attr(*, "desnum")= num [1:16, 1:6] -1 1 -1 1 -1 1 -1 1 -1 1 ...
   ..- attr(*, "dimnames")=List of 2
   .. ..$ : chr  "1" "2" "3" "4" ...
@@ -267,16 +341,36 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
   ..$ creator     : language FrF2(16, design = "6-2.2", randomize = FALSE)
 > str(FrF2(16,generators=catlg[["6-2.2"]]$gen,randomize=FALSE,factor.names=list(eins=c(1,2),zwei=c(43,87),drei=c("alt","neu"),vier="",fuenf="",sechs="")))
 Classes 'design' and 'data.frame':	16 obs. of  6 variables:
- $ eins : num  1 2 1 2 1 2 1 2 1 2 ...
- $ zwei : num  43 43 87 87 43 43 87 87 43 43 ...
+ $ eins : Factor w/ 2 levels "1","2": 1 2 1 2 1 2 1 2 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "1" "2"
+  .. .. ..$ : NULL
+ $ zwei : Factor w/ 2 levels "43","87": 1 1 2 2 1 1 2 2 1 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "43" "87"
+  .. .. ..$ : NULL
  $ drei : Factor w/ 2 levels "alt","neu": 1 1 1 1 2 2 2 2 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
   .. .. ..$ : chr  "alt" "neu"
   .. .. ..$ : NULL
- $ vier : num  -1 -1 -1 -1 -1 -1 -1 -1 1 1 ...
- $ fuenf: num  1 -1 -1 1 1 -1 -1 1 1 -1 ...
- $ sechs: num  -1 1 -1 1 1 -1 1 -1 1 -1 ...
+ $ vier : Factor w/ 2 levels "-1","1": 1 1 1 1 1 1 1 1 2 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ fuenf: Factor w/ 2 levels "-1","1": 2 1 1 2 2 1 1 2 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ sechs: Factor w/ 2 levels "-1","1": 1 2 1 2 2 1 2 1 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
  - attr(*, "desnum")= num [1:16, 1:6] -1 1 -1 1 -1 1 -1 1 -1 1 ...
   ..- attr(*, "dimnames")=List of 2
   .. ..$ : chr  "1" "2" "3" "4" ...
@@ -330,16 +424,36 @@ $fi2
 > 
 > str(FrF2(16,design="6-2.2",randomize=FALSE,factor.names=list(eins=c(1,2),zwei=c(43,87),drei=c("alt","neu"),vier="",fuenf="",sechs="")))
 Classes 'design' and 'data.frame':	16 obs. of  6 variables:
- $ eins : num  1 2 1 2 1 2 1 2 1 2 ...
- $ zwei : num  43 43 87 87 43 43 87 87 43 43 ...
+ $ eins : Factor w/ 2 levels "1","2": 1 2 1 2 1 2 1 2 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "1" "2"
+  .. .. ..$ : NULL
+ $ zwei : Factor w/ 2 levels "43","87": 1 1 2 2 1 1 2 2 1 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "43" "87"
+  .. .. ..$ : NULL
  $ drei : Factor w/ 2 levels "alt","neu": 1 1 1 1 2 2 2 2 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
   .. .. ..$ : chr  "alt" "neu"
   .. .. ..$ : NULL
- $ vier : num  -1 -1 -1 -1 -1 -1 -1 -1 1 1 ...
- $ fuenf: num  1 -1 -1 1 1 -1 -1 1 1 -1 ...
- $ sechs: num  -1 1 -1 1 1 -1 1 -1 1 -1 ...
+ $ vier : Factor w/ 2 levels "-1","1": 1 1 1 1 1 1 1 1 2 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ fuenf: Factor w/ 2 levels "-1","1": 2 1 1 2 2 1 1 2 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ sechs: Factor w/ 2 levels "-1","1": 1 2 1 2 2 1 2 1 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
  - attr(*, "desnum")= num [1:16, 1:6] -1 1 -1 1 -1 1 -1 1 -1 1 ...
   ..- attr(*, "dimnames")=List of 2
   .. ..$ : chr  "1" "2" "3" "4" ...
@@ -379,12 +493,36 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
   ..$ creator     : language FrF2(16, design = "6-2.2", randomize = FALSE, factor.names = list(eins = c(1,      2), zwei = c(43, 87), drei = c("alt", "neu"), vier = "",  ...
 > str(FrF2(16,design="6-2.2",nfactors=6,randomize=FALSE))
 Classes 'design' and 'data.frame':	16 obs. of  6 variables:
- $ A: num  -1 1 -1 1 -1 1 -1 1 -1 1 ...
- $ B: num  -1 -1 1 1 -1 -1 1 1 -1 -1 ...
- $ C: num  -1 -1 -1 -1 1 1 1 1 -1 -1 ...
- $ D: num  -1 -1 -1 -1 -1 -1 -1 -1 1 1 ...
- $ E: num  1 -1 -1 1 1 -1 -1 1 1 -1 ...
- $ F: num  -1 1 -1 1 1 -1 1 -1 1 -1 ...
+ $ A: Factor w/ 2 levels "-1","1": 1 2 1 2 1 2 1 2 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ B: Factor w/ 2 levels "-1","1": 1 1 2 2 1 1 2 2 1 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ C: Factor w/ 2 levels "-1","1": 1 1 1 1 2 2 2 2 1 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ D: Factor w/ 2 levels "-1","1": 1 1 1 1 1 1 1 1 2 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ E: Factor w/ 2 levels "-1","1": 2 1 1 2 2 1 1 2 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ F: Factor w/ 2 levels "-1","1": 1 2 1 2 2 1 2 1 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
  - attr(*, "desnum")= num [1:16, 1:6] -1 1 -1 1 -1 1 -1 1 -1 1 ...
   ..- attr(*, "dimnames")=List of 2
   .. ..$ : chr  "1" "2" "3" "4" ...
@@ -424,16 +562,36 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
   ..$ creator     : language FrF2(16, design = "6-2.2", nfactors = 6, randomize = FALSE)
 > str(FrF2(16,design="6-2.2",randomize=FALSE,factor.names=list(eins=c(1,2),zwei=c(43,87),drei=c("alt","neu"),vier="",fuenf="",sechs="")))
 Classes 'design' and 'data.frame':	16 obs. of  6 variables:
- $ eins : num  1 2 1 2 1 2 1 2 1 2 ...
- $ zwei : num  43 43 87 87 43 43 87 87 43 43 ...
+ $ eins : Factor w/ 2 levels "1","2": 1 2 1 2 1 2 1 2 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "1" "2"
+  .. .. ..$ : NULL
+ $ zwei : Factor w/ 2 levels "43","87": 1 1 2 2 1 1 2 2 1 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "43" "87"
+  .. .. ..$ : NULL
  $ drei : Factor w/ 2 levels "alt","neu": 1 1 1 1 2 2 2 2 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
   .. .. ..$ : chr  "alt" "neu"
   .. .. ..$ : NULL
- $ vier : num  -1 -1 -1 -1 -1 -1 -1 -1 1 1 ...
- $ fuenf: num  1 -1 -1 1 1 -1 -1 1 1 -1 ...
- $ sechs: num  -1 1 -1 1 1 -1 1 -1 1 -1 ...
+ $ vier : Factor w/ 2 levels "-1","1": 1 1 1 1 1 1 1 1 2 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ fuenf: Factor w/ 2 levels "-1","1": 2 1 1 2 2 1 1 2 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ sechs: Factor w/ 2 levels "-1","1": 1 2 1 2 2 1 2 1 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
  - attr(*, "desnum")= num [1:16, 1:6] -1 1 -1 1 -1 1 -1 1 -1 1 ...
   ..- attr(*, "dimnames")=List of 2
   .. ..$ : chr  "1" "2" "3" "4" ...
@@ -727,12 +885,36 @@ Classes 'design' and 'data.frame':	32 obs. of  7 variables:
   .. ..- attr(*, "dimnames")=List of 2
   .. .. ..$ : chr  "1" "2" "3" "4" ...
   .. .. ..$ : NULL
- $ A     : num  -1 -1 1 1 -1 -1 1 1 -1 -1 ...
- $ C     : num  -1 1 -1 1 -1 1 -1 1 -1 1 ...
- $ D     : num  1 -1 1 -1 -1 1 -1 1 1 -1 ...
- $ F     : num  -1 1 1 -1 -1 1 1 -1 -1 1 ...
- $ G     : num  1 -1 -1 1 -1 1 1 -1 1 -1 ...
- $ H     : num  -1 -1 1 1 1 1 -1 -1 1 1 ...
+ $ A     : Factor w/ 2 levels "-1","1": 1 1 2 2 1 1 2 2 1 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ C     : Factor w/ 2 levels "-1","1": 1 2 1 2 1 2 1 2 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ D     : Factor w/ 2 levels "-1","1": 2 1 2 1 1 2 1 2 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ F     : Factor w/ 2 levels "-1","1": 1 2 2 1 1 2 2 1 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ G     : Factor w/ 2 levels "-1","1": 2 1 1 2 1 2 2 1 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ H     : Factor w/ 2 levels "-1","1": 1 1 2 2 2 2 1 1 2 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
  - attr(*, "desnum")= num [1:32, 1:13] -1 -1 -1 -1 1 1 1 1 -1 -1 ...
   ..- attr(*, "dimnames")=List of 2
   .. ..$ : chr  "1" "2" "3" "4" ...
@@ -787,10 +969,26 @@ Classes 'design' and 'data.frame':	32 obs. of  7 variables:
   .. ..- attr(*, "dimnames")=List of 2
   .. .. ..$ : chr  "old" "new"
   .. .. ..$ : NULL
- $ third : num  1000 1000 2000 2000 2000 2000 1000 1000 1000 1000 ...
- $ fourth: num  -1 1 -1 1 -1 1 -1 1 -1 1 ...
- $ fifth : num  1 -1 1 -1 1 -1 1 -1 -1 1 ...
- $ sixth : num  1 1 1 1 1 1 1 1 -1 -1 ...
+ $ third : Factor w/ 2 levels "1000","2000": 1 1 2 2 2 2 1 1 1 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "1000" "2000"
+  .. .. ..$ : NULL
+ $ fourth: Factor w/ 2 levels "-1","1": 1 2 1 2 1 2 1 2 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ fifth : Factor w/ 2 levels "-1","1": 2 1 2 1 2 1 2 1 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ sixth : Factor w/ 2 levels "-1","1": 2 2 2 2 2 2 2 2 1 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
  - attr(*, "desnum")= num [1:32, 1:9] -1 -1 -1 -1 -1 -1 -1 -1 1 1 ...
   ..- attr(*, "dimnames")=List of 2
   .. ..$ : chr  "1" "2" "3" "4" ...
@@ -842,10 +1040,26 @@ Classes 'design' and 'data.frame':	32 obs. of  7 variables:
   .. ..- attr(*, "dimnames")=List of 2
   .. .. ..$ : chr  "old" "new"
   .. .. ..$ : NULL
- $ third : num  1000 2000 2000 1000 1000 2000 2000 1000 1000 2000 ...
- $ fourth: num  1 -1 1 -1 -1 1 -1 1 -1 1 ...
- $ fifth : num  1 -1 -1 1 1 -1 -1 1 -1 1 ...
- $ sixth : num  -1 -1 1 1 1 1 -1 -1 -1 -1 ...
+ $ third : Factor w/ 2 levels "1000","2000": 1 2 2 1 1 2 2 1 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "1000" "2000"
+  .. .. ..$ : NULL
+ $ fourth: Factor w/ 2 levels "-1","1": 2 1 2 1 1 2 1 2 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ fifth : Factor w/ 2 levels "-1","1": 2 1 1 2 2 1 1 2 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ sixth : Factor w/ 2 levels "-1","1": 1 1 2 2 2 2 1 1 1 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
  - attr(*, "desnum")= num [1:32, 1:13] -1 -1 -1 -1 1 1 1 1 -1 -1 ...
   ..- attr(*, "dimnames")=List of 2
   .. ..$ : chr  "1" "2" "3" "4" ...
@@ -893,13 +1107,41 @@ Classes 'design' and 'data.frame':	32 obs. of  8 variables:
   .. ..- attr(*, "dimnames")=List of 2
   .. .. ..$ : chr  "1" "2" "3" "4"
   .. .. ..$ : NULL
- $ third : num  1000 1000 1000 1000 2000 2000 2000 2000 1000 1000 ...
- $ fourth: num  -1 -1 1 1 -1 -1 1 1 -1 -1 ...
- $ fifth : num  -1 1 -1 1 -1 1 -1 1 -1 1 ...
- $ sixth : num  -1 -1 -1 -1 1 1 1 1 1 1 ...
- $ seven : num  -1 -1 1 1 -1 -1 1 1 1 1 ...
- $ eight : num  -1 1 -1 1 -1 1 -1 1 1 -1 ...
- $ nine  : num  1 -1 -1 1 -1 1 1 -1 1 -1 ...
+ $ third : Factor w/ 2 levels "1000","2000": 1 1 1 1 2 2 2 2 1 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "1000" "2000"
+  .. .. ..$ : NULL
+ $ fourth: Factor w/ 2 levels "-1","1": 1 1 2 2 1 1 2 2 1 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ fifth : Factor w/ 2 levels "-1","1": 1 2 1 2 1 2 1 2 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ sixth : Factor w/ 2 levels "-1","1": 1 1 1 1 2 2 2 2 2 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ seven : Factor w/ 2 levels "-1","1": 1 1 2 2 1 1 2 2 2 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ eight : Factor w/ 2 levels "-1","1": 1 2 1 2 1 2 1 2 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ nine  : Factor w/ 2 levels "-1","1": 2 1 1 2 1 2 2 1 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
  - attr(*, "desnum")= num [1:32, 1:10] -1 -1 -1 -1 -1 -1 -1 -1 1 1 ...
   ..- attr(*, "dimnames")=List of 2
   .. ..$ : chr  "1" "2" "3" "4" ...
@@ -946,13 +1188,41 @@ Classes 'design' and 'data.frame':	64 obs. of  8 variables:
   .. ..- attr(*, "dimnames")=List of 2
   .. .. ..$ : chr  "1" "2" "3" "4" ...
   .. .. ..$ : NULL
- $ A     : num  -1 1 -1 1 -1 1 -1 1 -1 1 ...
- $ B     : num  -1 1 -1 1 -1 1 -1 1 -1 1 ...
- $ C     : num  -1 1 -1 1 -1 1 -1 1 1 -1 ...
- $ D     : num  -1 1 -1 1 1 -1 1 -1 -1 1 ...
- $ E     : num  -1 1 1 -1 -1 1 1 -1 1 -1 ...
- $ F     : num  1 -1 -1 1 -1 1 1 -1 1 -1 ...
- $ G     : num  1 -1 -1 1 -1 1 1 -1 -1 1 ...
+ $ A     : Factor w/ 2 levels "-1","1": 1 2 1 2 1 2 1 2 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ B     : Factor w/ 2 levels "-1","1": 1 2 1 2 1 2 1 2 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ C     : Factor w/ 2 levels "-1","1": 1 2 1 2 1 2 1 2 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ D     : Factor w/ 2 levels "-1","1": 1 2 1 2 2 1 2 1 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ E     : Factor w/ 2 levels "-1","1": 1 2 2 1 1 2 2 1 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ F     : Factor w/ 2 levels "-1","1": 2 1 1 2 1 2 2 1 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ G     : Factor w/ 2 levels "-1","1": 2 1 1 2 1 2 2 1 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
  - attr(*, "desnum")= num [1:64, 1:38] -1 -1 1 1 -1 -1 1 1 -1 -1 ...
   ..- attr(*, "dimnames")=List of 2
   .. ..$ : chr  "1" "2" "3" "4" ...
@@ -1062,20 +1332,76 @@ In FrF2(32, 14, WPs = 8, nfac.WP = 2, randomize = FALSE) :
 >   test <- FrF2(32,14,WPs=8,nfac.WP=6,randomize=FALSE)
 >   str(test[32:1,])
 Classes 'design' and 'data.frame':	32 obs. of  14 variables:
- $ A: num  1 1 1 1 1 1 1 1 1 1 ...
- $ B: num  1 1 1 1 1 1 1 1 -1 -1 ...
- $ C: num  1 1 1 1 -1 -1 -1 -1 1 1 ...
- $ F: num  1 1 1 1 1 1 1 1 -1 -1 ...
- $ G: num  1 1 1 1 -1 -1 -1 -1 1 1 ...
- $ H: num  1 1 1 1 -1 -1 -1 -1 -1 -1 ...
- $ D: num  1 1 -1 -1 1 1 -1 -1 1 1 ...
- $ E: num  1 -1 1 -1 1 -1 1 -1 1 -1 ...
- $ J: num  1 1 -1 -1 1 1 -1 -1 1 1 ...
- $ K: num  1 1 -1 -1 -1 -1 1 1 -1 -1 ...
- $ L: num  1 -1 1 -1 1 -1 1 -1 1 -1 ...
- $ M: num  1 -1 1 -1 -1 1 -1 1 -1 1 ...
- $ N: num  1 -1 -1 1 1 -1 -1 1 -1 1 ...
- $ O: num  1 -1 -1 1 -1 1 1 -1 1 -1 ...
+ $ A: Factor w/ 2 levels "-1","1": 2 2 2 2 2 2 2 2 2 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ B: Factor w/ 2 levels "-1","1": 2 2 2 2 2 2 2 2 1 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ C: Factor w/ 2 levels "-1","1": 2 2 2 2 1 1 1 1 2 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ F: Factor w/ 2 levels "-1","1": 2 2 2 2 2 2 2 2 1 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ G: Factor w/ 2 levels "-1","1": 2 2 2 2 1 1 1 1 2 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ H: Factor w/ 2 levels "-1","1": 2 2 2 2 1 1 1 1 1 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ D: Factor w/ 2 levels "-1","1": 2 2 1 1 2 2 1 1 2 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ E: Factor w/ 2 levels "-1","1": 2 1 2 1 2 1 2 1 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ J: Factor w/ 2 levels "-1","1": 2 2 1 1 2 2 1 1 2 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ K: Factor w/ 2 levels "-1","1": 2 2 1 1 1 1 2 2 1 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ L: Factor w/ 2 levels "-1","1": 2 1 2 1 2 1 2 1 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ M: Factor w/ 2 levels "-1","1": 2 1 2 1 1 2 1 2 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ N: Factor w/ 2 levels "-1","1": 2 1 1 2 2 1 1 2 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ O: Factor w/ 2 levels "-1","1": 2 1 1 2 1 2 2 1 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
  - attr(*, "desnum")= num [1:32, 1:14] 1 1 1 1 1 1 1 1 1 1 ...
   ..- attr(*, "dimnames")=List of 2
   .. ..$ : chr  "32" "31" "30" "29" ...
@@ -1144,52 +1470,220 @@ Classes 'design' and 'data.frame':	32 obs. of  14 variables:
   ..$ creator     : language FrF2(32, 14, WPs = 8, nfac.WP = 6, randomize = FALSE)
 >   str(test[14:1,])
 'data.frame':	14 obs. of  14 variables:
- $ A: num  -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
- $ B: num  1 1 1 1 1 1 -1 -1 -1 -1 ...
- $ C: num  1 1 -1 -1 -1 -1 1 1 1 1 ...
- $ F: num  -1 -1 -1 -1 -1 -1 1 1 1 1 ...
- $ G: num  -1 -1 1 1 1 1 -1 -1 -1 -1 ...
- $ H: num  1 1 -1 -1 -1 -1 -1 -1 -1 -1 ...
- $ D: num  -1 -1 1 1 -1 -1 1 1 -1 -1 ...
- $ E: num  1 -1 1 -1 1 -1 1 -1 1 -1 ...
- $ J: num  1 1 -1 -1 1 1 -1 -1 1 1 ...
- $ K: num  -1 -1 -1 -1 1 1 -1 -1 1 1 ...
- $ L: num  -1 1 -1 1 -1 1 -1 1 -1 1 ...
- $ M: num  1 -1 -1 1 -1 1 -1 1 -1 1 ...
- $ N: num  -1 1 1 -1 -1 1 -1 1 1 -1 ...
- $ O: num  1 -1 1 -1 -1 1 -1 1 1 -1 ...
+ $ A: Factor w/ 2 levels "-1","1": 1 1 1 1 1 1 1 1 1 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ B: Factor w/ 2 levels "-1","1": 2 2 2 2 2 2 1 1 1 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ C: Factor w/ 2 levels "-1","1": 2 2 1 1 1 1 2 2 2 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ F: Factor w/ 2 levels "-1","1": 1 1 1 1 1 1 2 2 2 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ G: Factor w/ 2 levels "-1","1": 1 1 2 2 2 2 1 1 1 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ H: Factor w/ 2 levels "-1","1": 2 2 1 1 1 1 1 1 1 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ D: Factor w/ 2 levels "-1","1": 1 1 2 2 1 1 2 2 1 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ E: Factor w/ 2 levels "-1","1": 2 1 2 1 2 1 2 1 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ J: Factor w/ 2 levels "-1","1": 2 2 1 1 2 2 1 1 2 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ K: Factor w/ 2 levels "-1","1": 1 1 1 1 2 2 1 1 2 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ L: Factor w/ 2 levels "-1","1": 1 2 1 2 1 2 1 2 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ M: Factor w/ 2 levels "-1","1": 2 1 1 2 1 2 1 2 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ N: Factor w/ 2 levels "-1","1": 1 2 2 1 1 2 1 2 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ O: Factor w/ 2 levels "-1","1": 2 1 2 1 1 2 1 2 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
 >   str(test[,14:1])
 'data.frame':	32 obs. of  14 variables:
- $ O: num  1 -1 -1 1 -1 1 1 -1 1 -1 ...
- $ N: num  -1 1 1 -1 -1 1 1 -1 1 -1 ...
- $ M: num  -1 1 -1 1 1 -1 1 -1 1 -1 ...
- $ L: num  1 -1 1 -1 1 -1 1 -1 1 -1 ...
- $ K: num  -1 -1 1 1 1 1 -1 -1 1 1 ...
- $ J: num  1 1 -1 -1 1 1 -1 -1 1 1 ...
- $ E: num  -1 1 -1 1 -1 1 -1 1 -1 1 ...
- $ D: num  -1 -1 1 1 -1 -1 1 1 -1 -1 ...
- $ H: num  1 1 1 1 -1 -1 -1 -1 -1 -1 ...
- $ G: num  1 1 1 1 -1 -1 -1 -1 1 1 ...
- $ F: num  1 1 1 1 1 1 1 1 -1 -1 ...
- $ C: num  -1 -1 -1 -1 1 1 1 1 -1 -1 ...
- $ B: num  -1 -1 -1 -1 -1 -1 -1 -1 1 1 ...
- $ A: num  -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
+ $ O: Factor w/ 2 levels "-1","1": 2 1 1 2 1 2 2 1 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ N: Factor w/ 2 levels "-1","1": 1 2 2 1 1 2 2 1 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ M: Factor w/ 2 levels "-1","1": 1 2 1 2 2 1 2 1 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ L: Factor w/ 2 levels "-1","1": 2 1 2 1 2 1 2 1 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ K: Factor w/ 2 levels "-1","1": 1 1 2 2 2 2 1 1 2 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ J: Factor w/ 2 levels "-1","1": 2 2 1 1 2 2 1 1 2 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ E: Factor w/ 2 levels "-1","1": 1 2 1 2 1 2 1 2 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ D: Factor w/ 2 levels "-1","1": 1 1 2 2 1 1 2 2 1 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ H: Factor w/ 2 levels "-1","1": 2 2 2 2 1 1 1 1 1 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ G: Factor w/ 2 levels "-1","1": 2 2 2 2 1 1 1 1 2 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ F: Factor w/ 2 levels "-1","1": 2 2 2 2 2 2 2 2 1 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ C: Factor w/ 2 levels "-1","1": 1 1 1 1 2 2 2 2 1 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ B: Factor w/ 2 levels "-1","1": 1 1 1 1 1 1 1 1 2 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ A: Factor w/ 2 levels "-1","1": 1 1 1 1 1 1 1 1 1 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
 >   str(test[14:1,,drop.attr=FALSE])
 Classes 'design' and 'data.frame':	14 obs. of  14 variables:
- $ A: num  -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
- $ B: num  1 1 1 1 1 1 -1 -1 -1 -1 ...
- $ C: num  1 1 -1 -1 -1 -1 1 1 1 1 ...
- $ F: num  -1 -1 -1 -1 -1 -1 1 1 1 1 ...
- $ G: num  -1 -1 1 1 1 1 -1 -1 -1 -1 ...
- $ H: num  1 1 -1 -1 -1 -1 -1 -1 -1 -1 ...
- $ D: num  -1 -1 1 1 -1 -1 1 1 -1 -1 ...
- $ E: num  1 -1 1 -1 1 -1 1 -1 1 -1 ...
- $ J: num  1 1 -1 -1 1 1 -1 -1 1 1 ...
- $ K: num  -1 -1 -1 -1 1 1 -1 -1 1 1 ...
- $ L: num  -1 1 -1 1 -1 1 -1 1 -1 1 ...
- $ M: num  1 -1 -1 1 -1 1 -1 1 -1 1 ...
- $ N: num  -1 1 1 -1 -1 1 -1 1 1 -1 ...
- $ O: num  1 -1 1 -1 -1 1 -1 1 1 -1 ...
+ $ A: Factor w/ 2 levels "-1","1": 1 1 1 1 1 1 1 1 1 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ B: Factor w/ 2 levels "-1","1": 2 2 2 2 2 2 1 1 1 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ C: Factor w/ 2 levels "-1","1": 2 2 1 1 1 1 2 2 2 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ F: Factor w/ 2 levels "-1","1": 1 1 1 1 1 1 2 2 2 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ G: Factor w/ 2 levels "-1","1": 1 1 2 2 2 2 1 1 1 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ H: Factor w/ 2 levels "-1","1": 2 2 1 1 1 1 1 1 1 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ D: Factor w/ 2 levels "-1","1": 1 1 2 2 1 1 2 2 1 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ E: Factor w/ 2 levels "-1","1": 2 1 2 1 2 1 2 1 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ J: Factor w/ 2 levels "-1","1": 2 2 1 1 2 2 1 1 2 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ K: Factor w/ 2 levels "-1","1": 1 1 1 1 2 2 1 1 2 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ L: Factor w/ 2 levels "-1","1": 1 2 1 2 1 2 1 2 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ M: Factor w/ 2 levels "-1","1": 2 1 1 2 1 2 1 2 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ N: Factor w/ 2 levels "-1","1": 1 2 2 1 1 2 1 2 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ O: Factor w/ 2 levels "-1","1": 2 1 2 1 1 2 1 2 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
  - attr(*, "desnum")= num [1:14, 1:14] -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
   ..- attr(*, "dimnames")=List of 2
   .. ..$ : chr  "14" "13" "12" "11" ...
@@ -1352,38 +1846,38 @@ Classes 'design' and 'data.frame':	14 obs. of  14 variables:
 32               8.2.4     32     8.2.4.2.2
 > FrF2(8,3,blocks=2,bbreps=2,wbreps=2,repeat.only=TRUE,randomize=FALSE)
    Blocks  A  B  C
-1       1 -1 -1 -1
-2       1 -1 -1 -1
-3       1 -1  1  1
-4       1 -1  1  1
-5       1  1 -1  1
-6       1  1 -1  1
-7       1  1  1 -1
-8       1  1  1 -1
-9       2 -1 -1  1
-10      2 -1 -1  1
-11      2 -1  1 -1
-12      2 -1  1 -1
-13      2  1 -1 -1
-14      2  1 -1 -1
-15      2  1  1  1
-16      2  1  1  1
-17      1 -1 -1 -1
-18      1 -1 -1 -1
-19      1 -1  1  1
-20      1 -1  1  1
-21      1  1 -1  1
-22      1  1 -1  1
-23      1  1  1 -1
-24      1  1  1 -1
-25      2 -1 -1  1
-26      2 -1 -1  1
-27      2 -1  1 -1
-28      2 -1  1 -1
-29      2  1 -1 -1
-30      2  1 -1 -1
-31      2  1  1  1
-32      2  1  1  1
+1     1.1 -1 -1 -1
+2     1.1 -1 -1 -1
+3     1.1 -1  1  1
+4     1.1 -1  1  1
+5     1.1  1 -1  1
+6     1.1  1 -1  1
+7     1.1  1  1 -1
+8     1.1  1  1 -1
+9     2.1 -1 -1  1
+10    2.1 -1 -1  1
+11    2.1 -1  1 -1
+12    2.1 -1  1 -1
+13    2.1  1 -1 -1
+14    2.1  1 -1 -1
+15    2.1  1  1  1
+16    2.1  1  1  1
+17    1.2 -1 -1 -1
+18    1.2 -1 -1 -1
+19    1.2 -1  1  1
+20    1.2 -1  1  1
+21    1.2  1 -1  1
+22    1.2  1 -1  1
+23    1.2  1  1 -1
+24    1.2  1  1 -1
+25    2.2 -1 -1  1
+26    2.2 -1 -1  1
+27    2.2 -1  1 -1
+28    2.2 -1  1 -1
+29    2.2  1 -1 -1
+30    2.2  1 -1 -1
+31    2.2  1  1  1
+32    2.2  1  1  1
 > set.seed(68702)
 > run.order(FrF2(8,3,blocks=2,bbreps=2,wbreps=2,randomize=TRUE))
    run.no.in.std.order run.no run.no.std.rp

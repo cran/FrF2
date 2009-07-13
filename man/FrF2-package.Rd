@@ -46,7 +46,7 @@ Finally, the function \code{aliases} determines the alias structure of a
 Fractional Factorial 2-level design in a format more suitable for human readers 
 than the output from the built-in function \code{alias}. 
 
-CATUTION: Note that the analysis facilities currently do not make use of the design 
+CAUTION: Note that the analysis facilities currently do not make use of the design 
 information attached to the design. For example, an effects plot function will treat 
 a linear model based on a split-plot-design in the same way as if the design were a 
 standard fractional factorial.
@@ -75,17 +75,20 @@ Maintainer: Ulrike Groemping <groemping@bht-berlin.de>
     Hedayat, A.S., Sloane, N.J.A. and Stufken, J. (1999) 
     \emph{Orthogonal Arrays: Theory and Applications}, Springer, New York. 
     
-      Lenth, R.V. (1989) Quick and easy analysis of unreplicated factorials.
+    Lenth, R.V. (1989) Quick and easy analysis of unreplicated factorials.
     \emph{Technometrics}, \bold{31}, 469-473.
   
-     Plackett, R.L.; Burman, J.P. (1946) The design of optimum multifactorial 
+    Mee, R. (2009). \emph{A Comprehensive Guide to Factorial Two-Level Experimentation}. 
+    New York: Springer.
+    
+    Plackett, R.L.; Burman, J.P. (1946) The design of optimum multifactorial 
      experiments. \emph{Biometrika} \bold{33}, 305-325.
     
 }
 \keyword{ array }
 \keyword{ design }
 \seealso{
-\code{BsMD-package}, \code{DoE.base-package}, \code{\link{MEPlot}}, \code{\link{IAPlot}}, 
+\code{\link[BsMD]{BsMD-package}}, \code{\link[DoE.base]{DoE.base-package}}, \code{\link{MEPlot}}, \code{\link{IAPlot}}, 
 \code{\link{cubePlot}}, \code{\link{DanielPlot}}, \code{\link{aliases}}, 
 \code{\link{FrF2}}, \code{\link{pb}}
 }

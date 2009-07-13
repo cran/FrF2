@@ -4,6 +4,25 @@ The package is currently under intensive development.
 Most features have now been created, but there may still 
 be some changes. Suggestions and bug reports are very welcome.
 
+Version 0.95, 13/07/2009
+   - included Bobby Mees very comprehensive new book into the references
+   - included design 3-1.1 (cf. program in FrF2-devel) into catlg 
+     in support of future implementation of inner/outer array designs
+   - included possibility to select factors for which interactions are 
+     to be plotted in IAPlot (was already available in MEPlot)
+   - all experimental factors are now R factors in the data frame, 
+     even if their levels are numerical values
+   Bugfixes:
+   - provided meaningful error message for internal function formula2matrix, 
+     if user specified the formula for estimable in an inappropriate way
+   - pb design with 8 runs and <=4 factors now effectively is the FrF2 design, 
+     with all FrF2 properties, as was already documented before. 
+
+Version 0.94-1, 06/07/2009
+   Bugfix: Replicated blocks had the same block number or name in case of bbreps. 
+     This is unreasonable and has been changed; with the changed version, the 
+     blocking variable can be directly used in a (mixed) linear model analysis.
+
 Version 0.94, 28/06/2009
    - added element creator to design.info attribute of designs created by 
      functions FrF2 and pb, and documented objects accordingly; this element 

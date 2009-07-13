@@ -120,6 +120,9 @@ pb.list
       
   Hedayat, A.S., Sloane, N.J.A. and Stufken, J. (1999) \emph{Orthogonal Arrays: Theory and Applications}, Springer, New York. 
   
+  Mee, R. (2009). \emph{A Comprehensive Guide to Factorial Two-Level Experimentation}. 
+  New York: Springer.
+  
   Plackett, R.L.; Burman, J.P. (1946) The design of optimum multifactorial experiments. \emph{Biometrika} \bold{33}, 305-325.
   
   Samset, O.; Tyssedal, J. (1999) Two-level designs with good projection properties. \emph{Technical Report 12, 
