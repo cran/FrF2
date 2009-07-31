@@ -95,6 +95,8 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
         of the respective column are reversed.\cr
         Minus signs do not cause an error, but neither have an effect in case 
         of automatic assignment of split-plot designs or hard-to-change columns.
+        
+        The word list of the design is only determined for designs with up to 19 generators.
         }
   \item{design}{ is a character string specifying the name of a design listed 
         in the catalogue specified as \code{select.catlg}, which is usually 
@@ -126,7 +128,8 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
   \item{estimable}{ indicates the 2-factor interactions (2fis) that are to be estimable in 
         the design. Consult the specific help file (\code{\link{estimable.2fis}}) 
         for details of two different approaches of requesting estimability, 
-        as indicated by the status of the \code{clear} option. 
+        as indicated by the status of the \code{clear} option. \code{estimable} cannot be 
+        specified together with \code{block}, \code{splitplot}, \code{generators} or \code{design}.
 
         \code{estimable} can be\cr 
         a numeric matrix with two rows, each column of which indicates one interaction,

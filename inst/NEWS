@@ -4,6 +4,18 @@ The package is currently under intensive development.
 Most features have now been created, but there may still 
 be some changes. Suggestions and bug reports are very welcome.
 
+Version 0.96 31/07/2009
+   - changed R version to R-2.8.0 or newer (extractor for class design does not work 
+     with earlier versions)
+   - added dependence to R version 2.7.1 or newer
+   - a few clarifications in documentation
+   - added legend element to element aliased in design.info for FrF2 designs
+   - made seed occur on all design.info objects for function FrF2 
+   - added nfactors to design.info objects for blocked designs
+   - made repeat.only FALSE even if user made it TRUE for between block replications 
+     only, where in fact there are no repeated measurements
+   - bugfix:designs with 20 or more generators did not work in function FrF2
+
 Version 0.95, 13/07/2009
    - included Bobby Mees very comprehensive new book into the references
    - included design 3-1.1 (cf. program in FrF2-devel) into catlg 

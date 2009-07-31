@@ -153,11 +153,17 @@ if (identical(nfac.WP,0) & is.null(WPfacs) & !identical(WPs,1))
                if (g<10) wl <- words.all(k, generators,max.length=6)
                else if (g<15) wl <- words.all(k, generators,max.length=5)
                else if (g<20) wl <- words.all(k, generators,max.length=4)
+               else if (g>=20) wl <- alias3fi(k, generators, order=2)  ## not a word list
                WLP <- wl$WLP
                res <- min(as.numeric(names(WLP)[which(WLP>0)]))
                if (res==Inf) {if (g<10) res="7+"
                else if (g<15) res="6+"
                else if (g<20) res="5+"}
+               else if (g>=20){
+                   if (length(wl$"main")>0) res="3"
+                      else if (length(wl$"fi2")>0) res="4"
+                           else res="5+"
+               }
 
                gen <- sapply(generators,function(obj) which(sapply(Yates[1:(nruns-1)],
                              function(obj2) isTRUE(all.equal(sort(abs(obj)),obj2)))))
@@ -667,7 +673,7 @@ else {
  #       if (block.auto) factor.names <- factor.names[1:ntreat]
  #       if (block.auto) factor.names <- factor.names[setdiff(1:nfactors,blocks)]
           design.info <- list(type="FrF2.blocked", block.name=block.name, 
-            nruns=nruns, nblocks=nblocks, blocksize=blocksize, 
+            nruns=nruns, nfactors=ntreat+1, nblocks=nblocks, blocksize=blocksize, 
             ntreat=ntreat,factor.names=factor.names,
             aliased.with.blocks=aliased.with.blocks, aliased=aliased,
             bbreps=bbreps, wbreps=wbreps)
@@ -717,10 +723,15 @@ else {
          }
     aus <- desdf
       rownames(aus) <- rownames(desmat) <- 1:nrow(aus)
+    class(aus) <- c("design","data.frame")
     attr(aus,"desnum") <- desmat
     attr(aus,"run.order") <- data.frame("run.no.in.std.order"=orig.no,"run.no"=1:nrow(desmat),"run.no.std.rp"=orig.no.rp)
-    attr(aus,"design.info") <- c(design.info, replications=replications, repeat.only=repeat.only,
-      randomize=randomize, seed=seed, creator=creator)
-    class(aus) <- c("design","data.frame")
+    ## make repeat.only reflect the calculated status instead of the status requested by the user 
+    ## (which can be seen in the creator element)
+    if (design.info$type=="FrF2.blocked") if (design.info$wbreps==1) repeat.only <- FALSE
+    if (nfactors<=50) design.info$aliased <- c(list(legend=paste(Letters[1:nfactors],names(factor.names),sep="=")),design.info$aliased)
+       else design.info$aliased <- c(list(legend=paste(paste("F",1:nfactors,sep=""),names(factor.names),sep="=")),design.info$aliased)
+    attr(aus,"design.info") <- c(design.info, list(replications=replications, repeat.only=repeat.only,
+      randomize=randomize, seed=seed, creator=creator))
     aus
 } 

@@ -1,6 +1,6 @@
 
-R version 2.8.1 (2008-12-22)
-Copyright (C) 2008 The R Foundation for Statistical Computing
+R version 2.9.1 Patched (2009-07-22 r48993)
+Copyright (C) 2009 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -20,6 +20,17 @@ Loading required package: BsMD
 Loading required package: scatterplot3d
 Loading required package: igraph
 Loading required package: sfsmisc
+Loading required package: DoE.base
+Loading required package: tcltk
+Loading Tcl/Tk interface ... done
+
+Attaching package: 'DoE.base'
+
+
+	The following object(s) are masked from package:utils :
+
+	 fix 
+
 
 Attaching package: 'FrF2'
 
