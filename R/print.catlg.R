@@ -10,7 +10,7 @@ print.catlg <- function(x, name="all", nruns="all", nfactors="all",
        if (MaxC2) x <- x[sort(nclear.2fis.catlg(x),index.return=TRUE, decreasing=TRUE)$ix]
        alias <- NULL
        for (i in 1:min(length(x),show)) {
-           if (show.alias) alias <- alias3fi(log2(x[[i]]$nruns),x[[i]]$gen,order=2)
+           if (show.alias) alias <- alias3fi(round(log2(x[[i]]$nruns)),x[[i]]$gen,order=2)
            cat("Design: ", names(x)[i], "\n  ",
                 x[[i]]$nruns, " runs, ", 
                 x[[i]]$nfac, " factors,  \n   Resolution ", as.character(as.roman(x[[i]]$res)), 

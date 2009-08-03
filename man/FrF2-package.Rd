@@ -81,6 +81,8 @@ Maintainer: Ulrike Groemping <groemping@bht-berlin.de>
     Mee, R. (2009). \emph{A Comprehensive Guide to Factorial Two-Level Experimentation}. 
     New York: Springer.
     
+    Montgomery, D.C. (2001). Design and Analysis of Experiments (5th ed.). Wiley, New York.
+
     Plackett, R.L.; Burman, J.P. (1946) The design of optimum multifactorial 
      experiments. \emph{Biometrika} \bold{33}, 305-325.
     

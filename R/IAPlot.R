@@ -31,6 +31,7 @@ function(obj, main=paste("Interaction plot matrix for",respnam), pch=c(15,17),
    ## prepare for simple access of important quantities
    term.ord <- attr(terms(obj),"order")
    mains <- which(term.ord==1)
+   if (!any(term.ord==2)) stop("no 2-factor interaction terms in model")
    ints <- which(term.ord==2)
    nmain <- length(mains)
    nint <- length(ints)

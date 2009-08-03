@@ -4,6 +4,13 @@ The package is currently under intensive development.
 Most features have now been created, but there may still 
 be some changes. Suggestions and bug reports are very welcome.
 
+Version 0.96-1 03/08/2009
+   - added meaningful error message for IAPlot in case of no 2-factor interactions
+   - adjusted test output to new version of DoE.base
+   - bugfix for MacOS: replaced log2(nruns) with rounded version for print.catlg, 
+     because otherwise wrong result on MacOS
+
+
 Version 0.96 31/07/2009
    - changed R version to R-2.8.0 or newer (extractor for class design does not work 
      with earlier versions)
