@@ -2,7 +2,29 @@ Changes to package FrF2
 
 The package is currently under intensive development. 
 Most features have now been created, but there may still 
-be some changes. Suggestions and bug reports are very welcome.
+be some changes. 
+An area which is particularly likely to change: 
+   representation of quantitative factors in the desnum attribute of designs
+Suggestions and bug reports are very welcome.
+
+
+Version 0.97 13/08/2009
+   - added function fold.design for foldover designs
+   - added functions add.center for adding center points and iscube for identfying 
+     the cube points in a design with center points
+   - added functionality for center points to functions FrF2 and pb
+   - function aliases has gained the new argument condense that makes 
+     its output very similar to that of internal function alias3fi in combination 
+     with code=TRUE
+   - moved into the direction of unified representation of aliased element in design.info 
+     (still not the same for all types of design, particularly not for blocked designs)
+   - modified nfactors in design.info for blocked designs to refer to treatment factors only
+     (ntreat kept for continuity)
+   - added keyword internal to help files for internal functions
+   - bug fix: added nfactors to design.info for split-plot designs
+   - bug fix: generators element of design.info was labelled wrongly 
+     for more than 50 factors (NA labels for factors 51 and following)
+
 
 Version 0.96-1 03/08/2009
    - added meaningful error message for IAPlot in case of no 2-factor interactions

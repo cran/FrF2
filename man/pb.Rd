@@ -12,7 +12,8 @@
 \usage{
 pb(nruns, nfactors = nruns - 1, factor.names = if (nfactors <= 50) 
      Letters[1:nfactors] else paste("F", 1:nfactors, sep = ""), 
-     default.levels = c(-1, 1), boxtyssedal = TRUE, n12.taguchi = FALSE, 
+     default.levels = c(-1, 1), ncenter=0, center.distribute=NULL, 
+     boxtyssedal = TRUE, n12.taguchi = FALSE, 
      replications = 1, repeat.only = FALSE, 
      randomize = TRUE, seed = NULL, ...)
 
@@ -26,6 +27,14 @@ pb.list
    They are useful for representing error in effects plots. }
   \item{factor.names}{ a character vector of factor names (length up to nfactors) or a named list with names representing factor names and elements vectors of length 2 with factor levels for each factor. Elements can be empty strings. In this case, default levels are used for the respective factor. }
   \item{default.levels}{ default levels (vector of length 2) for all factors for which no specific levels are given }
+  \item{ncenter}{ number of center points; \code{ncenter > 0} 
+        is permitted, if all factors are quantitative }
+  \item{center.distribute}{ the number of positions over which the center points 
+        are to be distributed ; if NULL (default), center points are 
+        distributed over end, beginning, and middle (in that order, if there are fewer than three center points) 
+        for randomized designs, and appended to the end for non-randomized designs. 
+        for more detail, see function \code{\link{add.center}}, which does the work.
+        }
   \item{boxtyssedal}{ logical, relevant only for nruns=16. 
                If FALSE, the geometric (=standard) 16 run plan is used. 
                If TRUE, the proposal by Box and Tyssedal is used instead, which has the advantage (for screening) of aliasing each interaction with several main effects, like the other Plackett-Burman designs. }
@@ -141,6 +150,7 @@ pb.list
           E="",F="",G="",H="",J=c("new","old")))
    pb(8,default.levels=c("current","new"))
    test <- pb(40) ## design created by doubling the 20 run design
+   pb(12, ncenter=6) ## 6 center points with default placement
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

@@ -12,7 +12,8 @@
 FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
         if (nfactors <= 50) Letters[1:nfactors] else 
                              paste("F", 1:nfactors, sep = "")} else NULL, 
-        default.levels = c(-1, 1), generators = NULL, design = NULL, 
+        default.levels = c(-1, 1), ncenter=0, center.distribute=NULL, 
+        generators = NULL, design = NULL, 
         resolution = NULL, select.catlg=catlg, 
         estimable = NULL, clear = TRUE, res3 = FALSE, max.time = 60, 
         perm.start=NULL, perms = NULL, 
@@ -74,6 +75,14 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
       \code{default.levels} are used. }
   \item{default.levels}{ default levels (vector of length 2) for all factors for 
       which no specific levels are given }
+  \item{ncenter}{ number of center points per block; \code{ncenter > 0} 
+        is permitted, if all factors are quantitative and the design is not a split-plot design }
+  \item{center.distribute}{ the number of positions over which the center points 
+        are to be distributed for each block; if NULL (default), center points are 
+        distributed over end, beginning, and middle (in that order, if there are fewer than three center points) 
+        for randomized designs, and appended to the end for non-randomized designs. 
+        for more detail, see function \code{\link{add.center}}, which does the work.
+        }
   \item{generators}{ There are \code{log2(nruns)} base factors the full factorial 
         of which spans the design. The generators specify how the remaining factors 
         are to be allocated to interactions of these.
@@ -355,11 +364,10 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
          or \dQuote{FrF2.splitplot} depending on the 
          type of design}
     \item{nruns }{ number of runs (replications are not counted) }
-    \item{nfactors }{ number of factors; 
-         not for designs of type \code{FrF2.blocked}, 
-         where \code{ntreat} takes this role, and for designs of type 
-         \code{FrF2.splitplot}, where \code{nfac.WP} and \code{nfac.SP} 
-         together take this role}
+    \item{nfactors }{ number of factors; since version 0.97, 
+         this is also true for designs of type \code{FrF2.blocked} 
+         (\code{nfactors} is now equal to \code{ntreat}) and for designs of type 
+         \code{FrF2.splitplot}, where \code{nfactors} is now the sum of \code{nfac.WP} and \code{nfac.SP}.}
     \item{ntreat }{ for designs of type \code{FrF2.blocked} only; \cr
          number of treatment factors }
     \item{nfac.WP }{ for designs of type \code{FrF2.splitplot} only; \cr
@@ -417,6 +425,8 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
     \item{creator }{ call to function FrF2 
          (or stored menu settings, if the function has been called via the R commander plugin 
          \pkg{RcmdrPlugin.DoE}) }
+    \item{ncube }{ number of cube points per block, in case center points have been requested }
+    \item{ncenter }{ number of center points per block, in case center points have been requested }
          }
        }
 }
@@ -501,6 +511,9 @@ design.info(FrF2(16,generators=c(7,-13,15),randomize=FALSE))$aliased
 design.info(FrF2(16,generators=c(-7,-13,-15),randomize=FALSE))$aliased
 ## finding smallest design with resolution 5 in 7 factors
 FrF2(nfactors=7, resolution=5)
+## same design, but with 12 center points in 6 positions
+FrF2(nfactors=7, resolution=5, ncenter=12, center.distribute=6)
+
 
 ## maximum resolution minimum aberration design with 9 factors in 32 runs
 ## show design information instead of design itself

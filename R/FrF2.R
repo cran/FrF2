@@ -1,7 +1,7 @@
 FrF2 <- function(nruns=NULL, nfactors=NULL, 
                  factor.names = if(!is.null(nfactors)) {if(nfactors<=50) Letters[1:nfactors] 
                                 else paste("F",1:nfactors,sep="")} else NULL, 
-                 default.levels = c(-1,1), 
+                 default.levels = c(-1,1), ncenter=0, center.distribute=NULL,
                  generators=NULL, design=NULL, resolution=NULL, select.catlg=catlg, 
                  estimable=NULL, clear=TRUE, res3=FALSE, max.time=60, 
                  perm.start=NULL, perms=NULL, MaxC2=FALSE, 
@@ -10,7 +10,23 @@ FrF2 <- function(nruns=NULL, nfactors=NULL,
                  blocks=1, block.name="Blocks", bbreps=replications, wbreps=1, alias.block.2fis = FALSE,
                  hard=NULL, check.hard=10, WPs=1, nfac.WP=0, WPfacs=NULL, check.WPs=10, ...){
 creator <- sys.call()
+## check validity of center point options
+    if (!is.numeric(ncenter)) stop("ncenter must be a number")
+    if (!length(ncenter)==1) stop("ncenter must be a number")
+    if (!ncenter==floor(ncenter)) stop("ncenter must be an integer number")
+    if (is.null(center.distribute)){
+      if (!randomize) center.distribute <- min(ncenter, 1)
+         else center.distribute <- min(ncenter, 3)}
+    if (!is.numeric(center.distribute)) stop("center.distribute must be a number")
+    if (!center.distribute==floor(center.distribute)) stop("center.distribute must be an integer number")
+    if (center.distribute > ncenter)
+       stop("center.distribute can be at most ncenter")
+    if (randomize & center.distribute==1) warning("running all center point runs together is usually not a good idea.")
+
 ## check that no incompatible options are used together
+if (ncenter>0 & !identical(WPs,1)) stop("center points for split plot designs are not supported")
+if (!is.null(nruns)) if (ncenter>0) if (center.distribute > nruns + 1) 
+    stop("center.distribute must not be larger than nruns+1")
 if (!(is.null(design) | is.null(estimable))) stop("design and estimable must not be specified together.")
 if (!(is.null(generators) | is.null(design))) stop("generators and design must not be specified together.")
 if (is.null(nruns) & !(is.null(generators))) stop("If generators is specified, nruns must be given.")
@@ -140,6 +156,9 @@ if (identical(nfac.WP,0) & is.null(WPfacs) & !identical(WPs,1))
               hilf[1:nfactors]<-list(default.levels)
               factor.names <- hilf}
     ## from here on, factor.names is a named list
+    
+    if (ncenter > 0) if(any(is.na(sapply(factor.names,"is.numeric"))))
+       stop("Center points are implemented for experiments with all factors quantitative only.")
 
     ### prepare generators case
     if (!is.null(generators)){
@@ -270,6 +289,8 @@ if (identical(nfac.WP,0) & is.null(WPfacs) & !identical(WPs,1))
                              randomize=randomize, seed=seed)
                     for (i in 1:nfactors) 
                            if (is.factor(aus[[i]])) contrasts(aus[[i]]) <- contr.FrF2(2)
+                    ## add center points, if requested
+                    if (ncenter>0) aus <- add.center(aus, ncenter, distribute=center.distribute)
                     return(aus)
               }
        else {
@@ -324,6 +345,7 @@ if (identical(nfac.WP,0) & is.null(WPfacs) & !identical(WPs,1))
                          cand <- cand[i]
                          cand[[1]]$gen <- c(cand[[1]]$gen,blocks)
                          blocks <- nfactors+(1:k.block) ## now in terms of factors
+#### nfactors changed, this is not final!
                          nfactors <- nfactors+k.block
                          g <- g+k.block
                       ## check whether OK
@@ -672,8 +694,15 @@ else {
         ntreat <- ncol(desdf) - 1
  #       if (block.auto) factor.names <- factor.names[1:ntreat]
  #       if (block.auto) factor.names <- factor.names[setdiff(1:nfactors,blocks)]
+ 
+ ## up to version 0.96-1 nfactors was ntreat+1
+ #         design.info <- list(type="FrF2.blocked", block.name=block.name, 
+ #           nruns=nruns, nfactors=ntreat+1, nblocks=nblocks, blocksize=blocksize, 
+ #           ntreat=ntreat,factor.names=factor.names,
+ #           aliased.with.blocks=aliased.with.blocks, aliased=aliased,
+ #           bbreps=bbreps, wbreps=wbreps)
           design.info <- list(type="FrF2.blocked", block.name=block.name, 
-            nruns=nruns, nfactors=ntreat+1, nblocks=nblocks, blocksize=blocksize, 
+            nruns=nruns, nfactors=ntreat, nblocks=nblocks, blocksize=blocksize, 
             ntreat=ntreat,factor.names=factor.names,
             aliased.with.blocks=aliased.with.blocks, aliased=aliased,
             bbreps=bbreps, wbreps=wbreps)
@@ -700,7 +729,7 @@ else {
             
             aliased <- aliased[which(sapply(aliased,length)>1)]
             design.info <- list(type="FrF2.splitplot", 
-                nruns=nruns, nfac.WP=nfac.WP, nfac.SP=nfactors-nfac.WP, 
+                nruns=nruns, nfactors=nfactors, nfac.WP=nfac.WP, nfac.SP=nfactors-nfac.WP, 
                       factor.names=factor.names,
                 nWPs=WPs, plotsize=nruns/WPs, 
                 res.WP=res.WP, aliased=aliased)
@@ -715,9 +744,14 @@ else {
             catlg.entry=cand[1], aliased = alias3fi(k,cand[1][[1]]$gen,order=alias.info))
         ## incorporate reasonable further info (blocks, WPs etc.)
     if ((!is.null(generators)) & !is.list(blocks) & !WPs > 1) {
+         if (nfactors <= 50)
          names(generators) <- Letters[(k+1):nfactors]
-         gen.display <- paste(Letters[(k+1):nfactors],sapply(generators,function(obj) 
-               paste(if (obj[1]<0) "-" else "", paste(Letters[abs(obj)],collapse=""),sep="")),sep="=")
+         else names(generators) <- paste("F",(k+1):nfactors, sep="")
+         gen.display <- paste(names(generators),sapply(generators,function(obj){
+               if (nfactors <= 50)
+               paste(if (obj[1]<0) "-" else "", paste(Letters[abs(obj)],collapse=""),sep="")
+               else 
+               paste(if (obj[1]<0) "-" else "", paste(paste("F",abs(obj),sep=""),collapse=":"),sep="")}), sep="=")
          design.info <- list(type="FrF2.generators", nruns=nruns, nfactors=nfactors, factor.names=factor.names, generators=gen.display, 
                aliased = alias3fi(k,generators,order=alias.info))
          }
@@ -728,10 +762,14 @@ else {
     attr(aus,"run.order") <- data.frame("run.no.in.std.order"=orig.no,"run.no"=1:nrow(desmat),"run.no.std.rp"=orig.no.rp)
     ## make repeat.only reflect the calculated status instead of the status requested by the user 
     ## (which can be seen in the creator element)
-    if (design.info$type=="FrF2.blocked") if (design.info$wbreps==1) repeat.only <- FALSE
+    if (design.info$type=="FrF2.blocked") {
+        if (design.info$wbreps==1) repeat.only <- FALSE
+    }
     if (nfactors<=50) design.info$aliased <- c(list(legend=paste(Letters[1:nfactors],names(factor.names),sep="=")),design.info$aliased)
        else design.info$aliased <- c(list(legend=paste(paste("F",1:nfactors,sep=""),names(factor.names),sep="=")),design.info$aliased)
     attr(aus,"design.info") <- c(design.info, list(replications=replications, repeat.only=repeat.only,
       randomize=randomize, seed=seed, creator=creator))
+    ## add center points, if requested
+    if (ncenter>0) aus <- add.center(aus, ncenter, distribute=center.distribute)
     aus
 } 

@@ -71,3 +71,4 @@ Function \code{des.recode} has been adapted to the needs of this package from fu
 % R documentation directory.
 \keyword{ array }
 \keyword{ design }% __ONLY ONE__ keyword per line
+\keyword{ internal }% __ONLY ONE__ keyword per line

@@ -1,0 +1,159 @@
+
+R version 2.9.1 Patched (2009-07-22 r48993)
+Copyright (C) 2009 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> require(FrF2)
+Loading required package: FrF2
+Loading required package: BsMD
+Loading required package: scatterplot3d
+Loading required package: igraph
+Loading required package: sfsmisc
+Loading required package: DoE.base
+Loading required package: tcltk
+Loading Tcl/Tk interface ... done
+
+Attaching package: 'DoE.base'
+
+
+	The following object(s) are masked from package:utils :
+
+	 fix 
+
+
+Attaching package: 'FrF2'
+
+
+	The following object(s) are masked from package:BsMD :
+
+	 DanielPlot 
+
+> set.seed(3456)
+> planblock1 <- FrF2(32,7,blocks=list(c(1,2,3),c(2,4,5),c(3,6,7)), alias.block.2fi=TRUE)
+> set.seed(3456)
+> planblock2 <- FrF2(32,7,blocks=8, alias.block.2fi=TRUE)
+> set.seed(3456)
+> planblockrepl <- FrF2(32,7,blocks=8, alias.block.2fi=TRUE, bbreps=2)
+> set.seed(3456)
+> planblockrepe <- FrF2(32,7,blocks=8, alias.block.2fi=TRUE, wbreps=2, repeat.only=TRUE)
+> set.seed(3456)
+> planblockreplwithin <- FrF2(32,7,blocks=8, alias.block.2fi=TRUE, wbreps=2)
+> set.seed(3456)
+> planblockreplboth <- FrF2(32,7,blocks=8, alias.block.2fi=TRUE, wbreps=2, bbreps=2)
+> set.seed(3456)
+> planblockreplrepe <- FrF2(32,7,blocks=8, alias.block.2fi=TRUE, wbreps=2, bbreps=2, repeat.only=TRUE)
+> set.seed(3456)
+> planest <- FrF2(16,6,estimable=c("AB","AC","AD","BC","CD"),clear=FALSE)
+> 
+> set.seed(3456)
+> plansimple <- FrF2(16,7)
+> set.seed(3456)
+> planrepl <-FrF2(16,7, repl=2)
+> set.seed(3456)
+> planrepe <-FrF2(16,7, repl=2, repe=TRUE)
+> 
+> test1 <- add.center(plansimple,3)  ## 3 center points distributed through the plan (3 positions)
+> test1b <- add.center(plansimple,3, distribute=1) ## 3 center points at the end
+Warning message:
+In add.center(plansimple, 3, distribute = 1) :
+  running all center point runs together is usually not a good idea.
+> test1c <- add.center(plansimple,6, distribute=4)  ## 6 center points distributed through the plan (4 positions)
+> 
+> test2 <- add.center(planest, 3)
+> test2b <-add.center(planest, 5, distribute=1)
+Warning message:
+In add.center(planest, 5, distribute = 1) :
+  running all center point runs together is usually not a good idea.
+> test2c <-add.center(planest, 10, distribute=7)
+> 
+> test4 <- add.center(planrepl,3)  ## 3 center points for proper replications
+> test4b <- add.center(planrepl,3, distribute=1)  ## 3 center points for proper replications
+Warning message:
+In add.center(planrepl, 3, distribute = 1) :
+  running all center point runs together is usually not a good idea.
+> 
+> test5 <- add.center(planrepe,3)  ## 3 center points for repeated measurements
+> test5b <- add.center(planrepe,3, distribute=1)  ## 3 center points for repeated measurements
+Warning message:
+In add.center(planrepe, 3, distribute = 1) :
+  running all center point runs together is usually not a good idea.
+> 
+> test6 <- add.center(planblock1, 3)  ## center points in blocked plan
+> test6b <- add.center(planblock1, 3, distribute=1)  ## center points in blocked plan
+Warning message:
+In add.center(planblock1, 3, distribute = 1) :
+  running all center point runs together is usually not a good idea.
+> 
+> test7 <- add.center(planblock2, 3)  ## center points in blocked plan
+> test7b <- add.center(planblock2, 3, distribute=1)  ## center points in blocked plan
+Warning message:
+In add.center(planblock2, 3, distribute = 1) :
+  running all center point runs together is usually not a good idea.
+> 
+> test8 <- add.center(planblockrepl, 3)  ## center points in replicated blocked plan
+> test8b <- add.center(planblockrepl, 3, distribute=1)  ## center points in replicated blocked plan
+Warning messages:
+1: In add.center(planblockrepl, 3, distribute = 1) :
+  running all center point runs together is usually not a good idea.
+2: In model.matrix.default(formula(paste("~", paste(c(di$block.name,  :
+  variable 'Blocks' converted to a factor
+> 
+> test9 <- add.center(planblockrepe, 3)  ## center points in replicated blocked plan
+> test9b <- add.center(planblockrepe, 3, distribute=1)  ## center points in replicated blocked plan
+Warning message:
+In add.center(planblockrepe, 3, distribute = 1) :
+  running all center point runs together is usually not a good idea.
+> 
+> test10 <- add.center(planblockreplwithin, 3)  ## center points in replicated blocked plan
+> test10b <- add.center(planblockreplwithin, 3, distribute=1)  ## center points in replicated blocked plan
+Warning message:
+In add.center(planblockreplwithin, 3, distribute = 1) :
+  running all center point runs together is usually not a good idea.
+> 
+> test11 <- add.center(planblockreplboth, 3)  ## center points in replicated blocked plan
+> test11b <- add.center(planblockreplboth, 3, distribute=1)  ## center points in replicated blocked plan
+Warning messages:
+1: In add.center(planblockreplboth, 3, distribute = 1) :
+  running all center point runs together is usually not a good idea.
+2: In model.matrix.default(formula(paste("~", paste(c(di$block.name,  :
+  variable 'Blocks' converted to a factor
+> 
+> test12 <- add.center(planblockreplrepe, 3)  ## center points in replicated blocked plan
+> test12b <- add.center(planblockreplrepe, 3, distribute=1)  ## center points in replicated blocked plan
+Warning messages:
+1: In add.center(planblockreplrepe, 3, distribute = 1) :
+  running all center point runs together is usually not a good idea.
+2: In model.matrix.default(formula(paste("~", paste(c(di$block.name,  :
+  variable 'Blocks' converted to a factor
+> 
+> rownames(test1)
+ [1] "1"  "2"  "3"  "4"  "5"  "6"  "7"  "8"  "9"  "10" "11" "12" "13" "14" "15"
+[16] "16" "17" "18" "19"
+> rownames(test1b)
+ [1] "1"  "2"  "3"  "4"  "5"  "6"  "7"  "8"  "9"  "10" "11" "12" "13" "14" "15"
+[16] "16" "17" "18" "19"
+> rownames(test1c)
+ [1] "1"  "2"  "3"  "4"  "5"  "6"  "7"  "8"  "9"  "10" "11" "12" "13" "14" "15"
+[16] "16" "17" "18" "19" "20" "21" "22"
+> rownames(test2)
+ [1] "1"  "2"  "3"  "4"  "5"  "6"  "7"  "8"  "9"  "10" "11" "12" "13" "14" "15"
+[16] "16" "17" "18" "19"
+> rownames(test2b)
+ [1] "1"  "2"  "3"  "4"  "5"  "6"  "7"  "8"  "9"  "10" "11" "12" "13" "14" "15"
+[16] "16" "17" "18" "19" "20" "21"
+> rownames(test2c)
+ [1] "1"  "2"  "3"  "4"  "5"  "6"  "7"  "8"  "9"  "10" "11" "12" "13" "14" "15"
+[16] "16" "17" "18" "19" "20" "21" "22" "23" "24" "25" "26"
+> 

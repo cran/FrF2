@@ -24,11 +24,24 @@
 ## according to Plackett and Burman, Taguchi (L12, same as PB, but different order of rows and columns), and Box and Tyssedal for 16 runs
 pb <- function(nruns,nfactors=nruns-1, 
                  factor.names = if(nfactors<=50) Letters[1:nfactors] else paste("F",1:nfactors,sep=""), 
-                 default.levels = c(-1,1),
+                 default.levels = c(-1,1), ncenter=0, center.distribute=NULL,
                  boxtyssedal=TRUE, n12.taguchi=FALSE, 
                  replications=1, repeat.only=FALSE, 
                  randomize=TRUE,seed=NULL, ...){
   creator <- sys.call()
+    ## check validity of center point options
+        if (!is.numeric(ncenter)) stop("ncenter must be a number")
+        if (!length(ncenter)==1) stop("ncenter must be a number")
+        if (!ncenter==floor(ncenter)) stop("ncenter must be an integer number")
+        if (is.null(center.distribute)){
+          if (!randomize) center.distribute <- min(ncenter,1)
+             else center.distribute <- min(ncenter, 3)}
+        if (!is.numeric(center.distribute)) stop("center.distribute must be a number")
+        if (!center.distribute==floor(center.distribute)) stop("center.distribute must be an integer number")
+        if (center.distribute > min(ncenter,nruns+1))
+            stop("center.distribute can be at most min(ncenter, nruns+1)")
+        if (randomize & center.distribute==1) warning("running all center point runs together is usually not a good idea.")
+  ## error checks
   if (default.levels[1]==default.levels[2]) stop("Both default levels are identical.")
   if (nruns == 8) {
       if (nfactors>4) warning("Plackett-Burman designs in 8 runs coincide with regular fractional factorials. 
@@ -61,6 +74,9 @@ pb <- function(nruns,nfactors=nruns-1,
               names(hilf) <- factor.names
               hilf[1:nfactors]<-list(default.levels)
               factor.names <- hilf}
+  ## from now on, factor.names is a list with all elements vectors
+      if (ncenter > 0) if(any(is.na(sapply(factor.names,"is.numeric"))))
+       stop("Center points are implemented for experiments with all factors quantitative only.")
 
   gen <- pb.list[[2]][[which(pb.list[[1]]==nruns)]]
   if (nruns==12 & n12.taguchi) sel <- taguchi(12)[,1:nfactors]
@@ -135,6 +151,7 @@ pb <- function(nruns,nfactors=nruns-1,
            randomize=randomize, seed=seed, creator=creator)
       class(aus) <- c("design","data.frame")
     }
+    if (ncenter > 0) aus <- add.center(aus, ncenter, distribute=center.distribute)
     aus
 }
 

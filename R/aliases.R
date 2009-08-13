@@ -1,5 +1,5 @@
 `aliases` <-
-function(fit, code=FALSE){
+function(fit, code=FALSE, condense=FALSE){
   if (is.null(alias(fit)$Complete)){
   ## there is no complete aliasing whatsoever
   ## in the linear model
@@ -68,9 +68,26 @@ function(fit, code=FALSE){
           }
         }
       }  ## end of recoding
+      if (condense){
+      lang <- sapply(confounded,"length")
+      lang <- which(lang>1)
+      grad <- lapply(confounded, function(obj) unlist(strsplit(obj[1],":")))
+      grad <- sapply(grad, "length")
+      aliased <- list(main=NULL, fi2=NULL, fi3=NULL)
+      m <- intersect(which(grad==1), lang)
+      if (length(m) > 0)
+         aliased$main <- sapply(confounded[m],"paste",collapse=" = ")
+      m <- intersect(which(grad==2), lang)
+      if (length(m) > 0)
+         aliased$fi2 <- sapply(confounded[m],"paste",collapse=" = ")
+      m <- intersect(which(grad==3), lang)
+      if (length(m) > 0)
+         aliased$fi3 <- sapply(confounded[m],"paste",collapse=" = ")
       
-      aus <- list(legend=legend,aliases=confounded)
-      }  ## end of else
+      aus <- c(legend=list(legend),aliased)
+      }
+      else aus <- list(legend = legend, aliases = confounded)
+      }  ## end of long else
 aus
 }
 

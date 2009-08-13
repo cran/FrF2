@@ -296,7 +296,8 @@ estimable <- function(estimable, nfac, nruns,
                       select.catlg=catlg, perm.start=1:nfac, perms=NULL,
                       order = 3){
         if (clear) map <- mapcalc(estimable,nfac,nruns,res3=res3)
-           else map <- mapcalc.distinct(estimable,nfac,nruns,res3=res3, max.time=max.time, select.catlg=select.catlg, perm.start=perm.start, perms=perms)
+           else map <- mapcalc.distinct(estimable,nfac,nruns,res3=res3, max.time=max.time, 
+                                select.catlg=select.catlg, perm.start=perm.start, perms=perms)
         test <- map2design(map)
         hilf <- catlg[names(map)][[1]]
         ## determine aliased here because of potential remap of factors
