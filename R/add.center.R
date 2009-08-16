@@ -1,7 +1,7 @@
 add.center <- function(design, ncenter, distribute=NULL, ...){
     if (!"design" %in% class(design)) stop("design must be of class design")
     di <- design.info(design)
-    if (!(substr(di$type,1,4)=="FrF2" | substr(di$type,1,2)=="pb"))
+    if (!(substr(di$type,1,4)=="FrF2" | substr(di$type,1,2)=="pb" | (di$type=="full factorial" & all(di$nlevels==2))))
        stop("center points only available for FrF2 and pb type designs")
     if (di$type=="FrF2.splitplot") 
        stop("currently, center points for splitplot designs are not supported")

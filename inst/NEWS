@@ -8,6 +8,10 @@ An area which is particularly likely to change:
 Suggestions and bug reports are very welcome.
 
 
+Version 0.97-1 16/08/2009
+   - bug fix: folding and center points did not work for full factorial 2-level designs
+
+
 Version 0.97 13/08/2009
    - added function fold.design for foldover designs
    - added functions add.center for adding center points and iscube for identfying 

@@ -15,7 +15,7 @@ fold.design <- function(design, columns="full", ...){
    if (!"design" %in% class(design))
       stop("design must be of class design")
    di <- design.info(design)
-   if (!substr(di$type,1,4) %in% c("FrF2", pb))
+    if (!(substr(di$type,1,4)=="FrF2" | substr(di$type,1,2)=="pb" | (di$type=="full factorial" & all(di$nlevels==2))))
       stop("fold.design is applicable for FrF2 or pb designs only")
 #   if (di$type %in% c("FrF2.blocked", "FrF2.param", "FrF2.splitplot"))
 #      stop("blocked, split-plot and parameter designs cannot be treated with fold.design")
