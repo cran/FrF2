@@ -1,6 +1,7 @@
 add.center <- function(design, ncenter, distribute=NULL, ...){
     if (!"design" %in% class(design)) stop("design must be of class design")
     di <- design.info(design)
+    if (missing(ncenter)) stop("ncenter must be specified")
     if (!(substr(di$type,1,4)=="FrF2" | substr(di$type,1,2)=="pb" | (di$type=="full factorial" & all(di$nlevels==2))))
        stop("center points only available for FrF2 and pb type designs")
     if (di$type=="FrF2.splitplot") 
@@ -19,7 +20,7 @@ add.center <- function(design, ncenter, distribute=NULL, ...){
     if (!distribute==floor(distribute)) stop("distribute must be an integer number")
     if (distribute < 1 | distribute > min(di$nruns+1, ncenter))
        stop("distribute must be at least 1 and at most min(ncenter, nruns+1 of the design)")
-    if (di$randomize & distribute==1) warning("running all center point runs together is usually not a good idea.")
+    if (di$randomize & distribute==1 & ncenter > 1) warning("running all center point runs together is usually not a good idea.")
     
     if (any(is.na(sapply(factor.names(design),"is.numeric"))))
        stop("Center points are implemented for experiments with all factors quantitative only.")

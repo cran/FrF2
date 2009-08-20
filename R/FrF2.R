@@ -324,11 +324,14 @@ if (identical(nfac.WP,0) & is.null(WPfacs) & !identical(WPs,1))
                ## resolution not here, because ignored for given nruns
 
             ## treating blocked designs
+            block.gen <- NULL    ## for later checks
             if (!is.list(blocks)){
                 if (blocks > 1) {
                     ### small case
                     if (g==0 | choose(nruns - 1 - nfactors, k.block) < 100000){
                     for (i in 1:length(cand)){
+                      ### loop through possible generator designs from best to worse overall
+                      ### break stops the loop as soon as design has been found
                       if (g==0) {blockpick.out <- try(blockpick(k, gen=0, 
                             k.block=k.block, show=1, alias.block.2fis = alias.block.2fis),TRUE)
                             }
@@ -341,22 +344,20 @@ if (identical(nfac.WP,0) & is.null(WPfacs) & !identical(WPs,1))
                       }
 
                       if (!"try-error" %in% class(blockpick.out)) {
-                         blocks <- blockpick.out$blockcols   #[2^(0:(k.block-1))]
+                         blocks <- blockpick.out$blockcols   ## column numbers in Yates matrix
+                         block.gen <- blocks ## for design.info
                          cand <- cand[i]
                          cand[[1]]$gen <- c(cand[[1]]$gen,blocks)
                          blocks <- nfactors+(1:k.block) ## now in terms of factors
-#### nfactors changed, this is not final!
+                      #### nfactors changed, will be reduced again later
                          nfactors <- nfactors+k.block
                          g <- g+k.block
-                      ## check whether OK
+                      ### adjust factor.names
                          hilf <- factor.names
                          factor.names <- vector("list", nfactors)
                          factor.names[-blocks] <- hilf
                          factor.names[blocks] <- list(default.levels)
-                         if (ntreat <= 50) 
-                         names(factor.names) <- c(Letters[1:ntreat],paste("b",1:k.block,sep=""))
-                         else 
-                         names(factor.names) <- c(paste("F",1:ntreat,sep=""),paste("b",1:k.block,sep=""))
+                         names(factor.names) <- c(names(hilf),paste("b",1:k.block,sep=""))
                          blocks <- as.list(blocks)   ### rest is treated with the manual routine
                          break
                       }
@@ -382,6 +383,7 @@ if (identical(nfac.WP,0) & is.null(WPfacs) & !identical(WPs,1))
                          cand[[1]]$gen <- blockpick.out$gen  ## includes block generators
                          blocks <- as.list(1:k.block) ## first k.block generator columns
                                                       ### rest is treated with the manual routine
+                         block.gen <- 2^(0:(k.block-1))
                          break
                       }
                     }
@@ -478,6 +480,8 @@ else {
            desmat <- desmat[,order(c(2^(0:(k-1)),abs(cand[[1]]$gen)))]
 
        if (is.list(blocks)) {
+           ## manually blocked designs and continuation of automatically blocked designs
+            if (is.null(block.gen)) block.gen <- blocks
             hilf <- blocks
             for (i in 1:k.block) hilf[[i]] <- apply(desmat[,hilf[[i]],drop=FALSE],1,prod)
             Blocks <- factor(as.numeric(factor(apply(matrix(as.character(unlist(hilf)),ncol=k.block),
@@ -692,7 +696,7 @@ else {
            aliased <- aliased[which(sapply(aliased,length)>1)]
         ## prepare design info for blocked designs
         ntreat <- ncol(desdf) - 1
- #       if (block.auto) factor.names <- factor.names[1:ntreat]
+        if (block.auto) factor.names <- factor.names[1:ntreat]
  #       if (block.auto) factor.names <- factor.names[setdiff(1:nfactors,blocks)]
  
  ## up to version 0.96-1 nfactors was ntreat+1
@@ -702,7 +706,7 @@ else {
  #           aliased.with.blocks=aliased.with.blocks, aliased=aliased,
  #           bbreps=bbreps, wbreps=wbreps)
           design.info <- list(type="FrF2.blocked", block.name=block.name, 
-            nruns=nruns, nfactors=ntreat, nblocks=nblocks, blocksize=blocksize, 
+            nruns=nruns, nfactors=ntreat, nblocks=nblocks, block.gen=block.gen, blocksize=blocksize, 
             ntreat=ntreat,factor.names=factor.names,
             aliased.with.blocks=aliased.with.blocks, aliased=aliased,
             bbreps=bbreps, wbreps=wbreps)
@@ -764,6 +768,7 @@ else {
     ## (which can be seen in the creator element)
     if (design.info$type=="FrF2.blocked") {
         if (design.info$wbreps==1) repeat.only <- FALSE
+        nfactors <- ntreat
     }
     if (nfactors<=50) design.info$aliased <- c(list(legend=paste(Letters[1:nfactors],names(factor.names),sep="=")),design.info$aliased)
        else design.info$aliased <- c(list(legend=paste(paste("F",1:nfactors,sep=""),names(factor.names),sep="=")),design.info$aliased)

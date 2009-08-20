@@ -103,7 +103,7 @@ pb.list
        useful for switching back and forth between actual and standard run 
        number}
   \item{design.info }{list with entries   
-  \itemize{
+  \describe{
         \item{type }{ character string \dQuote{pb}, except for 8~runs with up to 
            4~factors, for which a type \dQuote{FrF2} design is output}
         \item{nruns }{ number of runs (replications are not counted) }

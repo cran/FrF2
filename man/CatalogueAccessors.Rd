@@ -55,7 +55,7 @@ block.catlg
 \details{
   The class \code{catlg} is a named list of design entries. 
   Each design entry is again a list with the following items:
-  \itemize{
+  \describe{
       \item{res}{resolution, numeric, i.e. 3 denotes resolution III and so forth }
       \item{nfac}{number of factors} 
       \item{nruns}{number of runs} 

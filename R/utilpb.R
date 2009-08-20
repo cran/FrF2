@@ -38,25 +38,30 @@ normalize.row.last <- function(mat){
     mat
 }
 
-des.recode <- function (var, recodes, as.factor.result) 
+des.recode <- function (var, recodes, as.factor.result, char) 
 {
     recode.list <- rev(strsplit(recodes, ";")[[1]])
     is.fac <- is.factor(var)
     if (missing(as.factor.result)) 
         as.factor.result <- is.fac
+    if (missing(char)) char <- FALSE
     result <- var
     if (is.fac) 
         result <- as.character(result)
 
     for (term in recode.list) {
             set <- eval(parse(text = strsplit(term, "=")[[1]][1]))
-            target <- eval(parse(text = strsplit(term, "=")[[1]][2]), envir=parent.frame(), enclos=sys.frame(0))
-            for (val in set) {
+        if (!char)
+            target <- eval(parse(text = strsplit(term, "=")[[1]][2]), 
+                envir=parent.frame(), enclos=sys.frame(0))
+        else 
+        target <- strsplit(term, "=")[[1]][2]
+        for (val in set) {
                 if (is.na(val)) 
                   result[is.na(var)] <- target
                 else result[var == val] <- target
         }
     }
-    if (is.fac) result <- as.factor(result)
+    if (as.factor.result) result <- as.factor(result)
     result
 }

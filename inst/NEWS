@@ -8,6 +8,26 @@ An area which is particularly likely to change:
 Suggestions and bug reports are very welcome.
 
 
+Version 0.97-3 20/08/2009
+   - changed itemize to describe in Rd files for pb and CatalogueAccessors in order 
+     to comply with new R CMD check behavior
+
+
+Version 0.97-2 19/08/2009
+   - blocked designs: added the element block.gen to the design.info attribute 
+     in order to support subsequent augmentation with star points
+   - added error message for missing ncenter for add.center
+   - added meaningful error message for failure for full factorials to fold.design
+   - removed warning about all center points together, if ncenter=1
+   - made internal function des.recode identical to same function in package DoE.base,
+     in order to later drop it from FrF2
+   - bugfix: names (not values) from factor.names were ignored in some important situations for blocked designs
+     (automatic factor selection, small case, i.e. where blockpick is used)
+   - added experimental and as yet undocumented internal functions for extracting 
+     all relevant generators from designs especially where these are not obvious 
+     (find.gen and generators.from.design) 
+
+
 Version 0.97-1 16/08/2009
    - bug fix: folding and center points did not work for full factorial 2-level designs
 

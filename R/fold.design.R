@@ -15,7 +15,8 @@ fold.design <- function(design, columns="full", ...){
    if (!"design" %in% class(design))
       stop("design must be of class design")
    di <- design.info(design)
-    if (!(substr(di$type,1,4)=="FrF2" | substr(di$type,1,2)=="pb" | (di$type=="full factorial" & all(di$nlevels==2))))
+    if (!(substr(di$type,1,4)=="FrF2" | substr(di$type,1,2)=="pb" | 
+             (length(grep("full factorial",di$type))>0 & all(di$nlevels==2))))
       stop("fold.design is applicable for FrF2 or pb designs only")
 #   if (di$type %in% c("FrF2.blocked", "FrF2.param", "FrF2.splitplot"))
 #      stop("blocked, split-plot and parameter designs cannot be treated with fold.design")
@@ -23,6 +24,8 @@ fold.design <- function(design, columns="full", ...){
       stop("blocked designs and parameter designs in long format cannot be treated with fold.design")
    if (length(grep("center", di$type)) > 0)
       stop("currently, designs with center points cannot be treated with fold.design")
+   if (length(grep("full factorial",di$type))>0)
+      stop("currently, full factorial designs cannot be treated with fold.design")
    if (!(identical(columns, "full") | all(columns %in% names(di$factor.names)) | is.numeric(columns)))
       stop("columns must be full or a vector with factor position numbers or factor names")
    methcall <- columns

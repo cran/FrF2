@@ -21,7 +21,7 @@ normalize.row.last(mat)
 williamson(A,B,C,D)
 taguchi(nruns)
 boxtyssedal(nruns,k)
-des.recode(var, recodes, as.factor.result)
+des.recode(var, recodes, as.factor.result, char)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -37,9 +37,10 @@ des.recode(var, recodes, as.factor.result)
   \item{nruns}{ number of runs; currently has to be 12 for \code{taguchi} and 16 for \code{boxtyssedal}. }
   \item{k}{ number of factors; for up to 12 factors, a different design is picked. For 15 factors, a warning against perfect aliasing (of the last columnn) is issued. }
   \item{var}{ variable }
-  \item{recodes}{ characater string specifying recodes, so far only used in the principal form \dQuote{-1=level[1];1=level[2]} }
+  \item{recodes}{ character string specifying recodes, so far only used in the principal form \dQuote{-1=level[1];1=level[2]} }
   \item{as.factor.result}{ logical that specifies whether or not results are to be coerced to factor. 
             The default is that factors are coerced to factor, while numeric variables with numeric recodes are kept numeric.}
+  \item{char}{ logical: should replacement be treated as character string (TRUE) or evaluated? default is FALSE}
 }
 
 \details{
@@ -52,7 +53,8 @@ Function \code{des.recode} has been adapted to the needs of this package from fu
    and \code{williamson} a square matrix of dimension \code{4*nrow(A)}.
    \code{taguchi} returns the Plackett-Burman array in 12 runs in Taguchi order (it is isomorphic to the standard version), and \code{boxtyssedal} returns the suitable version of the 16 run Hadamard matrix described by Box and Tyssedal, which is more appropriate for screening than the standard 16 run factorial.
    
-   \code{des.recode} returns a numeric vector or factor, depending on the type of var and the setting of \code{as.factor.result}.
+   \code{des.recode} returns a numeric vector or factor, depending on the type of var and the setting of \code{as.factor.result}. 
+   This function is identical to the function in package \pkg{\link[DoE.base]{DoE.base}} and will eventually be deleted in package \pkg{FrF2}.
 }
 \references{ 
   Box, G.E.P. and Tyssedal, J. (2001) Sixteen Run Designs of High Projectivity for Factor Screening. 

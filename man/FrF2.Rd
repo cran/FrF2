@@ -221,7 +221,7 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
        In the latter case, 
        the differences to \code{generators} are \cr 
        \itemize{
-       \item that numbers/letters refer to all the \code{nfactors} factors of the experiment and not to 
+       \item that numbers/letters refer to the factors of the experiment and not to 
        column numbers of the Yates matrix 
        \item that numbers/letters can refer to *all* \code{nfactors} factors rather than the log2(nruns) base factors only, 
        \item that one single number is always interpreted as the number of blocks rather than a column reference, 
@@ -383,6 +383,11 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
          entries vectors of length two each with coded factor levels }
     \item{nblocks}{for designs of type \code{FrF2.blocked} only; \cr
          number of blocks}
+    \item{block.gen}{vector of columns of the Yates matrix for generating 
+         block factors in case of automatic block generation \cr 
+         OR list of (vectors of) factor numbers in case the \code{blocks} 
+         argument specifies certain factor combinations for blocking; ; \cr
+         for designs of type \code{FrF2.blocked} only}
     \item{blocksize}{for designs of type \code{FrF2.blocked} only; \cr
          size of each block (without consideration of \code{wbreps})}
     \item{nWPs}{for designs of type \code{FrF2.splitplot} only; \cr
@@ -545,7 +550,8 @@ run.order(FrF2(8,3,blocks=2,bbreps=2))
 run.order(FrF2(8,3,blocks=2,bbreps=2,wbreps=2))
 
 ## automatic blocked design with fractions
-FrF2(16,7,blocks=4,alias.block.2fis=TRUE)
+FrF2(16,7,blocks=4,alias.block.2fis=TRUE,factor.names=c("MotorSpeed", "FeedMode","FeedSizing","MaterialType",
+                  "Gain","ScreenAngle","ScreenVibLevel"))
 ## isomorphic non-catalogued design as basis
 FrF2(16,gen=c(7,11,14),blocks=4,alias.block.2fis=TRUE)
 ## FrF2 uses blockpick.big and ignores the generator

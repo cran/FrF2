@@ -38,6 +38,8 @@ str(FrF2(16,design="6-2.2",randomize=FALSE,factor.names=list(eins=c(1,2),zwei=c(
   FrF2(32,14,blocks=8,randomize=FALSE,alias.block.2fis=TRUE)
   ## automatic selection without aliasing of 2fis with blocks
   FrF2(32,6,blocks=4,randomize=FALSE)
+  ## automatic selection with factor names
+  FrF2(32,6,blocks=4,randomize=FALSE, factor.names=Letters[20:25])
   ## manual selection
   FrF2(32,6,blocks="A",randomize=FALSE)
   FrF2(32,6,blocks=c("ABC","DE"),randomize=FALSE)
