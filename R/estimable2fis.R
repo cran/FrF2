@@ -213,7 +213,7 @@ check.subisomorphic.matrix <- function(estimable, nfac, hilf2, hilf3=NULL, res3=
 
 map2design <- function(map){
           hilf <- catlg[[names(map)]]
-          hilf <- FrF2(nruns=hilf$nruns,nfactors=hilf$nfac,generator=hilf$gen)[,map[[1]]]
+          hilf <- FrF2(nruns=hilf$nruns,nfactors=hilf$nfac,generator=hilf$gen,randomize=FALSE)[,map[[1]]]
           colnames(hilf) <- Letters[1:ncol(hilf)]
           hilf
     }
