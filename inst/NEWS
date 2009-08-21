@@ -8,6 +8,12 @@ An area which is particularly likely to change:
 Suggestions and bug reports are very welcome.
 
 
+Version 0.97-6, 21/08/2009
+   - bug fix: generators.from.design did not work for replications 
+     in case of designs with the estimable option
+   - bug fix: check rejected some valid linear models with 
+     only complete aliases due to numerical inaccuracies
+
 Version 0.97-5, 21/08/2009
    - developed find.gen and generators.from.design to 
      support generation of ccd designs (including estimable and blocked designs)

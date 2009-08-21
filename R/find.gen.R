@@ -50,8 +50,10 @@ generators.from.design <- function(design, ...){
            fn <- names(di$factor.names)
            g <- di$nfactors - k
            if (is.null(di$ncube))
-              al <- aliases(lm(formula(paste("I(1:",di$nruns,")~(.)^",k+1,sep="")), design[,names(di$factor.names)]))
-           else al <- aliases(lm(formula(paste("I(1:",di$ncube,")~(.)^",k+1,sep="")), design[iscube(design),names(di$factor.names)]))
+              linmod <- lm(formula(paste("I(1:",(di$nruns*di$replications),")~(.)^",k+1,sep="")), design[,names(di$factor.names)])
+           else
+              linmod <- lm(formula(paste("I(1:",(di$ncube*di$replications),")~(.)^",k+1,sep="")), design[iscube(design),names(di$factor.names)])
+           al <- aliases(linmod)
            sel <- al[[2]][1:di$nfactors]   ## aliases of base and generated factors
 
              sel <- sel[sapply(sel, function(obj) !obj[1] %in% fn[di$map[[1]][1:k]])]
