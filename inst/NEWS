@@ -8,6 +8,10 @@ An area which is particularly likely to change:
 Suggestions and bug reports are very welcome.
 
 
+Version 0.97-5, 21/08/2009
+   - developed find.gen and generators.from.design to 
+     support generation of ccd designs (including estimable and blocked designs)
+
 Version 0.97-4 21/08/2009
    - bug fix: FrF2 always randomized designs when using the estimable option, 
      even for randomize=FALSE
