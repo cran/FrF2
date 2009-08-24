@@ -8,6 +8,14 @@ An area which is particularly likely to change:
 Suggestions and bug reports are very welcome.
 
 
+Version 0.97-7, 24/08/2009
+   - made functions FrF2 and pb tolerate factor.names to be an unnamed list
+   - bug fix: resolution option for FrF2 did not return a full factorial,
+     if no smaller design of the desired resolution exists
+   - documentation bug fix: value section for function FrF2 did not 
+     mention the design.info elements map, clear and res3 for designs created 
+     with option estimable
+
 Version 0.97-6, 21/08/2009
    - bug fix: generators.from.design did not work for replications 
      in case of designs with the estimable option

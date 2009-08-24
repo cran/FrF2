@@ -69,7 +69,13 @@ pb <- function(nruns,nfactors=nruns-1,
             if (!is.list(factor.names)) factor.names <- c(factor.names,names(hilf))
             else factor.names <- c(factor.names, as.list(hilf))
             }
-  if (is.list(factor.names) & any(factor.names=="")) factor.names[which(factor.names=="")] <- list(default.levels)
+  if (is.list(factor.names)){ 
+        if (is.null(names(factor.names))){
+            if (nfactors<=50) names(factor.names) <- Letters[1:nfactors]
+            else names(factor.names) <- paste("F", 1:nfactors, sep="")
+        } 
+        if(any(factor.names=="")) factor.names[which(factor.names=="")] <- list(default.levels)
+      }
         else {hilf <- vector("list",nfactors)
               names(hilf) <- factor.names
               hilf[1:nfactors]<-list(default.levels)

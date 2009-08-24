@@ -150,7 +150,12 @@ if (identical(nfac.WP,0) & is.null(WPfacs) & !identical(WPs,1))
     ## check factor level specifications
     if (!((is.character(default.levels) | is.numeric(default.levels)) & length(default.levels)==2) ) 
                  stop("default.levels must be a vector of 2 levels.")
-    if (is.list(factor.names)){ if (any(factor.names=="")) factor.names[which(factor.names=="")] <- list(default.levels)}
+    if (is.list(factor.names)){ 
+        if (is.null(names(factor.names))){
+            if (nfactors<=50) names(factor.names) <- Letters[1:nfactors]
+            else names(factor.names) <- paste("F", 1:nfactors, sep="")
+        } 
+        if (any(factor.names=="")) factor.names[which(factor.names=="")] <- list(default.levels)}
         else {hilf <- vector("list",nfactors)
               names(hilf) <- factor.names
               hilf[1:nfactors]<-list(default.levels)
@@ -434,12 +439,23 @@ else {
        ## find smallest FrF2 that fulfills the requirements regarding resolution/estimability
        if (is.null(resolution) & is.null(estimable)) 
                  stop("At least one of nruns or resolution or estimable must be given.")
-       if (!is.null(resolution)) 
+       if (!is.null(resolution)){ 
                  cand <- select.catlg[which(res.catlg(select.catlg)>=resolution & nfac.catlg(select.catlg)==nfactors)]
-       else cand <- select.catlg[which(nfac.catlg(select.catlg)==nfactors)]   
+                 if (length(cand)==0) message("full factorial design needed")
+                    aus <- fac.design(2, nfactors, factor.names=factor.names, 
+                             replications=replications, repeat.only=repeat.only, 
+                             randomize=randomize, seed=seed)
+                    for (i in 1:nfactors) 
+                           if (is.factor(aus[[i]])) contrasts(aus[[i]]) <- contr.FrF2(2)
+                    ## add center points, if requested
+                    if (ncenter>0) aus <- add.center(aus, ncenter, distribute=center.distribute)
+                    return(aus)
+            }
+       else{ cand <- select.catlg[which(nfac.catlg(select.catlg)==nfactors)]   
            ## no prior restriction by resolution
-       if (length(cand)==0) 
-           stop("No design listed in catalogue ", deparse(substitute(select.catlg)), " fulfills all requirements.")
+         if (length(cand)==0) 
+             stop("No design listed in catalogue ", deparse(substitute(select.catlg)), " fulfills all requirements.")
+           }
     }
     ## standard FrF2 situations
     if (MaxC2 & is.null(estimable) & is.null(generators) ) 

@@ -25,7 +25,16 @@ pb.list
   \item{nfactors}{ number of factors, default is nruns - 1, and it is recommended to retain this default. 
    It is possible to specify factor names for fewer factors, and the remaining columns will be named \code{e1}, \code{e2}, ... 
    They are useful for representing error in effects plots. }
-  \item{factor.names}{ a character vector of factor names (length up to nfactors) or a named list with names representing factor names and elements vectors of length 2 with factor levels for each factor. Elements can be empty strings. In this case, default levels are used for the respective factor. }
+  \item{factor.names}{ a character vector of factor names (length up to nfactors) 
+        or a list with \code{nfactors} elements;\cr 
+        if the list is named, list names represent factor names, otherwise default factor names are used;\cr 
+        the elements of the list are \cr
+        EITHER vectors of length 2 with factor levels for the respective factor\cr
+        OR empty strings. 
+        For each factor with an empty string in factor.names, the levels given in 
+        \code{default.levels} are used;\cr
+       Default factor names are the first elements of the character vector \code{\link[DoE.base]{Letters}}, 
+       or the factors position numbers preceded by capital F in case of more than 50 factors. }
   \item{default.levels}{ default levels (vector of length 2) for all factors for which no specific levels are given }
   \item{ncenter}{ number of center points; \code{ncenter > 0} 
         is permitted, if all factors are quantitative }

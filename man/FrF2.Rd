@@ -67,12 +67,15 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
       be achieved by adding \code{log2(WPs) - nfac.WP} extra independent generator columns 
       for the whole plot structure, which have to be counted in \code{nfac.WP} and \code{nfactors}).}
   \item{factor.names}{ a character vector of \code{nfactors} factor names 
-      or a named list with \code{nfactors} elements, for which the names represent factor names 
-      and the elements are \cr
+      or a list with \code{nfactors} elements;\cr 
+      if the list is named, list names represent factor names, otherwise default factor names are used;\cr 
+      the elements of the list are \cr
       EITHER vectors of length 2 with factor levels for the respective factor\cr
       OR empty strings. 
       For each factor with an empty string in factor.names, the levels given in 
-      \code{default.levels} are used. }
+      \code{default.levels} are used;\cr
+       Default factor names are the first elements of the character vector \code{\link[DoE.base]{Letters}}, 
+       or the factors position numbers preceded by capital F in case of more than 50 factors. }
   \item{default.levels}{ default levels (vector of length 2) for all factors for 
       which no specific levels are given }
   \item{ncenter}{ number of center points per block; \code{ncenter > 0} 
@@ -406,7 +409,7 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
          in the number of design factors / generators 
          indicates whether the design was generated using function 
          \code{\link{blockpick}} or \code{\link{blockpick.big}}.}
-    \item{aliased.with.blocks }{ for designs of type \code{FrF2.blocked} only; \cr
+    \item{aliased.with.blocks}{ for designs of type \code{FrF2.blocked} only; \cr
          treatment effects that are aliased with block main effects,
          up to 2fis or 3fis, depending on the choice of \code{alias.info}}
     \item{aliased }{ alias structure of main effects, 2fis and possibly 3fis,
@@ -425,6 +428,10 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
     \item{wbreps}{for designs of type \code{FrF2.blocked} only; 
          number of within block replications;\cr
          \code{repeat.only} indicates whether these are replications or repetitions only}
+    \item{map }{ the mapping relation between factors in the base design and 
+         experimental factors, after using option \code{estimable} }
+    \item{clear }{ option setting in call to \code{FrF2}, in case of \code{estimable} }
+    \item{res3}{ option setting in call to \code{FrF2}, in case of \code{estimable} }
     \item{randomize }{ option setting in call to \code{FrF2} }
     \item{seed }{ option setting in call to \code{FrF2} }
     \item{creator }{ call to function FrF2 
