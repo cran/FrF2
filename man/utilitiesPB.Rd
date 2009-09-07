@@ -54,7 +54,7 @@ Function \code{des.recode} has been adapted to the needs of this package from fu
    \code{taguchi} returns the Plackett-Burman array in 12 runs in Taguchi order (it is isomorphic to the standard version), and \code{boxtyssedal} returns the suitable version of the 16 run Hadamard matrix described by Box and Tyssedal, which is more appropriate for screening than the standard 16 run factorial.
    
    \code{des.recode} returns a numeric vector or factor, depending on the type of var and the setting of \code{as.factor.result}. 
-   This function is identical to the function in package \pkg{\link[DoE.base]{DoE.base}} and will eventually be deleted in package \pkg{FrF2}.
+   This function is identical to the function in package \pkg{\link[=DoE.base-package]{DoE.base}} and will eventually be deleted in package \pkg{FrF2}.
 }
 \references{ 
   Box, G.E.P. and Tyssedal, J. (2001) Sixteen Run Designs of High Projectivity for Factor Screening. 

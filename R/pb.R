@@ -62,21 +62,23 @@ pb <- function(nruns,nfactors=nruns-1,
                  stop("default.levels must be a vector of 2 levels.")
   if (!is.null(factor.names) & !(is.character(factor.names) | is.list(factor.names)) ) stop("factor.names must be a character vector or a list.")
   if (length(factor.names)>nfactors) stop("You have specified more than nfactors factors in factor.names.")
-  if (length(factor.names) < nfactors) {
+  hilf <- character(0)
+  n.error <- 0
+  if (length(factor.names) < nfactors){
             n.error <- nfactors-length(factor.names)
             hilf <- rep("",n.error)
             names(hilf) <- paste("e",1:n.error,sep="")
-            if (!is.list(factor.names)) factor.names <- c(factor.names,names(hilf))
-            else factor.names <- c(factor.names, as.list(hilf))
             }
   if (is.list(factor.names)){ 
         if (is.null(names(factor.names))){
-            if (nfactors<=50) names(factor.names) <- Letters[1:nfactors]
-            else names(factor.names) <- paste("F", 1:nfactors, sep="")
+            if (length(factor.names)<=50) names(factor.names) <- Letters[1:length(factor.names)]
+            else names(factor.names) <- paste("F", 1:length(factor.names), sep="")
         } 
+        factor.names <- c(factor.names, as.list(hilf))
         if(any(factor.names=="")) factor.names[which(factor.names=="")] <- list(default.levels)
       }
-        else {hilf <- vector("list",nfactors)
+        else {factor.names <- c(factor.names, names(hilf))
+              hilf <- vector("list",nfactors)
               names(hilf) <- factor.names
               hilf[1:nfactors]<-list(default.levels)
               factor.names <- hilf}

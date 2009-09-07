@@ -11,8 +11,7 @@ are offered (main effects and interaction plots for all factors simultaneously,
 cube plot for looking at the simultaneous effects of three factors, full or half normal plot, 
 alias structure in a more readable format than with the built-in function alias). 
 
-The package is currently subject to intensive development; most key functionality is now included. 
-Some changes to input and output structures may still occur.
+The package works together with packages DoE.base and DoE.wrapper.
 }
 \details{
 The package is currently subject to intensive development; most key functionality is now included. 
@@ -85,14 +84,19 @@ Maintainer: Ulrike Groemping <groemping@bht-berlin.de>
 
     Plackett, R.L.; Burman, J.P. (1946) The design of optimum multifactorial 
      experiments. \emph{Biometrika} \bold{33}, 305-325.
-    
 }
 \keyword{ array }
 \keyword{ design }
 \seealso{
-\code{\link[BsMD]{BsMD-package}}, \code{\link[DoE.base]{DoE.base-package}}, \code{\link{MEPlot}}, \code{\link{IAPlot}}, 
-\code{\link{cubePlot}}, \code{\link{DanielPlot}}, \code{\link{aliases}}, 
-\code{\link{FrF2}}, \code{\link{pb}}
+The key design generating functions: \code{\link{FrF2}}, \code{\link{pb}}\cr
+S3 class \code{\link[DoE.base:class-design]{design}}\cr 
+Related packages: 
+\code{\link[DoE.base:DoE.base-package]{DoE.base}}, 
+\code{\link[DoE.wrapper:DoE.wrapper-package]{DoE.wrapper}}, 
+\code{\link[BsMD:BsMD-package]{BsMD}};\cr 
+Graphical analysis functions: \code{\link{MEPlot}}, \code{\link{IAPlot}}, \code{\link{cubePlot}}, 
+\code{\link{DanielPlot}}\cr
+Analysis of alias structure for linear models of \code{FrF2} designs: \code{\link{aliases}}\cr
 }
 \examples{
     ### for examples on design generation, cf. functions pb and FrF2

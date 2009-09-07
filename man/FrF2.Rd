@@ -74,7 +74,7 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
       OR empty strings. 
       For each factor with an empty string in factor.names, the levels given in 
       \code{default.levels} are used;\cr
-       Default factor names are the first elements of the character vector \code{\link[DoE.base]{Letters}}, 
+       Default factor names are the first elements of the character vector \code{\link[DoE.base:utilities]{Letters}}, 
        or the factors position numbers preceded by capital F in case of more than 50 factors. }
   \item{default.levels}{ default levels (vector of length 2) for all factors for 
       which no specific levels are given }
@@ -329,9 +329,6 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
 \details{
   Per default, the function works on the basis of automatically-selected catalogued designs. The 
   default catalogue used is \code{\link{catlg}} (a list object of class \code{catlg}). 
-  The result from function \code{FrF2} is a data frame of class \code{design} 
-  and has attributes that can be accessed 
-  by functions \code{desnum}, \code{run.order} and \code{design.info} from package \pkg{DoE.base}.
   
   Alternatively, the user can explicitly specify a design through accessing 
   a specific catalogued design using the \code{design} option or specifying non-catalogued 
@@ -350,34 +347,43 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
   much any more. Please contact me with any suggestions for improvements.
 }
 \value{
-  Value is a data frame of S3 class \code{design} (cf. package \pkg{DoE.base}) with attributes attached. 
-  The data frame itself contains the design with levels coded as requested.
+  Value is a data frame of S3 class \code{\link[DoE.base:class-design]{design}} 
+  and has attached attributes that can be accessed 
+  by functions \code{\link[DoE.base:class-design-methods]{desnum}}, 
+  \code{\link[DoE.base:class-design-methods]{run.order}} and 
+  \code{\link[DoE.base:class-design-methods]{design.info}}. 
+  
+  The data frame itself contains the design with levels coded as requested. 
+  If no center points have been requested, the design columns are factors with 
+  contrasts \code{-1} and \code{+1} (cf. also \code{\link[DoE.base]{contr.FrF2}}); in case 
+  of center points, the design columns are numeric.
+  
   The following attributes are attached to it: 
-  \item{desnum }{Design matrix in -1/1 coding}
-  \item{run.order }{three column data frame, first column contains the run number in 
+  \item{desnum}{Design matrix in -1/1 coding}
+  \item{run.order}{three column data frame, first column contains the run number in 
        standard order, second column the run number as randomized, third column the 
        run number with replication number as postfix (in blocked designs, there may be 
        two postfixes for within and between block replications);
        useful for switching back and forth between actual and standard run 
        number}
-  \item{design.info }{list with the entries 
+  \item{design.info}{list with the entries 
   \describe{
-    \item{type }{ character string \dQuote{full factorial}, \dQuote{FrF2}, 
+    \item{type}{ character string \dQuote{full factorial}, \dQuote{FrF2}, 
          \dQuote{FrF2.estimable}, \dQuote{FrF2.generators}, \dQuote{FrF2.blocked} 
          or \dQuote{FrF2.splitplot} depending on the 
          type of design}
-    \item{nruns }{ number of runs (replications are not counted) }
-    \item{nfactors }{ number of factors; since version 0.97, 
+    \item{nruns}{ number of runs (replications are not counted) }
+    \item{nfactors}{ number of factors; since version 0.97, 
          this is also true for designs of type \code{FrF2.blocked} 
          (\code{nfactors} is now equal to \code{ntreat}) and for designs of type 
          \code{FrF2.splitplot}, where \code{nfactors} is now the sum of \code{nfac.WP} and \code{nfac.SP}.}
-    \item{ntreat }{ for designs of type \code{FrF2.blocked} only; \cr
+    \item{ntreat}{ for designs of type \code{FrF2.blocked} only; \cr
          number of treatment factors }
-    \item{nfac.WP }{ for designs of type \code{FrF2.splitplot} only; \cr
+    \item{nfac.WP}{ for designs of type \code{FrF2.splitplot} only; \cr
          number of whole plot factors (including extra factors that may have been 
          added for whole plot construction); these are the first factors in the 
          design data frame }
-    \item{nfac.SP }{ for designs of type \code{FrF2.splitplot} only; \cr
+    \item{nfac.SP}{ for designs of type \code{FrF2.splitplot} only; \cr
          number of split-plot factors }
     \item{nlevels}{for designs of type \code{full factorial} only; \cr
          vector with number of levels for each factor 

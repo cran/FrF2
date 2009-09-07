@@ -3,10 +3,16 @@ Changes to package FrF2
 The package is currently under intensive development. 
 Most features have now been created, but there may still 
 be some changes. 
-An area which is particularly likely to change: 
-   representation of quantitative factors in the desnum attribute of designs
 Suggestions and bug reports are very welcome.
 
+
+Version 0.97-8, 07/09/2009
+   - made function FrF2 output factors also for full factorial 2-level designs
+     without center points and documented coding of experimental factors for 
+     functions FrF2 and pb
+     (thanks to Enrico Pegoraro for reporting this inconsistency)
+   - fixed a bug in function pb's treatment of unnamed lists as factor.names
+   - added a few links to manuals
 
 Version 0.97-7, 24/08/2009
    - made functions FrF2 and pb tolerate factor.names to be an unnamed list

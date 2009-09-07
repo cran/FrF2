@@ -292,8 +292,7 @@ if (identical(nfac.WP,0) & is.null(WPfacs) & !identical(WPs,1))
                     else aus <- fac.design(2, nfactors, factor.names=factor.names, 
                              replications=replications*2^(k-nfactors), repeat.only=repeat.only, 
                              randomize=randomize, seed=seed)
-                    for (i in 1:nfactors) 
-                           if (is.factor(aus[[i]])) contrasts(aus[[i]]) <- contr.FrF2(2)
+                    aus <- qua.design(aus, quantitative="none", contrasts=rep("contr.FrF2",nfactors))
                     ## add center points, if requested
                     if (ncenter>0) aus <- add.center(aus, ncenter, distribute=center.distribute)
                     return(aus)

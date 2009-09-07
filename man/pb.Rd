@@ -33,7 +33,7 @@ pb.list
         OR empty strings. 
         For each factor with an empty string in factor.names, the levels given in 
         \code{default.levels} are used;\cr
-       Default factor names are the first elements of the character vector \code{\link[DoE.base]{Letters}}, 
+       Default factor names are the first elements of the character vector \code{\link[DoE.base:utilities]{Letters}}, 
        or the factors position numbers preceded by capital F in case of more than 50 factors. }
   \item{default.levels}{ default levels (vector of length 2) for all factors for which no specific levels are given }
   \item{ncenter}{ number of center points; \code{ncenter > 0} 
@@ -97,13 +97,22 @@ pb.list
   
   So far, designs up to 96~runs are covered. More and different ones may follow, since the package is currently under intensive development.
   
-  Usage of the 8~run design for more than 4~factors is discouraged, 
+  Usage of the 8 run design for more than 4 factors is discouraged, 
   as it completely aliases main effects with individual two-factor interactions. 
-  It is recommended to use the 12~run design instead for screening more than 4~factors. 
+  It is recommended to use at least the 12 run design instead for screening more than 4 factors. 
 }
 \value{
-  Value is a data frame of S3 class \code{design} with attributes attached. 
-  The data frame itself contains the design with levels coded as requested.
+  Value is a data frame of S3 class \code{\link[DoE.base:class-design]{design}} 
+  and has attached attributes that can be accessed 
+  by functions \code{\link[DoE.base:class-design-methods]{desnum}}, 
+  \code{\link[DoE.base:class-design-methods]{run.order}} and 
+  \code{\link[DoE.base:class-design-methods]{design.info}}. 
+
+  The data frame itself contains the design with levels coded as requested. 
+  If no center points have been requested, the design columns are factors with 
+  contrasts \code{-1} and \code{+1} (cf. also \code{\link[DoE.base]{contr.FrF2}}); in case 
+  of center points, the design columns are numeric.
+  
   The following attributes are attached to it:
   \item{desnum }{Design matrix in -1/1 coding}
   \item{run.order }{three column data frame, first column contains the run number in 
