@@ -22,6 +22,7 @@ creator <- sys.call()
     if (center.distribute > ncenter)
        stop("center.distribute can be at most ncenter")
     if (randomize & center.distribute==1) warning("running all center point runs together is usually not a good idea.")
+    block.name <- make.names(block.name) ## make block.name a valid R name
 
 ## check that no incompatible options are used together
 if (ncenter>0 & !identical(WPs,1)) stop("center points for split plot designs are not supported")
@@ -161,6 +162,8 @@ if (identical(nfac.WP,0) & is.null(WPfacs) & !identical(WPs,1))
               hilf[1:nfactors]<-list(default.levels)
               factor.names <- hilf}
     ## from here on, factor.names is a named list
+    ## make all names valid R names
+      names(factor.names) <- make.names(names(factor.names), unique=TRUE)
     
     if (ncenter > 0) if(any(is.na(sapply(factor.names,"is.numeric"))))
        stop("Center points are implemented for experiments with all factors quantitative only.")

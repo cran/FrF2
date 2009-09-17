@@ -5,6 +5,13 @@ Most features have now been created, but there may still
 be some changes. 
 Suggestions and bug reports are very welcome.
 
+Version 0.97-10, 17/09/2009
+   - changed a link to DoE.base-package to work on Mac-OS
+
+
+Version 0.97-9, 14/09/2009
+   - made factor names in FrF2 and pb valid names using make.names, 
+     also block.name in FrF2
 
 Version 0.97-8, 07/09/2009
    - made function FrF2 output factors also for full factorial 2-level designs

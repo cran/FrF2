@@ -83,6 +83,9 @@ pb <- function(nruns,nfactors=nruns-1,
               hilf[1:nfactors]<-list(default.levels)
               factor.names <- hilf}
   ## from now on, factor.names is a list with all elements vectors
+  ## make all factor names valid
+        names(factor.names) <- make.names(names(factor.names), unique=TRUE)
+
       if (ncenter > 0) if(any(is.na(sapply(factor.names,"is.numeric"))))
        stop("Center points are implemented for experiments with all factors quantitative only.")
 
