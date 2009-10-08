@@ -10,4 +10,9 @@
 
      S3method("[",catlg)
      S3method(print,catlg)
-
+     S3method(MEPlot,default)
+     S3method(MEPlot,design)
+     S3method(IAPlot,default)
+     S3method(IAPlot,design)
+     S3method(DanielPlot,default)
+     S3method(DanielPlot,design)

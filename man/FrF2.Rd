@@ -87,28 +87,30 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
         for more detail, see function \code{\link{add.center}}, which does the work.
         }
   \item{generators}{ There are \code{log2(nruns)} base factors the full factorial 
-        of which spans the design. The generators specify how the remaining factors 
+        of which spans the design (e.g. 3 for 8 runs). 
+        The generators specify how the remaining factors 
         are to be allocated to interactions of these.
         
-        Generators can be any of 
+        \code{generators} can be 
         
-        a list of vectors with position numbers of base factors (e.g. c(1,2,4) 
-        stands for the interaction between first, second and fourth base factor) 
+        a list of vectors with position numbers of base factors (e.g. c(1,3,4) 
+        stands for the interaction between first, third and fourth base factor) 
         
-        a vector of character representations of these interactions 
-        (e.g. \dQuote{ABD} stands for the same interaction as above; 
-        again, preceding it with a minus sign (e.g. \dQuote{-ABD}) 
-        implies a switch of levels)
+        a vector of character representations of these interactions, 
+        e.g. \dQuote{ACD} stands for the same interaction as above
         
-        a vector of columns numbers in Yates order (e.g. 11 stands for ABD).
+        a vector of columns numbers in Yates order (e.g. 13 stands for ACD). 
+        Note that the columns 1, 2, 4, 8, etc., i.e. all powers of 2, are reserved 
+        for the base factors and cannot be used for assigning additional factors, 
+        because the design would become a resolution II design. For looking up 
+        which column number stands for which interaction, type e.g. 
+        \code{names(Yates)[1:15]} for a 16 run design.
         
         In all cases, preceding the respective entry with a minus sign 
-        (e.g. -c(1,2,4), \dQuote{-ABD}, -11) implies that the levels 
+        (e.g. -c(1,3,4), \dQuote{-ACD}, -13) implies that the levels 
         of the respective column are reversed.\cr
-        Minus signs do not cause an error, but neither have an effect in case 
+        WARNING: Minus signs do not cause an error, but neither have an effect in case 
         of automatic assignment of split-plot designs or hard-to-change columns.
-        
-        The word list of the design is only determined for designs with up to 19 generators.
         }
   \item{design}{ is a character string specifying the name of a design listed 
         in the catalogue specified as \code{select.catlg}, which is usually 

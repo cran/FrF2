@@ -1,8 +1,23 @@
-IAPlot <-
+IAPlot <- function(obj, ...){
+    UseMethod("IAPlot")
+}
+IAPlot.design <- function(obj, ...){
+    if (!"design" %in% class(obj)) 
+        stop("IAPlot.design works for obj from class design only.")
+    di <- design.info(obj)
+    if (is.null(di$response)) 
+        stop("The design obj must have at least one response.")
+    if (!(length(grep("FrF2",di$type))>0 | 
+           length(grep("pb",di$type))>0)) 
+        stop("The design obj must be of a type containing FrF2 or pb.")
+    IAPlot(lm(obj, degree=2), ...)
+}
+
+IAPlot.default <-
 function(obj, main=paste("Interaction plot matrix for",respnam), pch=c(15,17), 
     cex.lab=par("cex.lab"), cex=par("cex"), cex.xax=par("cex.axis"), 
     cex.yax=cex.xax, cex.title = 1.5, lwd=par("lwd"), abbrev=4, select=NULL, 
-    show.alias=FALSE){
+    show.alias=FALSE, ...){
     # obj     a linear model
     # pch     plot characters used
     # cex     plot character size

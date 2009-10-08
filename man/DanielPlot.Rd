@@ -1,5 +1,7 @@
 \name{DanielPlot}
 \alias{DanielPlot}
+\alias{DanielPlot.design}
+\alias{DanielPlot.default}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{ Normal or Half-Normal Effects Plots }
 \description{
@@ -9,7 +11,9 @@
   automatic labelling of the most significant factors only).
 }
 \usage{
-DanielPlot(fit, code = FALSE, autolab = TRUE, alpha = 0.05, faclab = NULL, 
+DanielPlot(fit, ...)
+\method{DanielPlot}{design}(fit, ...)
+\method{DanielPlot}{default}(fit, code = FALSE, autolab = TRUE, alpha = 0.05, faclab = NULL, 
        block = FALSE, datax = TRUE, half = FALSE, pch = "*", 
        cex.fac = par("cex.lab"), cex.lab = par("cex.lab"), 
        cex.pch = par("cex"), cex.legend = par("cex.lab"), 
@@ -17,7 +21,11 @@ DanielPlot(fit, code = FALSE, autolab = TRUE, alpha = 0.05, faclab = NULL,
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{fit}{object of class \code{lm}. Fitted model from \code{lm} or \code{aov}.}
+  \item{fit}{an experimental design of class \code{\link[DoE.base:class-design]{design}} 
+              with the \code{type} element of the \code{design.info} attribute 
+              containing \dQuote{FrF2} or \dQuote{pb}\cr
+              OR\cr
+              object of class \code{lm}. Fitted model from \code{lm} or \code{aov}.}
   \item{code}{logical. If \code{TRUE} labels \dQuote{A},\dQuote{B}, etc. are used 
         instead of the names of the coefficients (factors). A legend linking 
         codes to names is provided.}
@@ -44,13 +52,22 @@ DanielPlot(fit, code = FALSE, autolab = TRUE, alpha = 0.05, faclab = NULL,
   \item{cex.pch}{numeric. Points character size.}
   \item{cex.legend}{numeric. Legend size in case of codes.}
   \item{main}{NULL or character. Title of plot. If NULL, automatic title is generated.}
-  \item{\dots}{graphical parameters passed to \code{plot}.}
+  \item{\dots}{further arguments to be passed to the default function, 
+      or graphical parameters to be passed to \code{plot}.}
 }
 
 \details{
-    The design has to be a fractional factorial 2-level design. 
+    The design underlying \code{fit} 
+    has to be a (regular or non-regular) fractional factorial 2-level design. 
     Effects (except for the intercept) are displayed in a normal or half-normal 
     plot with the effects in the x-axis by default. 
+    
+    If \code{fit} is a design with at least one response variable 
+    rather than a linear model fit, 
+    the \code{lm}-method for class \code{design} is applied to it with 
+    degree high enough that at least one effect is assigned to each column of the Yates matrix, 
+    and the default method for \code{DanielPlot} is afterwards applied to the 
+    resulting linear model.
 }
 
 \value{

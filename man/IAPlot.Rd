@@ -1,6 +1,10 @@
 \name{IAPlot}
 \alias{MEPlot}
+\alias{MEPlot.design}
+\alias{MEPlot.default}
 \alias{IAPlot}
+\alias{IAPlot.design}
+\alias{IAPlot.default}
 \alias{intfind}
 \alias{check}
 \alias{remodel}
@@ -11,15 +15,19 @@
   functions are not intended for users. 
 }
 \usage{
-MEPlot(obj, main = paste("Main effects plot for", respnam), 
+MEPlot(obj, ...)
+\method{MEPlot}{design}(obj, ...)
+\method{MEPlot}{default}(obj, main = paste("Main effects plot for", respnam), 
     pch = 15, cex.xax = par("cex.axis"), cex.yax = cex.xax, mgp.ylab = 4, 
     cex.title = 1.5, cex.main = par("cex.main"), 
-    lwd = par("lwd"), abbrev = 3, select = NULL)
+    lwd = par("lwd"), abbrev = 3, select = NULL, ...)
 
-IAPlot(obj, main = paste("Interaction plot matrix for", respnam), 
+IAPlot(obj, ...)
+\method{IAPlot}{design}(obj, ...)
+\method{IAPlot}{default}(obj, main = paste("Interaction plot matrix for", respnam), 
     pch = c(15, 17), cex.lab = par("cex.lab"), cex = par("cex"), 
     cex.xax = par("cex.axis"), cex.yax = cex.xax, cex.title = 1.5, 
-    lwd = par("lwd"), abbrev = 4, select = NULL, show.alias = FALSE)
+    lwd = par("lwd"), abbrev = 4, select = NULL, show.alias = FALSE, ...)
          
 intfind(i, j, mat)
 
@@ -30,13 +38,20 @@ remodel(obj)
 }
 
 \arguments{
-  \item{obj}{ a linear model object with 2-level factors or numerical 
+  \item{obj}{ an experimental design of class \code{\link[DoE.base:class-design]{design}} 
+              with the \code{type} element of the \code{design.info} attribute 
+              containing \dQuote{FrF2} or \dQuote{pb}\cr
+              OR\cr
+              a linear model object with 2-level factors or numerical 
               2-level variables; \cr
               the structure must be such that effects are either fully 
               aliased or orthogonal, like in a regular fractional factorial 2-level 
               design;\cr
               note that \code{IAPlot} currently requires the response in \code{obj} to be 
               a pre-defined variable and not a calculated quantity}
+  \item{\dots}{ further arguments to be passed to the default function; \cr
+              \dots in the default method are not used, they have been added because of 
+              formal requirements only }
   \item{main}{ overall title for the plot assembly }
   \item{pch}{ Plot symbol number \code{MEPlot}, 
               or vector of two plot symbol numbers for the lower 
@@ -76,6 +91,14 @@ remodel(obj)
 }
 
 \details{
+    For functions \code{MEPlot} or \code{IAPlot}, 
+    if \code{obj} is a design with at least one response variable 
+    rather than a linear model fit, 
+    the \code{lm}-method for class \code{design} is applied to it with the 
+    required degree (1 or 2), 
+    and the default method for the respective function is afterwards applied to the 
+    resulting linear model.
+    
   \describe{
   \item{MEPlot}{produces plots of all main effects in the model, 
               or selected ones if \code{select} is specified}

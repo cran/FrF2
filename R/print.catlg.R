@@ -10,11 +10,21 @@ print.catlg <- function(x, name="all", nruns="all", nfactors="all",
        if (MaxC2) x <- x[sort(nclear.2fis.catlg(x),index.return=TRUE, decreasing=TRUE)$ix]
        alias <- NULL
        for (i in 1:min(length(x),show)) {
+           resp <- as.character(as.roman(x[[i]]$res))
+           if (is.na(resp)) resp <- "full factorial"
+           ## resp allows to extend catlg to include full factorials 
+           ## with gen equal to numeric(0)
+           ## warning for as.roman would have to be blocked
+           ## further warnings in gen.check would have to be blocked
+           ##     would there be further issues ???
+           ## Sole purpose so far: also show full factorial possibilities with buttons in 
+           ##     create design menu of RcmdrPlugin.DoE 
            if (show.alias) alias <- alias3fi(round(log2(x[[i]]$nruns)),x[[i]]$gen,order=2)
            cat("Design: ", names(x)[i], "\n  ",
                 x[[i]]$nruns, " runs, ", 
-                x[[i]]$nfac, " factors,  \n   Resolution ", as.character(as.roman(x[[i]]$res)), 
-               "\n   Generating columns: ", hilf[x[[i]]$gen], "\n",
+                x[[i]]$nfac, " factors,  \n   Resolution ", resp, "\n") 
+           if (!resp=="full factorial")
+               cat("   Generating columns: ", hilf[x[[i]]$gen], "\n",
                "  WLP (3plus): ", x[[i]]$WLP[-(1:2)], ", ", x[[i]]$nclear.2fis, " clear 2fis")
                if (length(x[[i]]$all.2fis.clear)>0) if(!x[[i]]$all.2fis.clear[1]=="all"){
                     if (x[[i]]$nfac <= 50) cat("\n Factors with all 2fis clear: ", Letters[x[[i]]$all.2fis.clear])

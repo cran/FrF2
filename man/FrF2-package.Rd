@@ -143,4 +143,12 @@ Analysis of alias structure for linear models of \code{FrF2} designs: \code{\lin
          "MoldTemp", "HoldPress", "BoostPress", modeled=FALSE)
       ## cubePlot also works on raw data
       cubePlot(iMdat$y, iMdat$MoldTemp, iMdat$HoldPress, iMdat$BoostPress)
+    ## plotting functions also work directly on designs, 
+    ## if these have been generated from functions FrF2 or pb:
+      plan <- FrF2(16, 7)
+      plan <- add.response(plan, rnorm(16))
+      MEPlot(plan)
+      IAPlot(plan)
+      DanielPlot(plan)
+      
 }

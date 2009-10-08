@@ -1,8 +1,22 @@
-MEPlot <-
+MEPlot <- function(obj, ...){
+    UseMethod("MEPlot")
+}
+MEPlot.design <- function(obj, ...){
+    if (!"design" %in% class(obj)) 
+        stop("MEPlot.design works for obj from class design only.")
+    di <- design.info(obj)
+    if (is.null(di$response)) 
+        stop("The design obj must have at least one response.")
+    if (!(length(grep("FrF2",di$type))>0 | 
+           length(grep("pb",di$type))>0)) 
+        stop("The design obj must be of a type containing FrF2 or pb.")
+    MEPlot(lm(obj, degree=1), ...)
+}
+MEPlot.default <-
 function(obj, main=paste("Main effects plot for", respnam), pch=15, 
          cex.xax = par("cex.axis"), cex.yax = cex.xax, mgp.ylab = 4, 
          cex.title=1.5, cex.main=par("cex.main"), lwd=par("lwd"), 
-         abbrev=3, select=NULL){
+         abbrev=3, select=NULL, ...){
    # main      overall title
    # pch       plot character
    # lwd       line width

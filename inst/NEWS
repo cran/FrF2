@@ -1,13 +1,20 @@
 Changes to package FrF2 
 
-The package is currently under intensive development. 
-Most features have now been created, but there may still 
-be some changes. 
+The package is still under development. 
 Suggestions and bug reports are very welcome.
+
+Version 1.0, 08/10/2009
+   - added methods for class design for the plotting functions 
+     MEPlot, IAPlot and DanielPlot
+   - added the MA resolution III designs for 64 runs (33 to 63 factors) 
+     and 128 runs (65 to 127 factors) to the design catalogue catlg
+     (strictly speaking, it is only proven that these have the same number of 
+     length three and length four words as the MA designs)
+   - improved documentation of generators option for FrF2
+   - removed unnecessary warning from FrF2 in case of more than 19 generators
 
 Version 0.97-10, 17/09/2009
    - changed a link to DoE.base-package to work on Mac-OS
-
 
 Version 0.97-9, 14/09/2009
    - made factor names in FrF2 and pb valid names using make.names, 

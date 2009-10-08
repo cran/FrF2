@@ -182,11 +182,13 @@ if (identical(nfac.WP,0) & is.null(WPfacs) & !identical(WPs,1))
                else if (g<20) wl <- words.all(k, generators,max.length=4)
                else if (g>=20) wl <- alias3fi(k, generators, order=2)  ## not a word list
                WLP <- wl$WLP
-               res <- min(as.numeric(names(WLP)[which(WLP>0)]))
-               if (res==Inf) {if (g<10) res="7+"
-               else if (g<15) res="6+"
-               else if (g<20) res="5+"}
-               else if (g>=20){
+               if (g < 20){
+                 res <- min(as.numeric(names(WLP)[which(WLP>0)]))
+                 if (res==Inf) {if (g<10) res="7+"
+                   else if (g<15) res="6+"
+                   else if (g<20) res="5+" }
+                 }
+               else{
                    if (length(wl$"main")>0) res="3"
                       else if (length(wl$"fi2")>0) res="4"
                            else res="5+"

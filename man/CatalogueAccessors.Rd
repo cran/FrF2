@@ -73,7 +73,7 @@ block.catlg
   The \code{print} function for class \code{catlg} gives a concise overview of selected designs in any design catalogue of class \code{catlg}. 
   It is possible to restrict attention to designs with certain run sizes, numbers of factors, and/or to request a minimum resolutions. 
   Designs are ordered in decreasing quality, where the default is aberration order, but number of clear 2fis can be requested alternatively. 
-  The best 10 designs are displayed per default, but this number can be changed (by the \code{show} option. 
+  The best 10 designs are displayed per default; this number can be changed by the \code{show} option. 
   Options \code{gen.letters} and \code{show.alias} influence the style and amount of printed output.
    
   The catalogue \code{catlg}, which is included with package \code{FrF2}, 
@@ -85,11 +85,25 @@ block.catlg
   Note that the Chen Sun Wu paper only shows a selection of the 64~run designs, the 
   complete catalogue has been obtained from Don Sun and is numbered according to 
   minimum aberration (lower number = better design); numbering in the paper is 
-  not everywhere in line with this numbering
+  not everywhere in line with this numbering. 
+  
+  \item minimum aberration (MA) resolution III designs for 33 to 63 factors in 
+  64 runs. The first few of these have been obtained from Appendix G of 
+  Mee 2009, the designs for 38 and more factors have been constructed using a construction 
+  principle conjectured by the author. They have the same numbers of words of length 3 and 4 
+  as the MA designs from Mee's book. 
+  (Strictly speaking, it is not proven that the designs for 38 and more factors 
+  are indeed MA designs, but this should not be relevant for practical purposes.)
   
   \item a few \dQuote{good} resolution IV designs in 128 runs, for up to 24 factors 
   obtained by evaluating designs from the complete catalogue by Xu (2009, catalogue on his website),
-  for 25 to 64 factors taken from Block and Mee (2005, with corrigendum 2006)
+  for 25 to 64 factors taken from Block and Mee (2005, with corrigendum 2006). Furthermore, 
+  the MA resolution III designs designs for 65 to 127 factors in 128 runs 
+  are also included, with the designs up to 69 factors coming from Appendix G 
+  in Mee, whereas the designs for 70 or more factors have been  
+  constructed according to the same principle mentioned for the 64 run designs. (For designs 
+  with 70 or more factors, the same caveat applies w.r.t. the proof that these are MA designs. 
+  Again, this is not considered to be of practical relevance.)
   
   \item the best (MA) resolution V design for each number of factors in 256 and 512 runs, 
   the best resolution VI design for each number of factors in 1024 runs, 

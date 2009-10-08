@@ -1,4 +1,25 @@
-`DanielPlot` <-
+DanielPlot <- function(fit, ...){
+    UseMethod("DanielPlot")
+}
+DanielPlot.design <- function(fit, ...){
+    if (!"design" %in% class(fit)) 
+        stop("DanielPlot.design works for obj from class design only.")
+    di <- design.info(fit)
+    if (is.null(di$response)) 
+        stop("The design fit must have at least one response.")
+    if (!(length(grep("FrF2",di$type))>0 | 
+           length(grep("pb",di$type))>0)) 
+        stop("The design fit must be of a type containing FrF2 or pb.")
+    grad <- 1
+    if (length(grep("pb",di$type)) > 0 & di$nfactors < di$nruns-1)
+          warning("Effects plots for Plackett-Burman designs must be done with nruns-1 effects! The error effects are missing!")
+    ## make sure there are as many effects as possible in the plots, redundant ones will not be shown
+    if (length(grep("FrF2",di$type)) > 0 ) grad <- di$nfactors
+    
+    DanielPlot(lm(fit, degree=grad), ...)
+}
+
+DanielPlot.default <-
 function (fit, code = FALSE, autolab = TRUE, alpha=0.05,
          faclab = NULL, 
          block = FALSE, datax = TRUE, 
