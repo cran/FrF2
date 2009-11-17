@@ -3,6 +3,14 @@ Changes to package FrF2
 The package is still under development. 
 Suggestions and bug reports are very welcome.
 
+Versopm 1.0-1, 17/11/2009
+   - clarified in the explanation of the catalogue file 
+     that the resolution III designs constructed for 64 and 128 runs are 
+     in fact minimum aberration 
+     (which was only conjectured before)
+   - bug fix for function DanielPlot.design: the function did not work
+     for large numbers of factors
+
 Version 1.0, 08/10/2009
    - added methods for class design for the plotting functions 
      MEPlot, IAPlot and DanielPlot

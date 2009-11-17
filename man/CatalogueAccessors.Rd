@@ -89,11 +89,13 @@ block.catlg
   
   \item minimum aberration (MA) resolution III designs for 33 to 63 factors in 
   64 runs. The first few of these have been obtained from Appendix G of 
-  Mee 2009, the designs for 38 and more factors have been constructed using a construction 
-  principle conjectured by the author. They have the same numbers of words of length 3 and 4 
-  as the MA designs from Mee's book. 
-  (Strictly speaking, it is not proven that the designs for 38 and more factors 
-  are indeed MA designs, but this should not be relevant for practical purposes.)
+  Mee 2009, the designs for 38 and more factors have been constructed by combining 
+  a duplicated minimum aberration design in 32 runs and the required number of factors 
+  with columns 32 to 63 of the Yates matrix for 64 run designs. Using complementary 
+  design theory (cf. e.g. Chapter 6.2.2 in Mee 2009), it can be shown that the resulting 
+  designs are minimum aberration (because they are complementary to basically the same 
+  designs as the designs in 32 runs on which they are based). The author is grateful 
+  to Robert Mee for pointing this out.
   
   \item a few \dQuote{good} resolution IV designs in 128 runs, for up to 24 factors 
   obtained by evaluating designs from the complete catalogue by Xu (2009, catalogue on his website),
@@ -101,9 +103,7 @@ block.catlg
   the MA resolution III designs designs for 65 to 127 factors in 128 runs 
   are also included, with the designs up to 69 factors coming from Appendix G 
   in Mee, whereas the designs for 70 or more factors have been  
-  constructed according to the same principle mentioned for the 64 run designs. (For designs 
-  with 70 or more factors, the same caveat applies w.r.t. the proof that these are MA designs. 
-  Again, this is not considered to be of practical relevance.)
+  constructed according to the same principle mentioned for the 64 run designs.
   
   \item the best (MA) resolution V design for each number of factors in 256 and 512 runs, 
   the best resolution VI design for each number of factors in 1024 runs, 

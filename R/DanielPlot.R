@@ -14,8 +14,18 @@ DanielPlot.design <- function(fit, ...){
     if (length(grep("pb",di$type)) > 0 & di$nfactors < di$nruns-1)
           warning("Effects plots for Plackett-Burman designs must be done with nruns-1 effects! The error effects are missing!")
     ## make sure there are as many effects as possible in the plots, redundant ones will not be shown
-    if (length(grep("FrF2",di$type)) > 0 ) grad <- di$nfactors
-    
+    if (length(grep("FrF2",di$type)) > 0 ){
+       grad <- 2
+       hilf <- lm(fit, degree=grad)
+       ncoef <- sum(!is.na(coef(hilf)))
+       nhilf <- di$nrun
+       if (!is.null(di$ncenter)) nhilf <- nhilf - di$ncenter
+       while (ncoef < nhilf){
+          grad <- grad+1
+          hilf <- lm(fit, degree=grad)
+          ncoef <- sum(!is.na(coef(hilf)))
+          }
+    }
     DanielPlot(lm(fit, degree=grad), ...)
 }
 
