@@ -445,7 +445,8 @@ else {
                  stop("At least one of nruns or resolution or estimable must be given.")
        if (!is.null(resolution)){ 
                  cand <- select.catlg[which(res.catlg(select.catlg)>=resolution & nfac.catlg(select.catlg)==nfactors)]
-                 if (length(cand)==0) message("full factorial design needed")
+                 if (length(cand)==0) {
+                    message("full factorial design needed")
                     aus <- fac.design(2, nfactors, factor.names=factor.names, 
                              replications=replications, repeat.only=repeat.only, 
                              randomize=randomize, seed=seed)
@@ -454,6 +455,7 @@ else {
                     ## add center points, if requested
                     if (ncenter>0) aus <- add.center(aus, ncenter, distribute=center.distribute)
                     return(aus)
+                    }
             }
        else{ cand <- select.catlg[which(nfac.catlg(select.catlg)==nfactors)]   
            ## no prior restriction by resolution

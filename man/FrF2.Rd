@@ -151,10 +151,10 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
         OR\cr
         a character vector containing strings of length 2 with capital letters from \code{Letters} 
         (cf. package \pkg{DoE.base})
-        for the first 25 factors and small letters for the last 25 (e.g. \code{c(\"AB\",\"BE\")} \cr
+        for the first 25 factors and small letters for the last 25 (e.g. \code{c("AB","BE")} \cr
         OR\cr
         a formula that contains an adequate model formula, e.g. \cr
-        \code{formula(\"~A+B+C+D+E+(F+G+H+J+K+L)^2\")} \cr
+        \code{formula("~A+B+C+D+E+(F+G+H+J+K+L)^2")} \cr
         for a model with (at least) eleven factors. \cr
         The names of the factors used in the formula can be the same letters usable in 
         the character vector (cf. above, A the first factor, B the second etc.), 

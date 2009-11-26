@@ -1,8 +1,8 @@
 Package: FrF2
 Title: Fractional Factorial designs with 2-level factors
-Version: 1.0-1
+Version: 1.0-2
 Depends: R(>= 2.8.0), BsMD, scatterplot3d, igraph, sfsmisc, DoE.base
-Date: 2009-11-17
+Date: 2009-11-26
 Author: Ulrike Groemping
 Maintainer: Ulrike Groemping <groemping@bht-berlin.de>
 Description: This package creates regular and non-regular Fractional
@@ -22,6 +22,6 @@ LazyData: yes
 Encoding: latin1
 URL: http://prof.tfh-berlin.de/groemping/DoE/,
         http://prof.tfh-berlin.de/groemping/
-Packaged: 2009-11-17 20:57:58 UTC; Grömping
+Packaged: 2009-11-26 14:04:34 UTC; Grömping
 Repository: CRAN
-Date/Publication: 2009-11-18 07:57:12
+Date/Publication: 2009-11-26 16:33:02

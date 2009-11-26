@@ -3,7 +3,13 @@ Changes to package FrF2
 The package is still under development. 
 Suggestions and bug reports are very welcome.
 
-Versopm 1.0-1, 17/11/2009
+Version 1.0-2, 26/11/2009
+   - added a response argument to MEPlot, IAPlot and DanielPlot
+   - bug fix for function FrF2: resolution requests were ignored since 
+     version 0.97-7
+   - small documentation bug fixes
+
+Version 1.0-1, 17/11/2009
    - clarified in the explanation of the catalogue file 
      that the resolution III designs constructed for 64 and 128 runs are 
      in fact minimum aberration 

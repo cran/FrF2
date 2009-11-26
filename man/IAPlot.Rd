@@ -16,14 +16,14 @@
 }
 \usage{
 MEPlot(obj, ...)
-\method{MEPlot}{design}(obj, ...)
+\method{MEPlot}{design}(obj, ..., response = NULL)
 \method{MEPlot}{default}(obj, main = paste("Main effects plot for", respnam), 
     pch = 15, cex.xax = par("cex.axis"), cex.yax = cex.xax, mgp.ylab = 4, 
     cex.title = 1.5, cex.main = par("cex.main"), 
     lwd = par("lwd"), abbrev = 3, select = NULL, ...)
 
 IAPlot(obj, ...)
-\method{IAPlot}{design}(obj, ...)
+\method{IAPlot}{design}(obj, ..., response = NULL)
 \method{IAPlot}{default}(obj, main = paste("Interaction plot matrix for", respnam), 
     pch = c(15, 17), cex.lab = par("cex.lab"), cex = par("cex"), 
     cex.xax = par("cex.axis"), cex.yax = cex.xax, cex.title = 1.5, 
@@ -52,6 +52,9 @@ remodel(obj)
   \item{\dots}{ further arguments to be passed to the default function; \cr
               \dots in the default method are not used, they have been added because of 
               formal requirements only }
+  \item{response}{ character string that specifies response variable to be used, 
+              must be an element of \code{response.names(obj)}; 
+              if NULL, the first response from \code{response.names(obj)} is used}
   \item{main}{ overall title for the plot assembly }
   \item{pch}{ Plot symbol number \code{MEPlot}, 
               or vector of two plot symbol numbers for the lower 

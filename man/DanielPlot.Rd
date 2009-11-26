@@ -12,7 +12,7 @@
 }
 \usage{
 DanielPlot(fit, ...)
-\method{DanielPlot}{design}(fit, ...)
+\method{DanielPlot}{design}(fit, ..., response = NULL)
 \method{DanielPlot}{default}(fit, code = FALSE, autolab = TRUE, alpha = 0.05, faclab = NULL, 
        block = FALSE, datax = TRUE, half = FALSE, pch = "*", 
        cex.fac = par("cex.lab"), cex.lab = par("cex.lab"), 
@@ -26,6 +26,11 @@ DanielPlot(fit, ...)
               containing \dQuote{FrF2} or \dQuote{pb}\cr
               OR\cr
               object of class \code{lm}. Fitted model from \code{lm} or \code{aov}.}
+  \item{\dots}{further arguments to be passed to the default function, 
+      or graphical parameters to be passed to \code{plot}.}
+  \item{response}{ NULL or a character string that specifies response variable to be used, 
+              must be an element of \code{response.names(obj)}; 
+              if NULL, the first response from \code{response.names(obj)} is used}
   \item{code}{logical. If \code{TRUE} labels \dQuote{A},\dQuote{B}, etc. are used 
         instead of the names of the coefficients (factors). A legend linking 
         codes to names is provided.}
@@ -52,8 +57,6 @@ DanielPlot(fit, ...)
   \item{cex.pch}{numeric. Points character size.}
   \item{cex.legend}{numeric. Legend size in case of codes.}
   \item{main}{NULL or character. Title of plot. If NULL, automatic title is generated.}
-  \item{\dots}{further arguments to be passed to the default function, 
-      or graphical parameters to be passed to \code{plot}.}
 }
 
 \details{

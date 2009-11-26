@@ -1,12 +1,15 @@
 DanielPlot <- function(fit, ...){
     UseMethod("DanielPlot")
 }
-DanielPlot.design <- function(fit, ...){
+DanielPlot.design <- function(fit, ..., response=NULL){
     if (!"design" %in% class(fit)) 
         stop("DanielPlot.design works for obj from class design only.")
     di <- design.info(fit)
     if (is.null(di$response)) 
         stop("The design fit must have at least one response.")
+    if (!(is.null(response))) 
+      if (!response %in% di$response)
+        stop("Requested response is not a response variable in fit.")
     if (!(length(grep("FrF2",di$type))>0 | 
            length(grep("pb",di$type))>0)) 
         stop("The design fit must be of a type containing FrF2 or pb.")
@@ -26,7 +29,7 @@ DanielPlot.design <- function(fit, ...){
           ncoef <- sum(!is.na(coef(hilf)))
           }
     }
-    DanielPlot(lm(fit, degree=grad), ...)
+    DanielPlot(lm(fit, degree=grad, response=response), ...)
 }
 
 DanielPlot.default <-
