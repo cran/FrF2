@@ -326,6 +326,8 @@ if (identical(nfac.WP,0) & is.null(WPfacs) & !identical(WPs,1))
                              nruns=nruns, nfactors=nfactors, factor.names=factor.names, 
                              map=desmat$map, aliased=desmat$aliased, clear=clear, res3=res3)
                       desmat <- desmat$design
+                      desmat <- as.matrix(sapply(desmat,function(obj) as.numeric(as.character(obj))))
+                      rownames(desmat) <- 1:nrow(desmat)
                   }
             else if (is.null(generators) & is.null(design)) 
                  cand <- select.catlg[nruns.catlg(select.catlg)==nruns & nfac.catlg(select.catlg)==nfactors]

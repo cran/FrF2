@@ -3,6 +3,10 @@ Changes to package FrF2
 The package is still under development. 
 Suggestions and bug reports are very welcome.
 
+Version 1.0-3, 10/12/2009
+   - bug fix: desnum attribute was list instead of data frame 
+     for FrF2 with estimability requirements
+
 Version 1.0-2, 26/11/2009
    - added a response argument to MEPlot, IAPlot and DanielPlot
    - bug fix for function FrF2: resolution requests were ignored since 
