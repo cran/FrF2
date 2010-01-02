@@ -66,25 +66,34 @@
   a design. The required permutations for the second version of this example 
   can be obtained e.g. by the following code: 
   
-  \code{perms.6 <- combn(11,6)}
-  
-  \code{perms.full <- matrix(NA,ncol(perms.6),11)}
-  
-  \code{for (i in 1:ncol(perms.6))}
-  
-  \code{perms.full[i,] <- c(perms.6[,i],setdiff(1:11,perms.6[,i]))}
+  \code{perms.6 <- combn(11,6)}\cr
+  \code{perms.full <- matrix(NA,ncol(perms.6),11)}\cr
+  \code{for (i in 1:ncol(perms.6))}\cr
+  \code{perms.full[i,] <- c(perms.6[,i],setdiff(1:11,perms.6[,i]))}\cr
 
   Handing perms.full to the procedure using the \code{perms} option makes the second version of the 
   requested interaction terms fast as well, since up to almost 40 Mio permutations of experiment 
   factors are reduced to at most 462. Thus, whenever possible, 
   one should try to limit the permutations necessary in case of \code{clear=FALSE}.
   
+  In order to support relatively comfortable creation of distinct designs of some frequently-used types 
+  of required interaction patterns, the function \code{\link{compromise}} has been 
+  divised: it supports creation of the so-called compromise designs of classes 1 to 4. 
+  The list it returns also contains a component \code{perms.full} that can be used as input 
+  for the \code{perms} option.
+  
   Please contact me with any suggestions for improvements.
 }
 \references{
+Addelman, S. (1962). Symmetrical and asymmetrical fractional factorial plans. 
+\emph{Technometrics} \bold{4}, 47-58.
+
 Chen, J., Sun, D.X. and Wu, C.F.J. (1993) 
 A catalogue of 2-level and 3-level orthogonal arrays. 
 \emph{International Statistical Review} \bold{61}, 131-145. 
+
+Ke, W., Tang, B. and Wu, H. (2005). Compromise plans with clear two-factor interactions. 
+\emph{Statistica Sinica} \bold{15}, 709-715.
 
 Wu, C.F.J. and Chen, Y. (1992) 
 A graph-aided method for planning two-level experiments when certain interactions 

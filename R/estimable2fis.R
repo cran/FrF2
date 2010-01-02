@@ -174,8 +174,9 @@ check.subisomorphic.matrix <- function(estimable, nfac, hilf2, hilf3=NULL, res3=
     ## adjust estimable accordingly
     ## repeat above check
     if (is.null(hilf3)) res3.cur <- FALSE else res3.cur <- TRUE
-    hilf <- combn(ncol(estimable),2)
-    if (!is.null(hilf2)) {
+    if (ncol(estimable)>=2) hilf <- combn(ncol(estimable),2)
+    else hilf <- matrix(1,1,1)
+    if (!(is.null(hilf2) | ncol(estimable)<2)) {
         colpairs <- matrix(NA,4,choose(ncol(estimable),2))
         }
 
@@ -197,7 +198,7 @@ check.subisomorphic.matrix <- function(estimable, nfac, hilf2, hilf3=NULL, res3=
        if (any(apply(estcur,2,function(objcp) any(sapply(hilf3,function(obj) all(objcp %in% obj)))))) 
             iso <- FALSE    
     } 
-    if (iso & !is.null(hilf2)){
+    if (iso & !(is.null(hilf2) | ncol(estimable)<2)){
        ## create colpairs (=forbidden words of length four)
        for (i in 1:ncol(colpairs)) colpairs[,i] <- sort(c(estcur[,hilf[,i]]))
        if (any(apply(colpairs,2,function(objcp) any(sapply(hilf2,function(obj) all(obj==objcp)))))){

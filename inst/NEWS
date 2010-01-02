@@ -3,6 +3,10 @@ Changes to package FrF2
 The package is still under development. 
 Suggestions and bug reports are very welcome.
 
+Version 1.0-4, 02/01/2010
+   - function compromise for supporting creation of compromise designs
+   - bug fix: distinct design with only one 2fi did not work
+
 Version 1.0-3, 10/12/2009
    - bug fix: desnum attribute was list instead of data frame 
      for FrF2 with estimability requirements
