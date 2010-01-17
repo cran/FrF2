@@ -116,8 +116,10 @@ pb <- function(nruns,nfactors=nruns-1,
           sel <- normalize.col.first(williamson(circ.mat(a),circ.mat(b),circ.mat(c),circ.mat(d)))
           sel <- normalize.row.last(sel)
     }
-    else if (nruns %in% c(40,56,64,88,96)) 
+    else if (nruns %in% c(40,56,64,88,96)) {
+           
            sel <- normalize.row.last(double.des(desnum(pb(nruns/2,randomize=FALSE))))[,1:nfactors]
+           }
     else
     stop(paste("Design for", nruns, "runs not yet implemented.","\n")) 
     }

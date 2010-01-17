@@ -3,6 +3,12 @@ Changes to package FrF2
 The package is still under development. 
 Suggestions and bug reports are very welcome.
 
+Version 1.0-5, 17/01/2010
+   - internal function double.des was changed to produce different designs 
+     for 40,56,64,88,96 runs: The folded columns are in the front rather 
+     than in the rear, with the benefit of obtaining resolution IV designs 
+     whenever the number of factors is up to half the number of runs
+
 Version 1.0-4, 02/01/2010
    - function compromise for supporting creation of compromise designs
    - bug fix: distinct design with only one 2fi did not work

@@ -141,6 +141,18 @@ pb.list
        }
        }
 }
+\section{Warning}{With version 1.0-5 of package \pkg{FrF2}, 
+   design generation for the designs based on doubling has changed (internal function 
+   \code{double.des}). This affects designs for 40,56,64,88,96 runs. 
+   The benefit is that these designs are now resolution IV, if they are used with 
+   a number of factors up to half the number of runs, i.e. the main effects for 
+   such situations can be estimated without being confounded by 
+   potential two-factor interactions.
+   
+   The downside is that the versions from 1.0-5 onwards will not be able to 
+   exactly reproduce pb designs in these numbers of runs that have been created 
+   with an earlier version.}
+
 \references{ 
   Box, G.E.P. and Tyssedal, J. (2001) Sixteen Run Designs of High Projectivity for Factor Screening. 
       \emph{Communications in Statistics - Simulation and Computation} \bold{30}, 217-228. 

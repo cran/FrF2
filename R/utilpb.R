@@ -7,8 +7,9 @@
 ## normalize.row.last is applied later to ensure that last row is "-1"
 double.des <- function(des){
    zeil <- nrow(des)
-   ### +/- column unconventionally in the end instead of middle position!!!
-   rbind(cbind(des,des,rep(1,zeil)),cbind(des,-des,rep(-1,zeil)))
+   ### +/- column and reflected columns unconventionally moved to the front !!!
+   ### benefit: first columns are resolution IV
+   rbind(cbind(rep(1,zeil),des,des),cbind(rep(-1,zeil),-des,des))
 }
 
 circ.mat <- function(gen){
