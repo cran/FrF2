@@ -105,18 +105,35 @@ block.catlg
   in Mee, whereas the designs for 70 or more factors have been  
   constructed according to the same principle mentioned for the 64 run designs.
   
-  \item the best (MA) resolution V design for each number of factors in 256 and 512 runs, 
-  the best resolution VI design for each number of factors in 1024 runs, 
-  the best resolution VII design for each number of factors  in 2048 runs 
-  and the best resolution VIII design each number of factors in 4096 runs. 
-  These are taken from the website of Xu (2009), where complete catalogues of these designs 
-  are provided. 
+  \item the best (MA) resolution V or higher design for each number of factors or 
+  a \dQuote{good} such design (if it is not known which one is best) in \cr
+  256 (up to 17 factors, all MA),\cr 
+  512 runs (up to 23 factors, all MA),\cr 
+  1024 runs (up to 33 factors, MA up to 24 factors), \cr
+  2048 runs (up to 47 factors, MA up to 23 factors),\cr
+  and 4096 runs (up to 65 factors, MA up to 24 factors).\cr 
+  These have been taken from Xu (2009), where complete catalogues of some scenarios are provided 
+  (cf. also his website) as well as \dQuote{good} (not necessarily MA) designs for a larger 
+  set of situations. Note that designs that are not MA do not have a running number in the design name; 
+  for example, the 1024 runs design in 24 factors is named 24-14.1, the 1024 runs design in 25 factors 
+  is named 25-15 (without \dQuote{.1}, because the design is not known to be best, i.e. first).
   }
   
-  It is planned to extend the availability of large designs in catalogue \code{catlg}, e.g. by 
-  adding good resolution IV designs of 256 runs or other \dQuote{good designs} provided by 
-  Mee (2009) and by Xu (2009). 
-}
+  There are also some non-regular 2-level fractional factorial designs of resolution V 
+  which may be interesting, as it is possible to increase the number of factors for which 
+  resolution V is possible (cf. Mee 2009, Chapter 8). 
+  These are part of package \pkg{DoE.base}, which is automatically 
+  loaded with this package. With versions higher than 0.9-14 of that package, 
+  the following arrays are available: \cr
+  \code{L128.2.15.8.1}, which allows 4 additional factors and blocking into up to 8 blocks\cr
+  \code{L256.2.19}, which allows just 2 additonal factors\cr
+  \code{L2048.2.63}, which allows 16 additional factors.
+  These non-regular arrays should be fine for most purposes; the difference to the arrays generated 
+  by function \code{FrF2} lies in the fact that there is partial aliasing, e.g. between 3-factor interactions 
+  and 2-factor interactions. This means that an affected 3-factor interaction is 
+  partially aliased with several different 
+  2-factor interactions rather than being aliased either fully or not at all.
+  }
 
 \value{
   \code{[} selects a subset of designs based on \code{i}, which is again a list of class \code{catlg}, even if a single element is selected.
@@ -142,7 +159,7 @@ Xu, H. (2009) Algorithmic Construction of Efficient Fractional Factorial Designs
 }
 \author{ Ulrike Groemping }
 
-\seealso{ See Also \code{\link{FrF2}}  }
+\seealso{ See Also \code{\link{FrF2}}, \code{\link[DoE.base]{oa.design}}  }
 \examples{
 c8 <- catlg[nruns.catlg(catlg)==8]
 nclear.2fis.catlg(c8)
@@ -172,6 +189,22 @@ print(catlg, nfactors=7, nruns=c(16,32))
 ## all designs (as show=100 is larger than available number of designs)
 ##    with 7 or 8 factors in 16 runs
 print(catlg, nfactors=c(7,8), nruns=16, show=100)
+
+## the irregular resolution V arrays from package DoE.base (from version 0.9-17)
+## designs can be created from them using function oa.design
+\dontrun{
+## not run in case older version of DoE.base does not have these
+length3(L128.2.15.8.1)
+length4(L128.2.15.8.1)  ## aliasing of 2fis with block factor
+length4(L128.2.15.8.1[,-16])
+
+length3(L256.2.19)
+length4(L256.2.19)
+
+##length3(L2048.2.63) 
+##length4(L2048.2.63) do not work resource wise
+## but the array is also resolution V (but irregular)
+}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

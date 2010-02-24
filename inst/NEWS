@@ -3,6 +3,43 @@ Changes to package FrF2
 The package is still under development. 
 Suggestions and bug reports are very welcome.
 
+Version 1.1, 24/02/2010
+   - added large (good but not necessarily MA) resolution V designs from Xu 2009, 
+     added hint to even larger non-regular resolution V designs in package 
+     DoE.base (from version 0.9-16)
+   - supported subsequent calculation of generator information for blocked 
+     and splitplot designs by updated function summary.design:
+     - added map element to design.info for split-plot designs and blocked designs 
+       created with blockpick.big
+     - modified base.design entry of design.info object for split-plot designs 
+       with specified generators: display the original generators in the 
+       base design, which is much more logical than presenting the generators 
+       after application of splitpick which were there before
+     - added an FrF2.version element to design.info in order to allow checking 
+       whether the generators can be reconstructed from stored information 
+       with function generator.design from package DoE.base
+     - added test cases for this feature
+   Bug fixes:
+   - SERIOUS BUG: manually specifying dependent block generators led to unwarned 
+     mismatch between ouput design and design.info; 
+     fixed by throwing an error in case of dependent block generators
+   - documentation of block option for FrF2 was confusing regarding 
+     interpretation of entries in numeric vectors
+   - made large generator vectors work 
+     (length >20 was an issue and led to an error)
+   - documentation of function FrF2 wrongly called 
+     generators element of design.info attribute gen.display
+   - blockpick full factorial example in manual was (very) old state 
+     and worked different from description
+   - For split-plot designs, the automatic choice of whole plot factors 
+     was not always as documented; sometimes, the whole plot factors were not 
+     the first nfac.WP ones.
+   - inconsistency: splitpick.out used drop=FALSE for gen, but not for perms;
+     now also introduced drop=FALSE for the other similar functions (leftadjust,
+     blockpick.big)
+   - split-plot designs and designs with hard-to-change factors 
+     should now also work for full factorial situations.
+
 Version 1.0-5, 17/01/2010
    - internal function double.des was changed to produce different designs 
      for 40,56,64,88,96 runs: The folded columns are in the front rather 

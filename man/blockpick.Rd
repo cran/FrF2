@@ -19,7 +19,8 @@ blockpick.big(k, gen, k.block, design = NULL, show = 10,
   \item{gen}{ vector of generating columns from Yates matrix; 
         for a full factorial, choose \code{gen = 0} or 
         \code{gen=numeric(0)} for 
-        no generating columns.\cr
+        no generating columns; but note that there is always just the one 
+        and only catalogued design returned for a full factorial.\cr
         For function \code{blockpick}, \code{gen} refers to the generators 
         of the base design only, and block columns are automatically added by 
         \code{blockpick}.\cr
@@ -109,14 +110,16 @@ Optimal blocking schemes for 2\^p and 2\^(n-p) designs. \emph{Technometrics} \bo
 
 \seealso{ See Also \code{\link{FrF2}}  }
 \examples{
-## look at possibilities for running a 32 run full factorial in 8 blocks
+## look at possibilities for running a 32 run design with 6 factors in 8 blocks
 ## running this without alias.block.2fis=TRUE throws an error: not possible
-\dontrun{blockpick(5,0,3)}
-## the 10th design with block generators 3,12,21 has the most clear 2fis
-blockpick(5,0,3,alias.block.2fis=TRUE)
-## function FrF2 can be used to manually accomodate this design
-des32.5fac.8blocks.MaxC2 <- FrF2(32,5,blocks=c(3,12,21))
-design.info(des32.5fac.8blocks.MaxC2)
+\dontrun{blockpick(k=5,design="6-1.1",k.block=3)}
+## the 8th to 10th design have more clear 2fis than the earlier ones
+blockpick(k=5,design="6-1.1",k.block=3,alias.block.2fis=TRUE)
+## function FrF2 can be used to manually accomodate this 
+des32.6fac.8blocks.MaxC2 <- FrF2(32,6,blocks=c(3,12,21))
+summary(des32.6fac.8blocks.MaxC2)
+## automatic block generation leads to more aliased 2fis
+summary(FrF2(32,6,blocks=8,alias.block.2fis=TRUE))
 
 ## look at possibilities for blocking design 7-3.1 from Chen, Sun, Wu catalogue
 blockpick(4,design="7-3.1",k.block=2,alias.block.2fis=TRUE)

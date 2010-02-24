@@ -222,7 +222,8 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
   \item{blocks}{ is EITHER \cr 
        the number of blocks into which the experiment is subdivided \cr
        OR a character vector of names of independent factors that are used as block constructors \cr
-       OR a vector or list of generators similar to \code{generators}. \cr
+       OR a vector of Yates column numbers
+       OR a list of generators similar to list entries for \code{generators}. \cr
        In the latter case, 
        the differences to \code{generators} are \cr 
        \itemize{
@@ -392,6 +393,10 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
          (of course, all the \code{nfactors} entries are \dQuote{2} for \code{FrF2})}
     \item{factor.names }{ list named with (treatment) factor names and containing as 
          entries vectors of length two each with coded factor levels }
+    \item{FrF2.version }{ version number of package FrF2, 
+         supporting correct usage of \code{FrF2}-specific functionality in 
+         functions \code{summary} and \code{generators} 
+         methods for class \code{design}}
     \item{nblocks}{for designs of type \code{FrF2.blocked} only; \cr
          number of blocks}
     \item{block.gen}{vector of columns of the Yates matrix for generating 
@@ -408,7 +413,7 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
     \item{catlg.entry }{ for designs of type \code{FrF2} only; \cr
          list with one element, which is the entry of \code{catlg} 
          on which the design is based}
-    \item{gen.display }{ for designs of type \code{FrF2.generators} only; \cr
+    \item{generators }{ for designs of type \code{FrF2.generators} only; \cr
          character vector of generators in the form D=ABC etc.}
     \item{base.design }{ for designs of type \code{FrF2.blocked} or \code{FrF2.splitplot} only; \cr
          gives a character string that contains the name of the base design 
@@ -437,7 +442,7 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
          number of within block replications;\cr
          \code{repeat.only} indicates whether these are replications or repetitions only}
     \item{map }{ the mapping relation between factors in the base design and 
-         experimental factors, after using option \code{estimable} }
+         experimental factors, after using option \code{estimable} and for split-plot designs}
     \item{clear }{ option setting in call to \code{FrF2}, in case of \code{estimable} }
     \item{res3}{ option setting in call to \code{FrF2}, in case of \code{estimable} }
     \item{randomize }{ option setting in call to \code{FrF2} }

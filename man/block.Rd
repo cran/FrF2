@@ -40,7 +40,7 @@
   specify that the 2nd, 4th and 5th factor are to be used as block generators, while \cr
     \code{block = c("Day","Shift")}\cr
   indicates that the named factors \dQuote{Day} and \dQuote{Shift} specified in \code{factor.names} 
-  are to be treated as blocking factors). In this case, the number of blocks or whole plots is calculated, 
+  are to be treated as blocking factors). In this case, the number of blocks is calculated, 
   and a new factor with the default name \dQuote{Blocks} (in general the name chosen in 
   option \code{block.name}) is generated, which would for example contain as levels 
   the Day/Shift combinations. It is also possible to choose interaction effects rather than factors themselves 
@@ -48,10 +48,15 @@
     \code{block = c("ABCD","EFGH") } \cr
   or\cr
     \code{block = list(c(1,2,3,4),c(5,6,7,8)) }. \cr
-  The chosen effects and all interactions between them generate the blocks. 
+  Finally, it is also possible to specify choice of blocks using a vector of Yates column numbers, 
+  in order to be able to use catalogued blocking structures of this form, e.g. from Sitter, Chen and Feder 
+  (1997).\cr
+  The block main effects are defined by the \code{k.block} specified effect 
+  and all interactions between them. The specified block effects are required to be independent from each other, 
+  which implies that they generate \code{2^k.block} blocks. \cr
   CAUTION: If the user manually generates a blocked design, it is his/her responsibility to ensure a 
   good choice of design (e.g. by using a catalogued design from Bisgaard 1994, 
-  Sun, Wu and Chen 1997, or Cheng and Wu 2002).
+  Sun, Wu and Chen 1997, Sitter, Chen and Feder (1997), or Cheng and Wu 2002).
   }
     \item{Automatic definition of blocked designs for regular fractional factorials}{
   If the user only specifies the number of blocks required for the experiment, function \code{\link{FrF2}} 
@@ -111,6 +116,10 @@ Optimal two-level regular fractional factorial block and split-plot designs.
 Cheng, S.W. and Wu, C.F.J. (2002). 
 Choice of optimal blocking schemes in 2-level and 3-level designs. 
 \emph{Technometrics} \bold{44}, 269-277. 
+
+Sitter, R.R., Chen, J. and Feder, M. (1997). 
+Fractional Resolution and Minimum Aberration in Blocked 2n-k Designs.
+\emph{Technometrics} \bold{39}, 382--390.
 
 Sun, D.X., Wu, C.F.J. and Chen, Y.Y. (1997). 
 Optimal blocking schemes for 2\^p and 2\^(n-p) designs. \emph{Technometrics} \bold{39}, 

@@ -116,7 +116,7 @@ blockpick.big <- function(k, gen, k.block, design=NULL, show=10, alias.block.2fi
     else alias.2fis.block <- "none"
     gens <- ergeb[pick[1:show],,drop=FALSE]  
     list(orig=gen, basics = c(nruns=2^k,nblocks=blocks, ntreat=ntreat), 
-           perms=perm[pick[1:show],],blockcols=blockcols,
+           perms=perm[pick[1:show],,drop=FALSE],blockcols=blockcols,
            alias.2fis.block=alias.2fis.block, gen=gens)
   }
 }

@@ -50,7 +50,7 @@ leftadjust <- function(k, gen, early=NULL, show=10){
   else reorder <- ord(cbind(k.early,maxpos,ergeb))
   
   list(orig=gen*minus,basics=c(nruns=2^k, nfactors=k+g, early=early),
-         perms=perm[reorder[1:show],],
+         perms=perm[reorder[1:show],,drop=FALSE],
          maxpos=maxpos[reorder[1:show]],k.early=k.early[reorder[1:show]],
-         gen=ergeb[reorder[1:show],])
+         gen=ergeb[reorder[1:show],,drop=FALSE])
 }

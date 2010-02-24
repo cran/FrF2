@@ -181,17 +181,20 @@ if (identical(nfac.WP,0) & is.null(WPfacs) & !identical(WPs,1))
                else if (g<15) wl <- words.all(k, generators,max.length=5)
                else if (g<20) wl <- words.all(k, generators,max.length=4)
                else if (g>=20) wl <- alias3fi(k, generators, order=2)  ## not a word list
-               WLP <- wl$WLP
+               WLP <- NULL
                if (g < 20){
+               WLP <- wl$WLP
                  res <- min(as.numeric(names(WLP)[which(WLP>0)]))
                  if (res==Inf) {if (g<10) res="7+"
                    else if (g<15) res="6+"
                    else if (g<20) res="5+" }
                  }
                else{
+                   if (!is.list(wl)) res="5+"
+                   else{
                    if (length(wl$"main")>0) res="3"
                       else if (length(wl$"fi2")>0) res="4"
-                           else res="5+"
+                           else res="5+"}
                }
 
                gen <- sapply(generators,function(obj) which(sapply(Yates[1:(nruns-1)],
@@ -209,6 +212,7 @@ if (identical(nfac.WP,0) & is.null(WPfacs) & !identical(WPs,1))
              blocks <- block.check(k, blocks, nfactors, factor.names)  
              if (is.list(blocks)) k.block <- length(blocks)
              block.auto=FALSE   ## default for block.auto, set to TRUE below, if TRUE
+             map <- NULL   ## initialize, will be filled for blockpick.big
              }
              ## blocks is now list of generators or number of blocks
     if (!is.list(blocks)){
@@ -227,20 +231,27 @@ if (identical(nfac.WP,0) & is.null(WPfacs) & !identical(WPs,1))
     }
     ### treat hard before WPs, so that it can be handled by split-plot approach
     if (!is.null(hard)){
-      if (is.null(generators)) 
+      if (is.null(generators)){ 
+           if (nfactors > k)
            cand <- select.catlg[which(nfac.catlg(select.catlg)==nfactors & nruns.catlg(select.catlg)==nruns)]
+           else cand <- list(list(gen=numeric(0)))
+           }
       if (hard == nfactors) stop("It does not make sense to choose hard equal to nfactors.")
       if (hard >= nruns/2) 
           warning ("Do you really need to declare so many factors as hard-to-change ?")
       nfac.WP <- hard
+         ## determine WPs (implying k.WP)
          if (hard < nruns/2){
          WPs <- NA
-         ## for generators already specified earlier
+         ## for full factorials, WPs <- 2^hard, 
+         ## otherwise achievable WPs is determined using leftadjust 
+         if (length(cand[[1]]$gen) > 0)
          for (i in 1:min(length(cand),check.hard)){
              leftadjust.out <- leftadjust(k,cand[[i]]$gen,early=hard,show=1)
              if (is.na(WPs) | WPs > 2^leftadjust.out$k.early) 
                  WPs <- 2^leftadjust.out$k.early
              }
+             else WPs <- 2^hard
          }
       if (hard>=nruns/2 | WPs==nruns) {
            warning("There are so many hard-to-change factors that no good special design could be found.
@@ -282,6 +293,9 @@ if (identical(nfac.WP,0) & is.null(WPfacs) & !identical(WPs,1))
                 WPsorig <- WPsnum 
              }
              else {WPsorig <- WPsnum <- 1:nfac.WP }  ## first nfac.WP factors are whole plot factors
+             
+             ## here, the original WPsorig has been documented
+             ## this must not be overwritten later!
     }
     
     if (!is.null(nruns)){
@@ -300,6 +314,10 @@ if (identical(nfac.WP,0) & is.null(WPfacs) & !identical(WPs,1))
                     aus <- qua.design(aus, quantitative="none", contrasts=rep("contr.FrF2",nfactors))
                     ## add center points, if requested
                     if (ncenter>0) aus <- add.center(aus, ncenter, distribute=center.distribute)
+                    di <- design.info(aus)
+                    di$creator <- creator
+                    di <- c(di, list(FrF2.version = sessionInfo(package="FrF2")$otherPkgs$FrF2$Version))
+                    design.info(aus) <- di
                     return(aus)
               }
        else {
@@ -324,7 +342,8 @@ if (identical(nfac.WP,0) & is.null(WPfacs) & !identical(WPs,1))
                            perm.start=perm.start, perms=perms, order=alias.info )
                       design.info <- list(type="FrF2.estimable", 
                              nruns=nruns, nfactors=nfactors, factor.names=factor.names, 
-                             map=desmat$map, aliased=desmat$aliased, clear=clear, res3=res3)
+                             map=desmat$map, aliased=desmat$aliased, clear=clear, res3=res3, 
+                             FrF2.version = sessionInfo(package="FrF2")$otherPkgs$FrF2$Version)
                       desmat <- desmat$design
                       desmat <- as.matrix(sapply(desmat,function(obj) as.numeric(as.character(obj))))
                       rownames(desmat) <- 1:nrow(desmat)
@@ -391,7 +410,8 @@ if (identical(nfac.WP,0) & is.null(WPfacs) & !identical(WPs,1))
                             k.block=k.block, show=1, alias.block.2fis = alias.block.2fis),TRUE)
                       if (!"try-error" %in% class(blockpick.out)) {
                          cand <- cand[i]
-                         cand[[1]]$gen <- blockpick.out$gen  ## includes block generators
+                         cand[[1]]$gen <- blockpick.out$gen[1,]  ## includes block generators
+                         map <- blockpick.out$perms[1,]
                          blocks <- as.list(1:k.block) ## first k.block generator columns
                                                       ### rest is treated with the manual routine
                          block.gen <- 2^(0:(k.block-1))
@@ -405,8 +425,34 @@ if (identical(nfac.WP,0) & is.null(WPfacs) & !identical(WPs,1))
                          stop("no adequate block design found with 2fis unconfounded with blocks")
                 }
                 }
+            if (is.list(blocks)) {  
+                if (k.block > 1){
+                ### check that manual choices for block entries contain independent entries only
+                hilf.gen <- c(2^(0:(k-1)), cand[[1]]$gen)    ### cand[[1]] exists ?
+                hilf.block.gen <- block.gen
+                #if (is.null(hilf.block.gen))
+                hilf.block.gen <- sapply(blocks, function(obj) 
+                       as.intBase(paste(rowSums(do.call(cbind,lapply(obj, function(obj2) digitsBase(hilf.gen[obj2],2,k))))%%2,collapse="")))
+                hilf <- hilf.block.gen
+                for (i in 2:k.block){
+                       sel <- combn(k.block,i)
+                       for (j in 1:ncol(sel)){
+                          neu <- as.intBase(paste(rowSums(do.call(cbind,lapply(sel[,j], function(obj) digitsBase(hilf.block.gen[obj],2,k))))%%2,collapse=""))
+                          if (neu %in% hilf) stop("specified blocks is invalid (dependencies)")
+                          else hilf <- c(hilf, neu)
+                          }
+                   }
+                rm(hilf)
+                }
+            }
             ## automatic treatment of split-plot designs
             if (WPs > 1){ 
+               WP.auto <- FALSE
+               map <- 1:k
+               orignew <- WPsorig  ## orignew will be changed according to map later
+                                   ## for cases without WPfacs
+                                   ## this is for orig.fac.order element of design.info, 
+                                   ## not for re-arranging columns in design
                if (is.null(WPfacs)){
                     WP.auto <- TRUE
                     ## max.res.5 is the max number of factors for resolution 5, 
@@ -423,20 +469,32 @@ if (identical(nfac.WP,0) & is.null(WPfacs) & !identical(WPs,1))
                       else  splitpick.out <- try(splitpick(k, cand[[i]]$gen, k.WP=k.WP, nfac.WP=nfac.WP, 
                              show=check.WPs),TRUE)
                       if (!"try-error" %in% class(splitpick.out)) {
-                         WPfacs <- c(1:k.WP)    
+                         WPfacs <- 1:k.WP    
                          if (nfac.WP > k.WP) WPfacs <- c(WPfacs, (k + 1):(k+nfac.WP-k.WP))
                          cand <- cand[i]
                          cand[[1]]$gen <- splitpick.out$gen[1,]
                          res.WP <- splitpick.out$res.WP[1]
+                         map <- splitpick.out$perms[1,]
                          break
                       }
                     }
-                if (is.null(res.WP)) stop("no adequate splitplot design found")
-                WPsorig <- WPsnum <- WPfacs
+                if (is.null(res.WP)){
+ #                     if (nruns >= 2^nfactors) stop("currently, splitplot designs for full factorials are not covered.")
+                      if (nruns >= 2^nfactors) {
+                          res.WP <- Inf
+                          WP.auto <- TRUE
+                          WPfacs <- 1:k.WP
+                          if (!k.WP == nfac.WP) stop(nfac.WP, " whole plot factors cannot be accomodated in ", (2^k.WP), 
+                              " whole plots for a full factorial. Please request smaller design with replication instead.")
+                          cand <- list(list(gen=numeric(0)))  ## in order to be treatable below
+                      }
+                      else stop("no adequate splitplot design found")
+                }
+  #             WPsorig <- WPsnum <- WPfacs    ## this was a mistake, leading to other than the first nfac.WP factors being WP factors
+                orignew <- WPsnum <- WPfacs
                 WPfacs <- paste("F",WPfacs,sep="")  ## treat with manual below
                 }
-              else WP.auto <- FALSE
-              } 
+              }
               }
               ### next closing brace for !is.null(nruns)
               } 
@@ -525,8 +583,8 @@ else {
             #### for automatic selection the first WPs factors are WP factors !!!
             #if (nfac.WP > k.WP){
             
-            ## are WPsnum and WPsorig at all different ?
-            ## or are they always the same now?
+            ## are WPsnum is the current factor numbering 
+            ## WPsorig is the original numbering before column permutations 
                desmat <- desmat[,c(WPsnum,setdiff(1:nfactors,WPsnum))]
                factor.names <- factor.names[c(WPsorig,setdiff(1:nfactors,WPsorig))]
 
@@ -733,7 +791,8 @@ else {
             nruns=nruns, nfactors=ntreat, nblocks=nblocks, block.gen=block.gen, blocksize=blocksize, 
             ntreat=ntreat,factor.names=factor.names,
             aliased.with.blocks=aliased.with.blocks, aliased=aliased,
-            bbreps=bbreps, wbreps=wbreps)
+            bbreps=bbreps, wbreps=wbreps, 
+            FrF2.version = sessionInfo(package="FrF2")$otherPkgs$FrF2$Version)
         if (!is.null(generators)) {
            if (g>0) 
            design.info <- c(design.info, 
@@ -743,6 +802,7 @@ else {
                 list(base.design="full factorial"))
                 }
            else design.info <- c(design.info, list(base.design=names(cand[1])))
+           design.info <- c(design.info, list(map=map))
         if (bbreps>1) desdf[,1] <- paste(desdf[,1], rep(1:bbreps, each=nruns*wbreps),sep=".")
                  ## make block names reflect the between block replication
         }   ## end of blocked designs
@@ -760,16 +820,22 @@ else {
                 nruns=nruns, nfactors=nfactors, nfac.WP=nfac.WP, nfac.SP=nfactors-nfac.WP, 
                       factor.names=factor.names,
                 nWPs=WPs, plotsize=nruns/WPs, 
-                res.WP=res.WP, aliased=aliased)
+                res.WP=res.WP, aliased=aliased, FrF2.version = sessionInfo(package="FrF2")$otherPkgs$FrF2$Version)
+            ## below: changed entry in base.design to original generators, combined with map
+            ## instead of cand[[1]]$gen from before
             if (!is.null(generators)) 
                 design.info <- c(design.info, 
-                     list(base.design=paste("generator columns:", paste(cand[[1]]$gen, collapse=", "))))
-                else design.info <- c(design.info, list(base.design=names(cand[1])))
-        }
+                     list(base.design=paste("generator columns:", 
+                     paste(which(names(Yates)[1:(nruns-1)] %in% names(generators)), collapse=", ")), map=map, 
+                     orig.fac.order = c(orignew, setdiff(1:nfactors,orignew))))
+                else design.info <- c(design.info, list(base.design=names(cand[1]), map=map, 
+                     orig.fac.order = c(orignew, setdiff(1:nfactors,orignew))))
+                }
 
     if (is.null(estimable) & is.null(generators) & !(is.list(blocks) | WPs > 1))
         design.info <- list(type="FrF2", nruns=nruns, nfactors=nfactors, factor.names=factor.names, 
-            catlg.entry=cand[1], aliased = alias3fi(k,cand[1][[1]]$gen,order=alias.info))
+            catlg.entry=cand[1], aliased = alias3fi(k,cand[1][[1]]$gen,order=alias.info), 
+            FrF2.version = sessionInfo(package="FrF2")$otherPkgs$FrF2$Version)
         ## incorporate reasonable further info (blocks, WPs etc.)
     if ((!is.null(generators)) & !is.list(blocks) & !WPs > 1) {
          if (nfactors <= 50)
@@ -781,7 +847,8 @@ else {
                else 
                paste(if (obj[1]<0) "-" else "", paste(paste("F",abs(obj),sep=""),collapse=":"),sep="")}), sep="=")
          design.info <- list(type="FrF2.generators", nruns=nruns, nfactors=nfactors, factor.names=factor.names, generators=gen.display, 
-               aliased = alias3fi(k,generators,order=alias.info))
+               aliased = alias3fi(k,generators,order=alias.info), 
+               FrF2.version = sessionInfo(package="FrF2")$otherPkgs$FrF2$Version)
          }
     aus <- desdf
       rownames(aus) <- rownames(desmat) <- 1:nrow(aus)

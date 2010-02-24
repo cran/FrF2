@@ -27,8 +27,8 @@ cubePlot(obj, eff1, eff2, eff3, main=paste("Cube plot for",respnam),
               the structure must be such that effects are either fully 
               aliased or orthogonal, like in a fractional factorial 2-level 
               design}
-  \item{eff1}{  }
-  \item{eff2}{  }
+  \item{eff1}{ cf. \code{eff3} }
+  \item{eff2}{ cf. \code{eff3} }
   \item{eff3}{ effects to be included in the cube plot (x-, y-, z-direction),
                EITHER vectors of equal length (two-level factors or numerical 
                with the two values -1 and 1)

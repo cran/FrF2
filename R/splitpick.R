@@ -67,7 +67,7 @@ splitpick <- function(k, gen, k.WP, nfac.WP, show=10){
     ## does not affect the resulting design whether or not there is a minus there
     
     list(orig=gen, basics=c(nruns=2^k, nWPs=2^k.WP, nfac.WP=nfac.WP, nfac.SP=k+g-nfac.WP),
-         perms=perm[pick[1:show][reorder],],
+         perms=perm[pick[1:show][reorder],,drop=FALSE],
          res.WP=res.WP[reorder], gen=gens[reorder,,drop=FALSE])
   }
 }
