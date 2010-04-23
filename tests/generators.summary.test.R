@@ -9,7 +9,7 @@ summary(plan1 <- FrF2(32,7,estimable=c("AB","CD")),brief=TRUE)
 summary(plan2 <- FrF2(nruns= 64 ,nfactors= 10 , estimable= c( "AB","AC","AD","AE","AF",
        "AG","AH","AJ","AK","BC","BD","BE","BF","BG","BH","BJ","BK" ) ), brief=TRUE)
 
-C1 <- compromise(10, 1:2)
+C1 <- compromise(10, 1:2, msg=FALSE)
 summary(plan3 <- FrF2(nruns= 64 ,nfactors= 10 , 
     estimable= C1$requirement, perms=C1$perms.full, clear=FALSE ), brief=TRUE)
 

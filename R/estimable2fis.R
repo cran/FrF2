@@ -10,11 +10,15 @@
 #     UseMethod("estimable")
 #}
 
-mapcalc <- function(estimable, nfac, nruns, res3=FALSE){
+mapcalc <- function(estimable, nfac, nruns, res3=FALSE, select.catlg=catlg){
       ## called with checked inputs only --> no checks needed
       ## estimable is a matrix with two rows
       if (ncol(estimable)>nruns - nfac -1) stop("too many interactions requested for this number of runs and factors")
-      if (nruns>32 & res3==TRUE) warning("res3=TRUE has no effect for designs with more than 32 runs.")
+      if (nruns>32 & res3) {
+          warning("res3=TRUE has no effect for designs with more than 32 runs.")
+          res3 <- FALSE
+          }
+      catlg <- select.catlg
      
       go2 <- graph.empty(n=nfac,directed=FALSE)
       go2 <- add.edges(go2,estimable-1)
@@ -26,8 +30,12 @@ mapcalc <- function(estimable, nfac, nruns, res3=FALSE){
       if (length(tobechecked)==0)
               if (res3)
               stop("The required interactions cannot be accomodated clear of aliasing in ", nruns, " runs.")
-              else
+              else{
+              if (nruns <= 64)
               stop("The required interactions cannot be accomodated clear of aliasing in ", nruns, " runs with resolution IV or higher.")
+              else
+              stop("No resolution IV or higher design from the current catalogue can accomodate the required interactions clear of aliasing in ", nruns, " runs.")
+              }
       
       map <- NULL
       for (i in 1:length(tobechecked)){
@@ -41,8 +49,12 @@ mapcalc <- function(estimable, nfac, nruns, res3=FALSE){
      if (is.null(map)) 
               if (res3)
               stop("The required interactions cannot be accomodated clear of aliasing in ", nruns, " runs.")
-              else
+              else{
+              if (nruns <= 64)
               stop("The required interactions cannot be accomodated clear of aliasing in ", nruns, " runs with resolution IV or higher.")
+              else
+              stop("No resolution IV or higher design from the current catalogue can accomodate the required interactions clear of aliasing in ", nruns, " runs.")
+              }
      map
 }
 ##map <-mapcalc(9,64,matrix(c(1,2,1,3,1,4,2,3,3,5,4,8,3,7),2,7))
@@ -212,8 +224,8 @@ check.subisomorphic.matrix <- function(estimable, nfac, hilf2, hilf3=NULL, res3=
     aus
 }
 
-map2design <- function(map){
-          hilf <- catlg[[names(map)]]
+map2design <- function(map, select.catlg=catlg){
+          hilf <- select.catlg[[names(map)]]
           hilf <- FrF2(nruns=hilf$nruns,nfactors=hilf$nfac,generator=hilf$gen,randomize=FALSE)[,map[[1]]]
           colnames(hilf) <- Letters[1:ncol(hilf)]
           hilf
@@ -296,11 +308,11 @@ estimable <- function(estimable, nfac, nruns,
                       clear=FALSE, res3=FALSE, max.time=60, 
                       select.catlg=catlg, perm.start=1:nfac, perms=NULL,
                       order = 3){
-        if (clear) map <- mapcalc(estimable,nfac,nruns,res3=res3)
+        if (clear) map <- mapcalc(estimable,nfac,nruns,res3=res3, select.catlg=select.catlg)
            else map <- mapcalc.distinct(estimable,nfac,nruns,res3=res3, max.time=max.time, 
                                 select.catlg=select.catlg, perm.start=perm.start, perms=perms)
-        test <- map2design(map)
-        hilf <- catlg[names(map)][[1]]
+        test <- map2design(map, select.catlg=select.catlg)
+        hilf <- select.catlg[names(map)][[1]]
         ## determine aliased here because of potential remap of factors
         hilf <- alias3fi(hilf$nfac-length(hilf$gen),hilf$gen, order=order)
         if (is.list(hilf)) aus <- list(map=map,design=test,

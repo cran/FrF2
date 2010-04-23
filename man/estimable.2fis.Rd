@@ -103,9 +103,10 @@ are important.
 
 \author{ Ulrike Groemping }
 
-\seealso{ See Also \code{\link{FrF2}} for regular fractional factorials and 
-\code{\link{catlg}} for the Chen, Sun, Wu catalogue of designs 
-and some accessor functions}
+\seealso{ See also \code{\link{FrF2}} for regular fractional factorials, 
+\code{\link{catlg}} for the Chen, Sun, Wu (1993) and larger catalogues of designs 
+and some accessor functions, and function \code{\link{compromise}} for a convenience 
+function to handle estimability requests for compromise designs}
 \examples{
 ########## usage of estimable ###########################
   ## design with all 2fis of factor A estimable on distinct columns in 16 runs
@@ -141,7 +142,7 @@ and some accessor functions}
   FrF2(16, nfactors=7, estimable = formula("~A+B+C+D+E+F+A:(B+C+D+E+F)"), 
        clear=TRUE, res3=TRUE)
 
-## example for necessity of perms, and uses of select.catlg and perm.start
+## example for necessity of perms for the clear=FALSE case
 ## based on Wu and Chen Example 1
   \dontrun{
   ## runs per default about max.time=60 seconds, before throwing error with 
@@ -159,6 +160,8 @@ and some accessor functions}
   perms.full <- matrix(NA,ncol(perms.6),11)
   for (i in 1:ncol(perms.6))
      perms.full[i,] <- c(perms.6[,i],setdiff(1:11,perms.6[,i]))
+  ## function compromise will calculate the necessary perms entries automatically
+  compromise(11,1:6)$perms.full
   FrF2(32, nfactors=11, estimable = formula("~(A+B+C+D+E+F)^2"), clear=FALSE, 
       perms = perms.full )
 }

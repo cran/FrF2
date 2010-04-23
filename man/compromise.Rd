@@ -7,13 +7,15 @@
   Their creation is supported by the function compromise.
 }
 \usage{
-    compromise(nfactors, G1, class=3)
+    compromise(nfactors, G1, class=3, msg=TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{nfactors}{ overall number of factors}
   \item{G1}{ vector with indices of factors in group G1 (cf. details)}
-  \item{class}{ class of compromise designs that is to be generated; 1, 2, 3, or 4 }
+  \item{class}{ class of compromise designs that is to be generated; 1, 2, 3, or 4, cf. details below }
+  \item{msg}{ logical stating whether the \code{minnruns.clear} element of the result
+      should be reported in a message}
 }
 \details{
   For compromise plans, the factors are decomposed into a group G1 and a group G2. 
@@ -26,21 +28,27 @@
   as well as all 2fis between groups G1 and G2\cr
   Class 4: all 2fis between groups G1 and G2 are estimable\cr
 
-  The function returns three components (cf. section \dQuote{Value}). 
+  The function returns a list of four components (cf. section \dQuote{Value}). 
   They can be used as input for the function \code{\link{FrF2}}, if compromise 
-  plans are to be created. Both Addelman (1962) and Ke, Tang and Wu (2005) designs 
-  can be constructed, depending on the settings of option \code{clear} in function 
+  plans are to be created. Both distinct designs (Addelman 1962) and clear designs 
+  (Ke, Tang and Wu 2005) can be constructed, 
+  depending on the settings of option \code{clear} in function 
   \code{\link{FrF2}}. More explanations on specifying estimability requirements 
   for 2fis in general are provided under \code{\link{estimable.2fis}}.
 }
 \value{
-  Value is a list of the three components \code{perms.full}, \code{requirement}, 
-  and \code{class}. The third component is purely imformative, while the first two
-  support calling function \code{\link{FrF2}}.\cr
+  Value is a list of the four components \code{perms.full}, \code{requirement}, 
+  \code{class}, and \code{minnrun.clear}. The last two components are purely imformative, 
+  while the first two provide input parameters for function \code{\link{FrF2}}.\cr
   \code{requirement} can be used for specifying the required 2fis in the \code{estimable} option, 
   both with \code{clear=FALSE} and \code{clear=TRUE}. 
   For \code{clear=FALSE}, \code{perms.full} can be used in the \code{perms} option 
-  for speeding up the search into a hopefully realistic time frame. 
+  for speeding up the search into a hopefully realistic time frame.\cr 
+  \code{minnrun.clear} indicates the minimum number of runs needed for a clear design.
+  
+  Note that the catalogue \code{\link{catlg}} contains all designs needed for 
+  accomodating existing clear compromise designs in up to 128 runs (even minimum aberration
+  among all existing clear compromise designs).
 }
 \references{
 Addelman, S. (1962). Symmetrical and asymmetrical fractional factorial plans. 

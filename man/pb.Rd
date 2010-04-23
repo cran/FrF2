@@ -149,9 +149,8 @@ pb.list
    such situations can be estimated without being confounded by 
    potential two-factor interactions.
    
-   The downside is that the versions from 1.0-5 onwards will not be able to 
-   exactly reproduce pb designs in these numbers of runs that have been created 
-   with an earlier version.}
+   The downside: for these numbers of runs, package versions from 1.0-5 onwards 
+   cannot exactly reproduce pb designs that have been created with an earlier version.}
 
 \references{ 
   Box, G.E.P. and Tyssedal, J. (2001) Sixteen Run Designs of High Projectivity for Factor Screening. 
@@ -171,7 +170,9 @@ pb.list
 }
 \author{ Ulrike Groemping }
 
-\seealso{ See Also \code{\link{FrF2}} for regular fractional factorial designs }
+\seealso{ See also \code{\link{FrF2}} for regular fractional factorial designs, 
+    \code{\link{generalized.word.length}} for functions \code{\link{length3}} 
+    and \code{\link{length4}} used in examples}
 \examples{
    pb(12,randomize=FALSE)
    pb(12,randomize=FALSE,n12.taguchi=TRUE)
@@ -181,6 +182,12 @@ pb.list
    pb(8,default.levels=c("current","new"))
    test <- pb(40) ## design created by doubling the 20 run design
    pb(12, ncenter=6) ## 6 center points with default placement
+   
+   ## note: designs in 40, 56, 64, 88, and 96 runs are resolution IV,
+   ## if the number of factors is up to half the number of runs, e.g.:
+   plan <- pb(40,20)
+   length3(plan)  ## 0 generalized words of length 3
+   length4(plan)  ## 285 generalized words of length 4
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

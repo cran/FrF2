@@ -54,7 +54,7 @@ print.catlg <- function(x, name="all", nruns="all", nfactors="all",
             if (!is.numeric(nruns)) stop("nruns must be a numeric vector.")
             if (!all(2^round(log2(nruns))==nruns)) 
                 stop("nruns must be a vector of powers of 2.")
-            x <- catlg[nruns.catlg(x) %in% nruns]
+            x <- x[nruns.catlg(x) %in% nruns]
           }
          if (!nfactors[1]=="all"){
             if (!is.numeric(nfactors)) stop("nfactors must be a numeric vector.")

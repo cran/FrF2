@@ -3,6 +3,22 @@ Changes to package FrF2
 The package is still under development. 
 Suggestions and bug reports are very welcome.
 
+Version 1.1-1, 23/04/2010
+   - added the minimum run size for a clear design 
+     to the output object of function compromise and 
+     an optional message to this effect
+   - added catlg.name element to design information for FrF2 designs, 
+     in case select.catlg has been used (important for summary.design 
+     to properly exploit the design name)
+   - added 30 further designs in 128 runs to catlg, 
+     based on their potential for clear compromise designs
+   - bug fixes: 
+      - select.catlg did not work properly in function FrF2 
+        (which was presumably not consequential, 
+        because so far no alternative catalogues were provided)
+      - print.catlg did not work for non-default catalogues, 
+        if nruns was specified
+
 Version 1.1, 24/02/2010
    - added large (good but not necessarily MA) resolution V designs from Xu 2009, 
      added hint to even larger non-regular resolution V designs in package 

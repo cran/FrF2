@@ -64,7 +64,10 @@ block.catlg
               i.e. the first two entries are 0 for all designs in \code{catlg})} 
       \item{nclear.2fis}{number of clear 2-factor interactions (i.e. free of aliasing with main effects or other 2-factor interactions)} 
       \item{clear.2fis}{2x\code{nclear.2fis} matrix of clear 2-factor interactions 
-              (clear to be understood in the above sense) } 
+              (clear to be understood in the above sense); this matrix represents 
+              each designs clear interaction graph, which can be used in automated searches for 
+              designs that can accomodate (i.e. clearly) a certain requirement set 
+              of 2-factor interactions; cf. also \code{\link{estimable.2fis}} } 
       \item{all.2fis.clear}{vector of factors with all 2-factor interactions clear in the above sense}
       }
   Reference to factors in components \code{clear.2fis} and \code{all.2fis.clear} 
@@ -103,7 +106,12 @@ block.catlg
   the MA resolution III designs designs for 65 to 127 factors in 128 runs 
   are also included, with the designs up to 69 factors coming from Appendix G 
   in Mee, whereas the designs for 70 or more factors have been  
-  constructed according to the same principle mentioned for the 64 run designs.
+  constructed according to the same principle mentioned for the 64 run designs.\cr
+  Note that the complete catalogue of non-isomorphic resolution IV designs is 
+  available for up to 24 factors. For up to 23 factors, it is separately provided in 
+  package (\pkg{FrF2.catlg128}), since it is quite large and should not be forced upon 
+  users of this package who do not need it; the very large catalogue for 24 factors  
+  can be downloaded from the authors website (as an R work space).
   
   \item the best (MA) resolution V or higher design for each number of factors or 
   a \dQuote{good} such design (if it is not known which one is best) in \cr
@@ -155,7 +163,8 @@ Sun, D.X., Wu, C.F.J. and Chen, Y.Y. (1997).
 Optimal blocking schemes for 2\^p and 2\^(n-p) designs. \emph{Technometrics} \bold{39}, 
 298-307. 
 
-Xu, H. (2009) Algorithmic Construction of Efficient Fractional Factorial Designs With Large Run Sizes. To appear in \emph{Technometrics}.
+Xu, H. (2009) Algorithmic Construction of Efficient Fractional Factorial Designs 
+         With Large Run Sizes. \emph{Technometrics} \bold{51}, 262-277.
 }
 \author{ Ulrike Groemping }
 

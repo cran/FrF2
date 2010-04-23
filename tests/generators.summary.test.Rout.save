@@ -330,7 +330,7 @@ $fi2
 [1] CD=EH CE=DH CH=DE FG=JK FJ=GK FK=GJ
 
 > 
-> C1 <- compromise(10, 1:2)
+> C1 <- compromise(10, 1:2, msg=FALSE)
 > summary(plan3 <- FrF2(nruns= 64 ,nfactors= 10 , 
 +     estimable= C1$requirement, perms=C1$perms.full, clear=FALSE ), brief=TRUE)
 Call:
@@ -481,6 +481,7 @@ $generators
 
 no aliasing of main effects or 2fis among experimental factors
 
+
 split-plot design:  4  whole plots
                  : first  2  factors are whole plot factors
 > design.info(planfull)
@@ -531,7 +532,7 @@ $aliased$legend
 
 
 $FrF2.version
-[1] "1.1"
+[1] "1.1-1"
 
 $base.design
 [1] "generator columns: "
@@ -601,6 +602,7 @@ Alias structure:
 
 [[6]]
 [1] Y:Z T:W
+
 
 split-plot design:  4  whole plots
                  : first  3  factors are whole plot factors
@@ -676,7 +678,7 @@ $aliased[[7]]
 
 
 $FrF2.version
-[1] "1.1"
+[1] "1.1-1"
 
 $base.design
 [1] "generator columns: 6, 15"
@@ -746,6 +748,7 @@ Alias structure:
 
 [[6]]
 [1] V:Z W:X
+
 
 split-plot design:  4  whole plots
                  : first  3  factors are whole plot factors
@@ -825,7 +828,7 @@ $aliased[[7]]
 
 
 $FrF2.version
-[1] "1.1"
+[1] "1.1-1"
 
 $base.design
 [1] "generator columns: 6, 15"
@@ -892,6 +895,7 @@ Alias structure:
 
 [[6]]
 [1] Y:Z T:W
+
 
 split-plot design:  4  whole plots
                  : first  3  factors are whole plot factors
@@ -971,7 +975,7 @@ $aliased[[7]]
 
 
 $FrF2.version
-[1] "1.1"
+[1] "1.1-1"
 
 $base.design
 [1] "generator columns: 6, 15"

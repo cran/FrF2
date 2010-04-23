@@ -32,10 +32,10 @@ gen.check(k, gen)
 estimable.check(estimable, nfac, factor.names)
 estimable(estimable, nfac, nruns, clear=FALSE, res3=FALSE, max.time=60, 
             select.catlg=catlg, perm.start=1:nfac, perms=NULL, order = 3)
-mapcalc(estimable, nfac, nruns, res3=FALSE)
+mapcalc(estimable, nfac, nruns, res3=FALSE, select.catlg=catlg)
 mapcalc.distinct(estimable, nfac, nruns, res3=FALSE, max.time=60, 
         select.catlg=catlg, perm.start=1:nfac, perms=NULL)
-map2design(map)
+map2design(map, select.catlg=catlg)
 formula2matrix(formula)
 char2num(char)
 check.subisomorphic.special(estimable, nfac, hilf2, hilf3=NULL, 

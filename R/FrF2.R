@@ -10,7 +10,9 @@ FrF2 <- function(nruns=NULL, nfactors=NULL,
                  blocks=1, block.name="Blocks", bbreps=replications, wbreps=1, alias.block.2fis = FALSE,
                  hard=NULL, check.hard=10, WPs=1, nfac.WP=0, WPfacs=NULL, check.WPs=10, ...){
 creator <- sys.call()
+catlg.name <- deparse(substitute(select.catlg))
 ## check validity of center point options
+    if (!"catlg" %in% class(select.catlg)) stop("invalid choice for select.catlg")
     if (!is.numeric(ncenter)) stop("ncenter must be a number")
     if (!length(ncenter)==1) stop("ncenter must be a number")
     if (!ncenter==floor(ncenter)) stop("ncenter must be an integer number")
@@ -341,7 +343,7 @@ if (identical(nfac.WP,0) & is.null(WPfacs) & !identical(WPs,1))
                            clear=clear, res3=res3, max.time=max.time, select.catlg=select.catlg, 
                            perm.start=perm.start, perms=perms, order=alias.info )
                       design.info <- list(type="FrF2.estimable", 
-                             nruns=nruns, nfactors=nfactors, factor.names=factor.names, 
+                             nruns=nruns, nfactors=nfactors, factor.names=factor.names, catlg.name = catlg.name,
                              map=desmat$map, aliased=desmat$aliased, clear=clear, res3=res3, 
                              FrF2.version = sessionInfo(package="FrF2")$otherPkgs$FrF2$Version)
                       desmat <- desmat$design
@@ -801,7 +803,7 @@ else {
            design.info <- c(design.info, 
                 list(base.design="full factorial"))
                 }
-           else design.info <- c(design.info, list(base.design=names(cand[1])))
+           else design.info <- c(design.info, list(catlg.name = catlg.name, base.design=names(cand[1])))
            design.info <- c(design.info, list(map=map))
         if (bbreps>1) desdf[,1] <- paste(desdf[,1], rep(1:bbreps, each=nruns*wbreps),sep=".")
                  ## make block names reflect the between block replication
@@ -828,12 +830,13 @@ else {
                      list(base.design=paste("generator columns:", 
                      paste(which(names(Yates)[1:(nruns-1)] %in% names(generators)), collapse=", ")), map=map, 
                      orig.fac.order = c(orignew, setdiff(1:nfactors,orignew))))
-                else design.info <- c(design.info, list(base.design=names(cand[1]), map=map, 
+                else design.info <- c(design.info, list(catlg.name = catlg.name, base.design=names(cand[1]), map=map, 
                      orig.fac.order = c(orignew, setdiff(1:nfactors,orignew))))
                 }
 
     if (is.null(estimable) & is.null(generators) & !(is.list(blocks) | WPs > 1))
         design.info <- list(type="FrF2", nruns=nruns, nfactors=nfactors, factor.names=factor.names, 
+            catlg.name = catlg.name,
             catlg.entry=cand[1], aliased = alias3fi(k,cand[1][[1]]$gen,order=alias.info), 
             FrF2.version = sessionInfo(package="FrF2")$otherPkgs$FrF2$Version)
         ## incorporate reasonable further info (blocks, WPs etc.)
