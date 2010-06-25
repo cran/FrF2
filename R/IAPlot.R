@@ -5,10 +5,10 @@ IAPlot.design <- function(obj, ..., response=NULL){
     if (!"design" %in% class(obj)) 
         stop("IAPlot.design works for obj from class design only.")
     di <- design.info(obj)
-    if (is.null(di$response)) 
+    if (is.null(di$response.names)) 
         stop("The design obj must have at least one response.")
     if (!(is.null(response))) 
-      if (!response %in% di$response)
+      if (!response %in% di$response.names)
         stop("Requested response is not a response variable in fit.")
     if (!(length(grep("FrF2",di$type))>0 | 
            length(grep("pb",di$type))>0)) 
@@ -64,6 +64,7 @@ function(obj, main=paste("Interaction plot matrix for",respnam), pch=c(15,17),
        select <- unique(select)
        if (length(select)<2) stop("at least 2 effects must be selected for an interaction plot matrix")
        selnam <- termnames[select]
+       labs <- labs[select]
        hilf <- strsplit(termnames[ints],":")
        selected <- sapply(hilf, function(.obj1) all(.obj1 %in% selnam))
        intselnam <- termnames[ints[selected]]

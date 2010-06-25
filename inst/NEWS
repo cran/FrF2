@@ -3,6 +3,17 @@ Changes to package FrF2
 The package is still under development. 
 Suggestions and bug reports are very welcome.
 
+Version 1.1-3, 25/06/2010
+   - bug fix: labels on interaction plots for levels of selected factors 
+     were wrong, if not the first few factors got selected.
+
+Version 1.1-2, 25/06/2010
+   - bug fixes: 
+      - MEPlot, IAPlot and DanielPlot did not work 
+        on designs in wide formal with aggregated responses from 
+        repeated measurements, because of an abbreviated name for 
+        the list element response.names in the design.info attribute
+
 Version 1.1-1, 23/04/2010
    - added the minimum run size for a clear design 
      to the output object of function compromise and 

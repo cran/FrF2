@@ -5,10 +5,10 @@ DanielPlot.design <- function(fit, ..., response=NULL){
     if (!"design" %in% class(fit)) 
         stop("DanielPlot.design works for obj from class design only.")
     di <- design.info(fit)
-    if (is.null(di$response)) 
+    if (is.null(di$response.names)) 
         stop("The design fit must have at least one response.")
     if (!(is.null(response))) 
-      if (!response %in% di$response)
+      if (!response %in% di$response.names)
         stop("Requested response is not a response variable in fit.")
     if (!(length(grep("FrF2",di$type))>0 | 
            length(grep("pb",di$type))>0)) 
