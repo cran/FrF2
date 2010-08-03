@@ -11,13 +11,15 @@ DanielPlot.design <- function(fit, ..., response=NULL){
       if (!response %in% di$response.names)
         stop("Requested response is not a response variable in fit.")
     if (!(length(grep("FrF2",di$type))>0 | 
-           length(grep("pb",di$type))>0)) 
-        stop("The design fit must be of a type containing FrF2 or pb.")
+           length(grep("pb",di$type))>0)) { 
+           if (!(di$type=="full factorial" & all(di$nlevels==2)))
+        stop("The design obj must be of a type containing FrF2 or pb.")
+       }
     grad <- 1
     if (length(grep("pb",di$type)) > 0 & di$nfactors < di$nruns-1)
           warning("Effects plots for Plackett-Burman designs must be done with nruns-1 effects! The error effects are missing!")
     ## make sure there are as many effects as possible in the plots, redundant ones will not be shown
-    if (length(grep("FrF2",di$type)) > 0 ){
+    if (length(grep("FrF2",di$type)) > 0 | (di$type=="full factorial" & all(di$nlevels==2))){
        grad <- 2
        hilf <- lm(fit, degree=grad)
        ncoef <- sum(!is.na(coef(hilf)))
@@ -41,6 +43,8 @@ function (fit, code = FALSE, autolab = TRUE, alpha=0.05,
          cex.pch = par("cex"), cex.legend = par("cex.lab"), 
          main = NULL, ...) 
 {
+   if (! ("lm" %in% class(fit) | "aov" %in% class(fit))) 
+      stop("fit must be a linear model object (lm or aov), or a design of class design")
     ## transform into -1 and 1 coded model
     fit <- remodel(fit)$model
     ## check whether of appropriate type

@@ -11,8 +11,10 @@ IAPlot.design <- function(obj, ..., response=NULL){
       if (!response %in% di$response.names)
         stop("Requested response is not a response variable in fit.")
     if (!(length(grep("FrF2",di$type))>0 | 
-           length(grep("pb",di$type))>0)) 
+           length(grep("pb",di$type))>0)) { 
+           if (!(di$type=="full factorial" & all(di$nlevels==2)))
         stop("The design obj must be of a type containing FrF2 or pb.")
+       }
     IAPlot(lm(obj, degree=2, response=response), ...)
 }
 
@@ -30,6 +32,9 @@ function(obj, main=paste("Interaction plot matrix for",respnam), pch=c(15,17),
     # abbrev  number of characters for factor levels in diagonal panel
     # show.alias  show number of effect in each panel, 
     #         in order to allow immediate judgment which effects are aliased
+
+   if (! ("lm" %in% class(obj) | "aov" %in% class(obj))) 
+      stop("obj must be a linear model object (lm or aov), or a design of class design")
     
    ### base everything on model recoded to -1 and 1 numerics
    obj <- remodel(obj)

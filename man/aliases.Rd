@@ -1,6 +1,7 @@
 \name{aliases}
 \alias{aliases}
 \alias{aliasprint}
+\alias{print.aliases}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{ Alias structure for fractional factorial 2-level designs }
 \description{
@@ -10,10 +11,11 @@
 \usage{
 aliases(fit, code = FALSE, condense=FALSE)
 aliasprint(design, ...)
+\method{print}{aliases}(x, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{fit}{ a linear model object with only 2-level factors as x-variables;
+  \item{fit}{ a linear model object with only 2-level factors as explanatory variables;
               the function will return an error, if the model contains partially
               aliased effects (like interactions in a Plackett-Burman design 
               for most cases) }
@@ -24,10 +26,13 @@ aliasprint(design, ...)
               be comparable to the version calculated by internal function alias3fi;
               does not work with models with higher than 3-way interactions;
               for up to 3-way interactions, the output may be more easily readible}
-  \item{design}{ a data frame of class design that should contain a fractional 
+  \item{design}{ a data frame of class \code{design} that should contain a fractional 
               factorial 2-level design; the function does not print anything if 
               the design is of different nature}
-  \item{\dots}{further arguments to function \code{\link{print.default}}}
+  \item{x}{   an object of class \code{aliases} that should be the output from 
+              function \code{aliases} }
+  \item{\dots}{further arguments to function \code{\link{print.default}};\cr
+              the \code{quote} argument cannot be used}
 }
 \value{
   Function \code{aliasprint} returns NULL and is called for its side effects only.
@@ -38,6 +43,9 @@ aliasprint(design, ...)
   
   If option \code{condense} is TRUE, the function returns a list with elements legend, 
   main, fi2 and fi3; this may be preferrable for looking at the alias structure of larger designs. 
+  
+  The output object of function \code{aliases} has class \code{aliases}, 
+  which is used for customized printing with the \code{print} method.
 }
 \references{ 
     Box G. E. P, Hunter, W. C. and Hunter, J. S. (2005) 

@@ -88,6 +88,7 @@ function(fit, code=FALSE, condense=FALSE){
       }
       else aus <- list(legend = legend, aliases = confounded)
       }  ## end of long else
+class(aus) <- c("aliases", class(aus))
 aus
 }
 

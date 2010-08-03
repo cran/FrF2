@@ -3,419 +3,414 @@ Changes to package FrF2
 The package is still under development. 
 Suggestions and bug reports are very welcome.
 
-Version 1.1-3, 25/06/2010
-   - bug fix: labels on interaction plots for levels of selected factors 
-     were wrong, if not the first few factors got selected.
+03/08/2010, Version 1.1-4
+- reformatted NEWS file for improving display with news() function
+- modified function aliasprint
+- added class aliases to output objects of function aliases
+- added print method for class aliases
+- improvements to DanielPlot.design, MEPlot.design and IAPlot.design 
+  and DanielPlot.default, MEPlot.default and IAPlot.default (thanks to 
+  Andrea Bernasconi for instigating these): 
+  - functions DanielPlot.design, MEPlot.design and IAPlot.design now also work 
+    for full factorials with only 2-level factors
+  - functions DanielPlot.default, MEPlot.default and IAPlot.default give more 
+    meaningful error message, if called with invalid object type
 
-Version 1.1-2, 25/06/2010
-   - bug fixes: 
-      - MEPlot, IAPlot and DanielPlot did not work 
-        on designs in wide formal with aggregated responses from 
-        repeated measurements, because of an abbreviated name for 
-        the list element response.names in the design.info attribute
+25/06/2010, Version 1.1-3
+- bug fix: labels on interaction plots for levels of selected factors 
+  were wrong, if not the first few factors got selected.
 
-Version 1.1-1, 23/04/2010
-   - added the minimum run size for a clear design 
-     to the output object of function compromise and 
-     an optional message to this effect
-   - added catlg.name element to design information for FrF2 designs, 
-     in case select.catlg has been used (important for summary.design 
-     to properly exploit the design name)
-   - added 30 further designs in 128 runs to catlg, 
-     based on their potential for clear compromise designs
-   - bug fixes: 
-      - select.catlg did not work properly in function FrF2 
-        (which was presumably not consequential, 
-        because so far no alternative catalogues were provided)
-      - print.catlg did not work for non-default catalogues, 
-        if nruns was specified
+25/06/2010, Version 1.1-2
+- bug fixes: 
+  - MEPlot, IAPlot and DanielPlot did not work 
+    on designs in wide formal with aggregated responses from 
+    repeated measurements, because of an abbreviated name for 
+    the list element response.names in the design.info attribute
 
-Version 1.1, 24/02/2010
-   - added large (good but not necessarily MA) resolution V designs from Xu 2009, 
-     added hint to even larger non-regular resolution V designs in package 
-     DoE.base (from version 0.9-16)
-   - supported subsequent calculation of generator information for blocked 
-     and splitplot designs by updated function summary.design:
-     - added map element to design.info for split-plot designs and blocked designs 
-       created with blockpick.big
-     - modified base.design entry of design.info object for split-plot designs 
-       with specified generators: display the original generators in the 
-       base design, which is much more logical than presenting the generators 
-       after application of splitpick which were there before
-     - added an FrF2.version element to design.info in order to allow checking 
-       whether the generators can be reconstructed from stored information 
-       with function generator.design from package DoE.base
-     - added test cases for this feature
-   Bug fixes:
-   - SERIOUS BUG: manually specifying dependent block generators led to unwarned 
-     mismatch between ouput design and design.info; 
-     fixed by throwing an error in case of dependent block generators
-   - documentation of block option for FrF2 was confusing regarding 
-     interpretation of entries in numeric vectors
-   - made large generator vectors work 
-     (length >20 was an issue and led to an error)
-   - documentation of function FrF2 wrongly called 
-     generators element of design.info attribute gen.display
-   - blockpick full factorial example in manual was (very) old state 
-     and worked different from description
-   - For split-plot designs, the automatic choice of whole plot factors 
-     was not always as documented; sometimes, the whole plot factors were not 
-     the first nfac.WP ones.
-   - inconsistency: splitpick.out used drop=FALSE for gen, but not for perms;
-     now also introduced drop=FALSE for the other similar functions (leftadjust,
-     blockpick.big)
-   - split-plot designs and designs with hard-to-change factors 
-     should now also work for full factorial situations.
+23/04/2010, Version 1.1-1
+- added the minimum run size for a clear design 
+  to the output object of function compromise and 
+  an optional message to this effect
+- added catlg.name element to design information for FrF2 designs, 
+  in case select.catlg has been used (important for summary.design 
+  to properly exploit the design name)
+- added 30 further designs in 128 runs to catlg, 
+  based on their potential for clear compromise designs
+bug fixes: 
+- select.catlg did not work properly in function FrF2 
+  (which was presumably not consequential, 
+  because so far no alternative catalogues were provided)
+- print.catlg did not work for non-default catalogues, 
+  if nruns was specified
 
-Version 1.0-5, 17/01/2010
-   - internal function double.des was changed to produce different designs 
-     for 40,56,64,88,96 runs: The folded columns are in the front rather 
-     than in the rear, with the benefit of obtaining resolution IV designs 
-     whenever the number of factors is up to half the number of runs
+24/02/2010, Version 1.1
+- added large (good but not necessarily MA) resolution V designs from Xu 2009, 
+  added hint to even larger non-regular resolution V designs in package 
+  DoE.base (from version 0.9-16)
+- supported subsequent calculation of generator information for blocked 
+  and splitplot designs by updated function summary.design:
+  - added map element to design.info for split-plot designs and blocked designs 
+    created with blockpick.big
+  - modified base.design entry of design.info object for split-plot designs 
+    with specified generators: display the original generators in the 
+    base design, which is much more logical than presenting the generators 
+    after application of splitpick which were there before
+  - added an FrF2.version element to design.info in order to allow checking 
+    whether the generators can be reconstructed from stored information 
+    with function generator.design from package DoE.base
+  - added test cases for this feature
+Bug fixes:
+- SERIOUS BUG: manually specifying dependent block generators led to unwarned 
+  mismatch between ouput design and design.info; 
+  fixed by throwing an error in case of dependent block generators
+- documentation of block option for FrF2 was confusing regarding 
+  interpretation of entries in numeric vectors
+- made large generator vectors work 
+  (length >20 was an issue and led to an error)
+- documentation of function FrF2 wrongly called 
+  generators element of design.info attribute gen.display
+- blockpick full factorial example in manual was (very) old state 
+  and worked different from description
+- For split-plot designs, the automatic choice of whole plot factors 
+  was not always as documented; sometimes, the whole plot factors were not 
+  the first nfac.WP ones.
+- inconsistency: splitpick.out used drop=FALSE for gen, but not for perms;
+  now also introduced drop=FALSE for the other similar functions (leftadjust,
+  blockpick.big)
+- split-plot designs and designs with hard-to-change factors 
+  should now also work for full factorial situations.
 
-Version 1.0-4, 02/01/2010
-   - function compromise for supporting creation of compromise designs
-   - bug fix: distinct design with only one 2fi did not work
+17/01/2010, Version 1.0-5
+- internal function double.des was changed to produce different designs 
+  for 40,56,64,88,96 runs: The folded columns are in the front rather 
+  than in the rear, with the benefit of obtaining resolution IV designs 
+  whenever the number of factors is up to half the number of runs
 
-Version 1.0-3, 10/12/2009
-   - bug fix: desnum attribute was list instead of data frame 
-     for FrF2 with estimability requirements
+02/01/2010, Version 1.0-4
+- function compromise for supporting creation of compromise designs
+- bug fix: distinct design with only one 2fi did not work
 
-Version 1.0-2, 26/11/2009
-   - added a response argument to MEPlot, IAPlot and DanielPlot
-   - bug fix for function FrF2: resolution requests were ignored since 
-     version 0.97-7
-   - small documentation bug fixes
+10/12/2009, Version 1.0-3
+- bug fix: desnum attribute was list instead of data frame 
+  for FrF2 with estimability requirements
 
-Version 1.0-1, 17/11/2009
-   - clarified in the explanation of the catalogue file 
-     that the resolution III designs constructed for 64 and 128 runs are 
-     in fact minimum aberration 
-     (which was only conjectured before)
-   - bug fix for function DanielPlot.design: the function did not work
-     for large numbers of factors
+26/11/2009, Version 1.0-2
+- added a response argument to MEPlot, IAPlot and DanielPlot
+- bug fix for function FrF2: resolution requests were ignored since 
+  version 0.97-7
+- small documentation bug fixes
 
-Version 1.0, 08/10/2009
-   - added methods for class design for the plotting functions 
-     MEPlot, IAPlot and DanielPlot
-   - added the MA resolution III designs for 64 runs (33 to 63 factors) 
-     and 128 runs (65 to 127 factors) to the design catalogue catlg
-     (strictly speaking, it is only proven that these have the same number of 
-     length three and length four words as the MA designs)
-   - improved documentation of generators option for FrF2
-   - removed unnecessary warning from FrF2 in case of more than 19 generators
+17/11/2009, Version 1.0-1
+- clarified in the explanation of the catalogue file 
+  that the resolution III designs constructed for 64 and 128 runs are 
+  in fact minimum aberration 
+  (which was only conjectured before)
+- bug fix for function DanielPlot.design: the function did not work
+  for large numbers of factors
 
-Version 0.97-10, 17/09/2009
-   - changed a link to DoE.base-package to work on Mac-OS
+08/10/2009, Version 1.0
+- added methods for class design for the plotting functions 
+  MEPlot, IAPlot and DanielPlot
+- added the MA resolution III designs for 64 runs (33 to 63 factors) 
+  and 128 runs (65 to 127 factors) to the design catalogue catlg
+  (strictly speaking, it is only proven that these have the same number of 
+  length three and length four words as the MA designs)
+- improved documentation of generators option for FrF2
+- removed unnecessary warning from FrF2 in case of more than 19 generators
 
-Version 0.97-9, 14/09/2009
-   - made factor names in FrF2 and pb valid names using make.names, 
-     also block.name in FrF2
+17/09/2009, Version 0.97-10
+- changed a link to DoE.base-package to work on Mac-OS
 
-Version 0.97-8, 07/09/2009
-   - made function FrF2 output factors also for full factorial 2-level designs
-     without center points and documented coding of experimental factors for 
-     functions FrF2 and pb
-     (thanks to Enrico Pegoraro for reporting this inconsistency)
-   - fixed a bug in function pb's treatment of unnamed lists as factor.names
-   - added a few links to manuals
+14/09/2009, Version 0.97-9
+- made factor names in FrF2 and pb valid names using make.names, 
+  also block.name in FrF2
 
-Version 0.97-7, 24/08/2009
-   - made functions FrF2 and pb tolerate factor.names to be an unnamed list
-   - bug fix: resolution option for FrF2 did not return a full factorial,
-     if no smaller design of the desired resolution exists
-   - documentation bug fix: value section for function FrF2 did not 
-     mention the design.info elements map, clear and res3 for designs created 
-     with option estimable
+07/09/2009, Version 0.97-8
+- made function FrF2 output factors also for full factorial 2-level designs
+  without center points and documented coding of experimental factors for 
+  functions FrF2 and pb
+  (thanks to Enrico Pegoraro for reporting this inconsistency)
+- fixed a bug in function pb's treatment of unnamed lists as factor.names
+- added a few links to manuals
 
-Version 0.97-6, 21/08/2009
-   - bug fix: generators.from.design did not work for replications 
-     in case of designs with the estimable option
-   - bug fix: check rejected some valid linear models with 
-     only complete aliases due to numerical inaccuracies
+24/08/2009, Version 0.97-7
+- made functions FrF2 and pb tolerate factor.names to be an unnamed list
+- bug fix: resolution option for FrF2 did not return a full factorial,
+  if no smaller design of the desired resolution exists
+- documentation bug fix: value section for function FrF2 did not 
+  mention the design.info elements map, clear and res3 for designs created 
+  with option estimable
 
-Version 0.97-5, 21/08/2009
-   - developed find.gen and generators.from.design to 
-     support generation of ccd designs (including estimable and blocked designs)
+21/08/2009, Version 0.97-6
+- bug fix: generators.from.design did not work for replications 
+  in case of designs with the estimable option
+- bug fix: check rejected some valid linear models with 
+  only complete aliases due to numerical inaccuracies
 
-Version 0.97-4 21/08/2009
-   - bug fix: FrF2 always randomized designs when using the estimable option, 
-     even for randomize=FALSE
+21/08/2009, Version 0.97-5
+- developed find.gen and generators.from.design to 
+  support generation of ccd designs (including estimable and blocked designs)
 
-Version 0.97-3 20/08/2009
-   - changed itemize to describe in Rd files for pb and CatalogueAccessors in order 
-     to comply with new R CMD check behavior
+21/08/2009, Version 0.97-4
+- bug fix: FrF2 always randomized designs when using the estimable option, 
+  even for randomize=FALSE
 
+20/08/2009, Version 0.97-3
+- changed itemize to describe in Rd files for pb and CatalogueAccessors in order 
+  to comply with new R CMD check behavior
 
-Version 0.97-2 19/08/2009
-   - blocked designs: added the element block.gen to the design.info attribute 
-     in order to support subsequent augmentation with star points
-   - added error message for missing ncenter for add.center
-   - added meaningful error message for failure for full factorials to fold.design
-   - removed warning about all center points together, if ncenter=1
-   - made internal function des.recode identical to same function in package DoE.base,
-     in order to later drop it from FrF2
-   - bugfix: names (not values) from factor.names were ignored in some important situations for blocked designs
-     (automatic factor selection, small case, i.e. where blockpick is used)
-   - added experimental and as yet undocumented internal functions for extracting 
-     all relevant generators from designs especially where these are not obvious 
-     (find.gen and generators.from.design) 
+19/08/2009, Version 0.97-2
+- blocked designs: added the element block.gen to the design.info attribute 
+  in order to support subsequent augmentation with star points
+- added error message for missing ncenter for add.center
+- added meaningful error message for failure for full factorials to fold.design
+- removed warning about all center points together, if ncenter=1
+- made internal function des.recode identical to same function in package DoE.base,
+  in order to later drop it from FrF2
+- bugfix: names (not values) from factor.names were ignored in some important situations for blocked designs
+  (automatic factor selection, small case, i.e. where blockpick is used)
+- added experimental and as yet undocumented internal functions for extracting 
+  all relevant generators from designs especially where these are not obvious 
+  (find.gen and generators.from.design) 
 
+16/08/2009, Version 0.97-1
+- bug fix: folding and center points did not work for full factorial 2-level designs
 
-Version 0.97-1 16/08/2009
-   - bug fix: folding and center points did not work for full factorial 2-level designs
+13/08/2009, Version 0.97
+- added function fold.design for foldover designs
+- added functions add.center for adding center points and iscube for identfying 
+  the cube points in a design with center points
+- added functionality for center points to functions FrF2 and pb
+- function aliases has gained the new argument condense that makes 
+  its output very similar to that of internal function alias3fi in combination 
+  with code=TRUE
+- moved into the direction of unified representation of aliased element in design.info 
+  (still not the same for all types of design, particularly not for blocked designs)
+- modified nfactors in design.info for blocked designs to refer to treatment factors only
+  (ntreat kept for continuity)
+- added keyword internal to help files for internal functions
+- bug fix: added nfactors to design.info for split-plot designs
+- bug fix: generators element of design.info was labelled wrongly 
+  for more than 50 factors (NA labels for factors 51 and following)
 
+03/08/2009, Version 0.96-1
+- added meaningful error message for IAPlot in case of no 2-factor interactions
+- adjusted test output to new version of DoE.base
+- bugfix for MacOS: replaced log2(nruns) with rounded version for print.catlg, 
+  because otherwise wrong result on MacOS
 
-Version 0.97 13/08/2009
-   - added function fold.design for foldover designs
-   - added functions add.center for adding center points and iscube for identfying 
-     the cube points in a design with center points
-   - added functionality for center points to functions FrF2 and pb
-   - function aliases has gained the new argument condense that makes 
-     its output very similar to that of internal function alias3fi in combination 
-     with code=TRUE
-   - moved into the direction of unified representation of aliased element in design.info 
-     (still not the same for all types of design, particularly not for blocked designs)
-   - modified nfactors in design.info for blocked designs to refer to treatment factors only
-     (ntreat kept for continuity)
-   - added keyword internal to help files for internal functions
-   - bug fix: added nfactors to design.info for split-plot designs
-   - bug fix: generators element of design.info was labelled wrongly 
-     for more than 50 factors (NA labels for factors 51 and following)
+31/07/2009, Version 0.96
+- changed R version to R-2.8.0 or newer (extractor for class design does not work 
+  with earlier versions)
+- added dependence to R version 2.7.1 or newer
+- a few clarifications in documentation
+- added legend element to element aliased in design.info for FrF2 designs
+- made seed occur on all design.info objects for function FrF2 
+- added nfactors to design.info objects for blocked designs
+- made repeat.only FALSE even if user made it TRUE for between block replications 
+  only, where in fact there are no repeated measurements
+- bugfix:designs with 20 or more generators did not work in function FrF2
 
+13/07/2009, Version 0.95
+- included Bobby Mees very comprehensive new book into the references
+- included design 3-1.1 (cf. program in FrF2-devel) into catlg 
+  in support of future implementation of inner/outer array designs
+- included possibility to select factors for which interactions are 
+  to be plotted in IAPlot (was already available in MEPlot)
+- all experimental factors are now R factors in the data frame, 
+  even if their levels are numerical values
+Bugfixes:
+- provided meaningful error message for internal function formula2matrix, 
+  if user specified the formula for estimable in an inappropriate way
+- pb design with 8 runs and <=4 factors now effectively is the FrF2 design, 
+  with all FrF2 properties, as was already documented before. 
 
-Version 0.96-1 03/08/2009
-   - added meaningful error message for IAPlot in case of no 2-factor interactions
-   - adjusted test output to new version of DoE.base
-   - bugfix for MacOS: replaced log2(nruns) with rounded version for print.catlg, 
-     because otherwise wrong result on MacOS
+06/07/2009, Version 0.94-1
+Bugfix: Replicated blocks had the same block number or name in case of bbreps. 
+  This is unreasonable and has been changed; with the changed version, the 
+  blocking variable can be directly used in a (mixed) linear model analysis.
 
+28/06/2009, Version 0.94
+- added element creator to design.info attribute of designs created by 
+  functions FrF2 and pb, and documented objects accordingly; this element 
+  contains the call, but is called creator to allow it also to include 
+  stored menu settings instead
+- added possibility to have negative generators (e.g. -ABD or -c(1,2,4))
+  (before, levels had to be swapped) 
+- improved usage comfort and documentation for split plot designs in function 
+  FrF2 (with WPfacs, specification of nfac.WP is no longer necessary; 
+  the documentation of this aspect has been confusing and has been improved) 
+- started decoupling statistical and technical information in the documentation;
+  purpose of this: shorter individual help texts and the possibility to re-use 
+  the statistical texts for help from within R-commander in future package 
+  RcmdrPlugin.DoE 
+- a few further improvements to the documentation have been made
+- modified function remodel to allow numeric variables with two levels 
+  not equal to -1 and 1 
+- improvement of MEPlot: user can select effects to be displayed (option select) 
+  (a similar possibility for IAPlot is not in place yet; so far, the model has 
+  to be reduced in order to select effects for IAPlot)
+Bugfix: function DanielPlot gave error message in case 
+  of non-significant effects only
 
-Version 0.96 31/07/2009
-   - changed R version to R-2.8.0 or newer (extractor for class design does not work 
-     with earlier versions)
-   - added dependence to R version 2.7.1 or newer
-   - a few clarifications in documentation
-   - added legend element to element aliased in design.info for FrF2 designs
-   - made seed occur on all design.info objects for function FrF2 
-   - added nfactors to design.info objects for blocked designs
-   - made repeat.only FALSE even if user made it TRUE for between block replications 
-     only, where in fact there are no repeated measurements
-   - bugfix:designs with 20 or more generators did not work in function FrF2
+24/05/2009, Version 0.93
+- The constant Letters and some functions have been moved to new package DoE.base, 
+  in preparation of the collaborating package group of FrF2, DoE.base, DoE.wrapper and 
+  RcmdrPlugin.DoE.
+- documentation of factor.names in UtilitiesCat.Rd has been corrected 
+  (not user-relevant, as affected function estimable.check is not to be called 
+  directly by users)
+- removed unnecessary suggests for BHH2
 
-Version 0.95, 13/07/2009
-   - included Bobby Mees very comprehensive new book into the references
-   - included design 3-1.1 (cf. program in FrF2-devel) into catlg 
-     in support of future implementation of inner/outer array designs
-   - included possibility to select factors for which interactions are 
-     to be plotted in IAPlot (was already available in MEPlot)
-   - all experimental factors are now R factors in the data frame, 
-     even if their levels are numerical values
-   Bugfixes:
-   - provided meaningful error message for internal function formula2matrix, 
-     if user specified the formula for estimable in an inappropriate way
-   - pb design with 8 runs and <=4 factors now effectively is the FrF2 design, 
-     with all FrF2 properties, as was already documented before. 
+18/05/2009, Version 0.92-5
+Bugfixes 
+- simultaneous specification of nfactors and nlevels of length > 1 did not work 
+  in internal function fac.design;
+  this was not relevant for FrF2, but nevertheless wrong
+- estimable did not work with a formula using factor names rather than factor letters;
+  this has been fixed, and an example with this feature has been added
+- catalogue catlg currently contains only one design each for large resolution V+ 
+  situations (256 runs and more). The documentation of this aspect has been corrected.
+- deleted wrong statement in the documentation, that the complete catalogue of 
+  128 run resolution IV designs with up to 24 factors is downloadable from the 
+  authors website (it is simply too large and could not be uploaded)
 
-Version 0.94-1, 06/07/2009
-   Bugfix: Replicated blocks had the same block number or name in case of bbreps. 
-     This is unreasonable and has been changed; with the changed version, the 
-     blocking variable can be directly used in a (mixed) linear model analysis.
+15/05/2009, Version 0.92-4
+Bugfixes and small changes regarding row numbering
+- third column of run.order for blocked designs was wrong
+- added original row number of design to columns 1 and 3 of run.order in case 
+  of blocked and split-plot designs
+- row numbers of design itself and attribute desnum unified to always be the numbering 
+  from 1 to number of rows (i.e. second column of 
+  attribute run.order) regardless of design
 
-Version 0.94, 28/06/2009
-   - added element creator to design.info attribute of designs created by 
-     functions FrF2 and pb, and documented objects accordingly; this element 
-     contains the call, but is called creator to allow it also to include 
-     stored menu settings instead
-   - added possibility to have negative generators (e.g. -ABD or -c(1,2,4))
-     (before, levels had to be swapped) 
-   - improved usage comfort and documentation for split plot designs in function 
-     FrF2 (with WPfacs, specification of nfac.WP is no longer necessary; 
-     the documentation of this aspect has been confusing and has been improved) 
-   - started decoupling statistical and technical information in the documentation;
-     purpose of this: shorter individual help texts and the possibility to re-use 
-     the statistical texts for help from within R-commander in future package 
-     RcmdrPlugin.DoE 
-   - a few further improvements to the documentation have been made
-   - modified function remodel to allow numeric variables with two levels 
-     not equal to -1 and 1 
-   - improvement of MEPlot: user can select effects to be displayed (option select) 
-     (a similar possibility for IAPlot is not in place yet; so far, the model has 
-     to be reduced in order to select effects for IAPlot)
-   Bugfix: function DanielPlot gave error message in case 
-     of non-significant effects only
+07/05/2009, Version 0.92-2
+Bug fixes
+- blockpick.big displayed wrong information about which effects 
+  are aliased with blocks; corrected; 
+  this bug only affected direct use of function blockpick.big
+  and did not affect any automatic calculations within FrF2, 
+  alias information in design.info attribute was always correct.
+- replication information attached to run order also for full factorial 
+  designs and Plackett-Burman designs (functions fac.design (used by FrF2) 
+  and pb)
+- corrected documentation of class design and functions pb and 
+  FrF2 regarding the run.order attribute of class design output 
+  (from 2-column matrix to 3-column data frame 
+  with third column including replication information)
 
-Version 0.93, 24/05/2009
-   - The constant Letters and some functions have been moved to new package DoE.base, 
-     in preparation of the collaborating package group of FrF2, DoE.base, DoE.wrapper and 
-     RcmdrPlugin.DoE.
-   - documentation of factor.names in UtilitiesCat.Rd has been corrected 
-     (not user-relevant, as affected function estimable.check is not to be called 
-     directly by users)
-   - removed unnecessary suggests for BHH2
+01/05/2009, Version 0.92-1
+Bug fixes
+- hard to change factor number equal to nfactors gave indexing error;
+  prevented by error message, since this does not make sense anyway
+- hard to change order was not the intended one --> changed
 
-Version 0.92-5, 18/05/2009
-   Bugfixes 
-   - simultaneous specification of nfactors and nlevels of length > 1 did not work 
-     in internal function fac.design;
-     this was not relevant for FrF2, but nevertheless wrong
-   - estimable did not work with a formula using factor names rather than factor letters;
-     this has been fixed, and an example with this feature has been added
-   - catalogue catlg currently contains only one design each for large resolution V+ 
-     situations (256 runs and more). The documentation of this aspect has been corrected.
-   - deleted wrong statement in the documentation, that the complete catalogue of 
-     128 run resolution IV designs with up to 24 factors is downloadable from the 
-     authors website (it is simply too large and could not be uploaded)
+30/04/2009, Version 0.92
+Substantial additions to function FrF2:
+- split-plot and blocking facilities
+    including also functions splitpick, blockpick, blockpick.big
+    and leftadjust that investigate the structure of 
+    designs and may be useful for expert users
+- treatment of hard-to-change factors 
+Further changes to function FrF2 and its output:
+- made output object (class design) more informative
+- row numbers of design reflect replication structure
+- option select.catlg moved to an earlier position, 
+  and made effective for more scenarios than before
+Additions to catalogues and catalogue utilities:
+- added print method for objects of class catlg in 
+  support of inspecting available catalogue entries
+- extended standard catalogue catlg by some good larger designs
+Improvements to further utility functions:
+- added accessor functions for class design
+- added contrast contr.FrF2 for -1/+1 contrasts
+  in line with 2-level fractional factorials
+- made character vectors in class design data frames 
+  from package FrF2 into factors with contrasts contr.FrF2
+- made internal function alias3fi capable of handling more than 
+  50 factors
+Bug fixes to documentation and error messages
+added examples and test cases (tests directory)
 
-Version 0.92-4, 15/05/2009
-   Bugfixes and small changes regarding row numbering
-   - third column of run.order for blocked designs was wrong
-   - added original row number of design to columns 1 and 3 of run.order in case 
-     of blocked and split-plot designs
-   - row numbers of design itself and attribute desnum unified to always be the numbering 
-     from 1 to number of rows (i.e. second column of 
-     attribute run.order) regardless of design
+far too many changes to be all mentioned in detail
 
-Version 0.92-2, 07/05/2009
-   Bug fixes
-   - blockpick.big displayed wrong information about which effects 
-     are aliased with blocks; corrected; 
-     this bug only affected direct use of function blockpick.big
-     and did not affect any automatic calculations within FrF2, 
-     alias information in design.info attribute was always correct.
-   - replication information attached to run order also for full factorial 
-     designs and Plackett-Burman designs (functions fac.design (used by FrF2) 
-     and pb)
-   - corrected documentation of class design and functions pb and 
-     FrF2 regarding the run.order attribute of class design output 
-     (from 2-column matrix to 3-column data frame 
-     with third column including replication information)
+15/04/2009, Version 0.91-1
+Bug fix in documentation to function FrF2 
 
-Version 0.92-1, 01/05/2009
-   Bug fixes
-   - hard to change factor number equal to nfactors gave indexing error;
-     prevented by error message, since this does not make sense anyway
-   - hard to change order was not the intended one --> changed
+06/04/2009, Version 0.91
+Additions to function FrF2: 
+- added functionality for "estimable", i.e. automated search  
+  for designs that accommodate certain 2-factor interactions (2fis) well 
+  (two approaches)
+- added possibility of replications and repeated measurements
+- added more design information to output of FrF2 and changed 
+  output from list to data frame with attributes of new class design
+- FrF2 now also can do full factorials
+- renamed option max.nclear.2fis to MaxC2 (often used in the literature)
+Additions to function pb: 
+- added possibility of replications and repeated measurements
+Further changes:
+- modified function alias3fi (non-exported function) to allow allow 
+ reducing detail to order=2
+- renamed catlg elements around clear 2fis to read "clear" and not "free",
+  accessor functions analogously
+- grouped R-utility functions in files according to same pattern as 
+  in Rd files
+- changed output of pb also to data frame with attributes of class design
+- extensions and clarifications for documentation
+- switched to FrF2, if pb is called for nruns=8 and nfactors<=4
+Bug fixes:
+- FrF2 code had gen instead of generators in two places
+- pb had a bug that prevented design generation 
+  for those numbers of runs for which doubling is used 
+  (40, 56,64,88,96)
 
-Version 0.92, 30/04/2009
-   Substantial additions to function FrF2:
-   - split-plot and blocking facilities
-       including also functions splitpick, blockpick, blockpick.big
-       and leftadjust that investigate the structure of 
-       designs and may be useful for expert users
-   - treatment of hard-to-change factors 
-   Further changes to function FrF2 and its output:
-   - made output object (class design) more informative
-   - row numbers of design reflect replication structure
-   - option select.catlg moved to an earlier position, 
-     and made effective for more scenarios than before
-   Additions to catalogues and catalogue utilities:
-   - added print method for objects of class catlg in 
-     support of inspecting available catalogue entries
-   - extended standard catalogue catlg by some good larger designs
-   Improvements to further utility functions:
-   - added accessor functions for class design
-   - added contrast contr.FrF2 for -1/+1 contrasts
-     in line with 2-level fractional factorials
-   - made character vectors in class design data frames 
-     from package FrF2 into factors with contrasts contr.FrF2
-   - made internal function alias3fi capable of handling more than 
-     50 factors
-   Bug fixes to documentation and error messages
-   added examples and test cases (tests directory)
+24/03/2009, Version 0.9-1
+A few minor bug fixes: 
+- Changed R version the package depends on to 2.7.0 
+  (packages BsMD and scatterplot3d require this version),
+  and added LazyLoad: yes and LazyData: yes to 
+  DESCRIPTION file
+- tried to fix example error for Mac: 
+  round instead of floor in check for nruns in FrF2,
+  also changed check for nruns in pb
+- Bug fix on WLP.catlg, free.2fis.catlg and all.2fis.free.catlg: 
+  now always return a named list, 
+  even if the catlg object has only one element
+- minor clarifications in documentation
 
-   far too many changes to be all mentioned in detail
+11/03/2009, Version 0.9
+Added functionality for creating designs: 
+- FrF2 and pb create 
+  regular and non-regular fractional factorials with 2-level 
+  factors, together with a number of utility functions. 
 
+16/02/2008, Version 0.8
+- added function for cube plots for showing means or fitted means 
+  for three-way-interactions
+- corrected bugs in documentation: plot functions MEPlot and 
+  IAPlot do not take ... argument, and they were wrongly 
+  referenced by their early development names "iap" and "mep" 
+  in a few places 
+- line width (lwd) choosable in MEPlot and IAPlot (affects plot 
+  lines and axis thickness)
+- title size of individual plots (cex.main) choosable in MEPlot
+- legend in diagonal panels of interaction plot matrix (IAPlot) 
+  improved
+- alias numbers in interaction plots (in case of 
+  show.alias=TRUE) sized by cex.lab
+- right outer margin slightly increased for making outer border 
+  visible in copied figures
 
-Version 0.91-1, 15/04/2009
-   Bug fix in documentation to function FrF2 
+16/12/2007, Version 0.7
+Bug-fix: functions DanielPlot and IAPlot did not work with aov 
+  objects but only with pure lm-objects. This has been fixed by 
+  letting the internal function remodel transform aov objects 
+  into pure lm objects.
 
-Version 0.91, 06/04/2009
+16/12/2007, Version 0.6 
+- Eliminated portability issue with example: Version 0.5 used 
+  windows() for opening several graphics devices.
 
-   Additions to function FrF2: 
-   - added functionality for "estimable", i.e. automated search  
-     for designs that accommodate certain 2-factor interactions (2fis) well 
-     (two approaches)
-   - added possibility of replications and repeated measurements
-   - added more design information to output of FrF2 and changed 
-     output from list to data frame with attributes of new class design
-   - FrF2 now also can do full factorials
-   - renamed option max.nclear.2fis to MaxC2 (often used in the literature)
-   Additions to function pb: 
-   - added possibility of replications and repeated measurements
-   Further changes:
-   - modified function alias3fi (non-exported function) to allow allow 
-     reducing detail to order=2
-   - renamed catlg elements around clear 2fis to read "clear" and not "free",
-     accessor functions analogously
-   - grouped R-utility functions in files according to same pattern as 
-     in Rd files
-   - changed output of pb also to data frame with attributes of class design
-   - extensions and clarifications for documentation
-   - switched to FrF2, if pb is called for nruns=8 and nfactors<=4
-   
-   Bug fixes:
-   - FrF2 code had gen instead of generators in two places
-   - pb had a bug that prevented design generation 
-     for those numbers of runs for which doubling is used 
-     (40, 56,64,88,96)
-
-Version 0.9-1, 24/03/2009
-
-   A few minor bug fixes: 
-   - Changed R version the package depends on to 2.7.0 
-     (packages BsMD and scatterplot3d require this version),
-     and added LazyLoad: yes and LazyData: yes to 
-     DESCRIPTION file
-   - tried to fix example error for Mac: 
-     round instead of floor in check for nruns in FrF2,
-     also changed check for nruns in pb
-   - Bug fix on WLP.catlg, free.2fis.catlg and all.2fis.free.catlg: 
-     now always return a named list, 
-     even if the catlg object has only one element
-   - minor clarifications in documentation
-
-Version 0.9, 11/03/2009
-
-   Added functionality for creating designs: FrF2 and pb create 
-   regular and non-regular fractional factorials with 2-level 
-   factors, together with a number of utility functions. 
-
-Version 0.8, 16/02/2008
-
-   added function for cube plots for showing means or fitted means 
-   for three-way-interactions
-
-   corrected bugs in documentation: plot functions MEPlot and 
-   IAPlot do not take ... argument, and they were wrongly 
-   referenced by their early development names "iap" and "mep" 
-   in a few places 
-
-   line width (lwd) choosable in MEPlot and IAPlot (affects plot 
-   lines and axis thickness)
-
-   title size of individual plots (cex.main) choosable in MEPlot
-
-   legend in diagonal panels of interaction plot matrix (IAPlot) 
-   improved
-
-   alias numbers in interaction plots (in case of 
-   show.alias=TRUE) sized by cex.lab
-
-   right outer margin slightly increased for making outer border 
-   visible in copied figures
-
-Version 0.7, 16/12/2007 
-
-   Bug-fix: functions DanielPlot and IAPlot did not work with aov 
-   objects but only with pure lm-objects. This has been fixed by 
-   letting the internal function remodel transform aov objects 
-   into pure lm objects.
-
-Version 0.6, 16/12/2007 
-
-   Eliminated portability issue with example: Version 0.5 used 
-   windows() for opening several graphics devices.
-
-First version on CRAN: 
-Version 0.5, 15/12/2007
+15/12/2007, Version 0.5
+First version on CRAN

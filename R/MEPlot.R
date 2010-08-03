@@ -11,8 +11,10 @@ MEPlot.design <- function(obj, ..., response=NULL){
       if (!response %in% di$response.names)
         stop("Requested response is not a response variable in fit.")
     if (!(length(grep("FrF2",di$type))>0 | 
-           length(grep("pb",di$type))>0)) 
-        stop("The design obj must be of a type containing FrF2 or pb.")
+           length(grep("pb",di$type))>0)){ 
+           if (!(di$type=="full factorial" & all(di$nlevels==2)))
+           stop("The design obj must be of a type containing FrF2 or pb.")
+    }
     MEPlot(lm(obj, degree=1, response=response), ...)
 }
 MEPlot.default <-
@@ -29,6 +31,8 @@ function(obj, main=paste("Main effects plot for", respnam), pch=15,
    #           (relative to invisible axis of left-most plot)
    # cex.title multiplier for cex.main for the overall title given in option main
    # abbrev  maximum number of characters used for levels on x-axes
+   if (! ("lm" %in% class(obj) | "aov" %in% class(obj))) 
+      stop("obj must be a linear model object (lm or aov), or a design of class design")
    obj <- remodel(obj)
    labs <- lapply(obj$labs,function(sp) substr(sp,1,abbrev))
    obj <- obj$model

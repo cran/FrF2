@@ -1,6 +1,6 @@
 
-R version 2.10.0 (2009-10-26)
-Copyright (C) 2009 The R Foundation for Statistical Computing
+R version 2.11.0 (2010-04-22)
+Copyright (C) 2010 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -31,37 +31,29 @@ Loading required package: colorspace
 
 Attaching package: 'DoE.base'
 
+The following object(s) are masked from 'package:relimp':
 
-	The following object(s) are masked from package:relimp :
+    showData
 
-	 showData 
+The following object(s) are masked from 'package:stats':
 
+    lm
 
-	The following object(s) are masked from package:stats :
+The following object(s) are masked from 'package:graphics':
 
-	 lm 
+    plot.design
 
+The following object(s) are masked from 'package:utils':
 
-	The following object(s) are masked from package:graphics :
-
-	 plot.design 
-
-
-	The following object(s) are masked from package:utils :
-
-	 fix 
+    fix
 
 
 Attaching package: 'FrF2'
 
+The following object(s) are masked from 'package:BsMD':
 
-	The following object(s) are masked from package:BsMD :
+    DanielPlot
 
-	 DanielPlot 
-
-Warning messages:
-1: package 'igraph' was built under R version 2.10.1 
-2: package 'sfsmisc' was built under R version 2.10.1 
 > ### test programs for FrF2
 > ### FrF2 functionality
 > ### combination of everything with everything is not included, 
@@ -227,7 +219,7 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
   .. ..$ legend: chr  "A=eins" "B=zwei" "C=drei" "D=vier" ...
   .. ..$ main  : chr 
   .. ..$ fi2   : chr  "AB=CE=DF" "AC=BE" "AD=BF" "AE=BC" ...
-  ..$ FrF2.version: chr "1.1-1"
+  ..$ FrF2.version: chr "1.1-4"
   ..$ replications: num 1
   ..$ repeat.only : logi FALSE
   ..$ randomize   : logi FALSE
@@ -300,7 +292,7 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
   .. ..$ legend: chr  "A=eins" "B=zwei" "C=drei" "D=vier" ...
   .. ..$ main  : chr 
   .. ..$ fi2   : chr  "AB=CE=DF" "AC=BE" "AD=BF" "AE=BC" ...
-  ..$ FrF2.version: chr "1.1-1"
+  ..$ FrF2.version: chr "1.1-4"
   ..$ replications: num 1
   ..$ repeat.only : logi FALSE
   ..$ randomize   : logi FALSE
@@ -373,7 +365,7 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
   .. ..$ legend: chr  "A=A" "B=B" "C=C" "D=D" ...
   .. ..$ main  : chr  "A=BE" "B=AE" "E=AB"
   .. ..$ fi2   : chr  "AC=DF" "AD=CF" "AF=CD"
-  ..$ FrF2.version: chr "1.1-1"
+  ..$ FrF2.version: chr "1.1-4"
   ..$ replications: num 1
   ..$ repeat.only : logi FALSE
   ..$ randomize   : logi FALSE
@@ -435,7 +427,7 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
   .. ..$ legend: chr  "A=eins" "B=zwei" "C=drei" "D=vier" ...
   .. ..$ main  : chr  "A=BE" "B=AE" "E=AB"
   .. ..$ fi2   : chr  "AC=DF" "AD=CF" "AF=CD"
-  ..$ FrF2.version: chr "1.1-1"
+  ..$ FrF2.version: chr "1.1-4"
   ..$ replications: num 1
   ..$ repeat.only : logi FALSE
   ..$ randomize   : logi FALSE
@@ -541,7 +533,7 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
   .. ..$ legend: chr  "A=eins" "B=zwei" "C=drei" "D=vier" ...
   .. ..$ main  : chr  "A=BE" "B=AE" "E=AB"
   .. ..$ fi2   : chr  "AC=DF" "AD=CF" "AF=CD"
-  ..$ FrF2.version: chr "1.1-1"
+  ..$ FrF2.version: chr "1.1-4"
   ..$ replications: num 1
   ..$ repeat.only : logi FALSE
   ..$ randomize   : logi FALSE
@@ -614,7 +606,7 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
   .. ..$ legend: chr  "A=A" "B=B" "C=C" "D=D" ...
   .. ..$ main  : chr  "A=BE" "B=AE" "E=AB"
   .. ..$ fi2   : chr  "AC=DF" "AD=CF" "AF=CD"
-  ..$ FrF2.version: chr "1.1-1"
+  ..$ FrF2.version: chr "1.1-4"
   ..$ replications: num 1
   ..$ repeat.only : logi FALSE
   ..$ randomize   : logi FALSE
@@ -687,7 +679,7 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
   .. ..$ legend: chr  "A=eins" "B=zwei" "C=drei" "D=vier" ...
   .. ..$ main  : chr  "A=BE" "B=AE" "E=AB"
   .. ..$ fi2   : chr  "AC=DF" "AD=CF" "AF=CD"
-  ..$ FrF2.version: chr "1.1-1"
+  ..$ FrF2.version: chr "1.1-4"
   ..$ replications: num 1
   ..$ repeat.only : logi FALSE
   ..$ randomize   : logi FALSE
@@ -1094,7 +1086,7 @@ Classes 'design' and 'data.frame':	32 obs. of  7 variables:
   .. ..$       : chr  "C:G" "D:F"
   ..$ bbreps             : num 1
   ..$ wbreps             : num 1
-  ..$ FrF2.version       : chr "1.1-1"
+  ..$ FrF2.version       : chr "1.1-4"
   ..$ catlg.name         : chr "catlg"
   ..$ base.design        : chr "8-3.1"
   ..$ map                : NULL
@@ -1175,7 +1167,7 @@ Classes 'design' and 'data.frame':	32 obs. of  7 variables:
   .. ..$ legend: chr  "A=first" "B=second" "C=third" "D=fourth" ...
   ..$ bbreps             : num 1
   ..$ wbreps             : num 1
-  ..$ FrF2.version       : chr "1.1-1"
+  ..$ FrF2.version       : chr "1.1-4"
   ..$ catlg.name         : chr "catlg"
   ..$ base.design        : chr "6-1.1"
   ..$ map                : NULL
@@ -1262,7 +1254,7 @@ Classes 'design' and 'data.frame':	32 obs. of  7 variables:
   .. ..$       : chr  "first:fifth:sixth" "second:third:fourth"
   ..$ bbreps             : num 1
   ..$ wbreps             : num 1
-  ..$ FrF2.version       : chr "1.1-1"
+  ..$ FrF2.version       : chr "1.1-4"
   ..$ catlg.name         : chr "catlg"
   ..$ base.design        : chr "6-1.1"
   ..$ map                : NULL
@@ -1354,7 +1346,7 @@ Classes 'design' and 'data.frame':	32 obs. of  8 variables:
   .. ..$       : chr  "fourth:eight" "fifth:seven"
   ..$ bbreps             : num 1
   ..$ wbreps             : num 1
-  ..$ FrF2.version       : chr "1.1-1"
+  ..$ FrF2.version       : chr "1.1-4"
   ..$ catlg.name         : chr "catlg"
   ..$ base.design        : chr "9-4.1"
   ..$ map                : NULL
@@ -1436,7 +1428,7 @@ Classes 'design' and 'data.frame':	64 obs. of  8 variables:
   .. ..$ legend: chr  "A=A" "B=B" "C=C" "D=D" ...
   ..$ bbreps             : num 1
   ..$ wbreps             : num 1
-  ..$ FrF2.version       : chr "1.1-1"
+  ..$ FrF2.version       : chr "1.1-4"
   ..$ catlg.name         : chr "catlg"
   ..$ base.design        : chr "12-6.3"
   ..$ map                : num  2 3 4 5 6 1
@@ -1673,7 +1665,7 @@ Classes 'design' and 'data.frame':	32 obs. of  14 variables:
   .. ..$       : chr  "C:L" "D:M" "E:H" "G:O"
   .. ..$       : chr  "C:N" "D:O" "G:M" "H:K"
   .. ..$       : chr  "C:O" "D:N" "G:L" "H:J"
-  ..$ FrF2.version  : chr "1.1-1"
+  ..$ FrF2.version  : chr "1.1-4"
   ..$ catlg.name    : chr "catlg"
   ..$ base.design   : chr "14-9.6"
   ..$ map           : num  1 2 3 4 5
@@ -1991,7 +1983,7 @@ Classes 'design' and 'data.frame':	14 obs. of  14 variables:
   .. .. ..$       : chr  "C:L" "D:M" "E:H" "G:O"
   .. .. ..$       : chr  "C:N" "D:O" "G:M" "H:K"
   .. .. ..$       : chr  "C:O" "D:N" "G:L" "H:J"
-  .. ..$ FrF2.version  : chr "1.1-1"
+  .. ..$ FrF2.version  : chr "1.1-4"
   .. ..$ catlg.name    : chr "catlg"
   .. ..$ base.design   : chr "14-9.6"
   .. ..$ map           : num  1 2 3 4 5

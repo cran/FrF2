@@ -1,6 +1,6 @@
 
-R version 2.10.0 (2009-10-26)
-Copyright (C) 2009 The R Foundation for Statistical Computing
+R version 2.11.0 (2010-04-22)
+Copyright (C) 2010 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -31,37 +31,29 @@ Loading required package: colorspace
 
 Attaching package: 'DoE.base'
 
+The following object(s) are masked from 'package:relimp':
 
-	The following object(s) are masked from package:relimp :
+    showData
 
-	 showData 
+The following object(s) are masked from 'package:stats':
 
+    lm
 
-	The following object(s) are masked from package:stats :
+The following object(s) are masked from 'package:graphics':
 
-	 lm 
+    plot.design
 
+The following object(s) are masked from 'package:utils':
 
-	The following object(s) are masked from package:graphics :
-
-	 plot.design 
-
-
-	The following object(s) are masked from package:utils :
-
-	 fix 
+    fix
 
 
 Attaching package: 'FrF2'
 
+The following object(s) are masked from 'package:BsMD':
 
-	The following object(s) are masked from package:BsMD :
+    DanielPlot
 
-	 DanielPlot 
-
-Warning messages:
-1: package 'igraph' was built under R version 2.10.1 
-2: package 'sfsmisc' was built under R version 2.10.1 
 > ### test programs for fold.design
 > 
 > ##  function for independent checks
@@ -1027,17 +1019,19 @@ $fold
 
 NULL
 $legend
-[1] "A=one"   "B=two"   "C=three" "D=fold"  "E=four" 
+[1] A=one   B=two   C=three D=fold  E=four 
 
 $main
 NULL
 
 $fi2
-[1] "A:C = -D:E" "A:D = -C:E" "A:E = -C:D"
+[1] A:C = -D:E A:D = -C:E A:E = -C:D
 
 $fi3
 NULL
 
+attr(,"class")
+[1] aliases list   
 [1] "unknown"
 [1] "FrF2.estimable.folded"
    one two three     fold four
@@ -1068,17 +1062,19 @@ $fold
 
 NULL
 $legend
-[1] "A=one"   "B=two"   "C=three" "D=fold"  "E=four" 
+[1] A=one   B=two   C=three D=fold  E=four 
 
 $main
 NULL
 
 $fi2
-[1] "A:B = C:E" "A:C = B:E" "A:E = B:C"
+[1] A:B = C:E A:C = B:E A:E = B:C
 
 $fi3
 NULL
 
+attr(,"class")
+[1] aliases list   
 [1] "unknown"
 [1] "FrF2.estimable.folded"
    one two three     fold four
@@ -1109,18 +1105,20 @@ $fold
 
 NULL
 $legend
-[1] "A=A"    "B=B"    "C=C"    "D=D"    "E=fold" "F=E"    "G=F"    "H=G"   
+[1] A=A    B=B    C=C    D=D    E=fold F=E    G=F    H=G   
 
 $main
 NULL
 
 $fi2
-[1] "A:B = C:H = D:H" "A:C = B:H = D:H" "A:D = B:H = C:H" "A:H = B:C = H:G"
-[5] "A:H = B:D = H:G" "A:H = C:D = H:F" "B:H = C:H = D:H"
+[1] A:B = C:H = D:H A:C = B:H = D:H A:D = B:H = C:H A:H = B:C = H:G
+[5] A:H = B:D = H:G A:H = C:D = H:F B:H = C:H = D:H
 
 $fi3
 NULL
 
+attr(,"class")
+[1] aliases list   
 [1] "unknown"
 [1] "FrF2.estimable.folded"
     A  B  C  D     fold  E  F  G
@@ -1166,32 +1164,34 @@ $fold
 
 NULL
 $legend
- [1] "A=fold" "B=A"    "C=B"    "D=C"    "E=D"    "F=E"    "G=F"    "H=G"   
- [9] "J=H"    "K=J"    "L=K"    "M=L"    "N=M"    "O=N"    "P=O"   
+ [1] A=fold B=A    C=B    D=C    E=D    F=E    G=F    H=G    J=H    K=J   
+[11] L=K    M=L    N=M    O=N    P=O   
 
 $main
 NULL
 
 $fi2
- [1] "P:B = P:D = P:G = P:K = P:J = P:M = P:O"
- [2] "P:C = P:D = P:H = P:L = P:J = P:M"      
- [3] "P:D = P:C = P:J = P:M = P:H = P:L"      
- [4] "P:E = P:G = P:H = P:J = P:N = P:O"      
- [5] "P:F = P:K = P:L = P:M = P:N = P:O"      
- [6] "P:G = P:E = P:J = P:H = P:O = P:N"      
- [7] "P:H = P:J = P:E = P:G = P:N = P:O"      
- [8] "P:J = P:H = P:G = P:E = P:O = P:N"      
- [9] "P:K = P:F = P:M = P:L = P:O = P:N"      
-[10] "P:L = P:M = P:F = P:K = P:N = P:O"      
-[11] "P:M = P:L = P:K = P:F = P:O = P:N"      
-[12] "P:N = P:O = P:F = P:K = P:L = P:M"      
-[13] "P:O = P:N = P:K = P:G = P:M = P:L"      
-[14] "P:N = P:O = P:L = P:H = P:M = P:K"      
-[15] "P:O = P:N = P:M = P:J = P:L = P:K"      
+ [1] P:B = P:D = P:G = P:K = P:J = P:M = P:O
+ [2] P:C = P:D = P:H = P:L = P:J = P:M      
+ [3] P:D = P:C = P:J = P:M = P:H = P:L      
+ [4] P:E = P:G = P:H = P:J = P:N = P:O      
+ [5] P:F = P:K = P:L = P:M = P:N = P:O      
+ [6] P:G = P:E = P:J = P:H = P:O = P:N      
+ [7] P:H = P:J = P:E = P:G = P:N = P:O      
+ [8] P:J = P:H = P:G = P:E = P:O = P:N      
+ [9] P:K = P:F = P:M = P:L = P:O = P:N      
+[10] P:L = P:M = P:F = P:K = P:N = P:O      
+[11] P:M = P:L = P:K = P:F = P:O = P:N      
+[12] P:N = P:O = P:F = P:K = P:L = P:M      
+[13] P:O = P:N = P:K = P:G = P:M = P:L      
+[14] P:N = P:O = P:L = P:H = P:M = P:K      
+[15] P:O = P:N = P:M = P:J = P:L = P:K      
 
 $fi3
 NULL
 
+attr(,"class")
+[1] aliases list   
 [1] 4
 [1] "FrF2.splitplot.folded"
   run.no run.no.std.rp     fold  A  B  C  D  E  F  G  H  J  K  L  M  N  O
@@ -1285,44 +1285,46 @@ $fold
 
 NULL
 $legend
- [1] "A=fold" "B=A"    "C=B"    "D=C"    "E=D"    "F=E"    "G=F"    "H=G"   
- [9] "J=H"    "K=J"    "L=K"    "M=L"    "N=M"    "O=N"    "P=O"   
+ [1] A=fold B=A    C=B    D=C    E=D    F=E    G=F    H=G    J=H    K=J   
+[11] L=K    M=L    N=M    O=N    P=O   
 
 $main
 NULL
 
 $fi2
- [1] "P:B = P:D = P:G = P:K = P:J = P:M = P:O"
- [2] "P:C = P:D"                              
- [3] "P:D = P:C"                              
- [4] "P:E = P:G"                              
- [5] "P:F = P:K"                              
- [6] "P:G = P:E"                              
- [7] "P:H = P:J"                              
- [8] "P:J = P:H"                              
- [9] "P:K = P:F"                              
-[10] "P:L = P:M"                              
-[11] "P:M = P:L"                              
-[12] "P:N = P:O"                              
-[13] "P:O = P:N"                              
-[14] "P:E = P:G = P:N = P:O"                  
-[15] "P:F = P:K = P:N = P:O"                  
-[16] "P:G = P:E = P:O = P:N"                  
-[17] "P:H = P:J = P:N = P:O"                  
-[18] "P:J = P:H = P:O = P:N"                  
-[19] "P:K = P:F = P:O = P:N"                  
-[20] "P:L = P:M = P:N = P:O"                  
-[21] "P:M = P:L = P:O = P:N"                  
-[22] "P:N = P:O = P:L = P:H = P:M = P:K"      
-[23] "P:O = P:N = P:M = P:J = P:L = P:K"      
-[24] "P:F = P:K = P:L = P:M"                  
-[25] "P:H = P:L = P:J = P:M"                  
-[26] "P:J = P:M = P:H = P:L"                  
-[27] "P:K = P:G = P:M = P:L"                  
+ [1] P:B = P:D = P:G = P:K = P:J = P:M = P:O
+ [2] P:C = P:D                              
+ [3] P:D = P:C                              
+ [4] P:E = P:G                              
+ [5] P:F = P:K                              
+ [6] P:G = P:E                              
+ [7] P:H = P:J                              
+ [8] P:J = P:H                              
+ [9] P:K = P:F                              
+[10] P:L = P:M                              
+[11] P:M = P:L                              
+[12] P:N = P:O                              
+[13] P:O = P:N                              
+[14] P:E = P:G = P:N = P:O                  
+[15] P:F = P:K = P:N = P:O                  
+[16] P:G = P:E = P:O = P:N                  
+[17] P:H = P:J = P:N = P:O                  
+[18] P:J = P:H = P:O = P:N                  
+[19] P:K = P:F = P:O = P:N                  
+[20] P:L = P:M = P:N = P:O                  
+[21] P:M = P:L = P:O = P:N                  
+[22] P:N = P:O = P:L = P:H = P:M = P:K      
+[23] P:O = P:N = P:M = P:J = P:L = P:K      
+[24] P:F = P:K = P:L = P:M                  
+[25] P:H = P:L = P:J = P:M                  
+[26] P:J = P:M = P:H = P:L                  
+[27] P:K = P:G = P:M = P:L                  
 
 $fi3
 NULL
 
+attr(,"class")
+[1] aliases list   
 [1] 4
 [1] "FrF2.splitplot.folded"
   run.no run.no.std.rp     fold  A  B  C  D  E  F  G  H  J  K  L  M  N  O
@@ -1416,44 +1418,46 @@ $fold
 
 NULL
 $legend
- [1] "A=fold" "B=A"    "C=B"    "D=C"    "E=D"    "F=E"    "G=F"    "H=G"   
- [9] "J=H"    "K=J"    "L=K"    "M=L"    "N=M"    "O=N"    "P=O"   
+ [1] A=fold B=A    C=B    D=C    E=D    F=E    G=F    H=G    J=H    K=J   
+[11] L=K    M=L    N=M    O=N    P=O   
 
 $main
 NULL
 
 $fi2
- [1] "P:B = P:D = P:G = P:K = P:J = P:M = P:O"
- [2] "P:C = P:D = P:H = P:L = P:J = P:M"      
- [3] "P:D = P:C = P:J = P:M = P:H = P:L"      
- [4] "P:E = P:G = P:H = P:J"                  
- [5] "P:F = P:K = P:L = P:M"                  
- [6] "P:G = P:E = P:J = P:H"                  
- [7] "P:H = P:J = P:E = P:G"                  
- [8] "P:J = P:H = P:G = P:E"                  
- [9] "P:K = P:F = P:M = P:L"                  
-[10] "P:L = P:M = P:F = P:K"                  
-[11] "P:M = P:L = P:K = P:F"                  
-[12] "P:N = P:O"                              
-[13] "P:O = P:N"                              
-[14] "P:N = P:O"                              
-[15] "P:O = P:N"                              
-[16] "P:F = P:K = P:L = P:M"                  
-[17] "P:K = P:G = P:M = P:L"                  
-[18] "P:L = P:H = P:M = P:K"                  
-[19] "P:M = P:J = P:L = P:K"                  
-[20] "P:N = P:O"                              
-[21] "P:O = P:N"                              
-[22] "P:N = P:O"                              
-[23] "P:O = P:N"                              
-[24] "P:N = P:O"                              
-[25] "P:O = P:N"                              
-[26] "P:N = P:O"                              
-[27] "P:O = P:N"                              
+ [1] P:B = P:D = P:G = P:K = P:J = P:M = P:O
+ [2] P:C = P:D = P:H = P:L = P:J = P:M      
+ [3] P:D = P:C = P:J = P:M = P:H = P:L      
+ [4] P:E = P:G = P:H = P:J                  
+ [5] P:F = P:K = P:L = P:M                  
+ [6] P:G = P:E = P:J = P:H                  
+ [7] P:H = P:J = P:E = P:G                  
+ [8] P:J = P:H = P:G = P:E                  
+ [9] P:K = P:F = P:M = P:L                  
+[10] P:L = P:M = P:F = P:K                  
+[11] P:M = P:L = P:K = P:F                  
+[12] P:N = P:O                              
+[13] P:O = P:N                              
+[14] P:N = P:O                              
+[15] P:O = P:N                              
+[16] P:F = P:K = P:L = P:M                  
+[17] P:K = P:G = P:M = P:L                  
+[18] P:L = P:H = P:M = P:K                  
+[19] P:M = P:J = P:L = P:K                  
+[20] P:N = P:O                              
+[21] P:O = P:N                              
+[22] P:N = P:O                              
+[23] P:O = P:N                              
+[24] P:N = P:O                              
+[25] P:O = P:N                              
+[26] P:N = P:O                              
+[27] P:O = P:N                              
 
 $fi3
 NULL
 
+attr(,"class")
+[1] aliases list   
 [1] 4
 [1] "FrF2.splitplot.folded"
   run.no run.no.std.rp     fold  A  B  C  D  E  F  G  H  J  K  L  M  N  O
@@ -1547,46 +1551,48 @@ $fold
 
 NULL
 $legend
- [1] "A=fold" "B=A"    "C=B"    "D=WP3"  "E=C"    "F=D"    "G=E"    "H=F"   
- [9] "J=G"    "K=H"    "L=J"    "M=K"    "N=L"    "O=M"    "P=N"    "Q=O"   
+ [1] A=fold B=A    C=B    D=WP3  E=C    F=D    G=E    H=F    J=G    K=H   
+[11] L=J    M=K    N=L    O=M    P=N    Q=O   
 
 $main
 NULL
 
 $fi2
- [1] "P:A = -P:E"                                          
- [2] "P:B = -P:Q"                                          
- [3] "P:Q = -P:G"                                          
- [4] "P:C = -P:E = -P:Q = -Q:P = -Q:P = -Q:M = -P:N = -Q:O"
- [5] "P:Q = -P:L"                                          
- [6] "P:E = -P:C"                                          
- [7] "P:Q = -P:C"                                          
- [8] "P:G = -Q:P"                                          
- [9] "P:Q = -P:Q"                                          
-[10] "P:J = -P:N"                                          
-[11] "P:Q = -P:Q"                                          
-[12] "P:L = -P:Q"                                          
-[13] "P:Q = -P:Q"                                          
-[14] "P:N = -P:J"                                          
-[15] "P:Q = -P:Q"                                          
-[16] "P:B = Q:H = P:Q = P:Q = P:Q = P:Q"                   
-[17] "P:Q = Q:P = P:G = Q:K = P:N = Q:O"                   
-[18] "P:Q = P:Q = Q:P = P:L = Q:M = P:N"                   
-[19] "P:Q = P:E = Q:M = Q:P = P:Q = Q:P"                   
-[20] "P:G = Q:P = Q:P = Q:O = P:L = Q:M"                   
-[21] "P:Q = P:Q = Q:K = P:Q = Q:P = P:Q"                   
-[22] "P:J = P:Q = Q:D = P:N = Q:O = P:L"                   
-[23] "P:Q = P:J = Q:H = P:Q = Q:P = P:Q"                   
-[24] "P:L = P:Q = Q:P = Q:P = Q:H = P:J"                   
-[25] "P:Q = P:L = Q:O = Q:F = P:Q = P:Q"                   
-[26] "P:N = P:Q = Q:P = Q:P = P:J = Q:K"                   
-[27] "P:Q = P:N = Q:M = P:Q = Q:P = P:Q"                   
-[28] "P:Q = Q:K = Q:P = Q:P = P:Q = Q:P"                   
-[29] "P:G = Q:F = Q:O = Q:P = P:Q = Q:P"                   
+ [1] P:A = -P:E                                          
+ [2] P:B = -P:Q                                          
+ [3] P:Q = -P:G                                          
+ [4] P:C = -P:E = -P:Q = -Q:P = -Q:P = -Q:M = -P:N = -Q:O
+ [5] P:Q = -P:L                                          
+ [6] P:E = -P:C                                          
+ [7] P:Q = -P:C                                          
+ [8] P:G = -Q:P                                          
+ [9] P:Q = -P:Q                                          
+[10] P:J = -P:N                                          
+[11] P:Q = -P:Q                                          
+[12] P:L = -P:Q                                          
+[13] P:Q = -P:Q                                          
+[14] P:N = -P:J                                          
+[15] P:Q = -P:Q                                          
+[16] P:B = Q:H = P:Q = P:Q = P:Q = P:Q                   
+[17] P:Q = Q:P = P:G = Q:K = P:N = Q:O                   
+[18] P:Q = P:Q = Q:P = P:L = Q:M = P:N                   
+[19] P:Q = P:E = Q:M = Q:P = P:Q = Q:P                   
+[20] P:G = Q:P = Q:P = Q:O = P:L = Q:M                   
+[21] P:Q = P:Q = Q:K = P:Q = Q:P = P:Q                   
+[22] P:J = P:Q = Q:D = P:N = Q:O = P:L                   
+[23] P:Q = P:J = Q:H = P:Q = Q:P = P:Q                   
+[24] P:L = P:Q = Q:P = Q:P = Q:H = P:J                   
+[25] P:Q = P:L = Q:O = Q:F = P:Q = P:Q                   
+[26] P:N = P:Q = Q:P = Q:P = P:J = Q:K                   
+[27] P:Q = P:N = Q:M = P:Q = Q:P = P:Q                   
+[28] P:Q = Q:K = Q:P = Q:P = P:Q = Q:P                   
+[29] P:G = Q:F = Q:O = Q:P = P:Q = Q:P                   
 
 $fi3
 NULL
 
+attr(,"class")
+[1] aliases list   
 [1] Inf
 [1] "FrF2.splitplot.folded"
   run.no run.no.std.rp     fold  A  B WP3  C  D  E  F  G  H  J  K  L  M  N  O
@@ -1680,36 +1686,38 @@ $fold
 
 NULL
 $legend
- [1] "A=fold" "B=A"    "C=B"    "D=WP3"  "E=C"    "F=D"    "G=E"    "H=F"   
- [9] "J=G"    "K=H"    "L=J"    "M=K"    "N=L"    "O=M"    "P=N"    "Q=O"   
+ [1] A=fold B=A    C=B    D=WP3  E=C    F=D    G=E    H=F    J=G    K=H   
+[11] L=J    M=K    N=L    O=M    P=N    Q=O   
 
 $main
- [1] "Q = P:G"                         "P = Q:P = Q:P = Q:M = P:N = Q:O"
- [3] "Q = P:L"                         "P = Q:P"                        
- [5] "Q = P:Q"                         "P = P:N"                        
- [7] "Q = P:Q"                         "P = P:Q"                        
- [9] "Q = P:Q"                         "P = P:J"                        
-[11] "Q = P:Q"                        
+ [1] Q = P:G                         P = Q:P = Q:P = Q:M = P:N = Q:O
+ [3] Q = P:L                         P = Q:P                        
+ [5] Q = P:Q                         P = P:N                        
+ [7] Q = P:Q                         P = P:Q                        
+ [9] Q = P:Q                         P = P:J                        
+[11] Q = P:Q                        
 
 $fi2
- [1] "P:A = -P:E"                        "P:B = -P:Q"                       
- [3] "P:C = -P:E = -P:Q"                 "P:E = -P:C"                       
- [5] "P:Q = -P:C"                        "P:B = Q:H = P:Q = P:Q = P:Q = P:Q"
- [7] "P:Q = P:Q"                         "P:Q = P:E"                        
- [9] "P:Q = P:Q"                         "P:J = P:Q"                        
-[11] "P:Q = P:J"                         "P:L = P:Q"                        
-[13] "P:Q = P:L"                         "P:N = P:Q"                        
-[15] "P:Q = P:N"                         "Q:D = P:N = Q:O = P:L"            
-[17] "Q:P = Q:P = Q:O = P:L = Q:M"       "Q:F = Q:O = Q:P = P:Q = Q:P"      
-[19] "Q:H = P:Q = Q:P = P:Q"             "Q:P = P:L = Q:M = P:N"            
-[21] "Q:K = P:Q = Q:P = P:Q"             "Q:P = Q:P = P:J = Q:K"            
-[23] "Q:M = P:Q = Q:P = P:Q"             "Q:P = Q:P = Q:H = P:J"            
-[25] "Q:O = Q:F = P:Q = P:Q"             "Q:P = P:G = Q:K = P:N = Q:O"      
-[27] "Q:K = Q:P = Q:P = P:Q = Q:P"       "Q:M = Q:P = P:Q = Q:P"            
+ [1] P:A = -P:E                        P:B = -P:Q                       
+ [3] P:C = -P:E = -P:Q                 P:E = -P:C                       
+ [5] P:Q = -P:C                        P:B = Q:H = P:Q = P:Q = P:Q = P:Q
+ [7] P:Q = P:Q                         P:Q = P:E                        
+ [9] P:Q = P:Q                         P:J = P:Q                        
+[11] P:Q = P:J                         P:L = P:Q                        
+[13] P:Q = P:L                         P:N = P:Q                        
+[15] P:Q = P:N                         Q:D = P:N = Q:O = P:L            
+[17] Q:P = Q:P = Q:O = P:L = Q:M       Q:F = Q:O = Q:P = P:Q = Q:P      
+[19] Q:H = P:Q = Q:P = P:Q             Q:P = P:L = Q:M = P:N            
+[21] Q:K = P:Q = Q:P = P:Q             Q:P = Q:P = P:J = Q:K            
+[23] Q:M = P:Q = Q:P = P:Q             Q:P = Q:P = Q:H = P:J            
+[25] Q:O = Q:F = P:Q = P:Q             Q:P = P:G = Q:K = P:N = Q:O      
+[27] Q:K = Q:P = Q:P = P:Q = Q:P       Q:M = Q:P = P:Q = Q:P            
 
 $fi3
 NULL
 
+attr(,"class")
+[1] aliases list   
 [1] Inf
 [1] "FrF2.splitplot.folded"
   run.no run.no.std.rp     fold  A  B WP3  C  D  E  F  G  H  J  K  L  M  N  O
@@ -1803,44 +1811,46 @@ $fold
 
 NULL
 $legend
- [1] "A=fold" "B=A"    "C=B"    "D=WP3"  "E=C"    "F=D"    "G=E"    "H=F"   
- [9] "J=G"    "K=H"    "L=J"    "M=K"    "N=L"    "O=M"    "P=N"    "Q=O"   
+ [1] A=fold B=A    C=B    D=WP3  E=C    F=D    G=E    H=F    J=G    K=H   
+[11] L=J    M=K    N=L    O=M    P=N    Q=O   
 
 $main
-[1] "P = P:Q" "P = P:Q" "Q = P:C"
+[1] P = P:Q P = P:Q Q = P:C
 
 $fi2
- [1] "P:A = -P:E"                                   
- [2] "P:Q = -P:G"                                   
- [3] "P:C = -P:E = -Q:P = -Q:P = -Q:M = -P:N = -Q:O"
- [4] "P:Q = -P:L"                                   
- [5] "P:E = -P:C"                                   
- [6] "P:G = -Q:P"                                   
- [7] "P:Q = -P:Q"                                   
- [8] "P:J = -P:N"                                   
- [9] "P:Q = -P:Q"                                   
-[10] "P:L = -P:Q"                                   
-[11] "P:Q = -P:Q"                                   
-[12] "P:N = -P:J"                                   
-[13] "P:Q = -P:Q"                                   
-[14] "P:Q = Q:P = P:G = Q:K = P:N = Q:O"            
-[15] "P:Q = Q:P = P:L = Q:M = P:N"                  
-[16] "P:Q = Q:M = Q:P = P:Q = Q:P"                  
-[17] "P:G = Q:P = Q:P = Q:O = P:L = Q:M"            
-[18] "P:Q = Q:K = P:Q = Q:P = P:Q"                  
-[19] "P:J = Q:D = P:N = Q:O = P:L"                  
-[20] "P:Q = Q:H = P:Q = Q:P = P:Q"                  
-[21] "P:L = Q:P = Q:P = Q:H = P:J"                  
-[22] "P:Q = Q:O = Q:F = P:Q = P:Q"                  
-[23] "P:N = Q:P = Q:P = P:J = Q:K"                  
-[24] "P:Q = Q:M = P:Q = Q:P = P:Q"                  
-[25] "Q:F = Q:O = Q:P = P:Q = Q:P"                  
-[26] "Q:H = P:Q = P:Q = P:Q = P:Q"                  
-[27] "Q:K = Q:P = Q:P = P:Q = Q:P"                  
+ [1] P:A = -P:E                                   
+ [2] P:Q = -P:G                                   
+ [3] P:C = -P:E = -Q:P = -Q:P = -Q:M = -P:N = -Q:O
+ [4] P:Q = -P:L                                   
+ [5] P:E = -P:C                                   
+ [6] P:G = -Q:P                                   
+ [7] P:Q = -P:Q                                   
+ [8] P:J = -P:N                                   
+ [9] P:Q = -P:Q                                   
+[10] P:L = -P:Q                                   
+[11] P:Q = -P:Q                                   
+[12] P:N = -P:J                                   
+[13] P:Q = -P:Q                                   
+[14] P:Q = Q:P = P:G = Q:K = P:N = Q:O            
+[15] P:Q = Q:P = P:L = Q:M = P:N                  
+[16] P:Q = Q:M = Q:P = P:Q = Q:P                  
+[17] P:G = Q:P = Q:P = Q:O = P:L = Q:M            
+[18] P:Q = Q:K = P:Q = Q:P = P:Q                  
+[19] P:J = Q:D = P:N = Q:O = P:L                  
+[20] P:Q = Q:H = P:Q = Q:P = P:Q                  
+[21] P:L = Q:P = Q:P = Q:H = P:J                  
+[22] P:Q = Q:O = Q:F = P:Q = P:Q                  
+[23] P:N = Q:P = Q:P = P:J = Q:K                  
+[24] P:Q = Q:M = P:Q = Q:P = P:Q                  
+[25] Q:F = Q:O = Q:P = P:Q = Q:P                  
+[26] Q:H = P:Q = P:Q = P:Q = P:Q                  
+[27] Q:K = Q:P = Q:P = P:Q = Q:P                  
 
 $fi3
 NULL
 
+attr(,"class")
+[1] aliases list   
 [1] Inf
 [1] "FrF2.splitplot.folded"
   run.no run.no.std.rp     fold  A  B WP3  C  D  E  F  G  H  J  K  L  M  N  O

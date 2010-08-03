@@ -10,6 +10,7 @@
 
      S3method("[",catlg)
      S3method(print,catlg)
+     S3method(print,aliases)
      S3method(MEPlot,default)
      S3method(MEPlot,design)
      S3method(IAPlot,default)
