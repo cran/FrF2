@@ -100,13 +100,17 @@ block.catlg
   designs as the designs in 32 runs on which they are based). The author is grateful 
   to Robert Mee for pointing this out.
   
-  \item a few \dQuote{good} resolution IV designs in 128 runs, for up to 24 factors 
-  obtained by evaluating designs from the complete catalogue by Xu (2009, catalogue on his website),
-  for 25 to 64 factors taken from Block and Mee (2005, with corrigendum 2006). Furthermore, 
-  the MA resolution III designs designs for 65 to 127 factors in 128 runs 
-  are also included, with the designs up to 69 factors coming from Appendix G 
+  \item a few \dQuote{good} resolution IV designs in 128 runs, 
+  \itemize{
+  \item for up to 24 factors 
+  obtained by evaluating designs from the complete catalogue by Xu (2009, catalogue on his website) 
+  w.r.t. aberration and number of clear 2fis (adding also all designs that yield 
+  minimum aberration clear compromise designs according to Groemping 2010),
+  \item for 25 to 64 factors taken from Block and Mee (2005, with corrigendum 2006). 
+  \item for 65 to 127 factors 
+  the MA resolution III designs, with the designs up to 69 factors coming from Appendix G 
   in Mee, whereas the designs for 70 or more factors have been  
-  constructed according to the same principle mentioned for the 64 run designs.\cr
+  constructed according to the same principle mentioned for the 64 run designs.}
   Note that the complete catalogue of non-isomorphic resolution IV designs is 
   available for up to 24 factors. For up to 23 factors, it is separately provided in 
   package (\pkg{FrF2.catlg128}), since it is quite large and should not be forced upon 
@@ -155,6 +159,11 @@ Block, R. and Mee, R. (2005) Resolution IV Designs with 128 Runs \emph{Journal o
 Block, R. and Mee, R. (2006) Corrigenda \emph{Journal of Quality Technology} \bold{38}, 196.
 
 Chen, J., Sun, D.X. and Wu, C.F.J. (1993) A catalogue of 2-level and 3-level orthogonal arrays. \emph{Int. Statistical Review} \bold{61}, 131-145.
+
+Groemping, U. (2010). Creating clear designs: a graph-based algorithm and a 
+catalogue of clear compromise plans. 
+\emph{Reports in Mathematics, Physics and Chemistry}, report 05/2010, 
+Department II, Beuth University of Applied Sciences Berlin.
 
 Mee, R. (2009). \emph{A Comprehensive Guide to Factorial Two-Level Experimentation}. 
 New York: Springer.

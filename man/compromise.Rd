@@ -48,11 +48,16 @@
   
   Note that the catalogue \code{\link{catlg}} contains all designs needed for 
   accomodating existing clear compromise designs in up to 128 runs (even minimum aberration
-  among all existing clear compromise designs).
+  among all existing clear compromise designs; for a catalogue of these, cf. Gr\"omping 2010).
 }
 \references{
 Addelman, S. (1962). Symmetrical and asymmetrical fractional factorial plans. 
 \emph{Technometrics} \bold{4}, 47-58.
+
+Gr\"omping, U. (2010). Creating clear designs: a graph-based algorithm and a 
+catalogue of clear compromise plans. 
+\emph{Reports in Mathematics, Physics and Chemistry}, report 05/2010, 
+Department II, Beuth University of Applied Sciences Berlin.
 
 Ke, W., Tang, B. and Wu, H. (2005). Compromise plans with clear two-factor interactions. 
 \emph{Statistica Sinica} \bold{15}, 709-715.

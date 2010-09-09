@@ -11,7 +11,7 @@
   model is intended, as it is normally not reasonable to allow main effects to be 
   aliased with other 2-factor interactions in this situation. There are two types of 
   estimability that are distinguished by the setting of option \code{clear} in 
-  function \code{link{FrF2}}.
+  function \code{\link{FrF2}} (cf. Groemping 2010a).
   
   Let us first consider the situation of designs of at least resolution IV. 
   With option \code{clear=TRUE}, \code{FrF2} searches for 
@@ -30,9 +30,10 @@
   \code{estimable} while 2fis from inside \code{estimable} are not aliased with 
   any main effects or 2fis. 
   
-  With \code{clear=TRUE}, the algorithms compares the requirement set to 
+  With \code{clear=TRUE}, the algorithm compares the requirement set to 
   catalogued sets of clear 2fis by a graph isomorphism algorithm from R-package 
-  \pkg{igraph}. The search is quite fast in this case.
+  \pkg{igraph}. The search is quite fast in this case. For details of this algorithm, 
+  cf. Groemping (2010b).
   
   With \code{clear=FALSE}, the algorithm loops through the eligible designs from 
   \code{catlg.select} from good to worse (in terms of MA) and, for each design, loops 
@@ -46,6 +47,7 @@
   decide to proceed later with this starting point (indicated by \code{catlg.select} 
   for the catalogued design(s) to be used and \code{perm.start} for the current 
   permutation of experiment factors). 
+
   Note that - according to the structure of the catalogued designs and the lexicographic 
   order of checking permutations - the initial order of the factors has a strong influence 
   on the run time for larger or unlucky problems. For example, consider 
@@ -78,7 +80,8 @@
   
   In order to support relatively comfortable creation of distinct designs of some frequently-used types 
   of required interaction patterns, the function \code{\link{compromise}} has been 
-  divised: it supports creation of the so-called compromise designs of classes 1 to 4. 
+  divised: it supports creation of the so-called compromise plans of classes 1 to 4 (cf. 
+  e.g. Addelman 1962; Ke, Tang and Wu 2005; Groemping 2010). 
   The list it returns also contains a component \code{perms.full} that can be used as input 
   for the \code{perms} option.
   
@@ -88,9 +91,19 @@
 Addelman, S. (1962). Symmetrical and asymmetrical fractional factorial plans. 
 \emph{Technometrics} \bold{4}, 47-58.
 
-Chen, J., Sun, D.X. and Wu, C.F.J. (1993) 
-A catalogue of 2-level and 3-level orthogonal arrays. 
+Chen, J., Sun, D.X. and Wu, C.F.J. (1993). A catalogue of 2-level and 3-level 
+orthogonal arrays. 
 \emph{International Statistical Review} \bold{61}, 131-145. 
+
+Groemping, U. (2010a). \dQuote{Clear} and \dQuote{Distinct}: two approaches for regular 
+fractional factorial designs with estimability requirements. 
+\emph{Reports in Mathematics, Physics and Chemistry}, report 02/2010, 
+Department II, Beuth University of Applied Sciences Berlin.
+
+Groemping, U. (2010b). Creating clear designs: a graph-based algorithm and a 
+catalogue of clear compromise plans. 
+\emph{Reports in Mathematics, Physics and Chemistry}, report 05/2010, 
+Department II, Beuth University of Applied Sciences Berlin.
 
 Ke, W., Tang, B. and Wu, H. (2005). Compromise plans with clear two-factor interactions. 
 \emph{Statistica Sinica} \bold{15}, 709-715.
@@ -106,7 +119,7 @@ are important.
 \seealso{ See also \code{\link{FrF2}} for regular fractional factorials, 
 \code{\link{catlg}} for the Chen, Sun, Wu (1993) and larger catalogues of designs 
 and some accessor functions, and function \code{\link{compromise}} for a convenience 
-function to handle estimability requests for compromise designs}
+function to handle estimability requests for compromise plans}
 \examples{
 ########## usage of estimable ###########################
   ## design with all 2fis of factor A estimable on distinct columns in 16 runs

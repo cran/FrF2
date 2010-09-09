@@ -330,8 +330,8 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
   \item{\dots}{ currently not used }
 }
 \details{
-  Per default, the function works on the basis of automatically-selected catalogued designs. The 
-  default catalogue used is \code{\link{catlg}} (a list object of class \code{catlg}). 
+  Per default, the function picks the best design from the 
+  default design catalogue \code{\link{catlg}} (a list object of class \code{catlg}). 
   
   Alternatively, the user can explicitly specify a design through accessing 
   a specific catalogued design using the \code{design} option or specifying non-catalogued 
@@ -481,6 +481,11 @@ Optimal two-level regular fractional factorial block and split-plot designs.
 Cheng, S.W. and Wu, C.F.J. (2002). 
 Choice of optimal blocking schemes in 2-level and 3-level designs. 
 \emph{Technometrics} \bold{44}, 269-277. 
+
+Groemping, U. (2010). Creating clear designs: a graph-based algorithm and a 
+catalogue of clear compromise plans. 
+\emph{Reports in Mathematics, Physics and Chemistry}, report 05/2010, 
+Department II, Beuth University of Applied Sciences Berlin.
 
 Huang, P., Chen, D. and Voelkel, J.O. (1998). Minimum-Aberration Two-Level Split-Plot Designs. 
 \emph{Technometrics} \bold{40}, 314-326. 

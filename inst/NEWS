@@ -3,6 +3,10 @@ Changes to package FrF2
 The package is still under development. 
 Suggestions and bug reports are very welcome.
 
+09/09/2010, Version 1.1-5
+- added references to technical reports in help files for estimable 2fis, 
+  design catalogue and fractional factorial design generation
+
 03/08/2010, Version 1.1-4
 - reformatted NEWS file for improving display with news() function
 - modified function aliasprint
