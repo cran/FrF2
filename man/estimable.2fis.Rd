@@ -7,13 +7,18 @@
 }
 \details{
   The option \code{estimable} allows to specify 2-factor interactions (2fis) that 
-  have to be estimable in the model. Per default, it is assumed that a resolution IV 
-  model is intended, as it is normally not reasonable to allow main effects to be 
+  have to be estimable in the model. Whenever a resolution V or higher design is available, 
+  this option is unnecessary, because all 2fis are estimable in the sense that they are 
+  not aliased with any main effect or any other 2fi. If resolution V or higher is not affordable, 
+  the option \code{estimable} can ensure that certain 2fis can nevertheless be estimated. 
+  
+  Per default, it is assumed that a resolution IV design is required, 
+  as it is normally not reasonable to allow main effects to be 
   aliased with other 2-factor interactions in this situation. There are two types of 
   estimability that are distinguished by the setting of option \code{clear} in 
   function \code{\link{FrF2}} (cf. Groemping 2010a).
   
-  Let us first consider the situation of designs of at least resolution IV. 
+  Let us first consider designs of at least resolution IV. 
   With option \code{clear=TRUE}, \code{FrF2} searches for 
   a model for which all main effects and all 2fis given in \code{estimable} are 
   clear of aliasing with any other 2fis. This is a weaker requirement than resolution V, 
@@ -33,7 +38,16 @@
   With \code{clear=TRUE}, the algorithm compares the requirement set to 
   catalogued sets of clear 2fis by a graph isomorphism algorithm from R-package 
   \pkg{igraph}. The search is quite fast in this case. For details of this algorithm, 
-  cf. Groemping (2010b).
+  cf. Groemping (2010b). With the catalogue \code{\link{catlg}} available in this package, 
+  the best (minimum aberration) existing clear designs are guaranteed to be found 
+  for up to 64 runs and have a good chance to be found for 128 runs. For 128 runs, 
+  it is possible to load a very large complete catalogue 
+  (package \pkg{\link[FrF2.catlg128]{FrF2.catlg128}}) 
+  in order to also guarantee that the best clear design is found. For 256 and 512 runs, 
+  only one or two resolution IV designs of each size are catalogued so that 
+  option \code{estimable} can try to influence allocation of factors to columns, 
+  but may fail although an appropriate clear design would exist outside the catalogued 
+  designs.
   
   With \code{clear=FALSE}, the algorithm loops through the eligible designs from 
   \code{catlg.select} from good to worse (in terms of MA) and, for each design, loops 

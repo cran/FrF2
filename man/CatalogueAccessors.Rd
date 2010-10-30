@@ -80,7 +80,11 @@ block.catlg
   Options \code{gen.letters} and \code{show.alias} influence the style and amount of printed output.
    
   The catalogue \code{catlg}, which is included with package \code{FrF2}, 
-  is of class \code{catlg} and currently contains 
+  is of class \code{catlg} and is a living object, since it has to be updated with 
+  recent research results for larger designs. In particular, new MA designs may be found, 
+  or it may be proven that previous \dQuote{good} designs are in fact of minimum aberration.
+  
+  Currently, the catalogue contains
   \itemize{
   \item the Chen, Sun and Wu (1993) 2-level designs 
   (complete list of 2-level fractional factorials from 4 to 32~runs, 
@@ -100,35 +104,52 @@ block.catlg
   designs as the designs in 32 runs on which they are based). The author is grateful 
   to Robert Mee for pointing this out.
   
-  \item a few \dQuote{good} resolution IV designs in 128 runs, 
+  \item the MA designs in 128 runs:
   \itemize{
-  \item for up to 24 factors 
-  obtained by evaluating designs from the complete catalogue by Xu (2009, catalogue on his website) 
-  w.r.t. aberration and number of clear 2fis (adding also all designs that yield 
-  minimum aberration clear compromise designs according to Groemping 2010),
-  \item for 25 to 64 factors taken from Block and Mee (2005, with corrigendum 2006). 
-  \item for 65 to 127 factors 
-  the MA resolution III designs, with the designs up to 69 factors coming from Appendix G 
+  \item for up to 24 factors obtained from Xu (2009),
+  \item for 25 to 64 factors taken from Block and Mee (2005, with corrigendum 2006),
+  \item for 65 to 127 factors (resolution III): up to 69 factors coming from Appendix G 
   in Mee, whereas the designs for 70 or more factors have been  
   constructed according to the same principle mentioned for the 64 run designs.}
-  Note that the complete catalogue of non-isomorphic resolution IV designs is 
+  
+  \item various further \dQuote{good} resolution IV designs in 128 runs obtained by evaluating 
+  designs from the complete catalogue by Xu (2009, catalogue on his website) 
+  w.r.t. aberration and number of clear 2fis (including also all designs that yield 
+  minimum aberration clear compromise designs according to Groemping 2010).
+
+  Note that the complete catalogue of non-isomorphic resolution IV designs in 128 runs is 
   available for up to 24 factors. For up to 23 factors, it is separately provided in 
   package (\pkg{FrF2.catlg128}), since it is quite large and should not be forced upon 
   users of this package who do not need it; the very large catalogue for 24 factors  
-  can be downloaded from the authors website (as an R work space).
+  can be separately downloaded from the authors website (as an R work space).
+  
+  \item the best (MA) resolution IV or higher designs in \cr
+  256 runs for up to 36 factors (resolution V up to 17 factors),\cr 
+  512 runs for up to 29 factors (resolution V for up to 23 factors).\cr 
+  These have been taken from Xu (2009) with additions by Ryan and Bulutoglu 
+  (2010). 
+  
+  \item Further \dQuote{good} resolution IV designs with up to 80 factors in 
+  256 runs and up to 160 factors in 512 runs have also been implemented from Xu (2009).
   
   \item the best (MA) resolution V or higher design for each number of factors or 
   a \dQuote{good} such design (if it is not known which one is best) in \cr
-  256 (up to 17 factors, all MA),\cr 
-  512 runs (up to 23 factors, all MA),\cr 
-  1024 runs (up to 33 factors, MA up to 24 factors), \cr
-  2048 runs (up to 47 factors, MA up to 23 factors),\cr
-  and 4096 runs (up to 65 factors, MA up to 24 factors).\cr 
-  These have been taken from Xu (2009), where complete catalogues of some scenarios are provided 
+  1024 runs (up to 33 factors, MA up to 28 factors, resolution VI up to 24 factors), \cr
+  2048 runs (up to 47 factors, MA up to 32 factors, resolution VI up to 34 factors),\cr
+  and 4096 runs (up to 65 factors, MA up to 26 factors, resolution VI up to 48 factors).\cr 
+
+  Most of the large designs in \code{catlg} have been taken from Xu (2009), 
+  where complete catalogues of some scenarios are provided 
   (cf. also his website) as well as \dQuote{good} (not necessarily MA) designs for a larger 
-  set of situations. Note that designs that are not MA do not have a running number in the design name; 
-  for example, the 1024 runs design in 24 factors is named 24-14.1, the 1024 runs design in 25 factors 
-  is named 25-15 (without \dQuote{.1}, because the design is not known to be best, i.e. first).
+  set of situations. Some of the good designs by Xu (2009) have later been shown 
+  to be MA by Ryan and Bulutoglu (2010), who also found some additional larger MA designs, 
+  which are also included in \code{catlg}. Non-MA designs that 
+  were already available before Bulutoglu (2010) are still in the catalogue with their old name.
+  (Note that designs that are not MA and cannot be placed in the ranking do not 
+  have a running number in the design name; for example, the MA 2048 runs 
+  design in 28 factors is named 28-17.1, the older previous design 
+  that was not MA is named 28-17 (without \dQuote{.1} or another placement, 
+  because the designs position in the ranking of all designs is not known.)) 
   }
   
   There are also some non-regular 2-level fractional factorial designs of resolution V 
@@ -168,6 +189,10 @@ Department II, Beuth University of Applied Sciences Berlin.
 Mee, R. (2009). \emph{A Comprehensive Guide to Factorial Two-Level Experimentation}. 
 New York: Springer.
     
+
+Ryan, K.J. and Bulutoglu, D.A. (2010). Minimum Aberration Fractional Factorial Designs With Large N.
+     \emph{Technometrics} \bold{52}, 250-255.
+
 Sun, D.X., Wu, C.F.J. and Chen, Y.Y. (1997). 
 Optimal blocking schemes for 2\^p and 2\^(n-p) designs. \emph{Technometrics} \bold{39}, 
 298-307. 
@@ -177,7 +202,7 @@ Xu, H. (2009) Algorithmic Construction of Efficient Fractional Factorial Designs
 }
 \author{ Ulrike Groemping }
 
-\seealso{ See Also \code{\link{FrF2}}, \code{\link[DoE.base]{oa.design}}  }
+\seealso{ See also \code{\link{FrF2}}, \code{\link[DoE.base]{oa.design}}  }
 \examples{
 c8 <- catlg[nruns.catlg(catlg)==8]
 nclear.2fis.catlg(c8)

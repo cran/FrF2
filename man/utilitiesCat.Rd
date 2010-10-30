@@ -107,8 +107,8 @@ Yates
   Hedayat, A.S., Sloane, N.J.A. and Stufken, J. (1999) \emph{Orthogonal Arrays: Theory and Applications}, Springer, New York. 
 }
 \author{ Ulrike Groemping }
-\note{ This package is currently under intensive development. Substantial changes are to be expected in the near future.}
-\seealso{ ~~See Also \code{\link{FrF2}} }
+\note{ This package is still under development, but does already provide useful and well-tested results.}
+\seealso{ See also \code{\link{FrF2}} }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ array }

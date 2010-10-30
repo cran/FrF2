@@ -506,9 +506,14 @@ are important.
 }
 \author{ Ulrike Groemping }
 
-\seealso{ See Also \code{\link{pb}} for non-regular fractional factorials according 
-to Plackett-Burman, \code{\link{catlg}} for the Chen, Sun, Wu catalogue 
-and some accessor functions, and \code{\link{block}}, \code{\link{splitplot}} or \code{\link{estimable.2fis}} 
+\seealso{ See also \cr
+\code{\link{FrF2Large}} for regular fractional factorial designs 
+with more than 4096 runs (these are not supported by a design catalogue, except for 
+a few resolution V designs which have not been checked for any optimality among the resolution V designs), \cr
+\code{\link{pb}} for non-regular fractional factorials according 
+to Plackett-Burman, \cr
+\code{\link{catlg}} for the underlying design catalogue and some accessor functions,\cr
+and \code{\link{block}}, \code{\link{splitplot}} or \code{\link{estimable.2fis}} 
 for statistical and algorithmic information on the respective topic.}
 \examples{
 ## maximum resolution minimum aberration design with 4 factors in 8 runs

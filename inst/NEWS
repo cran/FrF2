@@ -3,6 +3,30 @@ Changes to package FrF2
 The package is still under development. 
 Suggestions and bug reports are very welcome.
 
+30/10/2010, Version 1.2
+ This version update adds many larger designs and functionality for them.
+  - added a function FrF2Large for large designs,
+    either manually-specified or resolution V based on Sanchez and Sanchez (2005)
+  - added a function nrunsV for telling users how many runs are needed for a 
+    resolution V design, with what method, and whether it is MA
+  - added some internal functions and modified internal function 
+    gen.check to become independent of the Yates object
+    in order to increase run size that can be treated (by function FrF2Large)
+  - updated catlg: 
+    - added known MA resolution IV designs in 256 and 512 runs
+      according to Xu (2009) and Ryan and Bulutoglu (2010; their appendix)
+    - added further good resolution IV designs in 256 (up to 80 factors) and 
+      512 runs (up to 160 factors) from the Xu (2009) paper
+    - modified catlg in order to have a "1" added for those previously avaialable
+      designs that have been proven to be MA (1024 to 4096 runs), 
+      and added improved MA designs to catalogue (cf. Ryan and Bulutoglu, appendix);
+    - unified catalogue notation between designs larger than 128 and designs up to 128
+      (used the notation from up to 128 (also used in FrF2.catlg128), i.e. 
+      clear.2fis always as matrix and all.2fis.clear as "all" in case of resolution V
+      or higher)
+    - documented extended range of additional MA designs
+
+
 09/09/2010, Version 1.1-5
 - added references to technical reports in help files for estimable 2fis, 
   design catalogue and fractional factorial design generation

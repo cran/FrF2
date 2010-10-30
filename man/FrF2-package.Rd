@@ -5,7 +5,7 @@
 Fractional Factorial designs with 2-level factors
 }
 \description{
-This package creates regular and non-regular Fractional Factorial designs. 
+This package creates regular and non-regular Fractional Factorial 2-level designs. 
 Furthermore, analysis tools for Fractional Factorial designs with 2-level factors 
 are offered (main effects and interaction plots for all factors simultaneously, 
 cube plot for looking at the simultaneous effects of three factors, full or half normal plot, 
@@ -15,23 +15,27 @@ The package works together with packages DoE.base and DoE.wrapper.
 }
 \details{
 The package is currently subject to intensive development; most key functionality is now included. 
-Some changes to input and output structures may still occur.
 Please contact me, if you have suggestions.
 
 This package designs and analyses Fractional Factorial experiments with 2-level factors. 
-Regular (function \code{FrF2}) and non-regular (function \code{pb}) 2-level fractional factorial 
+Regular (function \code{\link{FrF2}}) and non-regular (function \code{\link{pb}}) 2-level fractional factorial 
 designs can be generated. 
-Regular fractional factorials can be generated as blocked or split-plot designs, and hard-to-change 
+Function \code{\link{FrF2}}) can generate regular fractional factorials as blocked or split-plot designs, and hard-to-change 
 factors can be specified in order to keep the number of level changes low.
+Regular resolution V designs larger than those obtainable from function \code{FrF2} 
+can be created by function \code{\link{FrF2Large}} (these are not guaranteed to be optimal). 
 Analysis facilities work for completely aliased designs only, 
 i.e. e.g. not for analysing Plackett-Burman designs with interactions. 
 
 Functions \code{fac.design}, \code{fractionate} or \code{oa.design} from 
 Chambers and Hastie (1993) have been used as role models e.g. for 
 the option \code{factor.names} or for outputting a data frame with attributes. 
-However, S compatibility has not been considered in devising this package.
+However, S compatibility has not been considered in devising this package. The original 
+abovementioned functions are not available in \code{R}; similar 
+functions have been from package \pkg{\link[DoE.base:DoE.base-package]{DoE.base}} are 
+available together with other general functionality for experimental designs.
 
-In terms of analysis, the package works on linear models and enables convenient main effects and 
+In terms of analysis, package \code{FrF2} works on linear models and enables convenient main effects and 
 interaction plots (functions \code{MEPlot} and \code{IAPlot}) similar to those 
 offered by Minitab software for all factors simultaneously, even though especially the 
 interactions are often aliased, i.e. the model is typically singular. 
@@ -45,7 +49,7 @@ Finally, the function \code{aliases} determines the alias structure of a
 Fractional Factorial 2-level design in a format more suitable for human readers 
 than the output from the built-in function \code{alias}. 
 
-CAUTION: Note that the analysis facilities currently do not make use of the design 
+CAUTION: Note that the analysis facilities currently do not make use of all design 
 information attached to the design. For example, an effects plot function will treat 
 a linear model based on a split-plot-design in the same way as if the design were a 
 standard fractional factorial.
@@ -84,11 +88,19 @@ Maintainer: Ulrike Groemping <groemping@bht-berlin.de>
 
     Plackett, R.L.; Burman, J.P. (1946) The design of optimum multifactorial 
      experiments. \emph{Biometrika} \bold{33}, 305-325.
+     
+    Ryan, K.J. and Bulutoglu, D.A. (2010). Minimum Aberration Fractional Factorial Designs With Large N.
+      \emph{Technometrics} \bold{52}, 250-255.
+
+    Sanchez, S.M. and Sanchez, P.J. (2005). Very Large Fractional Factorial 
+     and Central Composite Designs. 
+     \emph{ACM Transactions on Modeling and Computer Simulation} 
+     \bold{15}, 362-377.
 }
 \keyword{ array }
 \keyword{ design }
 \seealso{
-The key design generating functions: \code{\link{FrF2}}, \code{\link{pb}}\cr
+The key design generating functions: \code{\link{FrF2}}, \code{\link{pb}}, \code{\link{FrF2Large}}\cr
 S3 class \code{\link[DoE.base:class-design]{design}}\cr 
 Related packages: 
 \code{\link[DoE.base:DoE.base-package]{DoE.base}}, 

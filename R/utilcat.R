@@ -242,7 +242,9 @@ alias3fi <- function(k, gen, order=3){
                  if (any(!gen==floor(gen))) stop("All entries in gen must be integer numbers.")
                  if (any(2^(0:(k-1)) %in% absgen)) stop("This design is of resolution II and is not permitted in package FrF2.")
                  if (min(absgen)<1 | max(absgen)>2^k-1) stop("Column numbers in gen must be in the range of 3 to 2^k-1.")
-                 gen <- Yates[absgen]}
+                 ## gen <- Yates[absgen]}
+                 ## usage of Yates replaced by indexcalc in order to work for larger designs
+                 gen <- indexcalc(absgen)}
                  gen[minus] <- lapply(gen[minus],"-")
               }
               if (any(sapply(gen,function(obj) any(abs(obj)<1 | obj>k | !floor(obj)==obj) )))
