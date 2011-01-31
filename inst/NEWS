@@ -3,6 +3,15 @@ Changes to package FrF2
 The package is still under development. 
 Suggestions and bug reports are very welcome.
 
+31/01/2011, Version 1.2-1
+  - made run.no.in.std.order a factor with properly ordered levels 
+    for functions pb, FrF2 and FrF2Large
+  - made option res3 of function FrF2 effective also for MaxC2 
+    (maximization among all designs instead of highest resolution only)
+  - introduced function BsProb.design for convenient application of the 
+    Box and Meyer Bayesian screening method from package BsMD to FrF2 and 
+    pb designs
+
 30/10/2010, Version 1.2
  This version update adds many larger designs and functionality for them.
   - added a function FrF2Large for large designs,

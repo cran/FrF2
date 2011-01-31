@@ -138,6 +138,8 @@ pb <- function(nruns,nfactors=nruns-1,
     rownames(sel) <- 1:nruns
     sel <- sel[rand.ord,]
     orig.no <- orig.no.rp <- rownames(sel)
+    ## row added 27 01 2011 (for proper ordering of design)
+    orig.no.levord <- sort(as.numeric(orig.no),index=TRUE)$ix
     if (replications>1) {
         if (repeat.only) orig.no.rp <- paste(orig.no.rp,rep(1:replications,nruns),sep=".")
         else orig.no.rp <- paste(orig.no.rp,rep(1:replications,each=nruns),sep=".")
@@ -157,6 +159,8 @@ pb <- function(nruns,nfactors=nruns-1,
       rownames(aus) <- rownames(sel) <- 1:nrow(aus)
   
       attr(aus,"desnum") <- sel
+      ## change 27 Jan 2011: leave orig.no as a factor, but with better-ordered levels
+      orig.no <- factor(orig.no, levels=unique(orig.no[orig.no.levord]))
       attr(aus,"run.order") <- data.frame("run.no.in.std.order"=orig.no,"run.no"=1:nrow(sel),"run.no.std.rp"=orig.no.rp)
       attr(aus,"design.info") <- list(type="pb", 
            nruns=nruns, nfactors=nfactors, factor.names=factor.names,

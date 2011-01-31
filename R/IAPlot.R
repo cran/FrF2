@@ -9,7 +9,7 @@ IAPlot.design <- function(obj, ..., response=NULL){
         stop("The design obj must have at least one response.")
     if (!(is.null(response))) 
       if (!response %in% di$response.names)
-        stop("Requested response is not a response variable in fit.")
+        stop("Requested response is not a response variable in obj.")
     if (!(length(grep("FrF2",di$type))>0 | 
            length(grep("pb",di$type))>0)) { 
            if (!(di$type=="full factorial" & all(di$nlevels==2)))

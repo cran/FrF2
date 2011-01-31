@@ -182,6 +182,8 @@ FrF2Large <- function(nruns, nfactors=NULL,
       if (randomize & repeat.only) rand.ord <- rep(sample(1:nruns), each=replications)
         orig.no <- rownames(desmat)
         orig.no <- orig.no[rand.ord]
+    ## row added 27 01 2011 (for proper ordering of design)
+    orig.no.levord <- sort(as.numeric(orig.no),index=TRUE)$ix
         rownames(desmat) <- NULL
         desmat <- desmat[rand.ord,]
         
@@ -213,6 +215,8 @@ FrF2Large <- function(nruns, nfactors=NULL,
         contrasts(desdf[,i]) <- contr.FrF2(2)
         }
       attr(desdf, "desnum") <- desmat
+      ## change 27 Jan 2011: leave orig.no as a factor, but with better-ordered levels
+      orig.no <- factor(orig.no, levels=unique(orig.no[orig.no.levord]))
       attr(desdf, "run.order") <- data.frame("run.no.in.std.order"=orig.no,
            "run.no"=1:nrow(desmat),"run.no.std.rp"=orig.no.rp)
       design.info <- list(type="FrF2.large", nruns=nruns,

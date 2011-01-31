@@ -5,7 +5,7 @@
             "blockpick","blockpick.big","splitpick","leftadjust",
             "nruns.catlg", "nfac.catlg", "nclear.2fis.catlg",
             "clear.2fis.catlg","all.2fis.clear.catlg","res.catlg","WLP.catlg",
-            "catlg","Yates",
+            "catlg","Yates","BsProb.design",
             "block.catlg","pb.list","compromise")
 
      S3method("[",catlg)

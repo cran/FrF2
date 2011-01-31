@@ -526,11 +526,18 @@ else {
            }
     }
     ## standard FrF2 situations
-    if (MaxC2 & is.null(estimable) & is.null(generators) ) 
+    ## maximize clear 2fis among maximum resolution designs (res3=FALSE)
+    ##     or among all designs (res3=TRUE)
+    ##   changed 28 01 2011 from always maximum resolution
+    if (MaxC2 & is.null(estimable) & is.null(generators) ) {
+           if (!res3)
            cand <- cand[which.max(sapply(cand[which(sapply(cand, 
                    function(obj) obj$res)==max(sapply(cand, function(obj) obj$res)))], 
                    function(obj) obj$nclear.2fis))]
-
+           else
+           cand <- cand[which.max(sapply(cand, 
+                   function(obj) obj$nclear.2fis))]
+            }
     ### creation of actual design 
     if (is.null(nruns)) {nruns <- cand[[1]]$nruns 
                          k <- round(log2(nruns))
@@ -689,6 +696,8 @@ else {
       }          
     orig.no <- rownames(desmat)
     orig.no <- orig.no[rand.ord]
+    ## row added 27 01 2011 (for proper ordering of design)
+    orig.no.levord <- sort(as.numeric(orig.no),index=TRUE)$ix
     rownames(desmat) <- NULL
     desmat <- desmat[rand.ord,]
         
@@ -806,7 +815,7 @@ else {
            else design.info <- c(design.info, list(catlg.name = catlg.name, base.design=names(cand[1])))
            design.info <- c(design.info, list(map=map))
         if (bbreps>1) desdf[,1] <- paste(desdf[,1], rep(1:bbreps, each=nruns*wbreps),sep=".")
-                 ## make block names reflect the between block replication
+            ## make block names reflect the between block replication
         }   ## end of blocked designs
 
         if (WPs > 1){
@@ -857,7 +866,11 @@ else {
       rownames(aus) <- rownames(desmat) <- 1:nrow(aus)
     class(aus) <- c("design","data.frame")
     attr(aus,"desnum") <- desmat
-    attr(aus,"run.order") <- data.frame("run.no.in.std.order"=orig.no,"run.no"=1:nrow(desmat),"run.no.std.rp"=orig.no.rp)
+      ## change 27 Jan 2011: leave orig.no as a factor, but with better-ordered levels
+      orig.no <- factor(orig.no, levels=unique(orig.no[orig.no.levord]))
+    if (!(is.list(blocks) | WPs > 1)) 
+       attr(aus,"run.order") <- data.frame("run.no.in.std.order"=orig.no,"run.no"=1:nrow(desmat),"run.no.std.rp"=orig.no.rp)
+    else attr(aus,"run.order") <- data.frame("run.no.in.std.order"=orig.no,"run.no"=1:nrow(desmat),"run.no.std.rp"=orig.no.rp)
     ## make repeat.only reflect the calculated status instead of the status requested by the user 
     ## (which can be seen in the creator element)
     if (design.info$type=="FrF2.blocked") {
