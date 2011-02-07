@@ -22,6 +22,9 @@ mapcalc <- function(estimable, nfac, nruns, res3=FALSE, select.catlg=catlg){
      
       go2 <- graph.empty(n=nfac,directed=FALSE)
       go2 <- add.edges(go2,estimable-1)
+      degree2 <- rev(cumsum(rev(table(degree(go2)))))   ## make it faster to reject non-isomorphic cases
+                                      ## 7 Feb 2011
+      degs2 <- as.numeric(names(degree2))  ## required minimum degrees
       tobechecked <- catlg[which(nfac.catlg(catlg)==nfac & nruns.catlg(catlg)==nruns)]
       if (length(tobechecked)>0) 
               if (!res3) tobechecked <- tobechecked[which(res.catlg(tobechecked)>=4)]
@@ -41,19 +44,29 @@ mapcalc <- function(estimable, nfac, nruns, res3=FALSE, select.catlg=catlg){
       for (i in 1:length(tobechecked)){
           go1 <- graph.empty(n=nfac,directed=FALSE)
           go1 <- add.edges(go1, tobechecked[[i]]$clear.2fis-1)
+          degree1 <- rev(cumsum(rev(table(degree(go1)))))
+          degs1 <- as.numeric(names(degree1))
+          if (max(degs2) <= max(degs1)){
+             ## check for no chance, 7.2.2011
+             ## if max(degs2)>max(degs1), subgraph isomorphism is impossible
+          comp <- sapply(degs2, function(obj) degree1[min(which(degs1>=obj))])
+          comp[is.na(comp)] <- 0
+          if (any(comp<degree2)) next 
           erg <- graph.subisomorphic.vf2(go1,go2)
           if (erg$iso) {map <- list(erg$map21+1)
                     names(map) <- names(tobechecked[i])
                     break}
+        }
      }
      if (is.null(map)) 
               if (res3)
-              stop("The required interactions cannot be accomodated clear of aliasing in ", nruns, " runs.")
+              stop( "The required interactions cannot be accomodated clear of aliasing in ", nruns, " runs." )
               else{
               if (nruns <= 64)
-              stop("The required interactions cannot be accomodated clear of aliasing in ", nruns, " runs with resolution IV or higher.")
+              stop( "The required interactions cannot be accomodated clear of aliasing in ", nruns, " runs with resolution IV or higher." )
               else
-              stop("No resolution IV or higher design from the current catalogue can accomodate the required interactions clear of aliasing in ", nruns, " runs.")
+              stop( "No resolution IV or higher design from the current catalogue can accomodate the required interactions clear of aliasing in ", 
+                   nruns, " runs." )
               }
      map
 }

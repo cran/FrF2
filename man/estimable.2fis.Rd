@@ -62,6 +62,16 @@
   for the catalogued design(s) to be used and \code{perm.start} for the current 
   permutation of experiment factors). 
 
+  With \code{clear=TRUE}, the algorithm loops through the eligible designs from 
+  \code{catlg.select} from good to worse (in terms of MA) and, for each design, 
+  uses a subgraph isomorphism check from package \code{igraph}. Run times are often 
+  fast, but can also be slow in unlucky situations. In fact, run times may strongly 
+  depend on ordering of factors, and it may be fastest to experiment with different 
+  placement of the factors with the most severe requirement set.
+  As the slowness of the process is intrinsic to the subgraph isomorphism routine of package 
+  \code{igraph}, a \code{max.time} option analogous to the \code{clear=FALSE} situation 
+  would be of very limited use only and is therefore not available. 
+
   Note that - according to the structure of the catalogued designs and the lexicographic 
   order of checking permutations - the initial order of the factors has a strong influence 
   on the run time for larger or unlucky problems. For example, consider 

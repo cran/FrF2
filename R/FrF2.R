@@ -341,7 +341,7 @@ if (identical(nfac.WP,0) & is.null(WPfacs) & !identical(WPs,1))
                 ## determine design that satisfies estimability requests
                       desmat <- estimable(estimable, nfactors, nruns, 
                            clear=clear, res3=res3, max.time=max.time, select.catlg=select.catlg, 
-                           perm.start=perm.start, perms=perms, order=alias.info )
+                           perm.start=perm.start, perms=perms, order=alias.info)
                       design.info <- list(type="FrF2.estimable", 
                              nruns=nruns, nfactors=nfactors, factor.names=factor.names, catlg.name = catlg.name,
                              map=desmat$map, aliased=desmat$aliased, clear=clear, res3=res3, 

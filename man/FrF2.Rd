@@ -166,17 +166,17 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
         into the search for adequate designs; otherwise resolution IV and higher designs 
         are included only. }
   \item{max.time}{ maximum time for design search as requested by \code{estimable}, 
-        in seconds (default 60); used only if clear=FALSE, 
-        since the search can take a long time in complicated or unlucky situations;
+        in seconds (default 60); introduced for \code{clear=FALSE} situations because
+        the search can take a long time in complicated or unlucky situations;
         set max.time to Inf if you want to force a search over an extended period of 
         time; however, be aware that it may still take longer than feasible 
         (cf. also \code{\link{estimable.2fis}})}
-  \item{perm.start}{ used only if \code{clear=FALSE}.\cr
+  \item{perm.start}{ used with \code{estimable} specified, and \code{clear=FALSE}.\cr
         Provides a start permutation for permuting experiment factors (numeric vector). 
         This is useful for the case that a previous search was not (yet) successful 
         because of a time limit, since the algorithm notifies the user about the 
         permutation at which it had to stop.}
-  \item{perms}{ used only if \code{clear=FALSE}.\cr
+  \item{perms}{ used with \code{estimable} specified, and \code{clear=FALSE}.\cr
         Provides the matrix of permutations of experiment factors to be tried; each 
         row is a permutation. For example, for an 11-factor design with the 
         first six factors and their 2fis 

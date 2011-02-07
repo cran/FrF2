@@ -3,6 +3,14 @@ Changes to package FrF2
 The package is still under development. 
 Suggestions and bug reports are very welcome.
 
+07/01/2011, Version 1.2-2
+  - speed improvement for estimable interactions with clear=TRUE:
+    excluded all designs from running the subgraph isomorphism check, 
+    for which the table of vertex degrees is incompatible with the 
+    requirement set; 
+    while this change slightly deteriorates speed for well-behaved situations, 
+    it dramatically improves speed for critical situations
+
 31/01/2011, Version 1.2-1
   - made run.no.in.std.order a factor with properly ordered levels 
     for functions pb, FrF2 and FrF2Large
