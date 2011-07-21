@@ -39,8 +39,7 @@ reord <- function(hilf, perm){
     aus
   }
 
-getNext <- function(perm)
-{
+getNext <- function(perm){
    ## function for next permutation in lexicographical order
    ## adapted from http://www.cut-the-knot.org/do_you_know/AllPerm.shtml
    ##     provided by Alexander Bogomolny, based on Dijkstra 1997 p.71
@@ -67,4 +66,3 @@ getNext <- function(perm)
     }
     perm
 }
-

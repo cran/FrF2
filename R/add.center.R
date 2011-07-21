@@ -181,6 +181,8 @@ add.center <- function(design, ncenter, distribute=NULL, ...){
      
      run.order(new) <- ronew
      di$type <- paste(di$type,"center",sep=".")
+     ## added in order to support usage of function code.design and steepest ascent analysis
+     di$coding <- make.formulas(paste("x", 1:length(di$factor.names), sep=""), di$factor.names)
      design.info(new) <- di
      new
 }

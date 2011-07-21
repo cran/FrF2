@@ -42,6 +42,7 @@ mapcalc <- function(estimable, nfac, nruns, res3=FALSE, select.catlg=catlg){
       
       map <- NULL
       for (i in 1:length(tobechecked)){
+          assign(".FrF2.currentlychecked", names(tobechecked[i]), envir = .GlobalEnv)
           go1 <- graph.empty(n=nfac,directed=FALSE)
           go1 <- add.edges(go1, tobechecked[[i]]$clear.2fis-1)
           degree1 <- rev(cumsum(rev(table(degree(go1)))))
@@ -54,7 +55,8 @@ mapcalc <- function(estimable, nfac, nruns, res3=FALSE, select.catlg=catlg){
           if (any(comp<degree2)) next 
           erg <- graph.subisomorphic.vf2(go1,go2)
           if (erg$iso) {map <- list(erg$map21+1)
-                    names(map) <- names(tobechecked[i])
+                    names(map) <- get(".FrF2.currentlychecked")
+                    rm(.FrF2.currentlychecked, envir = .GlobalEnv)
                     break}
         }
      }
@@ -321,7 +323,11 @@ estimable <- function(estimable, nfac, nruns,
                       clear=FALSE, res3=FALSE, max.time=60, 
                       select.catlg=catlg, perm.start=1:nfac, perms=NULL,
                       order = 3){
-        if (clear) map <- mapcalc(estimable,nfac,nruns,res3=res3, select.catlg=select.catlg)
+        if (clear) {
+            ## perhaps relabel estimable entries such that most frequently occurring ones in front
+            estimable <- 
+            map <- mapcalc(estimable,nfac,nruns,res3=res3, select.catlg=select.catlg)
+        }
            else map <- mapcalc.distinct(estimable,nfac,nruns,res3=res3, max.time=max.time, 
                                 select.catlg=select.catlg, perm.start=perm.start, perms=perms)
         test <- map2design(map, select.catlg=select.catlg)

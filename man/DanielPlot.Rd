@@ -2,6 +2,7 @@
 \alias{DanielPlot}
 \alias{DanielPlot.design}
 \alias{DanielPlot.default}
+\alias{halfnormal}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{ Normal or Half-Normal Effects Plots }
 \description{
@@ -17,7 +18,8 @@ DanielPlot(fit, ...)
        block = FALSE, datax = TRUE, half = FALSE, pch = "*", 
        cex.fac = par("cex.lab"), cex.lab = par("cex.lab"), 
        cex.pch = par("cex"), cex.legend = par("cex.lab"), 
-       main = NULL, ...)
+       main = NULL, subtitle=NULL, ...)
+halfnormal(effects, labs, codes=labs, alpha=0.05, xlab="absolute effects", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -27,7 +29,8 @@ DanielPlot(fit, ...)
               OR\cr
               object of class \code{lm}. Fitted model from \code{lm} or \code{aov}.}
   \item{\dots}{further arguments to be passed to the default function, 
-      or graphical parameters to be passed to \code{plot}.}
+      or graphical parameters to be passed to \code{plot};
+      note that one should not use \code{pch} for split-plot designs.}
   \item{response}{ NULL or a character string that specifies response variable to be used, 
               must be an element of \code{response.names(obj)}; 
               if NULL, the first response from \code{response.names(obj)} is used}
@@ -57,6 +60,13 @@ DanielPlot(fit, ...)
   \item{cex.pch}{numeric. Points character size.}
   \item{cex.legend}{numeric. Legend size in case of codes.}
   \item{main}{NULL or character. Title of plot. If NULL, automatic title is generated.}
+  \item{subtitle}{NULL or character. Sub title of plot. Should not be used for split-plot designs, 
+     because automatic subtitle is generated for these.}
+  \item{effects}{numeric vector, for which half-normal plot is to be generated}
+  \item{labs}{labels of the effects, vector of the same length as \code{effects}}
+  \item{codes}{short labels of the effects, vector of the same length as \code{effects}; 
+     if \code{codes} and \code{labs} are different, short labels are used, and a legend is printed}
+  \item{xlab}{label of horizontal axis for absolute effects in half normal plot}
 }
 
 \details{
@@ -71,12 +81,22 @@ DanielPlot(fit, ...)
     degree high enough that at least one effect is assigned to each column of the Yates matrix, 
     and the default method for \code{DanielPlot} is afterwards applied to the 
     resulting linear model.
+    
+    For split-plot designs, whole plot effects are shown as different plotting 
+    characters, because they are potentially subject to larger variability, 
+    and one should not be too impressed, if they look impressively large, 
+    as this may well be indication of plot-to-plot variability rather than a 
+    true effect.
 }
 
 \value{
     The function returns an invisible data frame with columns: \code{x}, \code{y},
-    \code{no} and \code{effect}, for the coordinates, the position numbers and 
-    the effect names for plotted points.
+    \code{no}, \code{effect}, \code{coded} (if coded plot was requested) 
+    and \code{pchs}, for the coordinates, the position numbers, 
+    the effect names, the coded effect names, and the plotting characters for plotted points.
+    
+    The plotting characters are particularly useful for split-plot designs and can be used 
+    for subsequent separate plotting of whole-plot and split-plot effects, if necessary.
 }
 
 \references{

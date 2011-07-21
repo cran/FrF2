@@ -288,7 +288,9 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
        (design or generators option together with \code{WPfacs}), 
        \code{nfac.WP} can be omitted (i.e. remains 0). If given, it must coincide with 
        the length of \code{WPfacs}.
-       
+
+       If \code{nfac.WP} is given without \code{WPfacs}only, \code{generators} must not be given.
+
        If \code{nfac.WP} is omitted (i.e. remains 0) and \code{WPs} > 1, an error is thrown, 
        because the situation is a block rather than a split-plot situation 
        (and either it was forgotten to specify 

@@ -31,7 +31,26 @@ DanielPlot.design <- function(fit, ..., response=NULL){
           ncoef <- sum(!is.na(coef(hilf)))
           }
     }
-    DanielPlot(lm(fit, degree=grad, response=response), ...)
+    subtext <- ""
+    if (length(grep("splitplot", di$type)) > 0){
+        ## splitplot situation
+        ## make sure to use different plot symbols for whole plot and split plot effects
+        ## important to distinguish wbreps and bbreps
+               mm <- model.matrix(hilf)
+               #coefs <- stats:::coef.default(fit)
+               coefs <- coef(hilf)[-1] ## only non-missing coefficients
+               nms <- names(coefs)
+               hilf <- apply(mm[,1+(1:di$nfac.WP),drop=FALSE],1,paste,collapse="")
+               pchs <- rep("*", length(coefs))
+               pchs[1:di$nfac.WP] <- "o"
+               
+               for (j in setdiff(1:(length(coefs)),1:di$nfac.WP)){
+                  if (!length(table(paste(hilf,mm[,nms[j]],sep="")))>di$nWPs) pchs[j] <- "o"
+                }
+          subtext <- "WARNING: whole plot effects (marked by o) may have larger variation than split-plot effects"
+          DanielPlot(lm(fit, degree=grad, response=response), pch=pchs, subtitle=subtext, ...)
+          }
+          else DanielPlot(lm(fit, degree=grad, response=response), ...)
 }
 
 DanielPlot.default <-
@@ -41,7 +60,7 @@ function (fit, code = FALSE, autolab = TRUE, alpha=0.05,
          half = FALSE, pch = "*", 
          cex.fac = par("cex.lab"), cex.lab = par("cex.lab"), 
          cex.pch = par("cex"), cex.legend = par("cex.lab"), 
-         main = NULL, ...) 
+         main = NULL, subtitle=NULL, ...) 
 {
    if (! ("lm" %in% class(fit) | "aov" %in% class(fit))) 
       stop("fit must be a linear model object (lm or aov), or a design of class design")
@@ -73,13 +92,13 @@ function (fit, code = FALSE, autolab = TRUE, alpha=0.05,
     if (half) {
         tn <- list(x = qnorm(0.5 * ((rank(abs(factor.effects)) - 
             0.5)/length(factor.effects) + 1)),y = abs(factor.effects))
-        xlab <- "half-normal score"
+        xlab <- "half-normal scores"
         ylab <- "absolute effects"
         plotmain <- paste("Half", plotmain)
     }
     else {
         tn <- qqnorm(factor.effects, plot = FALSE)
-        xlab <- "normal score"
+        xlab <- "normal scores"
         ylab <- "effects"
     }
     names(tn$x) <- names(factor.effects)  ## moved here
@@ -99,6 +118,8 @@ function (fit, code = FALSE, autolab = TRUE, alpha=0.05,
     plot.default(tn, xlim = c(min(tn$x), max(tn$x) + diff(range(tn$x))/5), 
         pch = pch, xlab = xlab, ylab = ylab, cex=cex.pch, cex.lab = cex.lab, 
         mgp=c(2,1,0), main = main, ...)
+    ## at the top below main title, mainly for warning in case of split-plot
+    if (!is.null(subtitle)) mtext(subtitle)
     if (is.null(faclab)) {
         if (!code) {
             effect.code <- labx
@@ -172,6 +193,31 @@ function (fit, code = FALSE, autolab = TRUE, alpha=0.05,
         if (length(faclab$lab)>0) text(tn$x[faclab$idx], tn$y[faclab$idx], labels = faclab$lab, 
             cex = cex.fac, adj = 0)
     }
-    invisible(cbind(as.data.frame(tn), no = 1:length(tn$x), effect=names(factor.effects)))
+    if (!length(pch)==length(factor.effects)) pchs <- rep(pch, length(factor.effects))
+    if (code) aus <- cbind(as.data.frame(tn), no = 1:length(tn$x), effect=names(factor.effects), coded=effect.code, pchs=pch)
+      else aus <- cbind(as.data.frame(tn), no = 1:length(tn$x), effect=names(factor.effects), pchs=pch)
+    invisible(aus)
+}
+
+halfnormal <- function(effects, labs, codes=labs, alpha=0.05, xlab="absolute effects", ...){
+    effects <- abs(effects)
+    labord <- order(effects)
+    effects <- sort(effects)
+    if (!identical(codes, labs)){ 
+         haupteff <- setdiff(1:length(labs), grep(":", labs)) 
+         legende <- paste(codes[haupteff], labs[haupteff], sep="=",collapse=", ")
+     }
+     else legende <- ""
+    n <- length(effects)
+    ui <- qnorm(0.5 + (0:(n-1))/(2*n))
+    codes <- paste(rep("  ",n), codes, sep="")
+    
+    crit <- LenthPlot(effects,alpha=alpha,plt=FALSE)["ME"]
+    nlab <- sum(effects>crit)
+    plot(effects, ui, ylab = "Half-normal scores", xlab = xlab, sub=legende, ...)
+    if (nlab < n) 
+        points(effects[1:(n - nlab)],ui[1:(n - nlab)])
+    text(effects[(n - nlab + 1):n], ui[(n - nlab + 1):n], codes[labord][(n - 
+        nlab + 1):n], adj=0, xpd=NA)
 }
 

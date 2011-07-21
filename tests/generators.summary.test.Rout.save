@@ -1,7 +1,8 @@
 
-R version 2.10.0 (2009-10-26)
-Copyright (C) 2009 The R Foundation for Statistical Computing
+R version 2.13.1 (2011-07-08)
+Copyright (C) 2011 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
+Platform: i386-pc-mingw32/i386 (32-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -32,37 +33,29 @@ Loading required package: colorspace
 
 Attaching package: 'DoE.base'
 
+The following object(s) are masked from 'package:relimp':
 
-	The following object(s) are masked from package:relimp :
+    showData
 
-	 showData 
+The following object(s) are masked from 'package:stats':
 
+    aov, lm
 
-	The following object(s) are masked from package:stats :
+The following object(s) are masked from 'package:graphics':
 
-	 lm 
+    plot.design
 
+The following object(s) are masked from 'package:utils':
 
-	The following object(s) are masked from package:graphics :
-
-	 plot.design 
-
-
-	The following object(s) are masked from package:utils :
-
-	 fix 
+    fix
 
 
 Attaching package: 'FrF2'
 
+The following object(s) are masked from 'package:BsMD':
 
-	The following object(s) are masked from package:BsMD :
+    DanielPlot
 
-	 DanielPlot 
-
-Warning messages:
-1: package 'igraph' was built under R version 2.10.1 
-2: package 'sfsmisc' was built under R version 2.10.1 
 > 
 > summary(FrF2(16,7),brief=TRUE)
 Call:
@@ -383,7 +376,7 @@ $`generators for design itself`
 [13] P=b1b2b3b4A
 
 $`block generators`
-[1] b1 b2 b3 b4
+[1] b1=A b2=B b3=C b4=D
 
 
 Alias structure:
@@ -532,7 +525,7 @@ $aliased$legend
 
 
 $FrF2.version
-[1] "1.1-1"
+[1] "1.2-3"
 
 $base.design
 [1] "generator columns: "
@@ -678,7 +671,7 @@ $aliased[[7]]
 
 
 $FrF2.version
-[1] "1.1-1"
+[1] "1.2-3"
 
 $base.design
 [1] "generator columns: 6, 15"
@@ -706,13 +699,10 @@ FrF2(32, 7, gen = c(6, 15), WPs = 4, WPfacs = c("B", "C", "F"),
     factor.names = Letters[19:25])
 
 > 
-> plan <-FrF2(32,7,gen=c(6,15),WPs=4,nfac.WP=3,factor.names=Letters[19:25])
-> #di <- design.info(plan)
-> #di$map <- 1:5
-> #design.info(plan) <- di
+> plan <-FrF2(32,7,WPs=4,nfac.WP=3,factor.names=Letters[19:25])
 > summary(plan, brief=TRUE)
 Call:
-FrF2(32, 7, gen = c(6, 15), WPs = 4, nfac.WP = 3, factor.names = Letters[19:25])
+FrF2(32, 7, WPs = 4, nfac.WP = 3, factor.names = Letters[19:25])
 
 Experimental design of type  FrF2.splitplot 
 32  runs
@@ -727,7 +717,7 @@ $legend
 [1] A=T B=U C=V D=W E=X F=Y G=Z
 
 $generators
-[1] C=AB   G=ABDE
+[1] C=AB   G=ADEF
 
 
 Alias structure:
@@ -740,21 +730,12 @@ Alias structure:
 [[3]]
 [1] V   T:U
 
-[[4]]
-[1] V:W X:Z
-
-[[5]]
-[1] V:X W:Z
-
-[[6]]
-[1] V:Z W:X
-
 
 split-plot design:  4  whole plots
                  : first  3  factors are whole plot factors
 > generators(plan)
 $generators
-[1] "C=AB"   "G=ABDE"
+[1] "C=AB"   "G=ADEF"
 
 > design.info(plan)
 $type
@@ -817,24 +798,18 @@ $aliased[[3]]
 $aliased[[4]]
 [1] "V"   "T:U"
 
-$aliased[[5]]
-[1] "V:W" "X:Z"
-
-$aliased[[6]]
-[1] "V:X" "W:Z"
-
-$aliased[[7]]
-[1] "V:Z" "W:X"
-
 
 $FrF2.version
-[1] "1.1-1"
+[1] "1.2-3"
+
+$catlg.name
+[1] "catlg"
 
 $base.design
-[1] "generator columns: 6, 15"
+[1] "7-2.4"
 
 $map
-[1] 2 3 1 4 5
+[1] 1 2 3 4 5
 
 $orig.fac.order
 [1] 1 2 6 3 4 5 7
@@ -852,7 +827,7 @@ $seed
 NULL
 
 $creator
-FrF2(32, 7, gen = c(6, 15), WPs = 4, nfac.WP = 3, factor.names = Letters[19:25])
+FrF2(32, 7, WPs = 4, nfac.WP = 3, factor.names = Letters[19:25])
 
 > 
 > plan2 <- FrF2(32,7,gen=c(6,15),WPs=4,nfac.WP=3,WPfacs=c(2,3,6),factor.names=Letters[19:25])
@@ -975,7 +950,7 @@ $aliased[[7]]
 
 
 $FrF2.version
-[1] "1.1-1"
+[1] "1.2-3"
 
 $base.design
 [1] "generator columns: 6, 15"

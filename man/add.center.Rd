@@ -95,7 +95,9 @@ iscube(design, ...)
   The design is identifiable as a design with center points by the 
   suffix \code{.center} to the \code{type} element of attribute \code{design.info},
   and the elements \code{ncube} and \code{ncenter} are added 
-  (with the updated \code{nruns} being their sum).
+  (with the updated \code{nruns} being their sum). The element \code{coding} is 
+  also added to the \code{design.info}, in order to support steepest ascent/descent 
+  analysis from the center point.
   
   Function \code{iscube} provides a logical vector that is TRUE for cube points 
   and FALSE for center points. 

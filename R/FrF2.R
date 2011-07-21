@@ -28,6 +28,7 @@ catlg.name <- deparse(substitute(select.catlg))
 
 ## check that no incompatible options are used together
 if (ncenter>0 & !identical(WPs,1)) stop("center points for split plot designs are not supported")
+if (!(is.null(generators) | (identical(WPs,1) | !is.null(WPfacs)))) stop("generators can only be used with split-plot designs, if WPfacs are specified.")
 if (!is.null(nruns)) if (ncenter>0) if (center.distribute > nruns + 1) 
     stop("center.distribute must not be larger than nruns+1")
 if (!(is.null(design) | is.null(estimable))) stop("design and estimable must not be specified together.")

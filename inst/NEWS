@@ -3,6 +3,27 @@ Changes to package FrF2
 The package is still under development. 
 Suggestions and bug reports are very welcome.
 
+21/07/2011, Version 1.2-4
+  - fixed small bug that led to a warning in FrF2 estimable applications
+
+06/06/2011, Version 1.2-3
+  - added coding information to all designs with center points 
+    (done in add.center function) in support of using these for steepest ascent 
+    analysis)
+  - introduced different plot symbols for whole plot and split plot effects in 
+    function DanielPlot.design, and printed a warning regarding 
+    different reference variances; augmented output data frame to allow subsequent 
+    separate plotting if necessary
+  - introduced new function halfnormal, which can be used for creating half normal 
+    plots from arbitrary vectors of effects, e.g. from the x-column in the 
+    output data set of function DanielPlot (useful for separate plotting of 
+    split plot and whole plot effects)
+  - introduced error message for the case where users give generators with nfac.WPs 
+    but without WPfacs; in that case, generators were ignored without an error message
+    or even a warning
+  - fixed generators.summary.test.r, which contained an illegal (and ignored) 
+    usage of generators together with WPs and nfac.WP but without WPfacs
+
 07/01/2011, Version 1.2-2
   - speed improvement for estimable interactions with clear=TRUE:
     excluded all designs from running the subgraph isomorphism check, 

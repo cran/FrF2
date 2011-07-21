@@ -27,10 +27,7 @@ plan0 <-FrF2(32,7,gen=c(6,15),WPs=4,WPfacs=c("B","C","F"),factor.names=Letters[1
 summary(plan0,brief=TRUE)
 design.info(plan0)
 
-plan <-FrF2(32,7,gen=c(6,15),WPs=4,nfac.WP=3,factor.names=Letters[19:25])
-#di <- design.info(plan)
-#di$map <- 1:5
-#design.info(plan) <- di
+plan <-FrF2(32,7,WPs=4,nfac.WP=3,factor.names=Letters[19:25])
 summary(plan, brief=TRUE)
 generators(plan)
 design.info(plan)
