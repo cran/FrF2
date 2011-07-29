@@ -259,11 +259,14 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
        first factors in \code{factor.names}. Implementation is via a non-randomized split-plot 
        design with as few as possible whole plots (number of possible whole plots is 
        determined via left-adjustment) and as few as possible non-hard factors 
-       within the whole plot structure (by applying split-plot after left-adjustment).
-       If feasible, it is recommended to rather use a randomized split-plot experiment 
-       (cf. \code{\link{splitplot}} for a brief discussion of the difference) by 
-       explicitly treating the hard to change factors as whole-plot factors via 
-       \code{WPs} and \code{nfac.WP}.}
+       within the whole plot structure (by applying split-plot after left-adjustment).\cr
+       Observations within whole plots are randomized, whole plots themselves are not 
+       randomized (contrary to split plot designs).\cr
+       From the statistical point of view, randomisation of whole plots is strongly 
+       preferrable (cf. \code{\link{splitplot}} for a brief discussion of the difference).
+       If this appears feasible, you may want to explicitly handle the situation 
+       by treating the hard to change factors as whole-plot factors via \code{WPs} and \code{nfac.WP}.
+       }
   \item{check.hard}{ is the number of candidate designs from the catalogue specified 
        in \code{select.catlg} that are checked for making hard-to-change factors 
        change as little as possible.\cr

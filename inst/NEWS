@@ -3,6 +3,12 @@ Changes to package FrF2
 The package is still under development. 
 Suggestions and bug reports are very welcome.
 
+29/07/2011, Version 1.2-5
+  - implemented combination of options resolution and hard, 
+    which led to an error before
+  - fixed bug that led to randomization of whole plots for some cases 
+    for hard to change factors, and modified help entry for option hard 
+
 21/07/2011, Version 1.2-4
   - fixed small bug that led to a warning in FrF2 estimable applications
 

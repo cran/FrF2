@@ -235,10 +235,29 @@ if (identical(nfac.WP,0) & is.null(WPfacs) & !identical(WPs,1))
     ### treat hard before WPs, so that it can be handled by split-plot approach
     if (!is.null(hard)){
       if (is.null(generators)){ 
-           if (nfactors > k)
-           cand <- select.catlg[which(nfac.catlg(select.catlg)==nfactors & nruns.catlg(select.catlg)==nruns)]
-           else cand <- list(list(gen=numeric(0)))
+           ## otherwise, cand has already been specified
+           if (is.null(nruns)){
+              ## resolution requested, k not yet defined
+                 cand <- select.catlg[which(res.catlg(select.catlg)>=resolution & nfac.catlg(select.catlg)==nfactors)]
+                 if (length(cand)==0) {
+                    message("full factorial design needed for achieving requested resolution")
+                    k <- nfactors
+                    nruns <- 2^k
+                    cand <- list(list(gen=numeric(0)))
+                    }
+                 else {
+                     nruns <- min(nruns.catlg(cand))
+                     k <- round(log2(nruns))
+                     cand <- cand[which(nruns.catlg(cand)==nruns)]
+                    }
            }
+           else {
+               ## nruns specified
+               if (nfactors > k)
+               cand <- select.catlg[which(nfac.catlg(select.catlg)==nfactors & nruns.catlg(select.catlg)==nruns)]
+               else cand <- list(list(gen=numeric(0)))
+           }
+      }
       if (hard == nfactors) stop("It does not make sense to choose hard equal to nfactors.")
       if (hard >= nruns/2) 
           warning ("Do you really need to declare so many factors as hard-to-change ?")
@@ -250,7 +269,7 @@ if (identical(nfac.WP,0) & is.null(WPfacs) & !identical(WPs,1))
          ## otherwise achievable WPs is determined using leftadjust 
          if (length(cand[[1]]$gen) > 0)
          for (i in 1:min(length(cand),check.hard)){
-             leftadjust.out <- leftadjust(k,cand[[i]]$gen,early=hard,show=1)
+             leftadjust.out <- leftadjust(k,cand[[i]]$gen, early=hard, show=1)
              if (is.na(WPs) | WPs > 2^leftadjust.out$k.early) 
                  WPs <- 2^leftadjust.out$k.early
              }
@@ -556,7 +575,8 @@ else {
        if (g>0)
        for (i in 1:g) 
        desmat <- cbind(desmat, sign(cand[[1]]$gen[i][1])*apply(desmat[,unlist(Yates[abs(cand[[1]]$gen[i])])],1,prod))
-       if (WPs > 1) {if (!WP.auto) {
+       if (WPs > 1) {
+          if (!WP.auto) {
             hilf <- apply(desmat[,WPsorig,drop=FALSE],1,paste,collapse="")
             if (!length(table(hilf))==WPs) 
             stop("The specified design creates ",
@@ -568,8 +588,8 @@ else {
           }
        
        ## slow changing order, if required
-       if ((!is.character(WPfacs)) & !is.null(hard) ) 
-           desmat <- desmat[,order(c(2^(0:(k-1)),abs(cand[[1]]$gen)))]
+      # if ((!is.character(WPfacs)) & !is.null(hard) ) 
+      #     desmat <- desmat[,order(c(2^(0:(k-1)),abs(cand[[1]]$gen)))]
 
        if (is.list(blocks)) {
            ## manually blocked designs and continuation of automatically blocked designs
@@ -670,11 +690,14 @@ else {
                             sample(rand.ord[((i-1)*plotsize+1):(i*plotsize)])
                     ## second: randomization of whole plots (in blocks per replication)
                     for (i in 1:replications){
+                    ## only if not hard to change
+                    if (is.null(hard)){
                         WPsamp <- sample(WPs) 
                         WPsamp <- (rep(WPsamp,each=plotsize)-1)*plotsize + rep(1:plotsize,WPs)
                         rand.ord[((i-1)*plotsize*WPs+1):(i*plotsize*WPs)] <- 
                             rand.ord[(i-1)*plotsize*WPs + WPsamp]
                         }
+                    }
                     }
                 if (repeat.only & randomize){
                     ## repeated measurements within whole plots
@@ -688,10 +711,13 @@ else {
                                rep(replications*(sample(plotsize)-1),each=replications) + 
                                rep(1:2,each=plotsize)]
                     ## second: randomization of whole plots
+                    ## only if not hard to change
+                    if (is.null(hard)){
                         WPsamp <- sample(WPs) 
                         WPsamp <- (rep(WPsamp,each=plotsize*replications)-1)*plotsize*replications + 
                              rep(1:(plotsize*replications),WPs)
                         rand.ord <- rand.ord[WPsamp]
+                    }
                     }
           }
       }          
