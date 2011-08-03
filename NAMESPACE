@@ -6,7 +6,8 @@
             "nruns.catlg", "nfac.catlg", "nclear.2fis.catlg",
             "clear.2fis.catlg","all.2fis.clear.catlg","res.catlg","WLP.catlg",
             "CIG.catlg","CIGstatic","catlg","Yates","BsProb.design",
-            "block.catlg","pb.list","compromise","halfnormal")
+            "block.catlg","pb.list","compromise","halfnormal",
+            "factorize")
 
      S3method("[",catlg)
      S3method(print,catlg)

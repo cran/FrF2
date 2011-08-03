@@ -3,6 +3,11 @@ Changes to package FrF2
 The package is still under development. 
 Suggestions and bug reports are very welcome.
 
+
+03/08/2011, Version 1.2-6
+  - included conf.design version of function factorize (a generic) 
+    to prevent sfsmisc version from overriding it
+
 29/07/2011, Version 1.2-5
   - implemented combination of options resolution and hard, 
     which led to an error before

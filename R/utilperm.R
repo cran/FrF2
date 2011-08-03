@@ -39,6 +39,7 @@ reord <- function(hilf, perm){
     aus
   }
 
+
 getNext <- function(perm){
    ## function for next permutation in lexicographical order
    ## adapted from http://www.cut-the-knot.org/do_you_know/AllPerm.shtml

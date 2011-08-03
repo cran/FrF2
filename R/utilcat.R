@@ -13,6 +13,7 @@ mult.gen.a <- function(string.vec,sep=""){
    paste(names(hilf[hilf==1]),collapse=sep)
 }
 
+
 words.all <- function(k, gen, design=NULL, max.length=7, select.catlg=catlg){
    ## 2^k is the run number of the design
    ## gen is a list of vectors which generate additional factors from interactions among the first k ones 
