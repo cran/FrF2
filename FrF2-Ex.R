@@ -755,6 +755,10 @@ flush(stderr()); flush(stdout())
   aliasprint(plan)
   plan <- fold.design(plan, columns=1)
   aliasprint(plan)
+  
+  ## fold a Plackett-Burman design with 11 factors
+  plan <- pb(12)
+  fold.design(plan)
    
 
 

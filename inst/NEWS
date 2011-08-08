@@ -4,6 +4,11 @@ The package is still under development.
 Suggestions and bug reports are very welcome.
 
 
+08/08/2011, Version 1.2-8
+  - bug fix: fold.design did not work on designs 
+    created with function pb (contrary to what was 
+    documented) 
+
 05/08/2011, Version 1.2-7
   - removed function factorize and 
     changed dependence on sfsmisc 

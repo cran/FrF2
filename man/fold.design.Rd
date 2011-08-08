@@ -141,6 +141,10 @@ See also as \code{\link{pb}}, \code{\link{FrF2}}
   aliasprint(plan)
   plan <- fold.design(plan, columns=1)
   aliasprint(plan)
+  
+  ## fold a Plackett-Burman design with 11 factors
+  plan <- pb(12)
+  fold.design(plan)
    }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

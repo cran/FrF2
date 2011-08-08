@@ -175,7 +175,7 @@ fold.design <- function(design, columns="full", ...){
       stupid.workaround <- rnorm(nrow(dat))
       if (alorder==2) fit <- lm(stupid.workaround~(.)^2,data=dat)
       if (alorder==3) fit <- lm(stupid.workaround~(.)^3,data=dat)
-      di$aliased <- aliases(fit, code=TRUE, condense=TRUE)
+      if (!substr(di$type,1,2)=="pb") di$aliased <- aliases(fit, code=TRUE, condense=TRUE)
    } 
    
 

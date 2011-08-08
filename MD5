@@ -1,5 +1,5 @@
-c7cd65bc238b3127d3157e914292acab *DESCRIPTION
-d4351ee5e4e533ae4fc969c1796cecfc *FrF2-Ex.R
+b8ac8b10ec40a04cf219a45f52966145 *DESCRIPTION
+4f489368ebd59dd7572e5193f4ba8212 *FrF2-Ex.R
 e1b64a61bb21f02384c484ed1785968e *LICENSE
 6ba0d5e61e80710da92a54ae9285b315 *NAMESPACE
 2e3cabfc2364b8a86d29c6fb66a46863 *R/BsProb.design.R
@@ -27,7 +27,7 @@ aed3aaf3e6ed23ff855870978fd39092 *R/cubecorners.R
 ce45cd4b62fde76e4f20180dbe7dc10d *R/cubelabel.R
 e114340ba6cf96d0718eb5c6d933f1a6 *R/estimable2fis.R
 20c8de2b685445498ebb31c21ef2eb10 *R/find.gen.R
-10edd6ba3ececb9b494e8068020c5efa *R/fold.design.R
+8d7811853677accd39758877c1c3bdef *R/fold.design.R
 0b36af12873dc14529d8cb7ccb1f84c4 *R/intfind.R
 3e0e74e0ff22b44fa41e1261e663c466 *R/iscube.R
 83011a2d7ba5b6b9dd3e886f35117ca0 *R/leftadjust.R
@@ -42,7 +42,7 @@ c6e0b58ff25de9ae8c14df84429442e0 *R/sysdata.rda
 05811c8e2c98b4c932de502a61361df8 *R/utilcat.R
 246ebe6006da805cce8df555c965be70 *R/utilpb.R
 170328a9e64be149b0b97f65623f8ee1 *R/utilperm.R
-e4419de16583ee9c17772d8972400a86 *inst/NEWS
+9b56c0c514843bb9373b5994fb1b64e8 *inst/NEWS
 42ec5c04a662a1fe1f5d08ae65592858 *man/BsProb.design.Rd
 580f9a2cec805714afad3974a426c0d4 *man/CIG.catlg.Rd
 19ca55c698d90cb53009c252ab5d598f *man/CatalogueAccessors.Rd
@@ -59,7 +59,7 @@ d0020409c9a86136a960f05b3cee79e5 *man/blockpick.Rd
 3d53956a2d588172b6181011e6837bd7 *man/compromise.Rd
 94de580ad0693028e6d3f1f024c255ce *man/cubePlot.Rd
 368adc3e218ffe3e11f44a9182cda1d4 *man/estimable.2fis.Rd
-4e87d6796d46eb51abd99d0776403bb7 *man/fold.design.Rd
+8711af23c18fdbc954ae7a266834a98f *man/fold.design.Rd
 c65345c4cd008a395b19bf1d2d836bd7 *man/pb.Rd
 095cb0fc1775b7c0b6d5d71ef53a24ea *man/splitplot.Rd
 c3651ed6974ff2271b632b0e77cc14ab *man/utilitiesCat.Rd
