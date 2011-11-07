@@ -4,6 +4,14 @@ The package is still under development.
 Suggestions and bug reports are very welcome.
 
 
+07/11/2011, Version 1.2-9
+  - made function add.center cater for adding 0 center points 
+    (in support of the (not recommended) desire to have a central composite 
+    design with center points in the star portion only)
+  - made function iscube work for designs with 0 center points
+  - made error message for full factorials 2-level designs with center points 
+    more meaningful 
+
 08/08/2011, Version 1.2-8
   - bug fix: fold.design did not work on designs 
     created with function pb (contrary to what was 

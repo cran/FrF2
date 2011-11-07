@@ -2,7 +2,7 @@ add.center <- function(design, ncenter, distribute=NULL, ...){
     if (!"design" %in% class(design)) stop("design must be of class design")
     di <- design.info(design)
     if (missing(ncenter)) stop("ncenter must be specified")
-    if (!(substr(di$type,1,4)=="FrF2" | substr(di$type,1,2)=="pb" | (di$type=="full factorial" & all(di$nlevels==2))))
+    if (!(substr(di$type,1,4)=="FrF2" | substr(di$type,1,2)=="pb" | (substr(di$type,1,14)=="full factorial" & all(di$nlevels==2))))
        stop("center points only available for FrF2 and pb type designs")
     if (di$type=="FrF2.splitplot") 
        stop("currently, center points for splitplot designs are not supported")
@@ -14,11 +14,11 @@ add.center <- function(design, ncenter, distribute=NULL, ...){
     if (!length(ncenter)==1) stop("ncenter must be a number")
     if (!ncenter==floor(ncenter)) stop("ncenter must be an integer number")
     if (is.null(distribute)){
-      if (!di$randomize) distribute <- 1
+      if (ncenter==0 | !di$randomize) distribute <- 1
          else distribute <- min(ncenter, 3)}
     if (!is.numeric(distribute)) stop("distribute must be a number")
     if (!distribute==floor(distribute)) stop("distribute must be an integer number")
-    if (distribute < 1 | distribute > min(di$nruns+1, ncenter))
+    if (distribute < 1 | distribute > max(1,min(di$nruns+1, ncenter)))
        stop("distribute must be at least 1 and at most min(ncenter, nruns+1 of the design)")
     if (di$randomize & distribute==1 & ncenter > 1) warning("running all center point runs together is usually not a good idea.")
     
@@ -105,6 +105,7 @@ add.center <- function(design, ncenter, distribute=NULL, ...){
         ## centers and ros for WITHIN each block
         more <- setdiff(colnames(hilf), c(di$block.name,names(di$factor.names)))
             ## columns other than design factors, e.g. responses
+      if (ncenter>0){
         for (i in 1:distribute){
               cnext <- data.frame(matrix(clevels, ncol=di$nfactors, nrow=nadd[i], 
                                                  byrow=TRUE, dimnames=list(NULL, names(di$factor.names))))
@@ -184,5 +185,15 @@ add.center <- function(design, ncenter, distribute=NULL, ...){
      ## added in order to support usage of function code.design and steepest ascent analysis
      di$coding <- make.formulas(paste("x", 1:length(di$factor.names), sep=""), di$factor.names)
      design.info(new) <- di
+     }
+     else {
+     ### ??? was wird noch benötigt für ccd.augment???
+        new <- design
+        ronew <- run.order(design)
+        if (!any(is.na(as.numeric(as.character(ronew$run.no.in.std.order)))))
+            ronew$run.no.in.std.order <- as.numeric(as.character(ronew$run.no.in.std.order))
+        design.info(new) <- c(design.info(new), ncenter=0, ncube=nrow(new))
+        run.order(new) <- ronew
+        }
      new
 }
