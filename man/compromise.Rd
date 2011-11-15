@@ -58,6 +58,8 @@ Gr\"omping, U. (2010). Creating clear designs: a graph-based algorithm and a
 catalogue of clear compromise plans. 
 \emph{Reports in Mathematics, Physics and Chemistry}, report 05/2010, 
 Department II, Beuth University of Applied Sciences Berlin.
+(Preprint for IIE Transactions; IIE Transactions is available at 
+\url{http://www.tandfonline.com}.)
 
 Ke, W., Tang, B. and Wu, H. (2005). Compromise plans with clear two-factor interactions. 
 \emph{Statistica Sinica} \bold{15}, 709-715.

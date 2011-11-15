@@ -7,7 +7,7 @@
   The function generates Plackett-Burman designs and in some cases other screening 
   designs in run numbers that are a multiple of 4. These designs are particularly suitable for screening a 
   large number of factors, since interactions are not fully aliased with one main effect each 
-  but partially aliased. (The designs in 8 and 64 runs are exceptions from this rule.)
+  but partially aliased. (The design in 8 runs is an exception from this rule.)
 }
 \usage{
 pb(nruns, nfactors = nruns - 1, factor.names = if (nfactors <= 50) 
@@ -15,16 +15,19 @@ pb(nruns, nfactors = nruns - 1, factor.names = if (nfactors <= 50)
      default.levels = c(-1, 1), ncenter=0, center.distribute=NULL, 
      boxtyssedal = TRUE, n12.taguchi = FALSE, 
      replications = 1, repeat.only = FALSE, 
-     randomize = TRUE, seed = NULL, ...)
+     randomize = TRUE, seed = NULL, oldver = FALSE, ...)
 
 pb.list
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{nruns}{ number of runs, must be a multiple of 4 }
-  \item{nfactors}{ number of factors, default is nruns - 1, and it is recommended to retain this default. 
-   It is possible to specify factor names for fewer factors, and the remaining columns will be named \code{e1}, \code{e2}, ... 
-   They are useful for representing error in effects plots. }
+  \item{nfactors}{ number of factors, default is nruns - 1, 
+   and it is recommended to retain this default.\cr 
+   It is possible to specify factor names for fewer factors, 
+   and the remaining columns will be named \code{e1}, \code{e2}, ... 
+   They are useful for representing error in effects plots 
+   (so-called dummy factors). }
   \item{factor.names}{ a character vector of factor names (length up to nfactors) 
         or a list with \code{nfactors} elements;\cr 
         if the list is named, list names represent factor names, otherwise default factor names are used;\cr 
@@ -69,6 +72,13 @@ pb.list
        is conducted in \code{replications} blocks, and each run occurs in each block. }
   \item{randomize}{ logical. If TRUE, the design is randomized. This is the default. }
   \item{seed}{ optional seed for the randomization process }
+  \item{oldver}{ logical. If \code{TRUE}, the column ordering from 
+       package versions 1.0-5 to 1.2.10 is used. This affects designs in 
+       40, 52, 56, 64, 76, 92, 96 and 100 runs. 
+       Usually, option \code{oldver} should not be set to is useful for reproducing an 
+       old design, or for making a design in 40, 56, 64, 88 or 96 runs with 
+       exactly half the number of factors resolution IV.
+         }
   \item{\dots}{ currently not used }
 }
 \details{
@@ -95,7 +105,7 @@ pb.list
   For 64 runs, the 32 run design is doubled.
   For 92 runs, a design is constructed according to the Williamson construction with matrices A, B, C and D from Hedayat and Stufken (1999), p. 160. 
   
-  So far, designs up to 96~runs are covered. More and different ones may follow, since the package is currently under intensive development.
+  Designs up to 100~runs are covered. 
   
   Usage of the 8 run design for more than 4 factors is discouraged, 
   as it completely aliases main effects with individual two-factor interactions. 
@@ -125,12 +135,10 @@ pb.list
         \item{type }{ character string \dQuote{pb}, except for 8~runs with up to 
            4~factors, for which a type \dQuote{FrF2} design is output}
         \item{nruns }{ number of runs (replications are not counted) }
-        \item{nfactors }{ number of factors; not for designs of type \code{FrF2.blocked}, 
-           where \code{ntreat} takes this role}
-        \item{ntreat }{ for designs of type \code{FrF2.blocked} only; \cr
-           number of treatment factors }
+        \item{nfactors }{ number of factors}
         \item{factor.names }{ list named with (treatment) factor names and containing as 
            entries vectors of length two each with coded factor levels }
+        \item{ndummies }{ number of dummy factors for error }
        \item{replication }{ option setting in call to \code{pb} }
        \item{repeat.only }{ option setting in call to \code{pb} }
        \item{randomize }{ option setting in call to \code{pb} }
@@ -143,14 +151,14 @@ pb.list
 }
 \section{Warning}{With version 1.0-5 of package \pkg{FrF2}, 
    design generation for the designs based on doubling has changed (internal function 
-   \code{double.des}). This affects designs for 40,56,64,88,96 runs. 
-   The benefit is that these designs are now resolution IV, if they are used with 
-   a number of factors up to half the number of runs, i.e. the main effects for 
-   such situations can be estimated without being confounded by 
-   potential two-factor interactions.
+   \code{double.des}). This affected designs for 40,56,64,88,96 runs. 
+   With version 1.3 of package \pkg{FrF2}, this and further behaviors (52, 76) has changed 
+   again, in the interest of improving generalized resolution of desigs produced by function \code{pb}. 
    
-   The downside: for these numbers of runs, package versions from 1.0-5 onwards 
-   cannot exactly reproduce pb designs that have been created with an earlier version.}
+   For the affected run sizes, package versions from 1.0-5 onwards 
+   cannot exactly reproduce pb designs that have been created with a version before 
+   1.0-5. Package versions from 1.3 onwards reproduce the behavior of versions 1.0-5 to 1.2-10 
+   through option \code{oldver}.}
 
 \references{ 
   Box, G.E.P. and Tyssedal, J. (2001) Sixteen Run Designs of High Projectivity for Factor Screening. 
@@ -183,12 +191,38 @@ pb.list
    test <- pb(40) ## design created by doubling the 20 run design
    pb(12, ncenter=6) ## 6 center points with default placement
    
+   \dontrun{
    ## note: designs in 40, 56, 64, 88, and 96 runs are resolution IV,
-   ## if the number of factors is up to half the number of runs, e.g.:
-   plan <- pb(40,20)
-   length3(plan)  ## 0 generalized words of length 3
-   length4(plan)  ## 285 generalized words of length 4
-}
+   ## if the number of factors is up to nruns/2 - 1, e.g.:
+   plan1 <- pb(40, 19)
+   length3(plan1)  ## 0 generalized words of length 3
+   length4(plan1)  ## 228 generalized words of length 4
+   ## they can be made resolution IV by oldver=TRUE for 
+   ## nfactors=nruns/2, e.g.:
+   plan2 <- pb(40, 20)
+   plan3 <- pb(40, 20, oldver=TRUE)
+   length3(plan2)  ## 9 generalized words of length 3
+   length3(plan3)  ## 0 generalized words of length 3
+   length4(plan3)  ## 285 generalized words of length 4
+   
+   ## note: designs in 52, 76, and 100 runs are almost resolution IV,
+   ## if the number of factors is up to nruns/2 - 1, e.g.:
+   plan4 <- pb(52, 25)
+   GR(plan4)       ## generalized resolution 3.92
+   
+   ## note: versions >1.3 avoid complete and heavy aliasing of triples of factors 
+   ## for up to nruns-2 factors for 40, 52, 56, 64, 76, 88, 92 and 96 runs
+   ## (the same for 100 runs, which were not implemented before version 1.3)
+   plan5 <- pb(40, 38)
+   plan6 <- pb(40, 38, oldver=TRUE)
+   GR(plan5)       ## generalized resolution 3.4
+   GR(plan6)       ## generalized resolution 3
+   plan7 <- pb(52, 50)
+   plan8 <- pb(52, 50, oldver=TRUE)
+   GR(plan7)       ## generalized resolution 3.62
+   GR(plan8)       ## generalized resolution 3.15
+   }
+   }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ array }

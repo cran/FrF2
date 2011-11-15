@@ -40,6 +40,29 @@ flush(stderr()); flush(stdout())
 
 
 cleanEx()
+nameEx("CIG")
+### * CIG
+
+flush(stderr()); flush(stdout())
+
+### Name: CIG
+### Title: Clear interactions graph from catlg entry
+### Aliases: CIGstatic CIG
+### Keywords: design
+
+### ** Examples
+
+## Not run: 
+##D ex.CIG <- CIG("9-4.2")
+##D ## play around with the dynamic graph until it looks right
+##D ## look up its id number in the title bar of the graph window and use it for id
+##D par(xpd=TRUE)
+##D CIGstatic(ex.CIG, id=1)
+## End(Not run)
+
+
+
+cleanEx()
 nameEx("CatalogueAccessors")
 ### * CatalogueAccessors
 
@@ -785,12 +808,39 @@ flush(stderr()); flush(stdout())
    test <- pb(40) ## design created by doubling the 20 run design
    pb(12, ncenter=6) ## 6 center points with default placement
    
-   ## note: designs in 40, 56, 64, 88, and 96 runs are resolution IV,
-   ## if the number of factors is up to half the number of runs, e.g.:
-   plan <- pb(40,20)
-   length3(plan)  ## 0 generalized words of length 3
-   length4(plan)  ## 285 generalized words of length 4
-
+   ## Not run: 
+##D    ## note: designs in 40, 56, 64, 88, and 96 runs are resolution IV,
+##D    ## if the number of factors is up to nruns/2 - 1, e.g.:
+##D    plan1 <- pb(40, 19)
+##D    length3(plan1)  ## 0 generalized words of length 3
+##D    length4(plan1)  ## 228 generalized words of length 4
+##D    ## they can be made resolution IV by oldver=TRUE for 
+##D    ## nfactors=nruns/2, e.g.:
+##D    plan2 <- pb(40, 20)
+##D    plan3 <- pb(40, 20, oldver=TRUE)
+##D    length3(plan2)  ## 9 generalized words of length 3
+##D    length3(plan3)  ## 0 generalized words of length 3
+##D    length4(plan3)  ## 285 generalized words of length 4
+##D    
+##D    ## note: designs in 52, 76, and 100 runs are almost resolution IV,
+##D    ## if the number of factors is up to nruns/2 - 1, e.g.:
+##D    plan4 <- pb(52, 25)
+##D    GR(plan4)       ## generalized resolution 3.92
+##D    
+##D    ## note: versions >1.3 avoid complete and heavy aliasing of triples of factors 
+##D    ## for up to nruns-2 factors for 40, 52, 56, 64, 76, 88, 92 and 96 runs
+##D    ## (the same for 100 runs, which were not implemented before version 1.3)
+##D    plan5 <- pb(40, 38)
+##D    plan6 <- pb(40, 38, oldver=TRUE)
+##D    GR(plan5)       ## generalized resolution 3.4
+##D    GR(plan6)       ## generalized resolution 3
+##D    plan7 <- pb(52, 50)
+##D    plan8 <- pb(52, 50, oldver=TRUE)
+##D    GR(plan7)       ## generalized resolution 3.62
+##D    GR(plan8)       ## generalized resolution 3.15
+##D    
+## End(Not run)
+   
 
 
 cleanEx()

@@ -94,7 +94,7 @@ myscatterplot3d <- function (x, y = NULL, z = NULL, color = par("col"), pch = NU
         daty[!is.finite(daty)] <- mean(daty[is.finite(daty)])
         if (highlight.3d && !(all(diff(daty) == 0))) 
             dat$col <- rgb(seq(0, 1, length = n) * (y.range[2] - 
-                daty)/diff(y.range), g = 0, b = 0)
+                daty)/diff(y.range), green = 0, blue = 0)
     }
     p.lab <- par("lab")
     y.range <- range(dat$y[is.finite(dat$y)], ylim)

@@ -3,6 +3,25 @@ Changes to package FrF2
 The package is still under development. 
 Suggestions and bug reports are very welcome.
 
+28/02/2012, version 1.3
+  - added the 100 run PB design
+  - modified column ordering for several designs in function pb 
+    for improving aliasing behavior of resulting designs, 
+    allowing to preserve previous behavior with option oldver
+  - added warnings to function pb for designs with heavy aliasing
+  - added number of dummy factors to design.info attribute for 
+    pb designs (ndummies)
+  - renamed function CIG.catlg to CIG 
+    (in order to avoid misunderstanding it as method for class catlg)
+  Bug fixes:
+  - internal function check.subisomorphic.special precluded estimable 
+    to work with a one effect requirement for clear=FALSE and res3=TRUE
+  - nrunsV did not report correct number for nfactors= 2 or 3 
+    (started with 16 run designs and ignored full factorials in 2 and 3 factors)
+  - an error message of function FrF2Large still referred to the old preliminary 
+    function name Vlarge
+  - corrected documentation of function CIG (formerly CIG.catlg); 
+    half-finished working version of this documentation was online
 
 15/11/2011, Version 1.2-10
   - moved function iscube from package FrF2 to package DoE.base 

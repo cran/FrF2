@@ -1,4 +1,4 @@
-CIG.catlg <- function(design, select.catlg=catlg, static=FALSE, layout=layout.circle, label="num", ...){
+CIG <- function(design, select.catlg=catlg, static=FALSE, layout=layout.circle, label="num", ...){
     ## create graph picture for design entry
     if (!"catlg" %in% class(select.catlg)) stop("select.catlg must be a catalogue")
     if (!(is.character(design) & length(design)==1))

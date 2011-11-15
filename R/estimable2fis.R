@@ -163,7 +163,7 @@ check.subisomorphic.special <- function(estimable, nfac, hilf2, hilf3=NULL, res3
     for (i in 2:factorial(nfac)) {
       ## loop makes sure that getNext does not continue
       ## could be omitted if getNext would understand that it is finished
-       if (difftime(Sys.time(),begin_time,unit="sec") > max.time)               
+       if (difftime(Sys.time(),begin_time,units="sec") > max.time)               
               stop("A solution could not be found in the allocated max.time of ",max.time," seconds. \n",
                    if (!is.na(name)) paste("Final design:",name), ", Final permutation:", paste(map,collapse=",") )
       map <- getNext(map)
@@ -178,7 +178,8 @@ check.subisomorphic.special <- function(estimable, nfac, hilf2, hilf3=NULL, res3
        if (any(apply(estcur,2,function(objcp) any(sapply(hilf3,function(obj) all(objcp %in% obj)))))) 
             iso <- FALSE    
     } 
-    if (iso & !is.null(hilf2)){
+    ## bug fix with version 1.3: restricted to ncol(estimable) > 1
+    if (iso & !is.null(hilf2) & ncol(estimable) > 1){
        for (i in 1:ncol(colpairs)) colpairs[,i] <- sort(c(estcur[,hilf[,i]]))
        if (any(apply(colpairs,2,function(objcp) any(sapply(hilf2,function(obj) all(obj==objcp)))))){
             iso <- FALSE
@@ -210,7 +211,7 @@ check.subisomorphic.matrix <- function(estimable, nfac, hilf2, hilf3=NULL, res3=
     for (i in 1:nrow(perms)) {
       ## loop makes sure that getNext does not continue
       ## could be omitted if getNext would understand that it is finished
-       if (difftime(Sys.time(),begin_time,unit="sec") > max.time)               
+       if (difftime(Sys.time(),begin_time,units="sec") > max.time)               
               stop("A solution could not be found in the allocated max.time of ",max.time," seconds. \n",
                    if (!is.na(name)) paste("Final design:",name), ", Final permutation:", paste(map,collapse=",") )
       map <- perms[i,]
@@ -241,7 +242,7 @@ check.subisomorphic.matrix <- function(estimable, nfac, hilf2, hilf3=NULL, res3=
 
 map2design <- function(map, select.catlg=catlg){
           hilf <- select.catlg[[names(map)]]
-          hilf <- FrF2(nruns=hilf$nruns,nfactors=hilf$nfac,generator=hilf$gen,randomize=FALSE)[,map[[1]]]
+          hilf <- FrF2(nruns=hilf$nruns,nfactors=hilf$nfac,generators=hilf$gen,randomize=FALSE)[,map[[1]]]
           colnames(hilf) <- Letters[1:ncol(hilf)]
           hilf
     }

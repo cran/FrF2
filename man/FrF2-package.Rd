@@ -14,7 +14,7 @@ alias structure in a more readable format than with the built-in function alias)
 The package works together with packages DoE.base and DoE.wrapper.
 }
 \details{
-The package is currently subject to intensive development; most key functionality is now included. 
+The package is still subject to development; most key functionality is now included. 
 Please contact me, if you have suggestions.
 
 This package designs and analyses Fractional Factorial experiments with 2-level factors. 
@@ -39,7 +39,7 @@ In terms of analysis, package \code{FrF2} works on linear models and enables con
 interaction plots (functions \code{MEPlot} and \code{IAPlot}) similar to those 
 offered by Minitab software for all factors simultaneously, even though especially the 
 interactions are often aliased, i.e. the model is typically singular. 
-For the (rare) case of suspected three-factor-interactions, function 
+For the (less frequent) case of suspected three-factor-interactions, function 
 \code{cubePlot} displays a cube with corners labeled with the (modeled) 
 means of three factors simultaneously.
 Furthermore, the function \code{DanielPlot} from package \pkg{BsMD} has been 
@@ -49,10 +49,6 @@ Finally, the function \code{aliases} determines the alias structure of a
 Fractional Factorial 2-level design in a format more suitable for human readers 
 than the output from the built-in function \code{alias}. 
 
-CAUTION: Note that the analysis facilities currently do not make use of all design 
-information attached to the design. For example, an effects plot function will treat 
-a linear model based on a split-plot-design in the same way as if the design were a 
-standard fractional factorial.
 }
 \author{
 Ulrike Groemping

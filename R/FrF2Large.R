@@ -9,9 +9,9 @@ nrunsV <- function(nfactors){
    ## Xu 26 factors has been improved by Ryan and Bulutoglu
        ### change bound in fiveFrF2MA as soon as incorporated in catalogue
    ## 
-   fiveFrF2MA <- data.frame(nfactors=c(5,6,8,11,17,23,28,27,25),nruns=2^(4:12))
-   fiveFrF2 <- data.frame(nfactors=c(5,6,8,11,17,23,33,47,65),nruns=2^(4:12))
-   fiveSanchezSanchez <- data.frame(nfactors=c(5,6,8,11,17,21,29,38,52,69,92,120),nruns=2^(4:15))
+   fiveFrF2MA <- data.frame(nfactors=c(2,3,5,6,8,11,17,23,28,27,25),nruns=2^(2:12))
+   fiveFrF2 <- data.frame(nfactors=c(2,3,5,6,8,11,17,23,33,47,65),nruns=2^(2:12))
+   fiveSanchezSanchez <- data.frame(nfactors=c(2,3,5,6,8,11,17,21,29,38,52,69,92,120),nruns=2^(2:15))
    oldwarn <- options("warn")
    options(warn=-1)
    FrF2MA <- min(fiveFrF2MA$nruns[which(fiveFrF2MA$nfactors >= nfactors)])
@@ -104,7 +104,7 @@ FrF2Large <- function(nruns, nfactors=NULL,
 #    if (nruns >= 1024 & nruns <= 4096)
 #        warning("Usage of function FrF2 might yield a better design \n(up to 33 factors in 1024 runs, \nup to 47 factors in 2048 runs, \nup to 65 factors in 4096 runs)")
 
-    if (nruns <= 4096) stop("Please use function FrF2; it does everything that VLarge can do and more.") 
+    if (nruns <= 4096) stop("Please use function FrF2; it does everything that FrF2Large can do and more.") 
 
 ## check factor level specifications
     if (!((is.character(default.levels) | is.numeric(default.levels)) & length(default.levels)==2) )
