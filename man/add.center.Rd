@@ -1,7 +1,6 @@
 \name{add.center}
 \Rdversion{1.1}
 \alias{add.center}
-\alias{iscube}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Function to add center points to a 2-level fractional factorial
@@ -12,7 +11,6 @@ All factors must be quantitative!
 }
 \usage{
 add.center(design, ncenter, distribute=NULL, ...)
-iscube(design, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -77,8 +75,9 @@ iscube(design, ...)
   is one or two only, the beginning and (for two) the end of (each block of) the design have one more center point, 
   otherwise the \code{ncenter\%\%distribute} extra center points are randomized over the center point positions.
   
-  Function \code{iscube} provides a logical vector that is TRUE for cube points 
-  and FALSE for center points. Its purpose is to enable use of simple functions 
+  Function \code{\link[DoE.base]{iscube}} from package \pkg{DoE.base} 
+  provides a logical vector that is TRUE for cube points 
+  and FALSE for center points, which allows to use of simple functions 
   for \dQuote{clean} 2-level fractional factorials like \code{MEPlot}. 
 }
 \value{
@@ -98,10 +97,7 @@ iscube(design, ...)
   (with the updated \code{nruns} being their sum). The element \code{coding} is 
   also added to the \code{design.info}, in order to support steepest ascent/descent 
   analysis from the center point.
-  
-  Function \code{iscube} provides a logical vector that is TRUE for cube points 
-  and FALSE for center points. 
-  
+
 }
 \references{
 

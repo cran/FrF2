@@ -4,6 +4,11 @@ The package is still under development.
 Suggestions and bug reports are very welcome.
 
 
+15/11/2011, Version 1.2-10
+  - moved function iscube from package FrF2 to package DoE.base 
+    and extended its applicability
+  - made package depend on version 0.22-8 of DoE.base (which contains iscube)
+
 07/11/2011, Version 1.2-9
   - made function add.center cater for adding 0 center points 
     (in support of the (not recommended) desire to have a central composite 

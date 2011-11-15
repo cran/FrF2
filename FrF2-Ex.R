@@ -424,7 +424,7 @@ flush(stderr()); flush(stdout())
 
 ### Name: add.center
 ### Title: Function to add center points to a 2-level fractional factorial
-### Aliases: add.center iscube
+### Aliases: add.center
 ### Keywords: design array
 
 ### ** Examples
