@@ -1,0 +1,99 @@
+
+R version 2.14.1 (2011-12-22)
+Copyright (C) 2011 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+Platform: i386-pc-mingw32/i386 (32-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> require(FrF2)
+Loading required package: FrF2
+Loading required package: BsMD
+Loading required package: scatterplot3d
+Loading required package: igraph
+Loading required package: DoE.base
+Loading required package: relimp
+Loading Tcl/Tk interface ... done
+Loading required package: tcltk
+Loading required package: vcd
+Loading required package: MASS
+Loading required package: grid
+Loading required package: colorspace
+Loading required package: conf.design
+
+Attaching package: 'DoE.base'
+
+The following object(s) are masked from 'package:conf.design':
+
+    factorize.factor
+
+The following object(s) are masked from 'package:relimp':
+
+    showData
+
+The following object(s) are masked from 'package:stats':
+
+    aov, lm
+
+The following object(s) are masked from 'package:graphics':
+
+    plot.design
+
+The following object(s) are masked from 'package:utils':
+
+    fix
+
+
+Attaching package: 'FrF2'
+
+The following object(s) are masked from 'package:BsMD':
+
+    DanielPlot
+
+> reshuffled <- FrF2(32,9, estimable=c("AC","BC","AB"))
+> basic <- FrF2(32,9, estimable=c("CJ"))
+> FrF2:::generators.from.design(basic)
+[[1]]
+x6 ~ x1 * x2 * x3
+<environment: 0x039c0fc8>
+
+[[2]]
+x7 ~ x1 * x2 * x4
+<environment: 0x039ba090>
+
+[[3]]
+x8 ~ x1 * x2 * x5
+<environment: 0x039b39bc>
+
+[[4]]
+x9 ~ x1 * x3 * x4 * x5
+<environment: 0x036ffe18>
+
+> FrF2:::generators.from.design(reshuffled)
+[[1]]
+x6 ~ x1 * x3 * x4 * x5
+<environment: 0x039953e8>
+
+[[2]]
+x7 ~ x1 * x2 * x3
+<environment: 0x036c5e90>
+
+[[3]]
+x8 ~ x2 * x3 * x4 * x5
+<environment: 0x036be034>
+
+[[4]]
+x9 ~ x1 * x2 * x4 * x5
+<environment: 0x036dc9b8>
+
+> 

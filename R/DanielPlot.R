@@ -49,8 +49,8 @@ DanielPlot.design <- function(fit, ..., response=NULL){
                 }
           subtext <- "WARNING: whole plot effects (marked by o) may have larger variation than split-plot effects"
           DanielPlot(lm(fit, degree=grad, response=response), pch=pchs, subtitle=subtext, ...)
-          }
-          else DanielPlot(lm(fit, degree=grad, response=response), ...)
+    }
+    else DanielPlot(lm(fit, degree=grad, response=response, use.dummies=TRUE), ...)
 }
 
 DanielPlot.default <-

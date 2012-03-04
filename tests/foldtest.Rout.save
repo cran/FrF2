@@ -1,7 +1,8 @@
 
-R version 2.11.0 (2010-04-22)
-Copyright (C) 2010 The R Foundation for Statistical Computing
+R version 2.14.1 (2011-12-22)
+Copyright (C) 2011 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
+Platform: i386-pc-mingw32/i386 (32-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -19,7 +20,6 @@ Type 'q()' to quit R.
 Loading required package: BsMD
 Loading required package: scatterplot3d
 Loading required package: igraph
-Loading required package: sfsmisc
 Loading required package: DoE.base
 Loading required package: relimp
 Loading Tcl/Tk interface ... done
@@ -28,8 +28,13 @@ Loading required package: vcd
 Loading required package: MASS
 Loading required package: grid
 Loading required package: colorspace
+Loading required package: conf.design
 
 Attaching package: 'DoE.base'
+
+The following object(s) are masked from 'package:conf.design':
+
+    factorize.factor
 
 The following object(s) are masked from 'package:relimp':
 
@@ -37,7 +42,7 @@ The following object(s) are masked from 'package:relimp':
 
 The following object(s) are masked from 'package:stats':
 
-    lm
+    aov, lm
 
 The following object(s) are masked from 'package:graphics':
 
