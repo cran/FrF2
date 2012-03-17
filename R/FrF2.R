@@ -447,14 +447,19 @@ if (identical(nfac.WP,0) & is.null(WPfacs) & !identical(WPs,1))
                          stop("no adequate block design found with 2fis unconfounded with blocks")
                 }
                 }
-            if (is.list(blocks)) {  
-                if (k.block > 1){
-                ### check that manual choices for block entries contain independent entries only
+            if (is.list(blocks)) {
+                # can be a pre-treated automatic situation or a manual specification
                 hilf.gen <- c(2^(0:(k-1)), cand[[1]]$gen)    ### cand[[1]] exists ?
-                hilf.block.gen <- block.gen
-                #if (is.null(hilf.block.gen))
                 hilf.block.gen <- sapply(blocks, function(obj) 
                        as.intBase(paste(rowSums(do.call(cbind,lapply(obj, function(obj2) digitsBase(hilf.gen[obj2],2,k))))%%2,collapse="")))
+                k.block.add <- length(intersect(hilf.block.gen, hilf.gen))
+                if (is.null(block.gen)) {
+                   ## manual allocation 
+                   ntreat <- nfactors - k.block.add
+                   block.gen <- hilf.block.gen
+                   }
+                if (k.block > 1){
+                ### check that manual choices for block entries contain independent entries only
                 hilf <- hilf.block.gen
                 for (i in 2:k.block){
                        sel <- combn(k.block,i)
@@ -810,10 +815,21 @@ else {
         ## determine treatment effects that are aliased with blocks
         aliased.with.blocks <- hilf$aliases[1:(2^k.block-1)]
            aliased.with.blocks <- unlist(aliased.with.blocks)
-           if (length(aliased.with.blocks)==0) aliased.with.blocks <- "none"
+        ## interim result for updating alias information
+        if (nfactors<=50) leg <- paste(Letters[1:ntreat],names(factor.names),sep="=")
+        else leg <- paste(paste("F",1:ntreat,sep=""),names(factor.names),sep="=")
+        if (length(aliased.with.blocks)==0) aliased.with.blocks <- "none"
+           else {
+             aliased.with.blocks <- recalc.alias.block(aliased.with.blocks, leg)
+             aliased.with.blocks <- aliased.with.blocks[ord(data.frame(nchar(aliased.with.blocks),aliased.with.blocks))]
+             }
         ## determine treatment effects that are aliased with each other
         aliased <- hilf$aliases[-(1:(2^k.block-1))]
-           aliased <- aliased[which(sapply(aliased,length)>1)]
+        aliased <- aliased[which(sapply(aliased,length)>1)]
+        ## update: same format like aliased element of unblocked designs
+        if (length(aliased)>0) aliased <- struc.aliased(recalc.alias.block(aliased, leg), nfactors, alias.info)
+
+           
         ## prepare design info for blocked designs
         ntreat <- ncol(desdf) - 1
         if (block.auto) factor.names <- factor.names[1:ntreat]
@@ -852,8 +868,14 @@ else {
             aliased <- aliases(lm((1:nrow(desmat))~(.)^3,data=data.frame(desmat)))$aliases
             else
             aliased <- aliases(lm((1:nrow(desmat))~(.)^2,data=data.frame(desmat)))$aliases
-            
             aliased <- aliased[which(sapply(aliased,length)>1)]
+            ## update: same format with aliased entry of other FrF2 designs
+            if (length(aliased) > 0){ 
+                if (nfactors<=50) leg <- paste(Letters[1:nfactors],names(factor.names),sep="=")
+                else leg <- paste(paste("F",1:nfactors,sep=""),names(factor.names),sep="=")
+                aliased <- struc.aliased(recalc.alias.block(aliased, leg), nfactors, alias.info)
+                }
+
             design.info <- list(type="FrF2.splitplot", 
                 nruns=nruns, nfactors=nfactors, nfac.WP=nfac.WP, nfac.SP=nfactors-nfac.WP, 
                       factor.names=factor.names,

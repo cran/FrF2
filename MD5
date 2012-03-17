@@ -1,4 +1,4 @@
-1d5089453a932ed80c69bc2f28dc7ca7 *DESCRIPTION
+0198ce2b4aac1ee78b5e6d4ae7d0e5e3 *DESCRIPTION
 a8cb30d9c917ff4f3a5357b77bef0316 *FrF2-Ex.R
 e1b64a61bb21f02384c484ed1785968e *LICENSE
 05e6827fb9052e5d307eaf1374d7bdaa *NAMESPACE
@@ -6,7 +6,7 @@ e1b64a61bb21f02384c484ed1785968e *LICENSE
 8f1acb21f7ec377cf6262f43cc2d900f *R/CIG.R
 6d0b79afab8f2a7caaebd9aa936c4c58 *R/CatalogueAccessors.R
 f4f512c5ada707ef3915aa9c7301554c *R/DanielPlot.R
-9643dd3fc96c25b5c140c2553214086e *R/FrF2.R
+d72d5f20f1acbb5cf2a3e961f44e7bcf *R/FrF2.R
 1ff3a6b2a7d3079dbaaaf83c809d1418 *R/FrF2Large.R
 ac192ba9684d7311049db133adba22bb *R/IAPlot.R
 f75c9a065b5a578afa02c5dd062be1ff *R/MEPlot.R
@@ -17,6 +17,7 @@ c8cbefec5aea40dfa64aa69a737bcf5d *R/WP.check.R
 8d41e6cc00a3cee36b3c7c57b2f111ec *R/blockcheck.R
 c61edb60133a5d3bdd0dc1d60139d4d3 *R/blockpick.R
 91581c9e9690dbb215afe5e308aea59e *R/blockpick.big.R
+0fc692eb93835e5255da3e1be2408813 *R/blocksplitplot.aliases.shortrep.R
 a9c74f50d39b0a24b5d816a2e29793c7 *R/check.R
 e94ca6ead6aae7fe1191e5cb52188d6c *R/cols.R
 c1c42ab0cdf90c3886bbaf7fca5b1e66 *R/compromise.R
@@ -41,7 +42,7 @@ c225d9357c21f58cb26a2c139665f1e4 *R/myscatterplot3d.R
 05811c8e2c98b4c932de502a61361df8 *R/utilcat.R
 246ebe6006da805cce8df555c965be70 *R/utilpb.R
 170328a9e64be149b0b97f65623f8ee1 *R/utilperm.R
-810631eb5b126b29b0afd2698a7a26e9 *inst/NEWS
+e6f1097a90aac08e55a029d79cf83276 *inst/NEWS
 42ec5c04a662a1fe1f5d08ae65592858 *man/BsProb.design.Rd
 81b1c6218d7163f56a9a8b83bf4356be *man/CIG.Rd
 19ca55c698d90cb53009c252ab5d598f *man/CatalogueAccessors.Rd
@@ -61,11 +62,12 @@ d0020409c9a86136a960f05b3cee79e5 *man/blockpick.Rd
 8711af23c18fdbc954ae7a266834a98f *man/fold.design.Rd
 f76955ecee59c9e62c1c51b78fd94cb0 *man/pb.Rd
 095cb0fc1775b7c0b6d5d71ef53a24ea *man/splitplot.Rd
+6a89a35b8f75a8a47537bfe852527f8d *man/utilities.blocksplitplot.aliases.shortrep.Rd
 c3651ed6974ff2271b632b0e77cc14ab *man/utilitiesCat.Rd
 5f0a193a0b7885fc9a812e2c65fa5789 *man/utilitiesPB.Rd
 07a44bfb4747b83c5803bab642b034c8 *man/utilitiesV.Rd
 f9c0779c07bba9c9c85f807f1d0d7948 *tests/FrF2test.R
-0327de81988c237cfa20500459665427 *tests/FrF2test.Rout.save
+45361cd68b672915eb86dae0e7a1c3a7 *tests/FrF2test.Rout.save
 cf362fd71f1ee70e1ba0a749a84a0001 *tests/addcentertest.R
 a97748608e44f7c42e31b5ab8c01954a *tests/addcentertest.Rout.save
 0ac35a2db0ca72793206a97269c349a1 *tests/foldtest.R
@@ -73,6 +75,6 @@ a97748608e44f7c42e31b5ab8c01954a *tests/addcentertest.Rout.save
 ec800bc9f6382640c06fa7443fdae233 *tests/generators.from.designtest.R
 66d7e81cd3c741cbd137e65b80764f27 *tests/generators.from.designtest.Rout.save
 edd46bab3f43ae18db0669e1851d074a *tests/generators.summary.test.R
-06adcf72f96262a642d1de61e79f86e3 *tests/generators.summary.test.Rout.save
+8a88e710b54e40af9431f7a290b7c4d2 *tests/generators.summary.test.Rout.save
 25408278dc8c77c47e77f9ce2c3ec4f7 *tests/pbtest.R
 df9ebf7b7edc60f632ca2fcf62b7ec32 *tests/pbtest.Rout.save

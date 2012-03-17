@@ -1,5 +1,5 @@
 
-R version 2.14.1 (2011-12-22)
+R version 2.14.0 (2011-10-31)
 Copyright (C) 2011 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 Platform: i386-pc-mingw32/i386 (32-bit)
@@ -110,26 +110,8 @@ $`block generators`
 
 
 Alias structure:
-[[1]]
-[1] A:B C:F D:G
-
-[[2]]
-[1] C:D F:G
-
-[[3]]
-[1] C:G D:F
-
-[[4]]
-[1] A:D B:G
-
-[[5]]
-[1] A:C B:F
-
-[[6]]
-[1] A:G B:D
-
-[[7]]
-[1] A:F B:C
+$fi2
+[1] AB=CF=DG AC=BF    AD=BG    AF=BC    AG=BD    CD=FG    CG=DF   
 
 Aliased with block main effects:
 [1] none
@@ -158,38 +140,11 @@ $`block generators`
 
 
 Alias structure:
-[[1]]
-[1] G:H D:E
-
-[[2]]
-[1] D:H E:G
-
-[[3]]
-[1] A:D B:G
-
-[[4]]
-[1] A:E B:H
-
-[[5]]
-[1] A:G B:D
-
-[[6]]
-[1] A:H B:E
-
-[[7]]
-[1] C:D F:G
-
-[[8]]
-[1] C:E F:H
-
-[[9]]
-[1] C:G D:F
-
-[[10]]
-[1] C:H E:F
+$fi2
+ [1] AD=BG AE=BH AG=BD AH=BE CD=FG CE=FH CG=DF CH=EF DH=EG GH=DE
 
 Aliased with block main effects:
-[1] A:C B:F A:B C:F D:G E:H A:F B:C
+[1] AB AC AF BC BF CF DG EH
 > summary(FrF2(32,9,blocks=c("AB","AC"),alias.block.2fis=TRUE),brief=TRUE)
 Call:
 FrF2(32, 9, blocks = c("AB", "AC"), alias.block.2fis = TRUE)
@@ -215,38 +170,11 @@ $`block generators`
 
 
 Alias structure:
-[[1]]
-[1] G:H D:E
-
-[[2]]
-[1] D:H E:G
-
-[[3]]
-[1] A:D B:G
-
-[[4]]
-[1] A:E B:H
-
-[[5]]
-[1] A:G B:D
-
-[[6]]
-[1] A:H B:E
-
-[[7]]
-[1] C:D F:G
-
-[[8]]
-[1] C:E F:H
-
-[[9]]
-[1] C:G D:F
-
-[[10]]
-[1] C:H E:F
+$fi2
+ [1] AD=BG AE=BH AG=BD AH=BE CD=FG CE=FH CG=DF CH=EF DH=EG GH=DE
 
 Aliased with block main effects:
-[1] A:C B:F A:B C:F D:G E:H A:F B:C
+[1] AB AC AF BC BF CF DG EH
 > summary(FrF2(64,7,blocks=4),brief=TRUE)
 Call:
 FrF2(64, 7, blocks = 4)
@@ -380,79 +308,23 @@ $`generators for design itself`
 [13] P=b1b2b3b4A
 
 $`block generators`
-[1] b1=A b2=B b3=C b4=D
+                                          
+ block generators b1 b2 b3 b4             
+ from Yates matrix columns 1 2 4 8        
+ of base design 19-13.3 in catalogue catlg
+ base factors remapped as 3 4 5 6 1 2     
 
 
 Alias structure:
-[[1]]
-[1] B:K D:M G:O
-
-[[2]]
-[1] A:K C:L G:N
-
-[[3]]
-[1] B:L E:M H:O
-
-[[4]]
-[1] A:M F:L J:O
-
-[[5]]
-[1] C:M F:K
-
-[[6]]
-[1] D:L E:K G:P
-
-[[7]]
-[1] A:O B:N F:P J:M
-
-[[8]]
-[1] D:O G:M
-
-[[9]]
-[1] A:B E:F N:O
-
-[[10]]
-[1] B:C D:F
-
-[[11]]
-[1] A:D C:E G:J
-
-[[12]]
-[1] B:G K:O
-
-[[13]]
-[1] A:G C:H D:J K:N
-
-[[14]]
-[1] B:H F:J L:O M:P
-
-[[15]]
-[1] B:J F:H M:N
-
-[[16]]
-[1] C:J D:H E:G K:P
-
-[[17]]
-[1] B:D C:F K:M
-
-[[18]]
-[1] C:P D:N J:K
-
-[[19]]
-[1] A:F B:E L:M O:P
-
-[[20]]
-[1] A:C D:E G:H K:L
-
-[[21]]
-[1] B:P E:O F:N H:M
-
-[[22]]
-[1] C:N D:P G:L H:K
+$fi2
+ [1] AB=EF=NO    AC=DE=GH=KL AD=CE=GJ    AF=BE=LM=OP AG=CH=DJ=KN AK=CL=GN   
+ [7] AM=FL=JO    AO=BN=FP=JM BC=DF       BD=CF=KM    BG=KO       BH=FJ=LO=MP
+[13] BJ=FH=MN    BK=DM=GO    BL=EM=HO    BP=EO=FN=HM CJ=DH=EG=KP CM=FK      
+[19] CN=DP=GL=HK CP=DN=JK    DL=EK=GP    DO=GM      
 
 Aliased with block main effects:
- [1] A:N B:O E:P G:K H:L B:M D:K E:L H:P J:N A:J D:G E:H L:P M:O A:L C:K F:M H:N
-[20] J:P A:H C:G E:J L:N A:E B:F C:D H:J N:P A:P E:N F:O J:L
+ [1] AE AH AJ AL AN AP BF BM BO CD CG CK DG DK EH EJ EL EN EP FM FO GK HJ HL HN
+[26] HP JL JN JP LN LP MO NP
 > 
 > ### various split-plot setups
 > planfull <-FrF2(32,5,WPs=4,nfac.WP=2,factor.names=Letters[21:25])
@@ -529,7 +401,7 @@ $aliased$legend
 
 
 $FrF2.version
-[1] "1.3-1"
+[1] "1.4"
 
 $base.design
 [1] "generator columns: "
@@ -582,23 +454,11 @@ $generators
 
 
 Alias structure:
-[[1]]
-[1] U   V:Y
+$main
+[1] A=BC B=AC C=AB
 
-[[2]]
-[1] V   U:Y
-
-[[3]]
-[1] Y   U:V
-
-[[4]]
-[1] Y:T W:Z
-
-[[5]]
-[1] Y:W T:Z
-
-[[6]]
-[1] Y:Z T:W
+$fi2
+[1] CD=EG CE=DG CG=DE
 
 
 split-plot design:  4  whole plots
@@ -655,27 +515,15 @@ $aliased
 $aliased$legend
 [1] "A=U" "B=V" "C=Y" "D=T" "E=W" "F=X" "G=Z"
 
-$aliased[[2]]
-[1] "U"   "V:Y"
+$aliased$main
+[1] "A=BC" "B=AC" "C=AB"
 
-$aliased[[3]]
-[1] "V"   "U:Y"
-
-$aliased[[4]]
-[1] "Y"   "U:V"
-
-$aliased[[5]]
-[1] "Y:T" "W:Z"
-
-$aliased[[6]]
-[1] "Y:W" "T:Z"
-
-$aliased[[7]]
-[1] "Y:Z" "T:W"
+$aliased$fi2
+[1] "CD=EG" "CE=DG" "CG=DE"
 
 
 $FrF2.version
-[1] "1.3-1"
+[1] "1.4"
 
 $base.design
 [1] "generator columns: 6, 15"
@@ -725,14 +573,8 @@ $generators
 
 
 Alias structure:
-[[1]]
-[1] T   U:V
-
-[[2]]
-[1] U   T:V
-
-[[3]]
-[1] V   T:U
+$main
+[1] A=BC B=AC C=AB
 
 
 split-plot design:  4  whole plots
@@ -793,18 +635,15 @@ $aliased
 $aliased$legend
 [1] "A=T" "B=U" "C=V" "D=W" "E=X" "F=Y" "G=Z"
 
-$aliased[[2]]
-[1] "T"   "U:V"
+$aliased$main
+[1] "A=BC" "B=AC" "C=AB"
 
-$aliased[[3]]
-[1] "U"   "T:V"
-
-$aliased[[4]]
-[1] "V"   "T:U"
+$aliased$fi2
+character(0)
 
 
 $FrF2.version
-[1] "1.3-1"
+[1] "1.4"
 
 $catlg.name
 [1] "catlg"
@@ -857,23 +696,11 @@ $generators
 
 
 Alias structure:
-[[1]]
-[1] U   V:Y
+$main
+[1] A=BC B=AC C=AB
 
-[[2]]
-[1] V   U:Y
-
-[[3]]
-[1] Y   U:V
-
-[[4]]
-[1] Y:T W:Z
-
-[[5]]
-[1] Y:W T:Z
-
-[[6]]
-[1] Y:Z T:W
+$fi2
+[1] CD=EG CE=DG CG=DE
 
 
 split-plot design:  4  whole plots
@@ -934,27 +761,15 @@ $aliased
 $aliased$legend
 [1] "A=U" "B=V" "C=Y" "D=T" "E=W" "F=X" "G=Z"
 
-$aliased[[2]]
-[1] "U"   "V:Y"
+$aliased$main
+[1] "A=BC" "B=AC" "C=AB"
 
-$aliased[[3]]
-[1] "V"   "U:Y"
-
-$aliased[[4]]
-[1] "Y"   "U:V"
-
-$aliased[[5]]
-[1] "Y:T" "W:Z"
-
-$aliased[[6]]
-[1] "Y:W" "T:Z"
-
-$aliased[[7]]
-[1] "Y:Z" "T:W"
+$aliased$fi2
+[1] "CD=EG" "CE=DG" "CG=DE"
 
 
 $FrF2.version
-[1] "1.3-1"
+[1] "1.4"
 
 $base.design
 [1] "generator columns: 6, 15"
