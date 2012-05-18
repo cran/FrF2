@@ -3,6 +3,9 @@ Changes to package FrF2
 The package is still under development. 
 Suggestions and bug reports are very welcome.
 
+18/03/2012, version 1.4-1
+  - replaced package igraph with igraph0 on request of the igraph author
+
 17/03/2012, version 1.4
   - modified the aliased and aliased.with.blocks elements of design.info
     for blocked and split-plot designs (more succinct, same structure as for 
