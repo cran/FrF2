@@ -1,6 +1,6 @@
 
-R version 2.14.0 (2011-10-31)
-Copyright (C) 2011 The R Foundation for Statistical Computing
+R version 2.15.1 (2012-06-22) -- "Roasted Marshmallows"
+Copyright (C) 2012 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 Platform: i386-pc-mingw32/i386 (32-bit)
 
@@ -401,7 +401,7 @@ $aliased$legend
 
 
 $FrF2.version
-[1] "1.4"
+[1] "1.5"
 
 $base.design
 [1] "generator columns: "
@@ -523,7 +523,7 @@ $aliased$fi2
 
 
 $FrF2.version
-[1] "1.4"
+[1] "1.5"
 
 $base.design
 [1] "generator columns: 6, 15"
@@ -643,7 +643,7 @@ character(0)
 
 
 $FrF2.version
-[1] "1.4"
+[1] "1.5"
 
 $catlg.name
 [1] "catlg"
@@ -769,7 +769,7 @@ $aliased$fi2
 
 
 $FrF2.version
-[1] "1.4"
+[1] "1.5"
 
 $base.design
 [1] "generator columns: 6, 15"
@@ -797,3 +797,6 @@ FrF2(32, 7, gen = c(6, 15), WPs = 4, nfac.WP = 3, WPfacs = c(2,
     3, 6), factor.names = Letters[19:25])
 
 > 
+> proc.time()
+   user  system elapsed 
+  10.17    0.84   11.29 

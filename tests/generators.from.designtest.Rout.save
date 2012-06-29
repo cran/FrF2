@@ -1,6 +1,6 @@
 
-R version 2.14.1 (2011-12-22)
-Copyright (C) 2011 The R Foundation for Statistical Computing
+R version 2.15.1 (2012-06-22) -- "Roasted Marshmallows"
+Copyright (C) 2012 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 Platform: i386-pc-mingw32/i386 (32-bit)
 
@@ -65,35 +65,38 @@ The following object(s) are masked from 'package:BsMD':
 > FrF2:::generators.from.design(basic)
 [[1]]
 x6 ~ x1 * x2 * x3
-<environment: 0x039c0fc8>
+<environment: 0x046982b8>
 
 [[2]]
 x7 ~ x1 * x2 * x4
-<environment: 0x039ba090>
+<environment: 0x045d9314>
 
 [[3]]
 x8 ~ x1 * x2 * x5
-<environment: 0x039b39bc>
+<environment: 0x045eacbc>
 
 [[4]]
 x9 ~ x1 * x3 * x4 * x5
-<environment: 0x036ffe18>
+<environment: 0x0430b488>
 
 > FrF2:::generators.from.design(reshuffled)
 [[1]]
 x6 ~ x1 * x3 * x4 * x5
-<environment: 0x039953e8>
+<environment: 0x042e8ec0>
 
 [[2]]
 x7 ~ x1 * x2 * x3
-<environment: 0x036c5e90>
+<environment: 0x042d240c>
 
 [[3]]
 x8 ~ x2 * x3 * x4 * x5
-<environment: 0x036be034>
+<environment: 0x0433c460>
 
 [[4]]
 x9 ~ x1 * x2 * x4 * x5
-<environment: 0x036dc9b8>
+<environment: 0x0406eee0>
 
 > 
+> proc.time()
+   user  system elapsed 
+   3.40    0.54    4.12 

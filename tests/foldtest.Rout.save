@@ -1,6 +1,6 @@
 
-R version 2.14.1 (2011-12-22)
-Copyright (C) 2011 The R Foundation for Statistical Computing
+R version 2.15.1 (2012-06-22) -- "Roasted Marshmallows"
+Copyright (C) 2012 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 Platform: i386-pc-mingw32/i386 (32-bit)
 
@@ -1941,3 +1941,6 @@ attr(,"class")
 class=design, type= FrF2.splitplot.folded 
 NOTE: columns run.no and run.no.std.rp are annotation, not part of the data frame
 > 
+> proc.time()
+   user  system elapsed 
+  10.12    0.85   11.31 

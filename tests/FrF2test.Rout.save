@@ -1,6 +1,6 @@
 
-R version 2.14.0 (2011-10-31)
-Copyright (C) 2011 The R Foundation for Statistical Computing
+R version 2.15.1 (2012-06-22) -- "Roasted Marshmallows"
+Copyright (C) 2012 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 Platform: i386-pc-mingw32/i386 (32-bit)
 
@@ -210,7 +210,7 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
   .. ..$ sechs: num  -1 1
   ..$ catlg.name  : chr "catlg"
   ..$ catlg.entry :List of 1
-  .. ..$ 6-2.1:List of 8
+  .. ..$ 6-2.1:List of 9
   .. .. ..$ res           : int 4
   .. .. ..$ nfac          : num 6
   .. .. ..$ nruns         : num 16
@@ -219,17 +219,18 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
   .. .. ..$ nclear.2fis   : num 0
   .. .. ..$ clear.2fis    : num 
   .. .. ..$ all.2fis.clear: num 
+  .. .. ..$ dominating    : logi NA
   .. ..- attr(*, "class")= chr  "catlg" "list"
   ..$ aliased     :List of 3
   .. ..$ legend: chr  "A=eins" "B=zwei" "C=drei" "D=vier" ...
   .. ..$ main  : chr 
   .. ..$ fi2   : chr  "AB=CE=DF" "AC=BE" "AD=BF" "AE=BC" ...
-  ..$ FrF2.version: chr "1.4"
+  ..$ FrF2.version: chr "1.5"
   ..$ replications: num 1
   ..$ repeat.only : logi FALSE
   ..$ randomize   : logi FALSE
   ..$ seed        : NULL
-  ..$ creator     : language FrF2(16, 6, randomize = FALSE, factor.names = list(eins = c(1,      2), zwei = c(43, 87), drei = c("alt", "neu"), vier = "",  ...
+  ..$ creator     : language FrF2(16, 6, randomize = FALSE, factor.names = list(eins = c(1, 2), zwei = c(43,      87), drei = c("alt", "neu"), vier = "", fuenf = "", sechs = ""))
 > str(FrF2(16,randomize=FALSE, factor.names=list(eins=c(1,2),zwei=c(43,87),drei=c("alt","neu"),vier="",fuenf="",sechs="")))
 Classes 'design' and 'data.frame':	16 obs. of  6 variables:
  $ eins : Factor w/ 2 levels "1","2": 1 2 1 2 1 2 1 2 1 2 ...
@@ -283,7 +284,7 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
   .. ..$ sechs: num  -1 1
   ..$ catlg.name  : chr "catlg"
   ..$ catlg.entry :List of 1
-  .. ..$ 6-2.1:List of 8
+  .. ..$ 6-2.1:List of 9
   .. .. ..$ res           : int 4
   .. .. ..$ nfac          : num 6
   .. .. ..$ nruns         : num 16
@@ -292,17 +293,18 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
   .. .. ..$ nclear.2fis   : num 0
   .. .. ..$ clear.2fis    : num 
   .. .. ..$ all.2fis.clear: num 
+  .. .. ..$ dominating    : logi NA
   .. ..- attr(*, "class")= chr  "catlg" "list"
   ..$ aliased     :List of 3
   .. ..$ legend: chr  "A=eins" "B=zwei" "C=drei" "D=vier" ...
   .. ..$ main  : chr 
   .. ..$ fi2   : chr  "AB=CE=DF" "AC=BE" "AD=BF" "AE=BC" ...
-  ..$ FrF2.version: chr "1.4"
+  ..$ FrF2.version: chr "1.5"
   ..$ replications: num 1
   ..$ repeat.only : logi FALSE
   ..$ randomize   : logi FALSE
   ..$ seed        : NULL
-  ..$ creator     : language FrF2(16, randomize = FALSE, factor.names = list(eins = c(1, 2),      zwei = c(43, 87), drei = c("alt", "neu"), vier = "", fuenf = "",  ...
+  ..$ creator     : language FrF2(16, randomize = FALSE, factor.names = list(eins = c(1, 2), zwei = c(43,      87), drei = c("alt", "neu"), vier = "", fuenf = "", sechs = ""))
 > str(FrF2(16,design="6-2.2",randomize=FALSE))
 Classes 'design' and 'data.frame':	16 obs. of  6 variables:
  $ A: Factor w/ 2 levels "-1","1": 1 2 1 2 1 2 1 2 1 2 ...
@@ -356,7 +358,7 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
   .. ..$ F: num  -1 1
   ..$ catlg.name  : chr "catlg"
   ..$ catlg.entry :List of 1
-  .. ..$ 6-2.2:List of 8
+  .. ..$ 6-2.2:List of 9
   .. .. ..$ res           : int 3
   .. .. ..$ nfac          : num 6
   .. .. ..$ nruns         : num 16
@@ -365,12 +367,13 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
   .. .. ..$ nclear.2fis   : num 6
   .. .. ..$ clear.2fis    : num [1:2, 1:6] 2 3 2 4 2 6 3 5 4 5 ...
   .. .. ..$ all.2fis.clear: num 
+  .. .. ..$ dominating    : logi TRUE
   .. ..- attr(*, "class")= chr  "catlg" "list"
   ..$ aliased     :List of 3
   .. ..$ legend: chr  "A=A" "B=B" "C=C" "D=D" ...
   .. ..$ main  : chr  "A=BE" "B=AE" "E=AB"
   .. ..$ fi2   : chr  "AC=DF" "AD=CF" "AF=CD"
-  ..$ FrF2.version: chr "1.4"
+  ..$ FrF2.version: chr "1.5"
   ..$ replications: num 1
   ..$ repeat.only : logi FALSE
   ..$ randomize   : logi FALSE
@@ -432,12 +435,12 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
   .. ..$ legend: chr  "A=eins" "B=zwei" "C=drei" "D=vier" ...
   .. ..$ main  : chr  "A=BE" "B=AE" "E=AB"
   .. ..$ fi2   : chr  "AC=DF" "AD=CF" "AF=CD"
-  ..$ FrF2.version: chr "1.4"
+  ..$ FrF2.version: chr "1.5"
   ..$ replications: num 1
   ..$ repeat.only : logi FALSE
   ..$ randomize   : logi FALSE
   ..$ seed        : NULL
-  ..$ creator     : language FrF2(16, generators = catlg[["6-2.2"]]$gen, randomize = FALSE,      factor.names = list(eins = c(1, 2), zwei = c(43, 87), drei = c("alt",  ...
+  ..$ creator     : language FrF2(16, generators = catlg[["6-2.2"]]$gen, randomize = FALSE, factor.names = list(eins = c(1,      2), zwei = c(43, 87), drei = c("alt", "neu"), vier = "", fuenf = "",  ...
 > ## alias structure for three generators that differ only by sign
 > design.info(FrF2(16,generators=c(7,13,15),randomize=FALSE))$aliased
 $legend
@@ -524,7 +527,7 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
   .. ..$ sechs: num  -1 1
   ..$ catlg.name  : chr "catlg"
   ..$ catlg.entry :List of 1
-  .. ..$ 6-2.2:List of 8
+  .. ..$ 6-2.2:List of 9
   .. .. ..$ res           : int 3
   .. .. ..$ nfac          : num 6
   .. .. ..$ nruns         : num 16
@@ -533,17 +536,18 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
   .. .. ..$ nclear.2fis   : num 6
   .. .. ..$ clear.2fis    : num [1:2, 1:6] 2 3 2 4 2 6 3 5 4 5 ...
   .. .. ..$ all.2fis.clear: num 
+  .. .. ..$ dominating    : logi TRUE
   .. ..- attr(*, "class")= chr  "catlg" "list"
   ..$ aliased     :List of 3
   .. ..$ legend: chr  "A=eins" "B=zwei" "C=drei" "D=vier" ...
   .. ..$ main  : chr  "A=BE" "B=AE" "E=AB"
   .. ..$ fi2   : chr  "AC=DF" "AD=CF" "AF=CD"
-  ..$ FrF2.version: chr "1.4"
+  ..$ FrF2.version: chr "1.5"
   ..$ replications: num 1
   ..$ repeat.only : logi FALSE
   ..$ randomize   : logi FALSE
   ..$ seed        : NULL
-  ..$ creator     : language FrF2(16, design = "6-2.2", randomize = FALSE, factor.names = list(eins = c(1,      2), zwei = c(43, 87), drei = c("alt", "neu"), vier = "",  ...
+  ..$ creator     : language FrF2(16, design = "6-2.2", randomize = FALSE, factor.names = list(eins = c(1,      2), zwei = c(43, 87), drei = c("alt", "neu"), vier = "", fuenf = "",  ...
 > str(FrF2(16,design="6-2.2",nfactors=6,randomize=FALSE))
 Classes 'design' and 'data.frame':	16 obs. of  6 variables:
  $ A: Factor w/ 2 levels "-1","1": 1 2 1 2 1 2 1 2 1 2 ...
@@ -597,7 +601,7 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
   .. ..$ F: num  -1 1
   ..$ catlg.name  : chr "catlg"
   ..$ catlg.entry :List of 1
-  .. ..$ 6-2.2:List of 8
+  .. ..$ 6-2.2:List of 9
   .. .. ..$ res           : int 3
   .. .. ..$ nfac          : num 6
   .. .. ..$ nruns         : num 16
@@ -606,12 +610,13 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
   .. .. ..$ nclear.2fis   : num 6
   .. .. ..$ clear.2fis    : num [1:2, 1:6] 2 3 2 4 2 6 3 5 4 5 ...
   .. .. ..$ all.2fis.clear: num 
+  .. .. ..$ dominating    : logi TRUE
   .. ..- attr(*, "class")= chr  "catlg" "list"
   ..$ aliased     :List of 3
   .. ..$ legend: chr  "A=A" "B=B" "C=C" "D=D" ...
   .. ..$ main  : chr  "A=BE" "B=AE" "E=AB"
   .. ..$ fi2   : chr  "AC=DF" "AD=CF" "AF=CD"
-  ..$ FrF2.version: chr "1.4"
+  ..$ FrF2.version: chr "1.5"
   ..$ replications: num 1
   ..$ repeat.only : logi FALSE
   ..$ randomize   : logi FALSE
@@ -670,7 +675,7 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
   .. ..$ sechs: num  -1 1
   ..$ catlg.name  : chr "catlg"
   ..$ catlg.entry :List of 1
-  .. ..$ 6-2.2:List of 8
+  .. ..$ 6-2.2:List of 9
   .. .. ..$ res           : int 3
   .. .. ..$ nfac          : num 6
   .. .. ..$ nruns         : num 16
@@ -679,17 +684,18 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
   .. .. ..$ nclear.2fis   : num 6
   .. .. ..$ clear.2fis    : num [1:2, 1:6] 2 3 2 4 2 6 3 5 4 5 ...
   .. .. ..$ all.2fis.clear: num 
+  .. .. ..$ dominating    : logi TRUE
   .. ..- attr(*, "class")= chr  "catlg" "list"
   ..$ aliased     :List of 3
   .. ..$ legend: chr  "A=eins" "B=zwei" "C=drei" "D=vier" ...
   .. ..$ main  : chr  "A=BE" "B=AE" "E=AB"
   .. ..$ fi2   : chr  "AC=DF" "AD=CF" "AF=CD"
-  ..$ FrF2.version: chr "1.4"
+  ..$ FrF2.version: chr "1.5"
   ..$ replications: num 1
   ..$ repeat.only : logi FALSE
   ..$ randomize   : logi FALSE
   ..$ seed        : NULL
-  ..$ creator     : language FrF2(16, design = "6-2.2", randomize = FALSE, factor.names = list(eins = c(1,      2), zwei = c(43, 87), drei = c("alt", "neu"), vier = "",  ...
+  ..$ creator     : language FrF2(16, design = "6-2.2", randomize = FALSE, factor.names = list(eins = c(1,      2), zwei = c(43, 87), drei = c("alt", "neu"), vier = "", fuenf = "",  ...
 > 
 > ## estimable in examples
 > ## replications in examples
@@ -1088,7 +1094,7 @@ Classes 'design' and 'data.frame':	32 obs. of  7 variables:
   .. ..$ fi2   : chr  "BD=CE" "BE=CD"
   ..$ bbreps             : num 1
   ..$ wbreps             : num 1
-  ..$ FrF2.version       : chr "1.4"
+  ..$ FrF2.version       : chr "1.5"
   ..$ catlg.name         : chr "catlg"
   ..$ base.design        : chr "8-3.1"
   ..$ map                : NULL
@@ -1167,7 +1173,7 @@ Classes 'design' and 'data.frame':	32 obs. of  7 variables:
   .. ..$ legend: chr  "A=first" "B=second" "C=third" "D=fourth" ...
   ..$ bbreps             : num 1
   ..$ wbreps             : num 1
-  ..$ FrF2.version       : chr "1.4"
+  ..$ FrF2.version       : chr "1.5"
   ..$ catlg.name         : chr "catlg"
   ..$ base.design        : chr "6-1.1"
   ..$ map                : NULL
@@ -1175,7 +1181,7 @@ Classes 'design' and 'data.frame':	32 obs. of  7 variables:
   ..$ repeat.only        : logi FALSE
   ..$ randomize          : logi FALSE
   ..$ seed               : NULL
-  ..$ creator            : language FrF2(32, blocks = c("ABC", "DE"), factor.names = list(first = c("-",      "+"), second = c("old", "new"), third = c(1000, 2000), fourth = "",  ...
+  ..$ creator            : language FrF2(32, blocks = c("ABC", "DE"), factor.names = list(first = c("-", "+"),      second = c("old", "new"), third = c(1000, 2000), fourth = "", fifth = "",  ...
 >   str(dat <- FrF2(32,blocks=c(7,20,25),
 +        factor.names=list(first=c("-","+"),second=c("old","new"),
 +                          third=c(1000,2000),fourth="",fifth="",sixth=""),
@@ -1249,7 +1255,7 @@ Classes 'design' and 'data.frame':	32 obs. of  7 variables:
   .. ..$ fi3   : chr  "ABD=CEF" "ABF=CDE" "ACE=BDF" "ACF=BDE" ...
   ..$ bbreps             : num 1
   ..$ wbreps             : num 1
-  ..$ FrF2.version       : chr "1.4"
+  ..$ FrF2.version       : chr "1.5"
   ..$ catlg.name         : chr "catlg"
   ..$ base.design        : chr "6-1.1"
   ..$ map                : NULL
@@ -1257,7 +1263,7 @@ Classes 'design' and 'data.frame':	32 obs. of  7 variables:
   ..$ repeat.only        : logi FALSE
   ..$ randomize          : logi FALSE
   ..$ seed               : NULL
-  ..$ creator            : language FrF2(32, blocks = c(7, 20, 25), factor.names = list(first = c("-",      "+"), second = c("old", "new"), third = c(1000, 2000), fourth = "",  ...
+  ..$ creator            : language FrF2(32, blocks = c(7, 20, 25), factor.names = list(first = c("-", "+"),      second = c("old", "new"), third = c(1000, 2000), fourth = "", fifth = "",  ...
 >   str(FrF2(32,blocks=list(1,2),
 +        factor.names=list(first=c("-","+"),second=c("old","new"),
 +                          third=c(1000,2000),fourth="",fifth="",sixth="",seven="",eight="",nine=""),
@@ -1335,7 +1341,7 @@ Classes 'design' and 'data.frame':	32 obs. of  8 variables:
   .. ..$ fi2   : chr  "AB=DE" "AC=DF" "AE=BD" "AF=CD" ...
   ..$ bbreps             : num 1
   ..$ wbreps             : num 1
-  ..$ FrF2.version       : chr "1.4"
+  ..$ FrF2.version       : chr "1.5"
   ..$ catlg.name         : chr "catlg"
   ..$ base.design        : chr "9-4.1"
   ..$ map                : NULL
@@ -1343,7 +1349,7 @@ Classes 'design' and 'data.frame':	32 obs. of  8 variables:
   ..$ repeat.only        : logi FALSE
   ..$ randomize          : logi FALSE
   ..$ seed               : NULL
-  ..$ creator            : language FrF2(32, blocks = list(1, 2), factor.names = list(first = c("-",      "+"), second = c("old", "new"), third = c(1000, 2000), fourth = "",  ...
+  ..$ creator            : language FrF2(32, blocks = list(1, 2), factor.names = list(first = c("-", "+"),      second = c("old", "new"), third = c(1000, 2000), fourth = "", fifth = "",  ...
 >   ## using blockpick.big
 >   str(FrF2(64,7,blocks=32,alias.block.2fis=TRUE,randomize=FALSE))
 Classes 'design' and 'data.frame':	64 obs. of  8 variables:
@@ -1417,7 +1423,7 @@ Classes 'design' and 'data.frame':	64 obs. of  8 variables:
   .. ..$ legend: chr  "A=A" "B=B" "C=C" "D=D" ...
   ..$ bbreps             : num 1
   ..$ wbreps             : num 1
-  ..$ FrF2.version       : chr "1.4"
+  ..$ FrF2.version       : chr "1.5"
   ..$ catlg.name         : chr "catlg"
   ..$ base.design        : chr "12-6.3"
   ..$ map                : num  2 3 4 5 6 1
@@ -1627,7 +1633,7 @@ Classes 'design' and 'data.frame':	32 obs. of  14 variables:
   .. ..$ legend: chr  "A=A" "B=B" "C=C" "D=D" ...
   .. ..$ main  : chr  "A=GJ=HL=BD=CE" "B=AD=CF" "C=AE=BF" "D=EF=AB" ...
   .. ..$ fi2   : chr  "AF=JK=LM=NO=BE=CD" "AK=FJ" "AM=FL" "AN=FO" ...
-  ..$ FrF2.version  : chr "1.4"
+  ..$ FrF2.version  : chr "1.5"
   ..$ catlg.name    : chr "catlg"
   ..$ base.design   : chr "14-9.6"
   ..$ map           : num  1 2 3 4 5
@@ -1918,7 +1924,7 @@ Classes 'design' and 'data.frame':	14 obs. of  14 variables:
   .. .. ..$ legend: chr  "A=A" "B=B" "C=C" "D=D" ...
   .. .. ..$ main  : chr  "A=GJ=HL=BD=CE" "B=AD=CF" "C=AE=BF" "D=EF=AB" ...
   .. .. ..$ fi2   : chr  "AF=JK=LM=NO=BE=CD" "AK=FJ" "AM=FL" "AN=FO" ...
-  .. ..$ FrF2.version  : chr "1.4"
+  .. ..$ FrF2.version  : chr "1.5"
   .. ..$ catlg.name    : chr "catlg"
   .. ..$ base.design   : chr "14-9.6"
   .. ..$ map           : num  1 2 3 4 5
@@ -2505,3 +2511,6 @@ NOTE: columns run.no and run.no.std.rp are annotation, not part of the data fram
 > 
 > ## generators in combination!!!
 > 
+> proc.time()
+   user  system elapsed 
+  24.12    1.54   26.42 

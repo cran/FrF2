@@ -21,11 +21,13 @@ mapcalc <- function(estimable, nfac, nruns, res3=FALSE, select.catlg=catlg){
       catlg <- select.catlg
      
       go2 <- graph.empty(n=nfac,directed=FALSE)
-      go2 <- add.edges(go2,estimable-1)
+      ## previous version subtracted 1 from estimable for previous igraph node definition; changed 29/06/2012
+      go2 <- add.edges(go2,estimable)
       degree2 <- rev(cumsum(rev(table(degree(go2)))))   ## make it faster to reject non-isomorphic cases
                                       ## 7 Feb 2011
       degs2 <- as.numeric(names(degree2))  ## required minimum degrees
-      tobechecked <- catlg[which(nfac.catlg(catlg)==nfac & nruns.catlg(catlg)==nruns)]
+      ## reduced attention to dominating designs, if applicable (29 June 2012)
+      tobechecked <- catlg[which(nfac.catlg(catlg)==nfac & nruns.catlg(catlg)==nruns & dominating.catlg(catlg))]
       if (length(tobechecked)>0) 
               if (!res3) tobechecked <- tobechecked[which(res.catlg(tobechecked)>=4)]
       if (length(tobechecked)>0) 
@@ -41,10 +43,12 @@ mapcalc <- function(estimable, nfac, nruns, res3=FALSE, select.catlg=catlg){
               }
       
       map <- NULL
+## warum hier assign to global env.?
       for (i in 1:length(tobechecked)){
           assign(".FrF2.currentlychecked", names(tobechecked[i]), envir = .GlobalEnv)
           go1 <- graph.empty(n=nfac,directed=FALSE)
-          go1 <- add.edges(go1, tobechecked[[i]]$clear.2fis-1)
+          ## previous version subtracted 1 from tobechecked[[i]]$clear.2fis for previous igraph node definition; changed 29/06/2012
+          go1 <- add.edges(go1, tobechecked[[i]]$clear.2fis)
           degree1 <- rev(cumsum(rev(table(degree(go1)))))
           degs1 <- as.numeric(names(degree1))
           if (max(degs2) <= max(degs1)){
@@ -54,7 +58,8 @@ mapcalc <- function(estimable, nfac, nruns, res3=FALSE, select.catlg=catlg){
           comp[is.na(comp)] <- 0
           if (any(comp<degree2)) next 
           erg <- graph.subisomorphic.vf2(go1,go2)
-          if (erg$iso) {map <- list(erg$map21+1)
+          ## +1 removed from map21 because of adapting to igraph (29 June 2012)
+          if (erg$iso) {map <- list(erg$map21)
                     names(map) <- get(".FrF2.currentlychecked")
                     rm(.FrF2.currentlychecked, envir = .GlobalEnv)
                     break}
@@ -116,7 +121,8 @@ mapcalc.distinct <- function(estimable, nfac, nruns, res3=FALSE, max.time=60, se
       else erg <- check.subisomorphic.matrix(estimable,nfac,hilf2,hilf3=hilf3,max.time=max.time,begin_time=begin_time,
                name=names(tobechecked[i2]),res3=res3,perms=perms)
           if (erg$iso) {
-                    map <- list(erg$map21[1:nfac]+1)
+                    ## "+1" removed from map21 because of adapting to igraph (29 June 2012)
+                    map <- list(erg$map21[1:nfac])
                     names(map) <- names(tobechecked[i2])
                     break}
      }
@@ -188,7 +194,8 @@ check.subisomorphic.special <- function(estimable, nfac, hilf2, hilf3=NULL, res3
     if (iso) break
     }
     }
-    if (iso) aus <- list(iso=iso, map21 = map-1) ## -1 for compatibility with graph approach for clear
+    ## previous version subtracted 1 from map for previous igraph node definition; changed 29/06/2012
+    if (iso) aus <- list(iso=iso, map21 = map) 
         else aus <- list(iso=iso)
     aus
 }
@@ -235,7 +242,8 @@ check.subisomorphic.matrix <- function(estimable, nfac, hilf2, hilf3=NULL, res3=
     }
     if (iso) break
     }
-    if (iso) aus <- list(iso=iso, map21 = map-1) ## -1 for compatibility with graph approach for clear
+    ## previous version subtracted 1 from map for previous igraph node definition; changed 29/06/2012
+    if (iso) aus <- list(iso=iso, map21 = map) 
         else aus <- list(iso=iso)
     aus
 }

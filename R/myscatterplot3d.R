@@ -205,19 +205,19 @@ myscatterplot3d <- function (x, y = NULL, z = NULL, color = par("col"), pch = NU
                   font = font.lab, las=1)
             }
         }
-        mytext <- function(lab, side, line, at, las = 0) mtext(lab, side = side, 
+        mytext2 <- function(lab, side, line, at, las = 0) mtext(lab, side = side, 
             line = line, at = at, col = col.lab, cex = cex.axis, 
             font = font.axis, las = las)
         lines(c(x.min, x.max), c(z.min, z.min), col = col.axis, 
             lty = lty.axis)
-        mytext(xlab, 1, line = 0, at = mean(x.range))
+        mytext2(xlab, 1, line = 0, at = mean(x.range))
         lines(xx[1] + c(0, y.max * yx.f), c(z.min, y.max * yz.f + 
             z.min), col = col.axis, lty = lty.axis)
-        mytext(ylab, if (angle.1) 
+        mytext2(ylab, if (angle.1) 
             2
         else 4, line = -3.5, at = z.min + y.max * yz.f/2,las=1)
         lines(xx[c(2, 2)], c(z.min, z.max), col = col.axis, lty = lty.axis)
-        mytext(zlab, if (angle.1) 
+        mytext2(zlab, if (angle.1) 
             4
         else 2, line = -0.5, at = mean(z.range),las=1)
         if (box) {

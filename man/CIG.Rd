@@ -47,10 +47,9 @@ CIGstatic(graph, id, label="num", xlim=c(-1,1), ylim=c(1,-1), ...)
     layout can be chosen, with a root vertex specified; this sometimes helps in identifying groups 
     of vertices that are not connected with each other. 
     
-    Note that internally the vertices are numbered from 
-    0 to number of vertices -1, not from 1 to number of vertices as in the default labels. 
-    These internal numbers are also used in the menus for modifying the graph (e.g. specify root 0, 
-    if vertex 1 is to be made the root).
+    Previous versions of package \code{igraph} used to internally number the vertices from 
+    0 to number of vertices -1, not from 1 to number of vertices. This has been changed 
+    in June 2012 (FrF2 adapted to this change with version 1.5).
     
     Function CIGstatic serves the purpose to statically create the current interactively modified graph; 
     the usual annotation possibilities for plots are available.

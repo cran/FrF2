@@ -1,6 +1,14 @@
 \name{CatalogueAccessors}
 \alias{[.catlg}
 \alias{print.catlg}
+\alias{res}
+\alias{nruns}
+\alias{nfac}
+\alias{WLP}
+\alias{nclear.2fis}
+\alias{clear.2fis}
+%\alias{all.2fis.clear}
+\alias{dominating}
 \alias{res.catlg}
 \alias{nruns.catlg}
 \alias{nfac.catlg}
@@ -8,6 +16,7 @@
 \alias{nclear.2fis.catlg}
 \alias{clear.2fis.catlg}
 \alias{all.2fis.clear.catlg}
+\alias{dominating.catlg}
 \alias{catlg}
 \alias{block.catlg}
 %- Also NEED an '\alias' for EACH other topic documented here.
@@ -16,13 +25,22 @@
   Functions to select elements or extract information from design catalogues of class catlg
 }
 \usage{
-res.catlg(catlg)
-nruns.catlg(catlg)
-nfac.catlg(catlg)
-WLP.catlg(catlg)
-nclear.2fis.catlg(catlg)
-clear.2fis.catlg(catlg)
+res(catlg)
+\method{res}{catlg}(catlg)
+nruns(catlg)
+\method{nruns}{catlg}(catlg)
+nfac(catlg)
+\method{nfac}{catlg}(catlg)
+WLP(catlg)
+\method{WLP}{catlg}(catlg)
+nclear.2fis(catlg)
+\method{nclear.2fis}{catlg}(catlg)
+clear.2fis(catlg)
+\method{clear.2fis}{catlg}(catlg)
 all.2fis.clear.catlg(catlg)
+%\method{all.2fis.clear}{catlg}(catlg)
+dominating(catlg)
+\method{dominating}{catlg}(catlg)
 catlg
 \method{[}{catlg}(catlg,i)
 \method{print}{catlg}(x, name="all", nruns="all", nfactors="all", 
@@ -69,6 +87,14 @@ block.catlg
               designs that can accomodate (i.e. clearly) a certain requirement set 
               of 2-factor interactions; cf. also \code{\link{estimable.2fis}} } 
       \item{all.2fis.clear}{vector of factors with all 2-factor interactions clear in the above sense}
+      \item{dominating}{logical that indicates whether the current design adds a 
+              CIG structure that has not been seen for a design with less aberration 
+              (cf. Wu, Mee and Tang 2012 p.196 for dominating designs);
+              TRUE, if so; FALSE, if current CIG is isomorphic to previous one; 
+              NA, if CIG has no edges; this is helpful in omitting non-promising 
+              designs from a search for a clear design.\cr
+              This element may be missing. In that case, all catalogue entries 
+              are assumed dominating. }
       }
   Reference to factors in components \code{clear.2fis} and \code{all.2fis.clear} 
   is via their position number (element of (1:nfac)). 
@@ -170,7 +196,8 @@ block.catlg
 
 \value{
   \code{[} selects a subset of designs based on \code{i}, which is again a list of class \code{catlg}, even if a single element is selected.
-  \code{res}, \code{nruns}, \code{nfac} and \code{nclear.2fis} return a named vector, 
+  \code{res}, \code{nruns}, \code{nfac}, \code{nclear.2fis} 
+  and \code{dominating} return a named vector, 
   the \code{print} method does not return anything (i.e. it returns \code{NULL}), and 
   the remaining functions return a list.
 }
@@ -197,6 +224,9 @@ Sun, D.X., Wu, C.F.J. and Chen, Y.Y. (1997).
 Optimal blocking schemes for 2\^p and 2\^(n-p) designs. \emph{Technometrics} \bold{39}, 
 298-307. 
 
+Wu, H., Mee, R. and Tang, B. (2012). Fractional Factorial Designs With Admissible 
+         Sets of Clear Two-Factor Interactions. \emph{Technometrics} \bold{54}, 191-197.
+
 Xu, H. (2009) Algorithmic Construction of Efficient Fractional Factorial Designs 
          With Large Run Sizes. \emph{Technometrics} \bold{51}, 262-277.
 }
@@ -204,9 +234,9 @@ Xu, H. (2009) Algorithmic Construction of Efficient Fractional Factorial Designs
 
 \seealso{ See also \code{\link{FrF2}}, \code{\link[DoE.base]{oa.design}}  }
 \examples{
-c8 <- catlg[nruns.catlg(catlg)==8]
-nclear.2fis.catlg(c8)
-clear.2fis.catlg(c8)
+c8 <- catlg[nruns(catlg)==8]
+nclear.2fis(c8)
+clear.2fis(c8)
 all.2fis.clear.catlg(c8)
 
 ## usage of print function for inspecting catalogued designs

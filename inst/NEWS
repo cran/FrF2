@@ -3,7 +3,22 @@ Changes to package FrF2
 The package is still under development. 
 Suggestions and bug reports are very welcome.
 
-18/03/2012, version 1.4-1
+29/06/2012, version 1.5
+  - added an element to catalogue entries in catlg in order to speed up search for 
+    clear designs (following a 2012 Technometrics paper by Wu, Mee and Tang)
+    and modified function mapcalc accordingly (should speed up estimable 
+    with clear 2fis)
+  - added an accessor function dominating.catlg
+  - made catalogue accessor functions generic with method for class catlg 
+    (except for all.2fis.clear.catlg)
+  - modified documentation of catlg and its accessor functions accordingly
+  - changed estimable functions and function CIG 
+    to work with new version of package igraph 
+    and changed dependence back from igraph0 to igraph
+  - added globalVariables() in file aaa.R and renamed one internal function 
+    for getting rid of Notes in R CMD check
+
+18/05/2012, version 1.4-1
   - replaced package igraph with igraph0 on request of the igraph author
 
 17/03/2012, version 1.4

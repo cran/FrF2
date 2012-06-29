@@ -1,6 +1,6 @@
 
-R version 2.14.1 (2011-12-22)
-Copyright (C) 2011 The R Foundation for Statistical Computing
+R version 2.15.1 (2012-06-22) -- "Roasted Marshmallows"
+Copyright (C) 2012 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 Platform: i386-pc-mingw32/i386 (32-bit)
 
@@ -177,3 +177,6 @@ Warning messages:
  [1] "1"  "2"  "3"  "4"  "5"  "6"  "7"  "8"  "9"  "10" "11" "12" "13" "14" "15"
 [16] "16" "17" "18" "19" "20" "21" "22" "23" "24" "25" "26"
 > 
+> proc.time()
+   user  system elapsed 
+   6.71    0.75    7.86 

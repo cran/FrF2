@@ -11,8 +11,9 @@ CIG <- function(design, select.catlg=catlg, static=FALSE, layout=layout.circle, 
         if (!label=="num") vertex.label <- Letters[vertex.label]
      }
     go2 <- graph.empty(n=design$nfac,directed=FALSE)
+    ## previous version subtracted 1 from design$clear.2fis for previous igraph node definition; changed 29/06/2012
     if (!length(design$clear.2fis)==0)
-        go2 <- add.edges(go2,design$clear.2fis-1)
+        go2 <- add.edges(go2,design$clear.2fis)
     if (design$res<4) warning("the design is of resolution less than IV")
     if (!static){
     id <- tkplot(go2, vertex.label=vertex.label, ...)

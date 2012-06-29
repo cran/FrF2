@@ -70,16 +70,17 @@ flush(stderr()); flush(stdout())
 
 ### Name: CatalogueAccessors
 ### Title: Catalogue file and accessor functions
-### Aliases: [.catlg print.catlg res.catlg nruns.catlg nfac.catlg WLP.catlg
-###   nclear.2fis.catlg clear.2fis.catlg all.2fis.clear.catlg catlg
-###   block.catlg
+### Aliases: [.catlg print.catlg res nruns nfac WLP nclear.2fis clear.2fis
+###   dominating res.catlg nruns.catlg nfac.catlg WLP.catlg
+###   nclear.2fis.catlg clear.2fis.catlg all.2fis.clear.catlg
+###   dominating.catlg catlg block.catlg
 ### Keywords: array design
 
 ### ** Examples
 
-c8 <- catlg[nruns.catlg(catlg)==8]
-nclear.2fis.catlg(c8)
-clear.2fis.catlg(c8)
+c8 <- catlg[nruns(catlg)==8]
+nclear.2fis(c8)
+clear.2fis(c8)
 all.2fis.clear.catlg(c8)
 
 ## usage of print function for inspecting catalogued designs
