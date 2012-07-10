@@ -3,6 +3,19 @@ Changes to package FrF2
 The package is still under development. 
 Suggestions and bug reports are very welcome.
 
+10/07/2012, version 1.6
+  - added two further pre-filtering criteria for clear designs, 
+    the clique number (size of largest clique at least as required by the requirement set) 
+    and the independence number (size of largest independent set at most as large as in 
+    requirement set)
+  - introduced some improvements to function CIG:
+    - plotting can now be suppressed
+    - if plotting is suppressed or a static plot is produced, the function returns 
+      a graph instead of a list with a single graph element
+    - the argument design can also be a one element catalogue of class catlg 
+      instead of a character string
+    - improved the documentation of function CIG
+
 29/06/2012, version 1.5
   - added an element to catalogue entries in catlg in order to speed up search for 
     clear designs (following a 2012 Technometrics paper by Wu, Mee and Tang)

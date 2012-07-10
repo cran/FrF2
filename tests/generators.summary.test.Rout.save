@@ -353,7 +353,7 @@ no aliasing of main effects or 2fis among experimental factors
 
 split-plot design:  4  whole plots
                  : first  2  factors are whole plot factors
-> design.info(planfull)
+> design.info(planfull)[-which(names(design.info(planfull))=="FrF2.version")]
 $type
 [1] "FrF2.splitplot"
 
@@ -399,9 +399,6 @@ $aliased
 $aliased$legend
 [1] "A=V" "B=W" "C=X" "D=Y" "E=Z"
 
-
-$FrF2.version
-[1] "1.5"
 
 $base.design
 [1] "generator columns: "
@@ -463,7 +460,7 @@ $fi2
 
 split-plot design:  4  whole plots
                  : first  3  factors are whole plot factors
-> design.info(plan0)
+> design.info(plan0)[-which(names(design.info(plan0))=="FrF2.version")]
 $type
 [1] "FrF2.splitplot"
 
@@ -521,9 +518,6 @@ $aliased$main
 $aliased$fi2
 [1] "CD=EG" "CE=DG" "CG=DE"
 
-
-$FrF2.version
-[1] "1.5"
 
 $base.design
 [1] "generator columns: 6, 15"
@@ -583,7 +577,7 @@ split-plot design:  4  whole plots
 $generators
 [1] "C=AB"   "G=ADEF"
 
-> design.info(plan)
+> design.info(plan)[-which(names(design.info(plan))=="FrF2.version")]
 $type
 [1] "FrF2.splitplot"
 
@@ -641,9 +635,6 @@ $aliased$main
 $aliased$fi2
 character(0)
 
-
-$FrF2.version
-[1] "1.5"
 
 $catlg.name
 [1] "catlg"
@@ -709,7 +700,7 @@ split-plot design:  4  whole plots
 $generators
 [1] "C=AB"   "G=ABDE"
 
-> design.info(plan2)
+> design.info(plan2)[-which(names(design.info(plan2))=="FrF2.version")]
 $type
 [1] "FrF2.splitplot"
 
@@ -768,9 +759,6 @@ $aliased$fi2
 [1] "CD=EG" "CE=DG" "CG=DE"
 
 
-$FrF2.version
-[1] "1.5"
-
 $base.design
 [1] "generator columns: 6, 15"
 
@@ -799,4 +787,4 @@ FrF2(32, 7, gen = c(6, 15), WPs = 4, nfac.WP = 3, WPfacs = c(2,
 > 
 > proc.time()
    user  system elapsed 
-  10.17    0.84   11.29 
+  10.26    1.09   12.40 

@@ -26,6 +26,9 @@ mapcalc <- function(estimable, nfac, nruns, res3=FALSE, select.catlg=catlg){
       degree2 <- rev(cumsum(rev(table(degree(go2)))))   ## make it faster to reject non-isomorphic cases
                                       ## 7 Feb 2011
       degs2 <- as.numeric(names(degree2))  ## required minimum degrees
+      ## added further pre-filtering criteria 9 July 2012
+      indep2 <- independence.number(go2)   ## required maximum independence number
+      clique2 <- clique.number(go2)        ## required minimum clique size
       ## reduced attention to dominating designs, if applicable (29 June 2012)
       tobechecked <- catlg[which(nfac.catlg(catlg)==nfac & nruns.catlg(catlg)==nruns & dominating.catlg(catlg))]
       if (length(tobechecked)>0) 
@@ -56,7 +59,10 @@ mapcalc <- function(estimable, nfac, nruns, res3=FALSE, select.catlg=catlg){
              ## if max(degs2)>max(degs1), subgraph isomorphism is impossible
           comp <- sapply(degs2, function(obj) degree1[min(which(degs1>=obj))])
           comp[is.na(comp)] <- 0
-          if (any(comp<degree2)) next 
+          if (any(comp<degree2)) next
+          ## added further pre-filtering criteria 9 July 2012
+          if (independence.number(go1) > indep2) next
+          if (clique.number(go1) < clique2) next
           erg <- graph.subisomorphic.vf2(go1,go2)
           ## +1 removed from map21 because of adapting to igraph (29 June 2012)
           if (erg$iso) {map <- list(erg$map21)

@@ -60,6 +60,14 @@ flush(stderr()); flush(stdout())
 ##D CIGstatic(ex.CIG, id=1)
 ## End(Not run)
 
+graph1 <- CIG("9-4.2", plot=FALSE)   ### create graph object from design name
+### calculate graph properties
+degree(graph1)
+clique.number(graph1)
+independence.number(graph1)
+largest.cliques(graph1)
+
+
 
 
 cleanEx()

@@ -10,25 +10,34 @@
   one. 
 }
 \usage{
-CIG(design, select.catlg=catlg, static=FALSE, layout=layout.circle, label="num", ...)
+CIG(design, select.catlg=catlg, static=FALSE, layout=layout.auto, label="num", plot=TRUE, ...)
 CIGstatic(graph, id, label="num", xlim=c(-1,1), ylim=c(1,-1), ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{design}{a character string that identifies a design in the cataloge specified 
-       by option \code{select.catlg}}
-  \item{\dots}{further arguments to be passed to function plot, 
+       by option \code{select.catlg}, or a class \code{catlg} object with a single entry}
+  \item{\dots}{further arguments to be passed to function \code{\link[igraph]{tkplot}}, 
       or graphical parameters to be passed to \code{plot}.}
-  \item{select.catlg}{name of catalogue (not in quotes)}
+  \item{select.catlg}{name of catalogue (not in quotes); 
+        only relevant, if \code{design} is a character string}
   \item{static}{logical. If \code{TRUE}, a static graphic is produced, 
         otherwise an interactive graphic is created that can be modified 
-        by moving aroung nodes}
-  \item{layout}{possible values are two-column matrices with number of rows 
+        by moving aroung nodes; only relevant for \code{plot=TRUE}}
+  \item{layout}{ignored for \code{static=FALSE};\cr
+        possible values are two-column matrices with number of rows 
         equal to the number of vertices of the graph, or layout parameters for 
-        function \code{\link[igraph]{plot.igraph}} as described in \code{\link[igraph]{plot.common}} }
+        function \code{\link[igraph]{plot.igraph}} as described in \code{\link[igraph]{plot.common}} 
+        and \code{\link[igraph]{layout}};\cr
+        default: \code{layout.auto} (changed with version 1.6, was \code{layout.circle} before}
   \item{label}{a character string that decides for numeric labels or 
         character labels; any string other than the default will invoke the 
         factor letters as labels}
+  \item{plot}{a logical that decides whether a plot is requested (default: \code{TRUE});\cr
+        plotting can be suppressed, if graph creation is desired for calculating graph 
+        characteristics with functions from package \code{igraph} (e.g. \code{\link[igraph:cliques]{clique.number}},
+        \code{\link[igraph:cliques]{largest.cliques}}, \code{\link[igraph:independent.vertex.sets]{independence.number}},
+        \code{\link[igraph:degree]{degree}}) }
   \item{graph}{a graph object from package \code{igraph}, or a list whose first 
         element is such a graph object (like the output from function \code{CIG})}
   \item{id}{identification number of the interactive graph to be reproduced in 
@@ -56,10 +65,14 @@ CIGstatic(graph, id, label="num", xlim=c(-1,1), ylim=c(1,-1), ...)
 }
 
 \value{
-    Function CIC returns a list with the first element \code{graph} a graph 
-    from package \code{igraph} and in case of static=FALSE the element \code{coords} 
-    with the coordinates of that graph. \cr
-    Function CIGstatic plots the graph statically using the positioning from the 
+    For \code{plot=FALSE} or \code{plot=TRUE} with \code{static=TRUE}, 
+    function \code{CIG} visibly (\code{plot=FALSE}) or invisibly (\code{plot=TRUE}) 
+    returns a graph from package \code{igraph}.\cr
+    For \code{plot=TRUE} with \code{static=FALSE}, 
+    the function returns a list with the first element \code{graph} 
+    the element \code{coords} with the coordinates of that graph. \cr
+    Function \code{CIGstatic} works on the list produced by function \code{CIG} 
+    by plotting the graph statically using the positioning from the 
     current interactive picture. 
 }
 
@@ -80,6 +93,14 @@ ex.CIG <- CIG("9-4.2")
 par(xpd=TRUE)
 CIGstatic(ex.CIG, id=1)
 }
+
+graph1 <- CIG("9-4.2", plot=FALSE)   ### create graph object from design name
+### calculate graph properties
+degree(graph1)
+clique.number(graph1)
+independence.number(graph1)
+largest.cliques(graph1)
+
 }
 \author{Ulrike Groemping}
 \seealso{\code{\link[igraph]{plot.igraph}}, \code{\link[igraph]{tkplot}},\code{\link[igraph]{plot.common}} }
