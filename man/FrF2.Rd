@@ -15,7 +15,7 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
         default.levels = c(-1, 1), ncenter=0, center.distribute=NULL, 
         generators = NULL, design = NULL, 
         resolution = NULL, select.catlg=catlg, 
-        estimable = NULL, clear = TRUE, res3 = FALSE, max.time = 60, 
+        estimable = NULL, clear = TRUE, sort="natural", res3 = FALSE, max.time = 60, 
         perm.start=NULL, perms = NULL, 
         MaxC2 = FALSE, replications = 1, repeat.only = FALSE, 
         randomize = TRUE, seed = NULL, alias.info = 2, 
@@ -162,6 +162,18 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
         \code{factor.names}. 
         }
   \item{clear}{ logical, indicating how estimable is to be used. See \code{\link{estimable.2fis}}. }
+  \item{sort}{ character string indicating how the estimability requirement and the 
+        candidate design clear 2fis are handed to 
+        the subgraph isomorphism search routine \code{graph.subisomorphic.vf2} of package 
+        \pkg{igraph}. The default \code{"natural"} leaves them in unchanged order (like in 
+        \pkg{FrF2} versions up to 1.6). \code{sort="high"} and \code{sort="low"} sort 
+        both requirement set and candidate design graph according to vertex degrees (high 
+        first or low first). 
+        
+        This option is relevant for \code{estimable} with \code{clear=TRUE} only.\cr
+        It has been added, because pre-sorting of vertices sometimes speeds up the 
+        search by several orders of magnitude. \cr
+        NOTE: The resulting design may be different for different settings of this option!}
   \item{res3}{ logical; if TRUE, \code{estimable} includes resolution III designs 
         into the search for adequate designs; otherwise resolution IV and higher designs 
         are included only. }
@@ -673,6 +685,16 @@ design.info(BSS.cheese.exm)
   ## (does not usually make sense)
   FrF2(16, nfactors=7, estimable = formula("~A+B+C+D+E+F+A:(B+C+D+E+F)"), 
        clear=TRUE, res3=TRUE)
+}
+## example for the sort option added with version 1.6-1
+  \dontrun{
+  estim <- compromise(17,15:17)$requirement  ## all interactions of factors 15 to 17 (P,Q,R)
+  FrF2(128, 17, estimable=estim)  ## will run for a very long time, interrupt with ESC key
+  FrF2(128, 17, estimable=estim, sort="high")  ## very fast
+  FrF2(128, 17, estimable=estim, sort="low")  ## very fast
+  ## of course, only guaranteed to be MA clear design, if catlg128.17 from 
+  ## package FrF2.catlg128 is used in select.catlg option
+  }
 
 ## example for necessity of perms, and uses of select.catlg and perm.start
 ## based on Wu and Chen Example 1
@@ -694,7 +716,6 @@ design.info(BSS.cheese.exm)
      perms.full[i,] <- c(perms.6[,i],setdiff(1:11,perms.6[,i]))
   FrF2(32, nfactors=11, estimable = formula("~(A+B+C+D+E+F)^2"), clear=FALSE, 
       perms = perms.full )
-}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

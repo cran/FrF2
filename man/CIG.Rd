@@ -101,6 +101,31 @@ clique.number(graph1)
 independence.number(graph1)
 largest.cliques(graph1)
 
+\dontrun{
+## use a CIG for manual design search
+## requirement set: 
+estim <- compromise(17,15:17)$requirement  ## all interactions of factors 15 to 17 (P,Q,R)
+FrF2(128, 17, estimable=estim)  ## will run for a very long time
+## interrupt with ESC key, after a short period of waiting
+.FrF2.currentlychecked    ## displays the design that is currently checked 
+                          ## should be 17-10.2407
+CIG("17-10.2407")
+## clearly, using columns 1, 8 and 9 for factors 15:17 does the job
+    ## sometimes, the design where the algorithm got stuck, does not provide a solution
+    ## in that case, option select.catlg can be used for restricting the search designs 
+    ##     to designs further down in the catalogue, in order to find the next candidate
+    ##     until final success is reached
+    ## e.g.
+    which(names(catlg)=="17-10.2407")
+    FrF2(128, 17, estimable=estim, select.catlg=catlg[2375:length(catlg)])  
+    ## will run for a very long time
+    ## interrupting after short waiting time yields
+    .FrF2.currentlychecked    ## displays the design that is currently checked 
+                              ## should be 17-10.4177
+
+## note: in this example, option sort="high" would make the automatic search fast
+## so that manual treatment is not needed!
+}
 }
 \author{Ulrike Groemping}
 \seealso{\code{\link[igraph]{plot.igraph}}, \code{\link[igraph]{tkplot}},\code{\link[igraph]{plot.common}} }

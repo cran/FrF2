@@ -37,17 +37,22 @@
   
   With \code{clear=TRUE}, the algorithm compares the requirement set to 
   catalogued sets of clear 2fis by a graph isomorphism algorithm from R-package 
-  \pkg{igraph}. The search is quite fast in this case. For details of this algorithm, 
+  \pkg{igraph}. For details of this algorithm, 
   cf. Groemping (2010b). With the catalogue \code{\link{catlg}} available in this package, 
   the best (minimum aberration) existing clear designs are guaranteed to be found 
   for up to 64 runs and have a good chance to be found for 128 runs. For 128 runs, 
-  it is possible to load a very large complete catalogue 
-  (package \pkg{\link[FrF2.catlg128]{FrF2.catlg128}}) 
+  it is possible to load an additional large catalogue (package \pkg{\link[FrF2.catlg128]{FrF2.catlg128}}) 
   in order to also guarantee that the best clear design is found. For 256 and 512 runs, 
   only one or two resolution IV designs of each size are catalogued so that 
   option \code{estimable} can try to influence allocation of factors to columns, 
   but may fail although an appropriate clear design would exist outside the catalogued 
-  designs.
+  designs.\cr
+  The search for a clear design 
+  is often fast. If it isn't, option \code{sort} 
+  of function \code{\link{FrF2}} can help. For the occasional situation where 
+  this doesn't help either, a manual search may help, see \code{\link{CIG}} 
+  for an example of how to proceed.
+  
   
   With \code{clear=FALSE}, the algorithm loops through the eligible designs from 
   \code{catlg.select} from good to worse (in terms of MA) and, for each design, loops 

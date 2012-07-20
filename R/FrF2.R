@@ -3,7 +3,7 @@ FrF2 <- function(nruns=NULL, nfactors=NULL,
                                 else paste("F",1:nfactors,sep="")} else NULL, 
                  default.levels = c(-1,1), ncenter=0, center.distribute=NULL,
                  generators=NULL, design=NULL, resolution=NULL, select.catlg=catlg, 
-                 estimable=NULL, clear=TRUE, res3=FALSE, max.time=60, 
+                 estimable=NULL, clear=TRUE, sort="natural", res3=FALSE, max.time=60, 
                  perm.start=NULL, perms=NULL, MaxC2=FALSE, 
                  replications=1, repeat.only=FALSE, 
                  randomize=TRUE, seed=NULL, alias.info=2, 
@@ -120,6 +120,8 @@ if (identical(nfac.WP,0) & is.null(WPfacs) & !identical(WPs,1))
                           else if (!is.null(generators)) nfactors <- length(generators)+k 
                           }
     if (!is.null(estimable)) {
+              if (!is.character(sort)) stop("option sort must be a character strings")
+              if (!sort %in% c("natural","high","low")) stop("invalid choice for option sort")
               estimable <- estimable.check(estimable, nfactors, factor.names)
               if (is.null(nfactors)) nfactors <- estimable$nfac
               estimable <- estimable$estimable
@@ -360,7 +362,7 @@ if (identical(nfac.WP,0) & is.null(WPfacs) & !identical(WPs,1))
             if (!is.null(estimable)) {
                 ## determine design that satisfies estimability requests
                       desmat <- estimable(estimable, nfactors, nruns, 
-                           clear=clear, res3=res3, max.time=max.time, select.catlg=select.catlg, 
+                           clear=clear, res3=res3, max.time=max.time, select.catlg=select.catlg, sort=sort,
                            perm.start=perm.start, perms=perms, order=alias.info)
                       design.info <- list(type="FrF2.estimable", 
                              nruns=nruns, nfactors=nfactors, factor.names=factor.names, catlg.name = catlg.name,

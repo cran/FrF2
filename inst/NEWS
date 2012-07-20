@@ -3,6 +3,10 @@ Changes to package FrF2
 The package is still under development. 
 Suggestions and bug reports are very welcome.
 
+20/07/2012, version 1.6-1
+  - further improvement of search speed for clear designs, sometimes very substantial:
+    presorting of CIGs w.r.t. degrees of vertices
+
 10/07/2012, version 1.6
   - added two further pre-filtering criteria for clear designs, 
     the clique number (size of largest clique at least as required by the requirement set) 
