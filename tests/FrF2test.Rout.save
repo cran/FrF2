@@ -226,7 +226,7 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
   .. .. ..$ nclear.2fis   : num 0
   .. .. ..$ clear.2fis    : num 
   .. .. ..$ all.2fis.clear: num 
-  .. .. ..$ dominating    : logi NA
+  .. .. ..$ dominating    : logi FALSE
   .. ..- attr(*, "class")= chr  "catlg" "list"
   ..$ aliased     :List of 3
   .. ..$ legend: chr  "A=eins" "B=zwei" "C=drei" "D=vier" ...
@@ -299,7 +299,7 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
   .. .. ..$ nclear.2fis   : num 0
   .. .. ..$ clear.2fis    : num 
   .. .. ..$ all.2fis.clear: num 
-  .. .. ..$ dominating    : logi NA
+  .. .. ..$ dominating    : logi FALSE
   .. ..- attr(*, "class")= chr  "catlg" "list"
   ..$ aliased     :List of 3
   .. ..$ legend: chr  "A=eins" "B=zwei" "C=drei" "D=vier" ...
@@ -2443,4 +2443,4 @@ NOTE: columns run.no and run.no.std.rp are annotation, not part of the data fram
 > 
 > proc.time()
    user  system elapsed 
-  24.75    2.46   29.31 
+  23.89    1.59   25.90 

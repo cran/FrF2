@@ -90,8 +90,12 @@ block.catlg
       \item{dominating}{logical that indicates whether the current design adds a 
               CIG structure that has not been seen for a design with less aberration 
               (cf. Wu, Mee and Tang 2012 p.196 for dominating designs);
-              TRUE, if so; FALSE, if current CIG is isomorphic to previous one; 
-              NA, if CIG has no edges; this is helpful in omitting non-promising 
+              TRUE, if so; FALSE, if current CIG is isomorphic to previous one or 
+              has no edges (IMPORTANT: the dominance assessment refers to the current 
+              catalogue; for designs with more than 64 runs, it is possible that 
+              a design marked dominating in catalogue \code{catlg} is not dominating 
+              when considering ALL non-isomorphic designs). \cr
+              This element is helpful in omitting non-promising 
               designs from a search for a clear design.\cr
               This element may be missing. In that case, all catalogue entries 
               are assumed dominating. }

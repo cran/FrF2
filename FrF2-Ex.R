@@ -47,7 +47,7 @@ flush(stderr()); flush(stdout())
 
 ### Name: CIG
 ### Title: Clear interactions graph from catlg entry
-### Aliases: CIGstatic CIG
+### Aliases: CIGstatic CIG gen2CIG
 ### Keywords: design
 
 ### ** Examples
@@ -67,6 +67,38 @@ clique.number(graph1)
 independence.number(graph1)
 largest.cliques(graph1)
 
+graph2 <- gen2CIG(32, c(7,11,14,29))   ### create graph object from generator columns
+### check isomorphism to graph1
+graph.isomorphic(graph1,graph2)
+
+## Not run: 
+##D ## use a CIG for manual design search
+##D ## requirement set: 
+##D estim <- compromise(17,15:17)$requirement  ## all interactions of factors 15 to 17 (P,Q,R)
+##D ## graph the requirement set CIG
+##D CIG(estim)
+##D FrF2(128, 17, estimable=estim)  ## will run for a very long time
+##D ## interrupt with ESC key, after a short period of waiting
+##D .FrF2.currentlychecked    ## displays the design that is currently checked 
+##D                           ## should be 17-10.2407
+##D CIG("17-10.2407")
+##D ## clearly, using columns 1, 8 and 9 for factors 15:17 does the job
+##D     ## sometimes, the design where the algorithm got stuck, does not provide a solution
+##D     ## in that case, option select.catlg can be used for restricting the search designs 
+##D     ##     to designs further down in the catalogue, in order to find the next candidate
+##D     ##     until final success is reached
+##D     ## e.g.
+##D     which(names(catlg)=="17-10.2407")
+##D     FrF2(128, 17, estimable=estim, select.catlg=catlg[2375:length(catlg)])  
+##D     ## will run for a very long time
+##D     ## interrupting after short waiting time yields
+##D     .FrF2.currentlychecked    ## displays the design that is currently checked 
+##D                               ## should be 17-10.4177
+##D 
+##D ## note: in this example, option sort="high" would make the automatic search fast
+##D ## so that manual treatment is not needed!
+##D 
+## End(Not run)
 
 
 
@@ -366,10 +398,21 @@ run.order(FrF2(8,4,replication=2,repeat.only=TRUE))
 ##D   ## (does not usually make sense)
 ##D   FrF2(16, nfactors=7, estimable = formula("~A+B+C+D+E+F+A:(B+C+D+E+F)"), 
 ##D        clear=TRUE, res3=TRUE)
-##D 
-##D ## example for necessity of perms, and uses of select.catlg and perm.start
-##D ## based on Wu and Chen Example 1
-##D   \dontrun{
+## End(Not run)
+## example for the sort option added with version 1.6-1
+  ## Not run: 
+##D   estim <- compromise(17,15:17)$requirement  ## all interactions of factors 15 to 17 (P,Q,R)
+##D   FrF2(128, 17, estimable=estim)  ## will run for a very long time, interrupt with ESC key
+##D   FrF2(128, 17, estimable=estim, sort="high")  ## very fast
+##D   FrF2(128, 17, estimable=estim, sort="low")  ## very fast
+##D   ## of course, only guaranteed to be MA clear design, if catlg128.17 from 
+##D   ## package FrF2.catlg128 is used in select.catlg option
+##D   
+## End(Not run)
+
+## example for necessity of perms, and uses of select.catlg and perm.start
+## based on Wu and Chen Example 1
+  ## Not run: 
 ##D   ## runs per default about max.time=60 seconds, before throwing error with 
 ##D   ##        interim results
 ##D   ## results could be used in select.catlg and perm.start for restarting with 
@@ -378,16 +421,16 @@ run.order(FrF2(8,4,replication=2,repeat.only=TRUE))
 ##D   ## would run for a long long time (I have not yet been patient enough)
 ##D   FrF2(32, nfactors=11, estimable = formula("~(A+B+C+D+E+F)^2"), clear=FALSE, 
 ##D        max.time=Inf)
-##D   }
-##D   ## can be easily done with perms, 
-##D   ## as only different subsets of six factors are non-isomorphic
-##D   perms.6 <- combn(11,6)
-##D   perms.full <- matrix(NA,ncol(perms.6),11)
-##D   for (i in 1:ncol(perms.6))
-##D      perms.full[i,] <- c(perms.6[,i],setdiff(1:11,perms.6[,i]))
-##D   FrF2(32, nfactors=11, estimable = formula("~(A+B+C+D+E+F)^2"), clear=FALSE, 
-##D       perms = perms.full )
+##D   
 ## End(Not run)
+  ## can be easily done with perms, 
+  ## as only different subsets of six factors are non-isomorphic
+  perms.6 <- combn(11,6)
+  perms.full <- matrix(NA,ncol(perms.6),11)
+  for (i in 1:ncol(perms.6))
+     perms.full[i,] <- c(perms.6[,i],setdiff(1:11,perms.6[,i]))
+  FrF2(32, nfactors=11, estimable = formula("~(A+B+C+D+E+F)^2"), clear=FALSE, 
+      perms = perms.full )
 
 
 

@@ -1,6 +1,7 @@
 \name{CIG}
 \alias{CIGstatic}
 \alias{CIG}
+\alias{gen2CIG}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{ Clear interactions graph from catlg entry }
 \description{
@@ -12,11 +13,18 @@
 \usage{
 CIG(design, select.catlg=catlg, static=FALSE, layout=layout.auto, label="num", plot=TRUE, ...)
 CIGstatic(graph, id, label="num", xlim=c(-1,1), ylim=c(1,-1), ...)
+gen2CIG(nruns, gen)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{design}{a character string that identifies a design in the cataloge specified 
-       by option \code{select.catlg}, or a class \code{catlg} object with a single entry}
+       by option \code{select.catlg}, \cr
+       OR a class \code{catlg} object with a single entry, \cr
+       OR a formula with all main effects and the requested clear 2-factor interactions, \cr
+       OR a character vector of length more than one with two-letter combinations of the clear 2-factor interactions,\cr
+       OR a numeric two-row matrix with factor numbers of the clear 2-factor interactions,\cr
+       OR a character two-row matrix with factor names of the clear 2-factor interactions.\cr
+       The first two are for graphing design CIGs, the other ones for requirement set CIGs.}
   \item{\dots}{further arguments to be passed to function \code{\link[igraph]{tkplot}}, 
       or graphical parameters to be passed to \code{plot}.}
   \item{select.catlg}{name of catalogue (not in quotes); 
@@ -30,7 +38,8 @@ CIGstatic(graph, id, label="num", xlim=c(-1,1), ylim=c(1,-1), ...)
         function \code{\link[igraph]{plot.igraph}} as described in \code{\link[igraph]{plot.common}} 
         and \code{\link[igraph]{layout}};\cr
         default: \code{layout.auto} (changed with version 1.6, was \code{layout.circle} before}
-  \item{label}{a character string that decides for numeric labels or 
+  \item{label}{in effect for \code{catlg} object only (character design name or class \code{catlg} object);\cr
+        a character string that decides for numeric labels or 
         character labels; any string other than the default will invoke the 
         factor letters as labels}
   \item{plot}{a logical that decides whether a plot is requested (default: \code{TRUE});\cr
@@ -45,6 +54,8 @@ CIGstatic(graph, id, label="num", xlim=c(-1,1), ylim=c(1,-1), ...)
   \item{xlim}{horizontal axis limits}
   \item{ylim}{vertical axis limits (per default reversed in order to exactly reproduce the 
         interactive graph) }
+  \item{nruns}{number of runs of the design to be graphed }
+  \item{gen}{generator (vector of Yates matrix column numbers) }
 }
 
 \details{
@@ -60,8 +71,11 @@ CIGstatic(graph, id, label="num", xlim=c(-1,1), ylim=c(1,-1), ...)
     0 to number of vertices -1, not from 1 to number of vertices. This has been changed 
     in June 2012 (FrF2 adapted to this change with version 1.5).
     
-    Function CIGstatic serves the purpose to statically create the current interactively modified graph; 
+    Function \code{CIGstatic} serves the purpose to statically create the current interactively modified graph; 
     the usual annotation possibilities for plots are available.
+    
+    Function \code{gen2CIG} returns a graph object that can be plotted or otherwise investigated with graph-related 
+    functionality.
 }
 
 \value{
@@ -74,6 +88,9 @@ CIGstatic(graph, id, label="num", xlim=c(-1,1), ylim=c(1,-1), ...)
     Function \code{CIGstatic} works on the list produced by function \code{CIG} 
     by plotting the graph statically using the positioning from the 
     current interactive picture. 
+    
+    Function \code{gen2CIG} returns a clear interactions graph that can e.g. be plotted with 
+    functions \code{plot} (\code{\link[igraph]{plot.igraph}}) or \code{\link[igraph]{tkplot}}.
 }
 
 \references{
@@ -101,10 +118,16 @@ clique.number(graph1)
 independence.number(graph1)
 largest.cliques(graph1)
 
+graph2 <- gen2CIG(32, c(7,11,14,29))   ### create graph object from generator columns
+### check isomorphism to graph1
+graph.isomorphic(graph1,graph2)
+
 \dontrun{
 ## use a CIG for manual design search
 ## requirement set: 
 estim <- compromise(17,15:17)$requirement  ## all interactions of factors 15 to 17 (P,Q,R)
+## graph the requirement set CIG
+CIG(estim)
 FrF2(128, 17, estimable=estim)  ## will run for a very long time
 ## interrupt with ESC key, after a short period of waiting
 .FrF2.currentlychecked    ## displays the design that is currently checked 
@@ -125,6 +148,7 @@ CIG("17-10.2407")
 
 ## note: in this example, option sort="high" would make the automatic search fast
 ## so that manual treatment is not needed!
+
 }
 }
 \author{Ulrike Groemping}

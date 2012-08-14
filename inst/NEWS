@@ -3,6 +3,13 @@ Changes to package FrF2
 The package is still under development. 
 Suggestions and bug reports are very welcome.
 
+14/08/2012, version 1.6-2
+  - Function CIG gained possibilities for graphing requirement set CIGs
+  - new functions gen2clear.2fis and gen2CIG in support of investigating the CIG behavior 
+    for given generators
+  - modified dominating entry in entries of catlg: all NA entries for designs without 
+    clear 2fis were changed to FALSE
+
 20/07/2012, version 1.6-1
   - further improvement of search speed for clear designs, sometimes very substantial:
     presorting of CIGs w.r.t. degrees of vertices

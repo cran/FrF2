@@ -8,6 +8,7 @@
 \alias{mapcalc}
 \alias{mapcalc.distinct}
 \alias{map2design}
+\alias{gen2clear.2fis}
 \alias{formula2matrix}
 \alias{char2num}
 \alias{check.subisomorphic.special}
@@ -37,6 +38,7 @@ mapcalc(estimable, nfac, nruns, res3=FALSE, select.catlg=catlg, sort="natural")
 mapcalc.distinct(estimable, nfac, nruns, res3=FALSE, max.time=60, 
         select.catlg=catlg, perm.start=1:nfac, perms=NULL)
 map2design(map, select.catlg=catlg)
+gen2clear.2fis(k, gen)
 formula2matrix(formula)
 char2num(char)
 check.subisomorphic.special(estimable, nfac, hilf2, hilf3=NULL, 
