@@ -3,6 +3,11 @@ Changes to package FrF2
 The package is still under development. 
 Suggestions and bug reports are very welcome.
 
+12/02/2013, version 1.6-4
+  - modified treatment of .FrF2.currentlychecked once again, 
+    now using an internal environment, because the other solution 
+    did not work with R versions before 2.15
+
 12/02/2013, version 1.6-3
   - function BsProb.design was modified to use function BsProb from BsMD rather than 
     directly accessing the Fortran routine from that package

@@ -1,8 +1,8 @@
 
-R version 2.15.1 (2012-06-22) -- "Roasted Marshmallows"
-Copyright (C) 2012 The R Foundation for Statistical Computing
+R Under development (unstable) (2013-01-22 r61734) -- "Unsuffered Consequences"
+Copyright (C) 2013 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
-Platform: i386-pc-mingw32/i386 (32-bit)
+Platform: i386-w64-mingw32/i386 (32-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -23,7 +23,6 @@ Loading required package: scatterplot3d
 Loading required package: igraph
 Loading required package: DoE.base
 Loading required package: relimp
-Loading Tcl/Tk interface ... done
 Loading required package: tcltk
 Loading required package: vcd
 Loading required package: MASS
@@ -33,30 +32,26 @@ Loading required package: conf.design
 
 Attaching package: 'DoE.base'
 
-The following object(s) are masked from 'package:conf.design':
+The following object is masked from 'package:conf.design':
 
     factorize.factor
 
-The following object(s) are masked from 'package:relimp':
+The following object is masked from 'package:relimp':
 
     showData
 
-The following object(s) are masked from 'package:stats':
+The following object is masked from 'package:stats':
 
     aov, lm
 
-The following object(s) are masked from 'package:graphics':
+The following object is masked from 'package:graphics':
 
     plot.design
-
-The following object(s) are masked from 'package:utils':
-
-    fix
 
 
 Attaching package: 'FrF2'
 
-The following object(s) are masked from 'package:BsMD':
+The following object is masked from 'package:BsMD':
 
     DanielPlot
 
@@ -787,4 +782,4 @@ FrF2(32, 7, gen = c(6, 15), WPs = 4, nfac.WP = 3, WPfacs = c(2,
 > 
 > proc.time()
    user  system elapsed 
-  10.26    1.09   12.40 
+   5.50    0.23    5.78 

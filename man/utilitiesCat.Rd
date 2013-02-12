@@ -95,6 +95,9 @@ Yates
        
 }
 \value{
+    \code{FrF2.currentlychecked} returns a character string with the name of the design 
+        currently checked for an adequate mapping, when searching for designs 
+        with certain 2fis estimable, 
     \code{mult.gen} and \code{mult.gen.a} determine a new word as the product of the argument words (numeric vector or character string respectively), 
     \code{words.all} calculates a word list object with word length pattern, the word list itself and a max.length entry, 
     \code{alias3fi} calculates an alias pattern based on the structure of the design (less demanding than the word list approach.

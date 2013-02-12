@@ -1,8 +1,8 @@
 
-R version 2.15.1 (2012-06-22) -- "Roasted Marshmallows"
-Copyright (C) 2012 The R Foundation for Statistical Computing
+R Under development (unstable) (2013-01-22 r61734) -- "Unsuffered Consequences"
+Copyright (C) 2013 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
-Platform: i386-pc-mingw32/i386 (32-bit)
+Platform: i386-w64-mingw32/i386 (32-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -23,7 +23,6 @@ Loading required package: scatterplot3d
 Loading required package: igraph
 Loading required package: DoE.base
 Loading required package: relimp
-Loading Tcl/Tk interface ... done
 Loading required package: tcltk
 Loading required package: vcd
 Loading required package: MASS
@@ -33,30 +32,26 @@ Loading required package: conf.design
 
 Attaching package: 'DoE.base'
 
-The following object(s) are masked from 'package:conf.design':
+The following object is masked from 'package:conf.design':
 
     factorize.factor
 
-The following object(s) are masked from 'package:relimp':
+The following object is masked from 'package:relimp':
 
     showData
 
-The following object(s) are masked from 'package:stats':
+The following object is masked from 'package:stats':
 
     aov, lm
 
-The following object(s) are masked from 'package:graphics':
+The following object is masked from 'package:graphics':
 
     plot.design
-
-The following object(s) are masked from 'package:utils':
-
-    fix
 
 
 Attaching package: 'FrF2'
 
-The following object(s) are masked from 'package:BsMD':
+The following object is masked from 'package:BsMD':
 
     DanielPlot
 
@@ -65,38 +60,38 @@ The following object(s) are masked from 'package:BsMD':
 > FrF2:::generators.from.design(basic)
 [[1]]
 x6 ~ x1 * x2 * x3
-<environment: 0x046982b8>
+<environment: 0x0ca66c8c>
 
 [[2]]
 x7 ~ x1 * x2 * x4
-<environment: 0x045d9314>
+<environment: 0x0ca5f248>
 
 [[3]]
 x8 ~ x1 * x2 * x5
-<environment: 0x045eacbc>
+<environment: 0x0ca56180>
 
 [[4]]
 x9 ~ x1 * x3 * x4 * x5
-<environment: 0x0430b488>
+<environment: 0x0ca4c78c>
 
 > FrF2:::generators.from.design(reshuffled)
 [[1]]
 x6 ~ x1 * x3 * x4 * x5
-<environment: 0x042e8ec0>
+<environment: 0x0ca5f6ec>
 
 [[2]]
 x7 ~ x1 * x2 * x3
-<environment: 0x042d240c>
+<environment: 0x0ca58a88>
 
 [[3]]
 x8 ~ x2 * x3 * x4 * x5
-<environment: 0x0433c460>
+<environment: 0x0ca51fac>
 
 [[4]]
 x9 ~ x1 * x2 * x4 * x5
-<environment: 0x0406eee0>
+<environment: 0x0c6a6400>
 
 > 
 > proc.time()
    user  system elapsed 
-   3.40    0.54    4.12 
+   1.84    0.15    1.99 

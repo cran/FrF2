@@ -133,6 +133,8 @@ blockpick(4,design="7-3.1",k.block=2,alias.block.2fis=TRUE)
 bpb <- blockpick.big(6,design="12-6.3",k.block=5,alias.block.2fis=TRUE)
 bpb
 ## based on the result of blockpick.big, a blocked design can be obtained as follows:
+## (not run for saving check time on CRAN)
+\dontrun{
 des64.7fac.32blocks <- FrF2(64,gen=bpb$gen[1,], blocks = as.list(1:5), 
    alias.block.2fis=TRUE)
 str(des64.7fac.32blocks)
@@ -140,7 +142,7 @@ str(des64.7fac.32blocks)
 des64.7fac.32blocks <- FrF2(64,gen=bpb$gen[1,], blocks = as.list(1:5), 
    alias.block.2fis=TRUE, factor.names=c(paste("b",1:5,sep=""),Letters[1:7]))
 str(des64.7fac.32blocks)
-
+}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

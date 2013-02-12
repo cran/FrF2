@@ -53,10 +53,10 @@ mapcalc <- function(estimable, nfac, nruns, res3=FALSE, select.catlg=catlg, sort
               }
 
       map <- NULL
-    ## .FrF2.currentlychecked is modified in package namespace
+    ## .FrF2.currentlychecked is stored in private environment
     ## for enabling user to access it after aborting without success
       for (i in 1:length(tobechecked)){
-          assignInMyNamespace(".FrF2.currentlychecked", names(tobechecked[i]))
+          putFrF2(".FrF2.currentlychecked", names(tobechecked[i]))
           go1 <- graph.empty(n=nfac,directed=FALSE)
           ## previous version subtracted 1 from tobechecked[[i]]$clear.2fis for previous igraph node definition; changed 29/06/2012
           go1 <- add.edges(go1, tobechecked[[i]]$clear.2fis)
@@ -84,8 +84,9 @@ mapcalc <- function(estimable, nfac, nruns, res3=FALSE, select.catlg=catlg, sort
                     map <- list(erg$map21)
                     if (sort %in% c("high","low"))
                        map <- list(ord1[map[[1]]][FrF2:::invperm(ord2)])
-                    names(map) <- get(".FrF2.currentlychecked")
-                    assignInMyNamespace(".FrF2.currentlychecked", "")
+                    names(map) <- getFrF2(".FrF2.currentlychecked")
+                    putFrF2(".FrF2.currentlychecked", names(tobechecked[i]))
+                    ##assignInMyNamespace(".FrF2.currentlychecked", "")
                     break
                     }
         }

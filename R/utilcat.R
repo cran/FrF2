@@ -1,4 +1,4 @@
-FrF2.currentlychecked <- function() print(.FrF2.currentlychecked)
+FrF2.currentlychecked <- function() print(getFrF2(".FrF2.currentlychecked"))
 
 mult.gen <- function(liste){
    ## omitted error check, because slows down very much
