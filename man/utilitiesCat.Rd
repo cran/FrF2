@@ -1,4 +1,5 @@
 \name{utilitiesCat}
+\alias{FrF2.currentlychecked}
 \alias{mult.gen}
 \alias{mult.gen.a}
 \alias{words.all}
@@ -25,6 +26,7 @@
   The constant Yates is user-visible, as it can be useful for expert users. ~~
 }
 \usage{
+FrF2.currentlychecked()
 mult.gen(liste) 
 mult.gen.a(string.vec,sep="")
 words.all(k, gen, design = NULL, max.length=7, select.catlg = catlg)

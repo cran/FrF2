@@ -3,6 +3,16 @@ Changes to package FrF2
 The package is still under development. 
 Suggestions and bug reports are very welcome.
 
+12/02/2013, version 1.6-3
+  - function BsProb.design was modified to use function BsProb from BsMD rather than 
+    directly accessing the Fortran routine from that package
+  - refer to function alias from package stats via stats::alias, 
+    in case a user has loaded package planor, which overrides that function 
+    (in function aliases)
+  - modified treatment of .FrF2.currentlychecked (included in sysdata.rda, 
+    modified via assignInMyNamespace, instead of earlier storage in global 
+    environment; function to access it)
+
 14/08/2012, version 1.6-2
   - Function CIG gained possibilities for graphing requirement set CIGs
   - new functions gen2clear.2fis and gen2CIG in support of investigating the CIG behavior 

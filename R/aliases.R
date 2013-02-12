@@ -1,13 +1,13 @@
 `aliases` <-
 function(fit, code=FALSE, condense=FALSE){
-  if (is.null(alias(fit)$Complete)){
+  if (is.null(stats::alias(fit)$Complete)){
   ## there is no complete aliasing whatsoever
   ## in the linear model
       aus <- list(legend=NULL, aliases=NULL)
       fit <- remodel(fit)$model
       ## there is partial aliasing 
       ## (even with -1 and 1 effects coding as done by remodel)
-      if (!is.null(alias(fit, partial=TRUE)$Partial))
+      if (!is.null(stats::alias(fit, partial=TRUE)$Partial))
          stop(paste("This model contains partially aliased effects.", "\n", 
             "You can look at the alias structure with alias(fit, partial=TRUE)."))
       }
@@ -21,7 +21,7 @@ function(fit, code=FALSE, condense=FALSE){
       ## using built-in function alias
       fit <- remodel(fit)$model  ## recoded factors to -1 and 1
       mm <- model.matrix(fit)
-      al <- round(alias(fit)$Complete,5)
+      al <- round(stats::alias(fit)$Complete,5)
           ## columns contain the "master" effects 
           ## that are not confounded with each other
       if (colnames(al)[1]=="(Intercept)") 

@@ -1,3 +1,5 @@
+FrF2.currentlychecked <- function() print(.FrF2.currentlychecked)
+
 mult.gen <- function(liste){
    ## omitted error check, because slows down very much
    ## must be applied to absolute values of generators!!!
