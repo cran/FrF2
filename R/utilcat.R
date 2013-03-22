@@ -255,3 +255,11 @@ alias3fi <- function(k, gen, order=3){
                      "\n or letters from",Letters[1],"to", Letters[k], "only."))
               gen
               }
+ 
+   slowfast <- function(k){
+   ## yields a permutation vector 
+   ## for switching back and forth between slow and fast ordering
+   ## of the base factors of a design
+   ind <- 0:(2^k-1)
+   ord(as.data.frame(lapply(1:k, function(obj) ind%%(2^obj))))
+}

@@ -31,10 +31,13 @@ blockpick <- function(k, gen, k.block, design=NULL, show=10, alias.block.2fis=FA
   if (identical(gen,0) | length(gen)==0) {
       ## treat full factorials by catalogue (block.catlg)
       gen <- numeric(0)
-      if (length(which(block.catlg$k==k & block.catlg$k.block==k.block))>0)
-      bcols <- block.catlg[which(block.catlg$k==k & block.catlg$k.block==k.block)[1],
-                       paste("b",1:k.block,sep="")]
-      else stop("This full factorial is not in the catalogue.")
+      if (k <= max(block.catlg$k) & k.block <= ncol(block.catlg)-2){
+        if (length(which(block.catlg$k==k & block.catlg$k.block==k.block))>0)
+        bcols <- block.catlg[which(block.catlg$k==k & block.catlg$k.block==k.block)[1],
+                         paste("b",1:k.block,sep="")]
+        else stop("This full factorial is not in the catalogue.")
+      }
+      else bcols <- catlg[[paste(k+k.block,"-",k.block,".",1,sep="")]]$gen
       }
   g <- length(gen)
   minus <- 1

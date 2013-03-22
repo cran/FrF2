@@ -1,5 +1,5 @@
 \name{utilitiesCat}
-\alias{FrF2.currentlychecked}
+\alias{slowfast}
 \alias{mult.gen}
 \alias{mult.gen.a}
 \alias{words.all}
@@ -26,7 +26,7 @@
   The constant Yates is user-visible, as it can be useful for expert users. ~~
 }
 \usage{
-FrF2.currentlychecked()
+slowfast(k) 
 mult.gen(liste) 
 mult.gen.a(string.vec,sep="")
 words.all(k, gen, design = NULL, max.length=7, select.catlg = catlg)
@@ -54,11 +54,11 @@ Yates
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
+  \item{k}{ number of base factors spanning a full factorial with the desired number of runs (i.e. \code{log2(nruns)}) }
   \item{liste}{ list of words in terms of vectors of factor numbers to be combined into one new word }
   \item{string.vec}{ vector of words in terms of factor letter combinations (e.g. \dQuote{ABC}) to be combined into one new word }
   \item{sep}{ character by which interaction terms are separated or concatenated; default is empty, i.e. ABC are separated into A, B and C; 
           for more than 50~factors, a colon is needed so that F1:F2:F127 can be separated into F1, F2 and F127, for example.}
-  \item{k}{ number of factors spanning a full factorial with the desired number of runs (i.e. \code{log2(nruns)}) }
   \item{gen}{ generators in any admissible format (\code{gen.check} transforms any admissible format to the default needed for calculations)) }
   \item{design}{ character string that contains a name of a design from \code{select.catlg}, like in \code{\link{FrF2}} }
   \item{max.length}{ the maximum word length to be calculated for the words list; in large design, choosing this to be 4 or 5 may substantially speed things up! }
@@ -95,9 +95,6 @@ Yates
        
 }
 \value{
-    \code{FrF2.currentlychecked} returns a character string with the name of the design 
-        currently checked for an adequate mapping, when searching for designs 
-        with certain 2fis estimable, 
     \code{mult.gen} and \code{mult.gen.a} determine a new word as the product of the argument words (numeric vector or character string respectively), 
     \code{words.all} calculates a word list object with word length pattern, the word list itself and a max.length entry, 
     \code{alias3fi} calculates an alias pattern based on the structure of the design (less demanding than the word list approach.

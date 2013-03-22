@@ -11,8 +11,22 @@ FrF2 <- function(nruns=NULL, nfactors=NULL,
                  hard=NULL, check.hard=10, WPs=1, nfac.WP=0, WPfacs=NULL, check.WPs=10, ...){
 creator <- sys.call()
 catlg.name <- deparse(substitute(select.catlg))
-## check validity of center point options
+    nichtda <- "try-error" %in% class(try(eval(parse(text=paste(catlg.name,"[1]",sep=""))),silent=TRUE))
+    if (nichtda){
+      ## autoload select.catlg from FrF2.catlg128, if available
+      catlgs128 <- try(data(package="FrF2.catlg128"), silent=TRUE)
+      if ("try-error" %in% class(catlgs128)) 
+          stop("Package FrF2.catlg128 is not available")
+      else{ 
+      if (catlg.name %in% catlgs128$result[,"Item"]){
+             if (!require("FrF2.catlg128", quietly=TRUE, character.only=TRUE)) 
+                  stop("Package FrF2.catlg128 is not available or\n", catlg.name, "not part of that package")
+             if (packageVersion("FrF2.catlg128") < numeric_version(1.2)) data(list=catlg.name)
+       }
+     }
+    }
     if (!"catlg" %in% class(select.catlg)) stop("invalid choice for select.catlg")
+## check validity of center point options
     if (!is.numeric(ncenter)) stop("ncenter must be a number")
     if (!length(ncenter)==1) stop("ncenter must be a number")
     if (!ncenter==floor(ncenter)) stop("ncenter must be an integer number")
@@ -524,6 +538,7 @@ if (identical(nfac.WP,0) & is.null(WPfacs) & !identical(WPs,1))
                 WPfacs <- paste("F",WPfacs,sep="")  ## treat with manual below
                 }
               }
+              ## next closing brace for !(nfactors<=k & identical(blocks,1) & identical(WPs,1))
               }
               ### next closing brace for !is.null(nruns)
               } 
@@ -574,7 +589,13 @@ else {
        for (i in 2:k) destxt <- paste(destxt,",c(-1,1)",sep="")
        destxt <- paste("as.matrix(",destxt,"))",sep="")
        desmat <- eval(parse(text=destxt))
-       if (is.character(WPfacs) | is.list(blocks)) desmat <- desmat[,k:1]  ## slow first rather than fast first
+       if (is.character(WPfacs) | is.list(blocks)) {
+          desmat <- desmat[,k:1]  ## slow first rather than fast first
+          ##rownames(desmat) <- slowfast(k)  ## 17 Feb 2013; this would make the 
+          ##   run numbers refer to the Yates matrix row order with A changing fastest
+          ##   but would also change row order of the resulting design
+          ##   therefore not done; 
+          }
        if (!is.null(hard)) {
              desmat <- rep(c(-1,1),each=nruns/2)
              for (i in 2:k) desmat <- cbind(desmat,rep(c(1,-1,-1,1),times=(2^i)/4,each=nruns/(2^i)))
@@ -591,12 +612,18 @@ else {
                  for (j in setdiff(1:nfactors,WPsorig))
                      if (!length(table(paste(hilf,desmat[,j],sep="")))>WPs) 
                          stop("Factor ", names(factor.names)[j], " is also a whole plot factor.")
+            ## added 19 Feb 2013
+            if (nfac.WP<3) res.WP <- Inf
+            else res.WP <- GR((3-desmat[,WPsorig,drop=FALSE])%/%2)$GR%/%1           
           }
           }
        
        ## slow changing order, if required
       # if ((!is.character(WPfacs)) & !is.null(hard) ) 
       #     desmat <- desmat[,order(c(2^(0:(k-1)),abs(cand[[1]]$gen)))]
+
+      ## make sure matrix desmat has rownames (14 Feb 2013)
+      if (is.null(rownames(desmat))) rownames(desmat) <- 1:nruns
 
        if (is.list(blocks)) {
            ## manually blocked designs and continuation of automatically blocked designs
@@ -605,7 +632,7 @@ else {
             for (i in 1:k.block) hilf[[i]] <- apply(desmat[,hilf[[i]],drop=FALSE],1,prod)
             Blocks <- factor(as.numeric(factor(apply(matrix(as.character(unlist(hilf)),ncol=k.block),
                         1,paste,collapse=""))))
-            hilf <- order(Blocks)
+            hilf <- order(Blocks, as.numeric(rownames(desmat)))   ## rownames(desmat) added 17 Feb 2013
             desmat <- desmat[hilf,]
             Blocks <- Blocks[hilf]
             contrasts(Blocks) <- contr.FrF2(levels(Blocks))
@@ -613,7 +640,6 @@ else {
             blocksize <- nruns / nblocks
             block.no <- paste(Blocks,rep(1:blocksize,nblocks),sep=".")
             }
-
        if (is.character(WPfacs)) {
             ## make WP factor columns the first ones
             ## make factor.names match this order 
@@ -628,15 +654,19 @@ else {
                plotsize <- round(nruns/WPs)
                
                if (is.null(hard)){
-                 hilf <- ord(desmat)
-                 desmat <- desmat[ord(desmat),]
+                 hilf <- ord(cbind(desmat[,1:nfac.WP],as.numeric(rownames(desmat))))  ## as.numeric(rownames) added 17 Feb 2013
+                 desmat <- desmat[hilf,]
                }
                wp.no <- paste(rep(1:WPs,each=plotsize),rep(1:plotsize,WPs),sep=".")
                
             }
     }
 
-    rownames(desmat) <- 1:nruns
+    ## until Feb 14 2013, rownames(desmat) were defined here, 
+    ##    which did not make sense, especially since they should be available 
+    ##    in already resorted form above for block and wp
+    ## 14 Feb 2013: auskommentiert
+    ## rownames(desmat) <- 1:nruns
 
     ## handle randomization and replication
     if (randomize & !is.null(seed)) set.seed(seed)
@@ -730,8 +760,9 @@ else {
       }          
     orig.no <- rownames(desmat)
     orig.no <- orig.no[rand.ord]
-    ## row added 27 01 2011 (for proper ordering of design)
+    ## row added 27 01 2011 (for proper ordering of factor levels)
     orig.no.levord <- sort(as.numeric(orig.no),index=TRUE)$ix
+
     rownames(desmat) <- NULL
     desmat <- desmat[rand.ord,]
         
@@ -859,7 +890,11 @@ else {
                 }
            else design.info <- c(design.info, list(catlg.name = catlg.name, base.design=names(cand[1])))
            design.info <- c(design.info, list(map=map))
-        if (bbreps>1) desdf[,1] <- paste(desdf[,1], rep(1:bbreps, each=nruns*wbreps),sep=".")
+        
+        if (bbreps>1) {
+            hilflev <- paste(rep(levels(desdf[,1]), each=bbreps), rep(1:bbreps, nblocks), sep=".")
+            desdf[,1] <- factor(paste(desdf[,1], rep(1:bbreps, each=nruns*wbreps),sep="."), levels=hilflev)
+        }
             ## make block names reflect the between block replication
         }   ## end of blocked designs
 
@@ -919,6 +954,8 @@ else {
     attr(aus,"desnum") <- desmat
       ## change 27 Jan 2011: leave orig.no as a factor, but with better-ordered levels
       orig.no <- factor(orig.no, levels=unique(orig.no[orig.no.levord]))
+      ## added 14 Feb 2013
+      orig.no.rp <- factor(orig.no.rp, levels=unique(orig.no.rp[orig.no.levord]))
     if (!(is.list(blocks) | WPs > 1)) 
        attr(aus,"run.order") <- data.frame("run.no.in.std.order"=orig.no,"run.no"=1:nrow(desmat),"run.no.std.rp"=orig.no.rp)
     else attr(aus,"run.order") <- data.frame("run.no.in.std.order"=orig.no,"run.no"=1:nrow(desmat),"run.no.std.rp"=orig.no.rp)

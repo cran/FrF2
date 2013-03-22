@@ -31,10 +31,6 @@ Loading required package: conf.design
 
 Attaching package: 'DoE.base'
 
-The following object is masked from 'package:conf.design':
-
-    factorize.factor
-
 The following object is masked from 'package:relimp':
 
     showData
@@ -1938,4 +1934,4 @@ NOTE: columns run.no and run.no.std.rp are annotation, not part of the data fram
 > 
 > proc.time()
    user  system elapsed 
-   5.33    0.20    5.56 
+   5.63    0.24    5.91 

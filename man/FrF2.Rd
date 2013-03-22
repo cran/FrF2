@@ -1,5 +1,6 @@
 \name{FrF2}
 \alias{FrF2}
+\alias{FrF2.currentlychecked}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{ Function to provide regular Fractional Factorial 2-level designs }
 \description{
@@ -22,7 +23,9 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
         blocks = 1, block.name = "Blocks", bbreps=replications, wbreps=1, 
         alias.block.2fis = FALSE, hard = NULL, check.hard=10, WPs=1,nfac.WP=0,
         WPfacs=NULL, check.WPs = 10, ...)
+FrF2.currentlychecked()
 }
+
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{nruns}{ Number of runs, must be a power of 2 (4 to 4096), if given. 
@@ -138,6 +141,11 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
         Specification of a smaller subset of designs is useful, if \code{estimable} 
         has been given and \code{clear=FALSE}, for restricting the search 
         to promising designs.
+        
+        \link[FrF2.catlg128:Catalogues]{Names of catalogues from package} \pkg{FrF2.catlg128} 
+        can be given here without prior loading of that package; loading of the package 
+        and the selected catalogue will then happen automatically, provided the 
+        package is installed.
         }
   \item{estimable}{ indicates the 2-factor interactions (2fis) that are to be estimable in 
         the design. Consult the specific help file (\code{\link{estimable.2fis}}) 
@@ -365,10 +373,16 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
   Function \code{FrF2} is still under development, although most features are 
   now included, and the principle structure of inputs and outputs should not change 
   much any more. Please contact me with any suggestions for improvements.
+  
+  Function \code{FrF2.currentlychecked} is meant as a diagnostic tool, 
+  when searching for designs with option \code{estimable}
+  and \code{clear=TRUE}. If the search takes very long, it can be interrupted, 
+  and the function returns a character string with the name of the design 
+  that was checked at the time of interruption. 
 }
 \value{
-  Value is a data frame of S3 class \code{\link[DoE.base:class-design]{design}} 
-  and has attached attributes that can be accessed 
+  Function \code{FrF2} returns a data frame of S3 class \code{\link[DoE.base:class-design]{design}} 
+  that has attached attributes that can be accessed 
   by functions \code{\link[DoE.base:class-design-methods]{desnum}}, 
   \code{\link[DoE.base:class-design-methods]{run.order}} and 
   \code{\link[DoE.base:class-design-methods]{design.info}}. 
@@ -380,12 +394,28 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
   
   The following attributes are attached to it: 
   \item{desnum}{Design matrix in -1/1 coding}
-  \item{run.order}{three column data frame, first column contains the run number in 
-       standard order, second column the run number as randomized, third column the 
-       run number with replication number as postfix (in blocked designs, there may be 
-       two postfixes for within and between block replications);
-       useful for switching back and forth between actual and standard run 
-       number}
+  \item{run.order}{a three column data frame;\cr 
+       the first column (\code{run.no.in.std.order})
+       contains the run number in standard order, possibly including a block number 
+       and in that case also a number for the original position within the block,\cr 
+       the second column (\code{run.no}) contains the actual run number as randomized, \cr
+       the third column contains (\code{run.no.std.rp}) contains the content 
+       of the first column accumulated with a replication identifier, if applicable.\cr
+       A few remarks on the run number in standard order are needed here: \cr
+       In blocked and split plot designs, the run number in standard 
+       order refers to a row ordering with the first base factor changing \emph{slowest}, 
+       different from the usual order with the first base factor changing \emph{fastest}. 
+       Also note that the run number in standard order may not refer to 
+       the base columns one would naturally expect for designs created with blocking,  
+       estimable 2fis or split plot designs; the elements \code{map} for and/or  
+       \code{orig.fac.order} of the attribute \code{design.info} help identify 
+       which base factors drive the run number in standard order.
+       (In case of option \code{hard=TRUE}, the remark on split plot designs applies, 
+       and the numbering refers to the special slow change matrix from 
+       Cheng et al. 1998.)\cr
+       For blocked designs created internally with function \code{blockpick.big}, 
+       the run number in standard order is not easily related to the final 
+       design.}
   \item{design.info}{list with the entries 
   \describe{
     \item{type}{ character string \dQuote{full factorial}, \dQuote{FrF2}, 
@@ -427,6 +457,11 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
          number of whole plots}
     \item{plotsize}{for designs of type \code{FrF2.splitplot} only; \cr
          size of each plot (without consideration of repeat.only replications if applicable)}
+    \item{orig.fac.order }{designs of type \code{FrF2.splitplot} only; \cr
+         factor order of the design before reshuffling of factors in order 
+         to accomodate the split plot request; 
+         the run number in standard order can only be interpreted together 
+         with this information}
     \item{catlg.entry }{ for designs of type \code{FrF2} only; \cr
          list with one element, which is the entry of \code{catlg} 
          on which the design is based}
@@ -687,13 +722,14 @@ design.info(BSS.cheese.exm)
        clear=TRUE, res3=TRUE)
 }
 ## example for the sort option added with version 1.6-1
+## and for usage of a catalogue from package FrF2.catlg128 (simplified with version 1.6-5)
   \dontrun{
   estim <- compromise(17,15:17)$requirement  ## all interactions of factors 15 to 17 (P,Q,R)
-  FrF2(128, 17, estimable=estim)  ## will run for a very long time, interrupt with ESC key
-  FrF2(128, 17, estimable=estim, sort="high")  ## very fast
-  FrF2(128, 17, estimable=estim, sort="low")  ## very fast
-  ## of course, only guaranteed to be MA clear design, if catlg128.17 from 
-  ## package FrF2.catlg128 is used in select.catlg option
+  FrF2(128, 17, estimable=estim, select.catlg=catlg128.17)  ## will run for a very long time, interrupt with ESC key
+  FrF2(128, 17, estimable=estim, sort="high", select.catlg=catlg128.17)  ## very fast
+  FrF2(128, 17, estimable=estim, sort="low", select.catlg=catlg128.17)  ## very fast
+  ## guaranteed to be MA clear design 
+  ## only works, if package FrF2.catlg128 is installed
   }
 
 ## example for necessity of perms, and uses of select.catlg and perm.start
@@ -717,6 +753,7 @@ design.info(BSS.cheese.exm)
   FrF2(32, nfactors=11, estimable = formula("~(A+B+C+D+E+F)^2"), clear=FALSE, 
       perms = perms.full )
 }
+
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ array }

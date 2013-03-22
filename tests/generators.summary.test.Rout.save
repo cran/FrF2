@@ -32,10 +32,6 @@ Loading required package: conf.design
 
 Attaching package: 'DoE.base'
 
-The following object is masked from 'package:conf.design':
-
-    factorize.factor
-
 The following object is masked from 'package:relimp':
 
     showData
@@ -86,8 +82,8 @@ FrF2(32, 7, blocks = 4)
 
 Experimental design of type  FrF2.blocked 
 32  runs
-
 blocked design with  4  blocks of size  8 
+
 Factor settings (scale ends):
    A  B  C  D  E  F  G
 1 -1 -1 -1 -1 -1 -1 -1
@@ -116,8 +112,8 @@ FrF2(32, 9, blocks = 4, alias.block.2fis = TRUE)
 
 Experimental design of type  FrF2.blocked 
 32  runs
-
 blocked design with  4  blocks of size  8 
+
 Factor settings (scale ends):
    A  B  C  D  E  F  G  H  J
 1 -1 -1 -1 -1 -1 -1 -1 -1 -1
@@ -146,8 +142,8 @@ FrF2(32, 9, blocks = c("AB", "AC"), alias.block.2fis = TRUE)
 
 Experimental design of type  FrF2.blocked 
 32  runs
-
 blocked design with  4  blocks of size  8 
+
 Factor settings (scale ends):
    A  B  C  D  E  F  G  H  J
 1 -1 -1 -1 -1 -1 -1 -1 -1 -1
@@ -176,8 +172,8 @@ FrF2(64, 7, blocks = 4)
 
 Experimental design of type  FrF2.blocked 
 64  runs
-
 blocked design with  4  blocks of size  16 
+
 Factor settings (scale ends):
    A  B  C  D  E  F  G
 1 -1 -1 -1 -1 -1 -1 -1
@@ -286,8 +282,8 @@ FrF2(64, 15, blocks = 16, alias.block.2fi = TRUE)
 
 Experimental design of type  FrF2.blocked 
 64  runs
-
 blocked design with  16  blocks of size  4 
+
 Factor settings (scale ends):
    A  B  C  D  E  F  G  H  J  K  L  M  N  O  P
 1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
@@ -501,7 +497,7 @@ $plotsize
 [1] 8
 
 $res.WP
-NULL
+[1] 3
 
 $aliased
 $aliased$legend
@@ -741,7 +737,7 @@ $plotsize
 [1] 8
 
 $res.WP
-NULL
+[1] 3
 
 $aliased
 $aliased$legend
@@ -782,4 +778,4 @@ FrF2(32, 7, gen = c(6, 15), WPs = 4, nfac.WP = 3, WPfacs = c(2,
 > 
 > proc.time()
    user  system elapsed 
-   5.50    0.23    5.78 
+   5.66    0.35    6.06 

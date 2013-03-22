@@ -241,7 +241,7 @@ flush(stderr()); flush(stdout())
 
 ### Name: FrF2
 ### Title: Function to provide regular Fractional Factorial 2-level designs
-### Aliases: FrF2
+### Aliases: FrF2 FrF2.currentlychecked
 ### Keywords: array design
 
 ### ** Examples
@@ -400,13 +400,14 @@ run.order(FrF2(8,4,replication=2,repeat.only=TRUE))
 ##D        clear=TRUE, res3=TRUE)
 ## End(Not run)
 ## example for the sort option added with version 1.6-1
+## and for usage of a catalogue from package FrF2.catlg128 (simplified with version 1.6-5)
   ## Not run: 
 ##D   estim <- compromise(17,15:17)$requirement  ## all interactions of factors 15 to 17 (P,Q,R)
-##D   FrF2(128, 17, estimable=estim)  ## will run for a very long time, interrupt with ESC key
-##D   FrF2(128, 17, estimable=estim, sort="high")  ## very fast
-##D   FrF2(128, 17, estimable=estim, sort="low")  ## very fast
-##D   ## of course, only guaranteed to be MA clear design, if catlg128.17 from 
-##D   ## package FrF2.catlg128 is used in select.catlg option
+##D   FrF2(128, 17, estimable=estim, select.catlg=catlg128.17)  ## will run for a very long time, interrupt with ESC key
+##D   FrF2(128, 17, estimable=estim, sort="high", select.catlg=catlg128.17)  ## very fast
+##D   FrF2(128, 17, estimable=estim, sort="low", select.catlg=catlg128.17)  ## very fast
+##D   ## guaranteed to be MA clear design 
+##D   ## only works, if package FrF2.catlg128 is installed
 ##D   
 ## End(Not run)
 
@@ -657,14 +658,16 @@ blockpick(4,design="7-3.1",k.block=2,alias.block.2fis=TRUE)
 bpb <- blockpick.big(6,design="12-6.3",k.block=5,alias.block.2fis=TRUE)
 bpb
 ## based on the result of blockpick.big, a blocked design can be obtained as follows:
-des64.7fac.32blocks <- FrF2(64,gen=bpb$gen[1,], blocks = as.list(1:5), 
-   alias.block.2fis=TRUE)
-str(des64.7fac.32blocks)
-## if the seven factors are to be named A,...,G:
-des64.7fac.32blocks <- FrF2(64,gen=bpb$gen[1,], blocks = as.list(1:5), 
-   alias.block.2fis=TRUE, factor.names=c(paste("b",1:5,sep=""),Letters[1:7]))
-str(des64.7fac.32blocks)
-
+## (not run for saving check time on CRAN)
+## Not run: 
+##D des64.7fac.32blocks <- FrF2(64,gen=bpb$gen[1,], blocks = as.list(1:5), 
+##D    alias.block.2fis=TRUE)
+##D str(des64.7fac.32blocks)
+##D ## if the seven factors are to be named A,...,G:
+##D des64.7fac.32blocks <- FrF2(64,gen=bpb$gen[1,], blocks = as.list(1:5), 
+##D    alias.block.2fis=TRUE, factor.names=c(paste("b",1:5,sep=""),Letters[1:7]))
+##D str(des64.7fac.32blocks)
+## End(Not run)
 
 
 

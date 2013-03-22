@@ -29,15 +29,9 @@ function \code{struc.aliased} structures these into a list with main effects,
 2fis and 3fis (the latter for \code{order=3} only). 
 These functions are used by function \code{FrF2}.
 }
-\references{ 
-   Groemping, U. (2011). Relative projection frequency tables for orthogonal arrays. 
-      Report 1/2011, \emph{Reports in Mathematics, Physics and Chemistry} \url{http://www1.beuth-hochschule.de/FB_II/reports/welcome.htm}, 
-      Department II, Beuth University of Applied Sciences, Berlin.
-      
-  Hedayat, A.S., Sloane, N.J.A. and Stufken, J. (1999) \emph{Orthogonal Arrays: Theory and Applications}, Springer, New York. 
-}
 \author{ Ulrike Groemping }
-\note{ This package is currently under intensive development. Substantial changes are to be expected in the near future.}
+\note{ This package is still under development regarding some of its aspects; 
+especially internal functions cannot be relied upon to remain stable.}
 \seealso{ See Also \code{\link[FrF2]{FrF2-package}} }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

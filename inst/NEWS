@@ -3,6 +3,29 @@ Changes to package FrF2
 The package is still under development. 
 Suggestions and bug reports are very welcome.
 
+22/03/2013, version 1.6-5
+  - made usage of catalogues from package FrF2.catlg128 more comfortable:
+    the package and catalogue is now loaded automatically, if a catalogue 
+    from that package is requested with option select.catlg of function FrF2
+  - blocking designs did not work for full factorials with more than 
+    256 runs; this functionality has now been added.
+  - blocking variable was a character column instead of a factor 
+    for any blocked design with bbreps > 1, which lead to warnings 
+    in modeling functions; now it is a factor also for this situation, 
+    with adequately ordered levels
+  - the run.order attribute for blocked and split plot designs did not yield 
+    helpful standard order run numbers; this has improved to some 
+    extent, and has been documented more clearly. Further unification with 
+    unblocked designs was not done, because the easy way to do it 
+    would have led to changes in the created designs 
+    between versions, which would be quite undesirable.
+  - function add.center did not handle the run.order attribute of the design 
+    well: center points had entries "0" only for run.no.in.std.order 
+    and run.no.std.rp; this has been rectified so that the block and replication 
+    information is also retrievable from the run.order attribute
+  - bug fix: the element res.WP for split plot designs with manually specified 
+    whole plot factors was not populated with information; this has been fixed.
+                            
 12/02/2013, version 1.6-4
   - modified treatment of .FrF2.currentlychecked once again, 
     now using an internal environment, because the other solution 

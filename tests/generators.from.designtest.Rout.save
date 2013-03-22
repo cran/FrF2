@@ -32,10 +32,6 @@ Loading required package: conf.design
 
 Attaching package: 'DoE.base'
 
-The following object is masked from 'package:conf.design':
-
-    factorize.factor
-
 The following object is masked from 'package:relimp':
 
     showData
@@ -60,38 +56,38 @@ The following object is masked from 'package:BsMD':
 > FrF2:::generators.from.design(basic)
 [[1]]
 x6 ~ x1 * x2 * x3
-<environment: 0x0ca66c8c>
+<environment: 0x0cd023f8>
 
 [[2]]
 x7 ~ x1 * x2 * x4
-<environment: 0x0ca5f248>
+<environment: 0x0ccfd9e4>
 
 [[3]]
 x8 ~ x1 * x2 * x5
-<environment: 0x0ca56180>
+<environment: 0x0ccf7fb0>
 
 [[4]]
 x9 ~ x1 * x3 * x4 * x5
-<environment: 0x0ca4c78c>
+<environment: 0x0cd922a4>
 
 > FrF2:::generators.from.design(reshuffled)
 [[1]]
 x6 ~ x1 * x3 * x4 * x5
-<environment: 0x0ca5f6ec>
+<environment: 0x0cd10db0>
 
 [[2]]
 x7 ~ x1 * x2 * x3
-<environment: 0x0ca58a88>
+<environment: 0x0cd0c4b4>
 
 [[3]]
 x8 ~ x2 * x3 * x4 * x5
-<environment: 0x0ca51fac>
+<environment: 0x0cd060c8>
 
 [[4]]
 x9 ~ x1 * x2 * x4 * x5
-<environment: 0x0c6a6400>
+<environment: 0x0ce81a60>
 
 > 
 > proc.time()
    user  system elapsed 
-   1.84    0.15    1.99 
+   1.90    0.18    2.10 
