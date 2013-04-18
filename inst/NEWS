@@ -3,6 +3,17 @@ Changes to package FrF2
 The package is still under development. 
 Suggestions and bug reports are very welcome.
 
+18/04/2013, version 1.6-6
+  - modified automatic load of package FrF2.catlg128 to work with the lazy 
+    load version of that package (version 1.2) and to avoid usage of the 
+    command data() which has been banned by CRAN policy
+  - modified maintainer e-mail address
+  - modified example and corrected comment text on example for hard-to-change 
+    factors in the splitplot documentation file
+  - mentioned in FrF2 documentation that option MaxC2 is ignored when using  
+    the estimable functionality, and discouraged the use of that option
+  - fixed funtion CIGstatic to work as advertised
+
 22/03/2013, version 1.6-5
   - made usage of catalogues from package FrF2.catlg128 more comfortable:
     the package and catalogue is now loaded automatically, if a catalogue 

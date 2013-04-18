@@ -13,18 +13,24 @@ creator <- sys.call()
 catlg.name <- deparse(substitute(select.catlg))
     nichtda <- "try-error" %in% class(try(eval(parse(text=paste(catlg.name,"[1]",sep=""))),silent=TRUE))
     if (nichtda){
-      ## autoload select.catlg from FrF2.catlg128, if available
-      catlgs128 <- try(data(package="FrF2.catlg128"), silent=TRUE)
-      if ("try-error" %in% class(catlgs128)) 
-          stop("Package FrF2.catlg128 is not available")
-      else{ 
-      if (catlg.name %in% catlgs128$result[,"Item"]){
+      ## provide valid catalogue names from FrF2.catlg128 (added for version 1.6-6
+      
+      catlgs128 <- c("catlg128.8to15","catlg128.26to33",paste("catlg128",16:25,sep="."))
+      
+      if (catlg.name %in% catlgs128){
              if (!require("FrF2.catlg128", quietly=TRUE, character.only=TRUE)) 
-                  stop("Package FrF2.catlg128 is not available or\n", catlg.name, "not part of that package")
-             if (packageVersion("FrF2.catlg128") < numeric_version(1.2)) data(list=catlg.name)
+                  stop("Package FrF2.catlg128 is not available")
+             if (packageVersion("FrF2.catlg128") < numeric_version(1.2)){ 
+                  if (catlg.name %in% catlgs128[c(1,3:11)])
+                  stop("For this version of package FrF2.catlg128,\n",
+                       "load ", catlg.name, " with the command data(", catlg.name,")\n",
+                       "and then rerun the FrF2 command.\n",
+                       "Alternatively, install the latest version of package FrF2.catlg128.")
+                  else stop("You need to get the latest version of package FrF2.catlg128 for using ", catlg.name)
+                       }
        }
+     else stop(catlg.name, " not available")
      }
-    }
     if (!"catlg" %in% class(select.catlg)) stop("invalid choice for select.catlg")
 ## check validity of center point options
     if (!is.numeric(ncenter)) stop("ncenter must be a number")

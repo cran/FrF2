@@ -145,8 +145,10 @@ FrF2.currentlychecked()
         \link[FrF2.catlg128:Catalogues]{Names of catalogues from package} \pkg{FrF2.catlg128} 
         can be given here without prior loading of that package; loading of the package 
         and the selected catalogue will then happen automatically, provided the 
-        package is installed.
-        }
+        package is installed (for version >=1.2 of package \pkg{FrF2.catlg128}; 
+        for earlier versions, the suitable catalogue has to be manually loaded 
+        using the \code{data()} command).
+        }                
   \item{estimable}{ indicates the 2-factor interactions (2fis) that are to be estimable in 
         the design. Consult the specific help file (\code{\link{estimable.2fis}}) 
         for details of two different approaches of requesting estimability, 
@@ -210,9 +212,10 @@ FrF2.currentlychecked()
         It is planned to automatically generate perms for certain structures like 
         compromise designs in the (not so near) future.}
   \item{MaxC2}{ is a logical and defaults to FALSE. If TRUE, 
-        maximizing the number of free 2-factor interactions takes precedence 
+        maximizing the number of clear 2-factor interactions takes precedence 
         over minimizing aberration. Resolution is always considered first. 
-        Most likely, features like this are going to change in the future. }
+        \code{MaxC2} is ignored when using the \code{estimable} option.
+        \code{MaxC2=TRUE} is not a recommended choice. }
   \item{replications}{ positive integer number. Default 1 (i.e. each row just once). 
        If larger, each design run is executed replication times. 
        If \code{repeat.only}, repeated measurements 

@@ -132,15 +132,17 @@ and \code{\link{block}} for the statistical aspects of blocked designs.}
 BS.ex <- FrF2(16,7,hard=4,
      factor.names=c("MotorSpeed", "FeedMode","FeedSizing","MaterialType",
                   "Gain","ScreenAngle","ScreenVibLevel"), 
-     default.levels=c("-","+"),randomize=FALSE)
+     default.levels=c("-","+"))
 design.info(BS.ex)
 BS.ex
 ## NOTE: the design has 8 whole plots.
-## If randomize=FALSE is used like here, the first hard-to-change factors 
-## do not always change between whole plots. 
-## A conscious and honest decision is required whether this is 
-##    acceptable for the situation at hand!
-## randomize=TRUE would cause more changes in the first four factors.
+## The first hard-to-change factors have very few changes only 
+## between whole plots. 
+## A conscious and honest decision is required whether it is 
+##    acceptable for the situation at hand not to reset them!
+## A proper split-plot design with resetting all whole plot factors 
+## for each whole plot would be strongly preferred from a 
+## statistical point of view. 
 
 ########## automatic generation for split plot ##########
 ## 3 control factors, 5 noise factors, control factors are whole plot factors

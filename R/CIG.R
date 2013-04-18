@@ -81,13 +81,18 @@ CIG <- function (design, select.catlg = catlg, static = FALSE, layout = layout.a
     else return(go2)
 }
 
-CIGstatic <- function(graph, id, label="num", xlim = c(-1,1), ylim=c(1, -1), ...){
+CIGstatic <- function(graph, id, label = "num", xlim = c(-1, 1), ylim = c(1, 
+    -1), ...){
     ## get coordinates for static graph from dynamic one
-    if ("list" %in% class(graph)) if (names(graph)[1]=="graph") graph <- graph$graph
-    if (!exists("vertex.label", inherits=FALSE)){
-        vertex.label <- 1:graph[[1]]
-        if (!label=="num") vertex.label <- Letters[vertex.label]
-     }
+    if ("list" %in% class(graph)) 
+        if (names(graph)[1] == "graph") graph <- graph$graph
+    if (!exists("vertex.label", inherits = FALSE)) {
+        vertex.label <- 1:graph[[1]][[1]][2]
+        ## was 1:graph[[1]], changed 18 Apr 2013
+        if (!label == "num") 
+            vertex.label <- Letters[vertex.label]
+    }
     coords <- tkplot.getcoords(id)
-    plot(graph, layout=coords, vertex.label=vertex.label, xlim=xlim, ylim=ylim, ...)
+    plot(graph, layout = coords, vertex.label = vertex.label, 
+        xlim = xlim, ylim = ylim, ...)
 }
