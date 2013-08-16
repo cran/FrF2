@@ -37,7 +37,6 @@ DanielPlot.design <- function(fit, ..., response=NULL){
         ## make sure to use different plot symbols for whole plot and split plot effects
         ## important to distinguish wbreps and bbreps
                mm <- model.matrix(hilf)
-               #coefs <- stats:::coef.default(fit)
                coefs <- coef(hilf)[-1] ## only non-missing coefficients
                nms <- names(coefs)
                hilf <- apply(mm[,1+(1:di$nfac.WP),drop=FALSE],1,paste,collapse="")
@@ -49,8 +48,8 @@ DanielPlot.design <- function(fit, ..., response=NULL){
                 }
           subtext <- "WARNING: whole plot effects (marked by o) may have larger variation than split-plot effects"
           DanielPlot(lm(fit, degree=grad, response=response), pch=pchs, subtitle=subtext, ...)
-    }
-    else DanielPlot(lm(fit, degree=grad, response=response, use.dummies=TRUE), ...)
+          }
+          else DanielPlot(lm(fit, degree=grad, response=response), ...)
 }
 
 DanielPlot.default <-
@@ -83,15 +82,18 @@ function (fit, code = FALSE, autolab = TRUE, alpha=0.05,
     factor.effects <- factor.effects[!is.na(factor.effects)]
     plotmain <- paste("Normal Plot for", respnam)
     if (autolab) {
-        crit <- LenthPlot(factor.effects,alpha=alpha,plt=FALSE)["ME"]
+        ### take simulated critical values from package DoE.base, if available
+        crit <- ME.Lenth(factor.effects,alpha=alpha)$ME
         if (!code)
         faclab <- list(idx = which(crit<=abs(factor.effects)),
                lab = names(factor.effects)[which(crit<=abs(factor.effects))])
         plotmain <- paste(plotmain, ", ", "alpha=", alpha, sep="") 
         }
     if (half) {
-        tn <- list(x = qnorm(0.5 * ((rank(abs(factor.effects)) - 
-            0.5)/length(factor.effects) + 1)),y = abs(factor.effects))
+        n <- length(factor.effects)
+        ## qnorm(0.5 + ppoints(n, a=1/2)/2) in halfnormal
+        tn <- list(x = qnorm(0.5 + ppoints(n, a=1/2)/2)[rank(abs(factor.effects))], 
+            y = abs(factor.effects))
         xlab <- "half-normal scores"
         ylab <- "absolute effects"
         plotmain <- paste("Half", plotmain)
@@ -199,25 +201,26 @@ function (fit, code = FALSE, autolab = TRUE, alpha=0.05,
     invisible(aus)
 }
 
-halfnormal <- function(effects, labs, codes=labs, alpha=0.05, xlab="absolute effects", ...){
-    effects <- abs(effects)
-    labord <- order(effects)
-    effects <- sort(effects)
-    if (!identical(codes, labs)){ 
-         haupteff <- setdiff(1:length(labs), grep(":", labs)) 
-         legende <- paste(codes[haupteff], labs[haupteff], sep="=",collapse=", ")
-     }
-     else legende <- ""
-    n <- length(effects)
-    ui <- qnorm(0.5 + (0:(n-1))/(2*n))
-    codes <- paste(rep("  ",n), codes, sep="")
-    
-    crit <- LenthPlot(effects,alpha=alpha,plt=FALSE)["ME"]
-    nlab <- sum(effects>crit)
-    plot(effects, ui, ylab = "Half-normal scores", xlab = xlab, sub=legende, ...)
-    if (nlab < n) 
-        points(effects[1:(n - nlab)],ui[1:(n - nlab)])
-    text(effects[(n - nlab + 1):n], ui[(n - nlab + 1):n], codes[labord][(n - 
-        nlab + 1):n], adj=0, xpd=NA)
-}
+#removed August 15 2013
+#halfnormal <- function(effects, labs, codes=labs, alpha=0.05, xlab="absolute effects", ...){
+#    effects <- abs(effects)
+#    labord <- order(effects)
+#    effects <- sort(effects)
+#    if (!identical(codes, labs)){ 
+#         haupteff <- setdiff(1:length(labs), grep(":", labs)) 
+#         legende <- paste(codes[haupteff], labs[haupteff], sep="=",collapse=", ")
+#     }
+#     else legende <- ""
+#    n <- length(effects)
+#    ui <- qnorm(0.5 + (0:(n-1)+0.5)/(2*n))  ## "+0.5" in parentheses added Aug 14 2013
+#    codes <- paste(rep("  ",n), codes, sep="")
+#    
+#    crit <- LenthPlot(effects,alpha=alpha,plt=FALSE)["ME"]
+#    nlab <- sum(effects>crit)
+#    plot(effects, ui, ylab = "Half-normal scores", xlab = xlab, sub=legende, ...)
+#    if (nlab < n) 
+#        points(effects[1:(n - nlab)],ui[1:(n - nlab)])
+#    text(effects[(n - nlab + 1):n], ui[(n - nlab + 1):n], codes[labord][(n - 
+#        nlab + 1):n], adj=0, xpd=NA)
+#}
 

@@ -3,6 +3,20 @@ Changes to package FrF2
 The package is still under development. 
 Suggestions and bug reports are very welcome.
 
+16/08/2013, version 1.6-7
+  - moved function halfnormal to package DoE.base, 
+    and extended its functionality
+  - modified function DanielPlot from the previous plotting positions 
+    identical to the function from package BsMD to more canonical ones using 
+    function ppoints (points are identical to the ones 
+    used by function halfnormal in package DoE.base for halfnormal plots)
+  - modified function DanielPlot to use critical values for Lenth's method 
+    that are determined by simulation where available 
+    (the original critical values by Lenth are known to be conservative)
+  - slightly enhanced the help file to BsProb.design
+  - modified the NAMESPACE file in order to avoid a note in R-patched/R-devel
+  - removed triple colon access to methods from other packages
+    
 18/04/2013, version 1.6-6
   - modified automatic load of package FrF2.catlg128 to work with the lazy 
     load version of that package (version 1.2) and to avoid usage of the 

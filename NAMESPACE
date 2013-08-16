@@ -1,4 +1,4 @@
-     import(BsMD,DoE.base)
+     import(BsMD,DoE.base,igraph,scatterplot3d)
      importFrom(sfsmisc,AsciiToInt,as.intBase,as.integer.basedInt,digitsBase)
      export("DanielPlot", "aliases", "aliasprint", "IAPlot", "MEPlot", 
             "cubePlot", "cubedraw", "cubecorners", "cubelabel",
@@ -7,7 +7,7 @@
             "nruns", "nfac", "nclear.2fis",
             "clear.2fis","all.2fis.clear.catlg","res","WLP","dominating",
             "CIG","CIGstatic","catlg","Yates","BsProb.design",
-            "block.catlg","pb.list","compromise","halfnormal","gen2CIG",
+            "block.catlg","pb.list","compromise","gen2CIG",
             "FrF2.currentlychecked")
 
      S3method("[",catlg)

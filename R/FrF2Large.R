@@ -143,10 +143,10 @@ FrF2Large <- function(nruns, nfactors=NULL,
        stop("This design in ", nruns, " runs with ", nfactors," factors requires ", g, " generators.")
 
     res <- NA; nclear.2fis<-NA; clear.2fis<-NULL;all.2fis.clear<-NA
-    if (g<10) wl <- FrF2:::words.all(k, generators,max.length=6)
-    else if (g<15) wl <- FrF2:::words.all(k, generators,max.length=5)
-    else if (g<20) wl <- FrF2:::words.all(k, generators,max.length=4)
-    else if (g>=20) wl <- FrF2:::alias3fi(k, generators, order=2)  ## not a word list
+    if (g<10) wl <- words.all(k, generators,max.length=6)
+    else if (g<15) wl <- words.all(k, generators,max.length=5)
+    else if (g<20) wl <- words.all(k, generators,max.length=4)
+    else if (g>=20) wl <- alias3fi(k, generators, order=2)  ## not a word list
     WLP <- NULL
     if (g < 20){
         WLP <- wl$WLP
@@ -221,7 +221,7 @@ FrF2Large <- function(nruns, nfactors=NULL,
            "run.no"=1:nrow(desmat),"run.no.std.rp"=orig.no.rp)
       design.info <- list(type="FrF2.large", nruns=nruns,
           nfactors=nfactors, factor.names=factor.names, generators=generators,
-          aliased = FrF2:::alias3fi(k,cand[1][[1]]$gen,order=alias.info),
+          aliased = alias3fi(k,cand[1][[1]]$gen,order=alias.info),
           replications=replications,
           repeat.only=repeat.only, randomize=randomize, seed=seed, creator=creator, 
           FrF2.version = sessionInfo(package="FrF2")$otherPkgs$FrF2$Version)

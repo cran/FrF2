@@ -56,6 +56,7 @@ if (!(is.null(generators) | is.null(design))) stop("generators and design must n
 if (is.null(nruns) & !(is.null(generators))) stop("If generators is specified, nruns must be given.")
 if (!(is.null(generators) | is.null(estimable))) stop("generators and estimable must not be specified together.")
 if (!(identical(blocks,1) | is.null(estimable))) stop("blocks and estimable must not be specified together.")
+    ## 1.7 it might be desirable to alleviate this constraint, and it might also be possible!
 if (!(identical(WPs,1) | is.null(estimable))) stop("WPs and estimable must not be specified together.")
 if (!(is.null(hard) | is.null(estimable))) stop("hard and estimable must not be specified together.")
 if (!(identical(blocks,1) | identical(WPs,1))) stop("blocks and WPs must not be specified together.")
@@ -233,6 +234,10 @@ if (identical(nfac.WP,0) & is.null(WPfacs) & !identical(WPs,1))
                class(cand) <- c("catlg","list")
       }
     ## prepare blocks
+    ## 1.7: if blocks and estimable go together, does this preparation need to accomodate estimable ?
+    ## 1.7: so far, estimable is a two-row matrix, and nfactor and nruns are known (lines 135 to 170)
+    ## 1.7: provisionally, it looks as though no adjustments are needed
+    ## 1.7: only perhaps checks against using block generators with estimable (???)
     if (!identical(blocks,1)) {
              blocks <- block.check(k, blocks, nfactors, factor.names)  
              if (is.list(blocks)) k.block <- length(blocks)
@@ -398,6 +403,11 @@ if (identical(nfac.WP,0) & is.null(WPfacs) & !identical(WPs,1))
                ## resolution not here, because ignored for given nruns
 
             ## treating blocked designs
+            ## 1.7 here is where the main changes are needed for allowing to block 
+            ## 1.7    designs with estimable 2fis;
+            ## 1.7    probably restrict choose(nruns - 1 - nfactors - length(estimable), k.block)
+            ## 1.7    also generally probably choose(nruns - 1 - nfactors - ncol2fis, k.block)
+            ## 1.7     if alias.block.2fis = FALSE; but do I get ncol2fis?
             block.gen <- NULL    ## for later checks
             if (!is.list(blocks)){
                 if (blocks > 1) {

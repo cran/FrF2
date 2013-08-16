@@ -29,8 +29,8 @@ BsProb.design(design, mFac = NULL, response=NULL, select=NULL, mInt = 2, p = 0.2
               This can strongly impact the result.}
   \item{p}{numeric. Prior probability assigned to active factors.
               This can strongly impact the result.}
-  \item{g}{numeric vector. Variance inflation factor(s) gamma associated to active and interaction factors.
-              It is possible to have two values and have the dependence of results on g plotted.}
+  \item{g}{numeric vector. Variance inflation factor(s) gamma associated to active and interaction factors;
+              see "Details" section}
   \item{ng}{integer <=20. Number of different variance inflation factors (g) used in calculations.}
   \item{nMod}{integer <=100. Number of models to keep with the highest posterior probability.}
 }
@@ -39,7 +39,9 @@ BsProb.design(design, mFac = NULL, response=NULL, select=NULL, mInt = 2, p = 0.2
 Factor and model posterior probabilities are computed by the Box and Meyer (1993) Bayesian procedure. 
 The design factors - or a selection of these given by column numbers in \code{select} - 
 are considered together with the specified response or the first response of the design. 
-The function has been adapted from function \code{\link[BsMD]{BsProb}} in package \pkg{BsMD}.
+The function has been adapted from function \code{\link[BsMD]{BsProb}} in package \pkg{BsMD}, 
+and a vignette in that package (\url{../../BsMD/doc/BsMD.pdf}) explains 
+details of the usage regarding the parameters.
 
 If \code{g}, the variance inflation factor (VIF) gamma, is a vector of length 1, 
 the same VIF is used for factor main effects and interactions. 
@@ -59,6 +61,9 @@ for which print, plot and summary methods are available from package \pkg{BsMD}.
 
 
 \references{
+Barrios, E. (2013). Using the BsMD Package for Bayesian Screening and Model
+   Discrimination. Vignette. \url{../../BsMD/doc/BsMD.pdf}.
+
 Box, G. E. P and R. D. Meyer (1986). An Analysis for Unreplicated Fractional 
       Factorials. \emph{Technometrics} \bold{28}, 11-18.
 
@@ -80,8 +85,10 @@ Box, G. E. P and R. D. Meyer (1993).
    set.seed(8655)
    y <- dn\%*\%c(2,2,2,2,3,0,0,0,0,0,0) + dn[,1]*dn[,3]*2 - dn[,5]*dn[,4] + rnorm(12)/10
    plan.r <- add.response(plan, response=y)
-   plot(BsProb.design(plan.r), code=FALSE)
-   plot(BsProb.design(plan.r, mInt=1), code=FALSE) ## much better!
+   plot(bpmInt2 <- BsProb.design(plan.r), code=FALSE)
+   plot(bpmInt1 <- BsProb.design(plan.r, mInt=1), code=FALSE) ## much better!
+   summary(bpmInt2)
+   summary(bpmInt1)
    ### For comparison: A Daniel plot does not show any significant effects according 
    ### to Lenths method, but makes the right effects stick out
    DanielPlot(plan.r, half=TRUE, alpha=1)

@@ -28,7 +28,7 @@ mapcalc <- function(estimable, nfac, nruns, res3=FALSE, select.catlg=catlg, sort
       if (sort %in% c("high","low")){
         if (sort=="low") ord2 <- order(deg2)
            else ord2 <- order(deg2, decreasing=TRUE)
-        go2 <- permute.vertices(go2, FrF2:::invperm(ord2))
+        go2 <- permute.vertices(go2, invperm(ord2))
       }
       degree2 <- rev(cumsum(rev(table(deg2))))   ## make it faster to reject non-isomorphic cases
                                       ## 7 Feb 2011
@@ -65,7 +65,7 @@ mapcalc <- function(estimable, nfac, nruns, res3=FALSE, select.catlg=catlg, sort
       if (sort %in% c("high","low")){
           if (sort=="low") ord1 <- order(deg1)
                else ord1 <- order(deg1, decreasing=TRUE)
-          go1 <- permute.vertices(go1, FrF2:::invperm(ord1))
+          go1 <- permute.vertices(go1, invperm(ord1))
     }
           degree1 <- rev(cumsum(rev(table(deg1))))
           degs1 <- as.numeric(names(degree1))
@@ -83,7 +83,7 @@ mapcalc <- function(estimable, nfac, nruns, res3=FALSE, select.catlg=catlg, sort
           if (erg$iso) {
                     map <- list(erg$map21)
                     if (sort %in% c("high","low"))
-                       map <- list(ord1[map[[1]]][FrF2:::invperm(ord2)])
+                       map <- list(ord1[map[[1]]][invperm(ord2)])
                     names(map) <- getFrF2(".FrF2.currentlychecked")
                     putFrF2(".FrF2.currentlychecked", names(tobechecked[i]))
                     ##assignInMyNamespace(".FrF2.currentlychecked", "")

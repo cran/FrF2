@@ -2,7 +2,7 @@ gen2clear.2fis <- function(k, gen){
     ncand <- choose(k+length(gen),2)
     hilf <- combn(k+length(gen),2)
     sel <- 1:ncand
-    ww <- FrF2:::words.all(k, gen, max.length=4)
+    ww <- words.all(k, gen, max.length=4)
     if (length(ww$WLP)==0) return(list(nclear.2fis=ncand, clear.2fis=hilf))
     else{
                 woerter <- ww[[2]]

@@ -635,8 +635,8 @@ run.order(FrF2(8,3,blocks=2,bbreps=2))
 run.order(FrF2(8,3,blocks=2,bbreps=2,wbreps=2))
 
 ## automatic blocked design with fractions
-FrF2(16,7,blocks=4,alias.block.2fis=TRUE,factor.names=c("MotorSpeed", "FeedMode","FeedSizing","MaterialType",
-                  "Gain","ScreenAngle","ScreenVibLevel"))
+FrF2(16,7,blocks=4,alias.block.2fis=TRUE,factor.names=c("MotorSpeed", 
+      "FeedMode","FeedSizing","MaterialType","Gain","ScreenAngle","ScreenVibLevel"))
 ## isomorphic non-catalogued design as basis
 FrF2(16,gen=c(7,11,14),blocks=4,alias.block.2fis=TRUE)
 ## FrF2 uses blockpick.big and ignores the generator
@@ -728,7 +728,8 @@ design.info(BSS.cheese.exm)
 ## and for usage of a catalogue from package FrF2.catlg128 (simplified with version 1.6-5)
   \dontrun{
   estim <- compromise(17,15:17)$requirement  ## all interactions of factors 15 to 17 (P,Q,R)
-  FrF2(128, 17, estimable=estim, select.catlg=catlg128.17)  ## will run for a very long time, interrupt with ESC key
+  FrF2(128, 17, estimable=estim, select.catlg=catlg128.17)  
+        ## will run for a very long time, interrupt with ESC key
   FrF2(128, 17, estimable=estim, sort="high", select.catlg=catlg128.17)  ## very fast
   FrF2(128, 17, estimable=estim, sort="low", select.catlg=catlg128.17)  ## very fast
   ## guaranteed to be MA clear design 

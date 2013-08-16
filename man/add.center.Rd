@@ -155,7 +155,7 @@ See also as \code{\link{pb}}, \code{\link{FrF2}}
         ## one would either have expected a strong non-linearity before conducting the experiment, 
         ## OR that the effect is not real but the result of some stupid mistake
   ## alternatively, the check can be calculated per hand (cf. e.g. Montgomery, Chapter 11):
-    ((mean(planc$y[iscube(planc)])-mean(planc$y[!iscube(planc)]))^2*8*6/(8+6)/var(y[!iscube(planc)]))
+    (mean(planc$y[iscube(planc)])-mean(planc$y[!iscube(planc)]))^2*8*6/(8+6)/var(y[!iscube(planc)])
     ## must be compared to the F-quantile with 1 degree of freedom
     ## is the square of the t-value for the cube indicator in the linear model
    }

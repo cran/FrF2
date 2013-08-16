@@ -2,7 +2,6 @@
 \alias{DanielPlot}
 \alias{DanielPlot.design}
 \alias{DanielPlot.default}
-\alias{halfnormal}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{ Normal or Half-Normal Effects Plots }
 \description{
@@ -19,7 +18,6 @@ DanielPlot(fit, ...)
        cex.fac = par("cex.lab"), cex.lab = par("cex.lab"), 
        cex.pch = par("cex"), cex.legend = par("cex.lab"), 
        main = NULL, subtitle=NULL, ...)
-halfnormal(effects, labs, codes=labs, alpha=0.05, xlab="absolute effects", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -62,11 +60,6 @@ halfnormal(effects, labs, codes=labs, alpha=0.05, xlab="absolute effects", ...)
   \item{main}{NULL or character. Title of plot. If NULL, automatic title is generated.}
   \item{subtitle}{NULL or character. Sub title of plot. Should not be used for split-plot designs, 
      because automatic subtitle is generated for these.}
-  \item{effects}{numeric vector, for which half-normal plot is to be generated}
-  \item{labs}{labels of the effects, vector of the same length as \code{effects}}
-  \item{codes}{short labels of the effects, vector of the same length as \code{effects}; 
-     if \code{codes} and \code{labs} are different, short labels are used, and a legend is printed}
-  \item{xlab}{label of horizontal axis for absolute effects in half normal plot}
 }
 
 \details{
@@ -120,5 +113,6 @@ halfnormal(effects, labs, codes=labs, alpha=0.05, xlab="absolute effects", ...)
     Downloadable at \url{http://www.wiley.com/legacy/wileychi/eqr/docs/sample_1.pdf}.
 }
 \author{Ernesto Barrios, modified by Ulrike Groemping.}
-\seealso{\code{\link{qqnorm}}, \code{LenthPlot}, \code{BsMD-package} }
+\seealso{\code{\link{qqnorm}}, \code{\link[DoE.base]{halfnormal}}, 
+   \code{\link[BsMD]{LenthPlot}}, \code{BsMD-package} }
 \keyword{design}

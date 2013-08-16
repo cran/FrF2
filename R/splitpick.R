@@ -56,7 +56,7 @@ splitpick <- function(k, gen, k.WP, nfac.WP, show=10){
          if (nfac.WP > 2^(k.WP-1)) res.WP <- rep(3,show)
          else {
          hilf <- gens[,1:(nfac.WP-k.WP),drop=FALSE]
-         res.WP <- apply(hilf,1,function(obj) min(sapply(FrF2:::words.all(k.WP,obj)[[2]],length)))
+         res.WP <- apply(hilf,1,function(obj) min(sapply(words.all(k.WP,obj)[[2]],length)))
          }
     } 
     reorder <- sort(res.WP,index.return=TRUE,decreasing=TRUE)$ix
