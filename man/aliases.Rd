@@ -60,7 +60,7 @@ aliasprint(design, ...)
 
 \examples{
     ### Injection Molding Experiment. Box et al. 1978.
-    data(BM93.e3.data)  #from BsMD
+    data(BM93.e3.data, package="BsMD")  #from BsMD
     iMdat <- BM93.e3.data[1:16,2:10]  #only original experiment
     # make data more user-friendly
     colnames(iMdat) <- c("MoldTemp","Moisture","HoldPress","CavityThick",

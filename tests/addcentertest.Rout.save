@@ -1,7 +1,7 @@
 
-R version 3.0.1 (2013-05-16) -- "Good Sport"
+R Under development (unstable) (2013-09-05 r63851) -- "Unsuffered Consequences"
 Copyright (C) 2013 The R Foundation for Statistical Computing
-Platform: x86_64-w64-mingw32/x64 (64-bit)
+Platform: i386-w64-mingw32/i386 (32-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -17,29 +17,19 @@ Type 'q()' to quit R.
 
 > require(FrF2)
 Loading required package: FrF2
-Loading required package: BsMD
-Loading required package: scatterplot3d
-Loading required package: igraph
 Loading required package: DoE.base
 Loading required package: grid
 Loading required package: conf.design
 
 Attaching package: 'DoE.base'
 
-The following object is masked from 'package:stats':
+The following objects are masked from 'package:stats':
 
     aov, lm
 
 The following object is masked from 'package:graphics':
 
     plot.design
-
-
-Attaching package: 'FrF2'
-
-The following object is masked from 'package:BsMD':
-
-    DanielPlot
 
 > set.seed(3456)
 > planblock1 <- FrF2(32,7,blocks=list(c(1,2,3),c(2,4,5),c(3,6,7)), alias.block.2fi=TRUE)
@@ -2363,4 +2353,4 @@ class=design, type= FrF2.blocked.center
 > 
 > proc.time()
    user  system elapsed 
-   4.66    0.26    4.94 
+   4.29    0.12    4.44 

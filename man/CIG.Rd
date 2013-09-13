@@ -129,6 +129,7 @@ CIGstatic(ex.CIG, id=1)
 
 graph1 <- CIG("9-4.2", plot=FALSE)   ### create graph object from design name
 ### calculate graph properties
+require(igraph)
 degree(graph1)
 clique.number(graph1)
 independence.number(graph1)

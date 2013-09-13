@@ -1,4 +1,5 @@
      import(BsMD,DoE.base,igraph,scatterplot3d)
+     importFrom(utils,combn) 
      importFrom(sfsmisc,AsciiToInt,as.intBase,as.integer.basedInt,digitsBase)
      export("DanielPlot", "aliases", "aliasprint", "IAPlot", "MEPlot", 
             "cubePlot", "cubedraw", "cubecorners", "cubelabel",
