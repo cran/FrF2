@@ -3,6 +3,9 @@ Changes to package FrF2
 The package is still under development. 
 Suggestions and bug reports are very welcome.
 
+11/01/2014, version 1.6-9
+  - added citation info for Journal of Statistical Software paper
+
 13/09/2013, version 1.6-8
   - bug fix: imported function combn from package utils, 
     in order to allow proper functionality when package combinat is added 

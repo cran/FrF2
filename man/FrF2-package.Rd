@@ -71,6 +71,10 @@ Maintainer: Ulrike Groemping <groemping@bht-berlin.de>
     Use of Half Normal Plots in Interpreting Two Level Experiments.
     \emph{Technometrics}, \bold{1}, 311-340.
     
+    Groemping, U. (2014). {R} Package {FrF2} for Creating and Analyzing Fractional 
+    Factorial 2-Level Designs. \emph{Journal of Statistical Software}, \bold{56}, 
+    Issue 1, 1-56. \url{http://www.jstatsoft.org/v56/i01/}.
+    
     Hedayat, A.S., Sloane, N.J.A. and Stufken, J. (1999) 
     \emph{Orthogonal Arrays: Theory and Applications}, Springer, New York. 
     

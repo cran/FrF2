@@ -542,6 +542,10 @@ catalogue of clear compromise plans.
 \emph{Reports in Mathematics, Physics and Chemistry}, report 05/2010, 
 Department II, Beuth University of Applied Sciences Berlin.
 
+    Groemping, U. (2014). {R} Package {FrF2} for Creating and Analyzing Fractional 
+    Factorial 2-Level Designs. \emph{Journal of Statistical Software}, \bold{56}, 
+    Issue 1, 1-56. \url{http://www.jstatsoft.org/v56/i01/}.
+
 Huang, P., Chen, D. and Voelkel, J.O. (1998). Minimum-Aberration Two-Level Split-Plot Designs. 
 \emph{Technometrics} \bold{40}, 314-326. 
 
