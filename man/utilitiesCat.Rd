@@ -35,8 +35,9 @@ gen.check(k, gen)
 estimable.check(estimable, nfac, factor.names)
 estimable(estimable, nfac, nruns, clear=FALSE, res3=FALSE, max.time=60, 
             select.catlg=catlg, perm.start=1:nfac, perms=NULL, order = 3, 
-            sort="natural")
-mapcalc(estimable, nfac, nruns, res3=FALSE, select.catlg=catlg, sort="natural")
+            method="VF2", sort="natural")
+mapcalc(estimable, nfac, nruns, res3=FALSE, select.catlg=catlg, 
+            method="VF2", sort="natural")
 mapcalc.distinct(estimable, nfac, nruns, res3=FALSE, max.time=60, 
         select.catlg=catlg, perm.start=1:nfac, perms=NULL)
 map2design(map, select.catlg=catlg)
@@ -74,6 +75,7 @@ Yates
   \item{max.time}{ like in \code{\link{FrF2}} }
   \item{perm.start}{ like in \code{\link{FrF2}} }
   \item{perms}{ like in \code{\link{FrF2}} }
+  \item{method}{ like in \code{\link{FrF2}} }
   \item{sort}{ like in \code{\link{FrF2}} }
   \item{map}{ map of experiment factors to design factors, used in \code{estimable} }
   \item{formula}{ formula to be translated into matrix for \code{estimable} }

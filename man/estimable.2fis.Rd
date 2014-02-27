@@ -16,7 +16,7 @@
   as it is normally not reasonable to allow main effects to be 
   aliased with other 2-factor interactions in this situation. There are two types of 
   estimability that are distinguished by the setting of option \code{clear} in 
-  function \code{\link{FrF2}} (cf. Groemping 2010a).
+  function \code{\link{FrF2}} (cf. Groemping 2010).
   
   Let us first consider designs of at least resolution IV. 
   With option \code{clear=TRUE}, \code{FrF2} searches for 
@@ -38,7 +38,7 @@
   With \code{clear=TRUE}, the algorithm compares the requirement set to 
   catalogued sets of clear 2fis by a graph isomorphism algorithm from R-package 
   \pkg{igraph}. For details of this algorithm, 
-  cf. Groemping (2010b). With the catalogue \code{\link{catlg}} available in this package, 
+  cf. Groemping (2012). With the catalogue \code{\link{catlg}} available in this package, 
   the best (minimum aberration) existing clear designs are guaranteed to be found 
   for up to 64 runs and have a good chance to be found for 128 runs. For 128 runs, 
   it is possible to load an additional large catalogue (package \pkg{\link[FrF2.catlg128]{FrF2.catlg128}}) 
@@ -69,13 +69,22 @@
 
   With \code{clear=TRUE}, the algorithm loops through the eligible designs from 
   \code{catlg.select} from good to worse (in terms of MA) and, for each design, 
-  uses a subgraph isomorphism check from package \code{igraph}. Run times are often 
-  fast, but can also be slow in unlucky situations. In fact, run times may strongly 
-  depend on ordering of factors, and it may be fastest to experiment with different 
-  placement of the factors with the most severe requirement set.
-  As the slowness of the process is intrinsic to the subgraph isomorphism routine of package 
-  \code{igraph}, a \code{max.time} option analogous to the \code{clear=FALSE} situation 
-  would be of very limited use only and is therefore not available. 
+  uses a subgraph isomorphism check from package \code{igraph}. There are two such 
+  algorithms, VF2 (the default, Cordella et al. 2001) and LAD (introduced with 
+  version 1.7 of package \pkg{FrF2}, Solnon 2010), 
+  which can be chosen with the  \code{method} option. 
+  Run times of the subgraph isomorphism search are often fast, 
+  but can also be very very slow in unlucky situations. 
+  Where the VF2 algorithm is particularly slow, the LAD algorithm is often fast 
+  (see Groemping 2014b). 
+  Especially for the VF2 algorithm, run times may strongly depend on the ordering 
+  of factors, which can be influenced by the option \code{sort}.
+  As the slowness of the process is intrinsic to the subgraph isomorphism 
+  search problem (which is NP-complete), a \code{max.time} option analogous to 
+  the \code{clear=FALSE} situation would be of very limited use only and is 
+  therefore not available. Instead, it is possible to have a look at the 
+  number of the design that was in the process of being searched when the 
+  process was interrupted (with the command \code{FrF2.currentlychecked()}).
 
   Note that - according to the structure of the catalogued designs and the lexicographic 
   order of checking permutations - the initial order of the factors has a strong influence 
@@ -110,7 +119,7 @@
   In order to support relatively comfortable creation of distinct designs of some frequently-used types 
   of required interaction patterns, the function \code{\link{compromise}} has been 
   divised: it supports creation of the so-called compromise plans of classes 1 to 4 (cf. 
-  e.g. Addelman 1962; Ke, Tang and Wu 2005; Groemping 2010). 
+  e.g. Addelman 1962; Ke, Tang and Wu 2005; Groemping 2012). 
   The list it returns also contains a component \code{perms.full} that can be used as input 
   for the \code{perms} option.
   
@@ -124,20 +133,33 @@ Chen, J., Sun, D.X. and Wu, C.F.J. (1993). A catalogue of 2-level and 3-level
 orthogonal arrays. 
 \emph{International Statistical Review} \bold{61}, 131-145. 
 
-Groemping, U. (2010a). \dQuote{Clear} and \dQuote{Distinct}: two approaches for regular 
+Cordella, L.P., Foggia, P., Sansone, C. and Vento, M. (2001). 
+An improved algorithm for matching large graphs. \emph{Proc. of the 3rd 
+IAPR TC-15 Workshop on Graphbased Representations in Pattern Recognition},
+149--159.
+
+Groemping, U. (2010). \dQuote{Clear} and \dQuote{Distinct}: two approaches for regular 
 fractional factorial designs with estimability requirements. 
 \emph{Reports in Mathematics, Physics and Chemistry}, report 02/2010, 
 Department II, Beuth University of Applied Sciences Berlin.
 
-Groemping, U. (2010b). Creating clear designs: a graph-based algorithm and a 
-catalogue of clear compromise plans. 
-\emph{Reports in Mathematics, Physics and Chemistry}, report 05/2010, 
-Department II, Beuth University of Applied Sciences Berlin.
-(Preprint for IIE Transactions; IIE Transactions is available at 
-\url{http://www.tandfonline.com}.)
+Groemping, U. (2012). Creating clear designs: a graph-based algorithm and a 
+catalogue of clear compromise plans. \emph{IIE Transactions} \bold{44}, 988--1001. 
+Preprint available at \url{http://www1.beuth-hochschule.de/FB_II/reports/Report-2010-005.pdf}.
+
+    Groemping, U. (2014a). {R} Package {FrF2} for Creating and Analyzing Fractional 
+    Factorial 2-Level Designs. \emph{Journal of Statistical Software}, \bold{56}, 
+    Issue 1, 1-56. \url{http://www.jstatsoft.org/v56/i01/}.
+    
+    Groemping, U. (2014b). A Note on Dominating Fractional Factorial 
+    Two-Level Designs With Clear Two-Factor Interactions. \emph{Technometrics} 
+    \bold{56}, 42--45.
 
 Ke, W., Tang, B. and Wu, H. (2005). Compromise plans with clear two-factor interactions. 
 \emph{Statistica Sinica} \bold{15}, 709-715.
+
+Solnon, C. (2010). AllDifferent-based Filtering for Subgraph Isomorphism.
+\emph{Artificial Intelligence} \bold{174}, 850--864.
 
 Wu, C.F.J. and Chen, Y. (1992) 
 A graph-aided method for planning two-level experiments when certain interactions 

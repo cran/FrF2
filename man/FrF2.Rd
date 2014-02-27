@@ -16,7 +16,8 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
         default.levels = c(-1, 1), ncenter=0, center.distribute=NULL, 
         generators = NULL, design = NULL, 
         resolution = NULL, select.catlg=catlg, 
-        estimable = NULL, clear = TRUE, sort="natural", res3 = FALSE, max.time = 60, 
+        estimable = NULL, clear = TRUE, method="VF2", sort="natural",  
+        res3 = FALSE, max.time = 60, 
         perm.start=NULL, perms = NULL, 
         MaxC2 = FALSE, replications = 1, repeat.only = FALSE, 
         randomize = TRUE, seed = NULL, alias.info = 2, 
@@ -172,17 +173,27 @@ FrF2.currentlychecked()
         \code{factor.names}. 
         }
   \item{clear}{ logical, indicating how estimable is to be used. See \code{\link{estimable.2fis}}. }
+  \item{method}{ character string indicating which subgraph isomorphism search routine 
+        of package \pkg{igraph} is used (\code{graph.subisomorphic.vf2} or 
+        \code{graph.subisomorphic.lad}). 
+        The default \code{"VF2"} uses VF2 algorithm by Cordella et al. (2001), 
+        which was the only available algorithm before version 1.7 of package FrF2. 
+        The alternative \code{"LAD"} uses the LAD algorithm by Solnon (2010), which was 
+        reported to be substantially faster than VF2 especially for some notoriously 
+        difficult VF2 cases (see Grömping 2014b).         
+        This option is relevant for \code{estimable} with \code{clear=TRUE} only.\cr
+        NOTE: The resulting design may be different for different settings of this option!}
   \item{sort}{ character string indicating how the estimability requirement and the 
         candidate design clear 2fis are handed to 
-        the subgraph isomorphism search routine \code{graph.subisomorphic.vf2} of package 
-        \pkg{igraph}. The default \code{"natural"} leaves them in unchanged order (like in 
+        the subgraph isomorphism search routine of package \pkg{igraph}. 
+        The default \code{"natural"} leaves them in unchanged order (like in 
         \pkg{FrF2} versions up to 1.6). \code{sort="high"} and \code{sort="low"} sort 
         both requirement set and candidate design graph according to vertex degrees (high 
         first or low first). 
         
         This option is relevant for \code{estimable} with \code{clear=TRUE} only.\cr
         It has been added, because pre-sorting of vertices sometimes speeds up the 
-        search by several orders of magnitude. \cr
+        search by several orders of magnitude especially for the \code{VF2} method.\cr
         NOTE: The resulting design may be different for different settings of this option!}
   \item{res3}{ logical; if TRUE, \code{estimable} includes resolution III designs 
         into the search for adequate designs; otherwise resolution IV and higher designs 
@@ -537,20 +548,31 @@ Cheng, S.W. and Wu, C.F.J. (2002).
 Choice of optimal blocking schemes in 2-level and 3-level designs. 
 \emph{Technometrics} \bold{44}, 269-277. 
 
-Groemping, U. (2010). Creating clear designs: a graph-based algorithm and a 
-catalogue of clear compromise plans. 
-\emph{Reports in Mathematics, Physics and Chemistry}, report 05/2010, 
-Department II, Beuth University of Applied Sciences Berlin.
+Cordella, L.P., Foggia, P., Sansone, C. and Vento, M. (2001). 
+An improved algorithm for matching large graphs. \emph{Proc. of the 3rd 
+IAPR TC-15 Workshop on Graphbased Representations in Pattern Recognition},
+149--159.
 
-    Groemping, U. (2014). {R} Package {FrF2} for Creating and Analyzing Fractional 
+Groemping, U. (2012). Creating clear designs: a graph-based algorithm and a 
+catalogue of clear compromise plans. \emph{IIE Transactions} \bold{44}, 988--1001.
+Preprint available at \url{http://www1.beuth-hochschule.de/FB_II/reports/Report-2010-005.pdf}. 
+
+    Groemping, U. (2014a). {R} Package {FrF2} for Creating and Analyzing Fractional 
     Factorial 2-Level Designs. \emph{Journal of Statistical Software}, \bold{56}, 
     Issue 1, 1-56. \url{http://www.jstatsoft.org/v56/i01/}.
+    
+    Groemping, U. (2014b). A Note on Dominating Fractional Factorial 
+    Two-Level Designs With Clear Two-Factor Interactions. \emph{Technometrics} 
+    \bold{56}, 42--45.
 
 Huang, P., Chen, D. and Voelkel, J.O. (1998). Minimum-Aberration Two-Level Split-Plot Designs. 
 \emph{Technometrics} \bold{40}, 314-326. 
 
 Mee, R. (2009). \emph{A Comprehensive Guide to Factorial Two-Level Experimentation}. 
 New York: Springer.
+
+Solnon, C. (2010). AllDifferent-based Filtering for Subgraph Isomorphism.
+\emph{Artificial Intelligence} \bold{174}, 850--864.
 
 Sun, D.X., Wu, C.F.J. and Chen, Y.Y. (1997). 
 Optimal blocking schemes for 2\^p and 2\^(n-p) designs. \emph{Technometrics} \bold{39}, 
@@ -732,10 +754,14 @@ design.info(BSS.cheese.exm)
 ## and for usage of a catalogue from package FrF2.catlg128 (simplified with version 1.6-5)
   \dontrun{
   estim <- compromise(17,15:17)$requirement  ## all interactions of factors 15 to 17 (P,Q,R)
-  FrF2(128, 17, estimable=estim, select.catlg=catlg128.17)  
-        ## will run for a very long time, interrupt with ESC key
+  ## VF2 algorithm without pre-sorting of vertices
+  FrF2(128, 17, estimable=estim, select.catlg=catlg128.17) ## very slow,  
+                                                           ## interrupt with ESC key
+  ## VF2 algorithm with pre-sorting of vertices
   FrF2(128, 17, estimable=estim, sort="high", select.catlg=catlg128.17)  ## very fast
   FrF2(128, 17, estimable=estim, sort="low", select.catlg=catlg128.17)  ## very fast
+  ## LAD algorithm
+  FrF2(128, 17, estimable=estim, method="LAD", select.catlg=catlg128.17)  ## very fast
   ## guaranteed to be MA clear design 
   ## only works, if package FrF2.catlg128 is installed
   }

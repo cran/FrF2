@@ -3,12 +3,15 @@ FrF2 <- function(nruns=NULL, nfactors=NULL,
                                 else paste("F",1:nfactors,sep="")} else NULL, 
                  default.levels = c(-1,1), ncenter=0, center.distribute=NULL,
                  generators=NULL, design=NULL, resolution=NULL, select.catlg=catlg, 
-                 estimable=NULL, clear=TRUE, sort="natural", res3=FALSE, max.time=60, 
+                 estimable=NULL, clear=TRUE, method="VF2", sort="natural", 
+                 res3=FALSE, max.time=60, 
                  perm.start=NULL, perms=NULL, MaxC2=FALSE, 
                  replications=1, repeat.only=FALSE, 
                  randomize=TRUE, seed=NULL, alias.info=2, 
                  blocks=1, block.name="Blocks", bbreps=replications, wbreps=1, alias.block.2fis = FALSE,
                  hard=NULL, check.hard=10, WPs=1, nfac.WP=0, WPfacs=NULL, check.WPs=10, ...){
+## Version 1.7: added the LAD method and made it the default for clear designs
+## method option allows to change it to VF2
 creator <- sys.call()
 catlg.name <- deparse(substitute(select.catlg))
     nichtda <- "try-error" %in% class(try(eval(parse(text=paste(catlg.name,"[1]",sep=""))),silent=TRUE))
@@ -141,8 +144,10 @@ if (identical(nfac.WP,0) & is.null(WPfacs) & !identical(WPs,1))
                           else if (!is.null(generators)) nfactors <- length(generators)+k 
                           }
     if (!is.null(estimable)) {
-              if (!is.character(sort)) stop("option sort must be a character strings")
+              if (!is.character(sort)) stop("option sort must be a character string")
+              if (!is.character(method)) stop("option method must be a character string")
               if (!sort %in% c("natural","high","low")) stop("invalid choice for option sort")
+              if (clear && !method %in% c("LAD","VF2")) stop("invalid choice for option method")
               estimable <- estimable.check(estimable, nfactors, factor.names)
               if (is.null(nfactors)) nfactors <- estimable$nfac
               estimable <- estimable$estimable
@@ -234,10 +239,10 @@ if (identical(nfac.WP,0) & is.null(WPfacs) & !identical(WPs,1))
                class(cand) <- c("catlg","list")
       }
     ## prepare blocks
-    ## 1.7: if blocks and estimable go together, does this preparation need to accomodate estimable ?
-    ## 1.7: so far, estimable is a two-row matrix, and nfactor and nruns are known (lines 135 to 170)
-    ## 1.7: provisionally, it looks as though no adjustments are needed
-    ## 1.7: only perhaps checks against using block generators with estimable (???)
+    ## 1.8: if blocks and estimable go together, does this preparation need to accomodate estimable ?
+    ## 1.8: so far, estimable is a two-row matrix, and nfactor and nruns are known (lines 135 to 170)
+    ## 1.8: provisionally, it looks as though no adjustments are needed
+    ## 1.8: only perhaps checks against using block generators with estimable (???)
     if (!identical(blocks,1)) {
              blocks <- block.check(k, blocks, nfactors, factor.names)  
              if (is.list(blocks)) k.block <- length(blocks)
@@ -387,7 +392,8 @@ if (identical(nfac.WP,0) & is.null(WPfacs) & !identical(WPs,1))
             if (!is.null(estimable)) {
                 ## determine design that satisfies estimability requests
                       desmat <- estimable(estimable, nfactors, nruns, 
-                           clear=clear, res3=res3, max.time=max.time, select.catlg=select.catlg, sort=sort,
+                           clear=clear, res3=res3, max.time=max.time, select.catlg=select.catlg, 
+                           method=method,sort=sort,
                            perm.start=perm.start, perms=perms, order=alias.info)
                       design.info <- list(type="FrF2.estimable", 
                              nruns=nruns, nfactors=nfactors, factor.names=factor.names, catlg.name = catlg.name,

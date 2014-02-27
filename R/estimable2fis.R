@@ -10,99 +10,115 @@
 #     UseMethod("estimable")
 #}
 
-mapcalc <- function(estimable, nfac, nruns, res3=FALSE, select.catlg=catlg, sort="natural"){
-      ## called with checked inputs only --> no checks needed
-      ## estimable is a matrix with two rows
-      if (ncol(estimable)>nruns - nfac -1) stop("too many interactions requested for this number of runs and factors")
-      if (nruns>32 & res3) {
-          warning("res3=TRUE has no effect for designs with more than 32 runs.")
-          res3 <- FALSE
-          }
-      catlg <- select.catlg
-
-      go2 <- graph.empty(n=nfac,directed=FALSE)
-      ## previous version subtracted 1 from estimable for previous igraph node definition; changed 29/06/2012
-      go2 <- add.edges(go2,estimable)
-   ## optionally sort vertices by degree, 20 Jul 2012
-      deg2 <- degree(go2)
-      if (sort %in% c("high","low")){
-        if (sort=="low") ord2 <- order(deg2)
-           else ord2 <- order(deg2, decreasing=TRUE)
+mapcalc <- function (estimable, nfac, nruns, res3 = FALSE, select.catlg = catlg, 
+    method="VF2", sort = "natural") 
+{
+## not clear whether map is correct for lad
+    if (ncol(estimable) > nruns - nfac - 1) 
+        stop("too many interactions requested for this number of runs and factors")
+    if (nruns > 32 & res3) {
+        warning("res3=TRUE has no effect for designs with more than 32 runs.")
+        res3 <- FALSE
+    }
+    catlg <- select.catlg
+    go2 <- graph.empty(n = nfac, directed = FALSE)
+    go2 <- add.edges(go2, estimable)
+    ## optionally sort vertices by degree, 20 Jul 2012
+   deg2 <- degree(go2)
+    if (sort %in% c("high", "low")) {
+        if (sort == "low") 
+            ord2 <- order(deg2)
+        else ord2 <- order(deg2, decreasing = TRUE)
         go2 <- permute.vertices(go2, invperm(ord2))
-      }
-      degree2 <- rev(cumsum(rev(table(deg2))))   ## make it faster to reject non-isomorphic cases
+    }
+    degree2 <- rev(cumsum(rev(table(deg2))))   ## make it faster to reject non-isomorphic cases
                                       ## 7 Feb 2011
-      degs2 <- as.numeric(names(degree2))  ## required minimum degrees
-      ## added further pre-filtering criteria 9 July 2012
-      indep2 <- independence.number(go2)   ## required maximum independence number
-      clique2 <- clique.number(go2)        ## required minimum clique size
-      ## reduced attention to dominating designs, if applicable (29 June 2012)
-      tobechecked <- catlg[which(nfac(catlg)==nfac & nruns(catlg)==nruns & dominating(catlg))]
-      if (length(tobechecked)>0)
-              if (!res3) tobechecked <- tobechecked[which(res(tobechecked)>=4)]
-      if (length(tobechecked)>0)
-              tobechecked <- tobechecked[which(nclear.2fis(tobechecked)>=ncol(estimable))]
-      if (length(tobechecked)==0)
-              if (res3)
-              stop("The required interactions cannot be accomodated clear of aliasing in ", nruns, " runs.")
-              else{
-              if (nruns <= 64)
-              stop("The required interactions cannot be accomodated clear of aliasing in ", nruns, " runs with resolution IV or higher.")
-              else
-              stop("No resolution IV or higher design from the current catalogue can accomodate the required interactions clear of aliasing in ", nruns, " runs.")
-              }
-
-      map <- NULL
+    degs2 <- as.numeric(names(degree2))        ## required minimum degrees
+    ## added further pre-filtering criteria 9 July 2012
+    indep2 <- independence.number(go2)         ## required maximum independence number
+    clique2 <- clique.number(go2)              ## required minimum clique size
+    ## reduced attention to dominating designs, if applicable (29 June 2012)
+    tobechecked <- catlg[which(nfac(catlg) == nfac & nruns(catlg) == 
+        nruns & dominating(catlg))]
+    if (length(tobechecked) > 0) 
+        if (!res3) 
+            tobechecked <- tobechecked[which(res(tobechecked) >= 
+                4)]
+    if (length(tobechecked) > 0) 
+        tobechecked <- tobechecked[which(nclear.2fis(tobechecked) >= 
+            ncol(estimable))]
+    if (length(tobechecked) == 0) 
+        if (res3) 
+            stop("The required interactions cannot be accomodated clear of aliasing in ", 
+                nruns, " runs.")
+        else {
+            if (nruns <= 64) 
+                stop("The required interactions cannot be accomodated clear of aliasing in ", 
+                  nruns, " runs with resolution IV or higher.")
+            else stop("No resolution IV or higher design from the current catalogue can accomodate the required interactions clear of aliasing in ", 
+                nruns, " runs.")
+        }
+    map <- NULL
     ## .FrF2.currentlychecked is stored in private environment
     ## for enabling user to access it after aborting without success
-      for (i in 1:length(tobechecked)){
-          putFrF2(".FrF2.currentlychecked", names(tobechecked[i]))
-          go1 <- graph.empty(n=nfac,directed=FALSE)
-          ## previous version subtracted 1 from tobechecked[[i]]$clear.2fis for previous igraph node definition; changed 29/06/2012
-          go1 <- add.edges(go1, tobechecked[[i]]$clear.2fis)
-   ## optionally sort vertices by degree, 20 Jul 2012
-          deg1 <- degree(go1)
-      if (sort %in% c("high","low")){
-          if (sort=="low") ord1 <- order(deg1)
-               else ord1 <- order(deg1, decreasing=TRUE)
-          go1 <- permute.vertices(go1, invperm(ord1))
-    }
-          degree1 <- rev(cumsum(rev(table(deg1))))
-          degs1 <- as.numeric(names(degree1))
-          if (max(degs2) <= max(degs1)){
+    for (i in 1:length(tobechecked)) {
+        putFrF2(".FrF2.currentlychecked", names(tobechecked[i]))
+        go1 <- graph.empty(n = nfac, directed = FALSE)
+          ## previous version subtracted 1 from tobechecked[[i]]$clear.2fis 
+          ## for previous igraph node definition; changed 29/06/2012
+        go1 <- add.edges(go1, tobechecked[[i]]$clear.2fis)
+       ## optionally sort vertices by degree, 20 Jul 2012
+        deg1 <- degree(go1)
+        if (sort %in% c("high", "low")) {
+            if (sort == "low") 
+                ord1 <- order(deg1)
+            else ord1 <- order(deg1, decreasing = TRUE)
+            go1 <- permute.vertices(go1, invperm(ord1))
+        }
+        degree1 <- rev(cumsum(rev(table(deg1))))
+        degs1 <- as.numeric(names(degree1))
+        if (max(degs2) <= max(degs1)) {
              ## check for no chance, 7.2.2011
              ## if max(degs2)>max(degs1), subgraph isomorphism is impossible
-          comp <- sapply(degs2, function(obj) degree1[min(which(degs1>=obj))])
-          comp[is.na(comp)] <- 0
-          if (any(comp<degree2)) next
+            comp <- sapply(degs2, function(obj) degree1[min(which(degs1 >= 
+                obj))])
+            comp[is.na(comp)] <- 0
+            if (any(comp < degree2)) 
+                next
           ## added further pre-filtering criteria 9 July 2012
-          if (independence.number(go1) > indep2) next
-          if (clique.number(go1) < clique2) next
-          erg <- graph.subisomorphic.vf2(go1,go2)
+            if (independence.number(go1) > indep2) 
+                next
+            if (clique.number(go1) < clique2) 
+                next
+            if (method=="LAD") 
+            erg <- graph.subisomorphic.lad(go2, go1)
+            else erg <- graph.subisomorphic.vf2(go1, go2)
           ## +1 removed from map21 because of adapting to igraph (29 June 2012)
-          if (erg$iso) {
-                    map <- list(erg$map21)
-                    if (sort %in% c("high","low"))
-                       map <- list(ord1[map[[1]]][invperm(ord2)])
-                    names(map) <- getFrF2(".FrF2.currentlychecked")
-                    putFrF2(".FrF2.currentlychecked", names(tobechecked[i]))
-                    ##assignInMyNamespace(".FrF2.currentlychecked", "")
-                    break
-                    }
+            if (erg$iso) {
+                if (method=="LAD") map <- list(erg$map)
+                else map <- list(erg$map21)
+                if (sort %in% c("high", "low")) 
+                  map <- list(ord1[map[[1]]][invperm(ord2)])
+                names(map) <- getFrF2(".FrF2.currentlychecked")
+                putFrF2(".FrF2.currentlychecked", names(tobechecked[i]))
+                break
+            }
         }
-     }
-     if (is.null(map))
-              if (res3)
-              stop( "The required interactions cannot be accomodated clear of aliasing in ", nruns, " runs." )
-              else{
-              if (nruns <= 64)
-              stop( "The required interactions cannot be accomodated clear of aliasing in ", nruns, " runs with resolution IV or higher." )
-              else
-              stop( "No resolution IV or higher design from the current catalogue can accomodate the required interactions clear of aliasing in ",
-                   nruns, " runs." )
-              }
-     map
+    }
+    if (is.null(map)) 
+        if (res3) 
+            stop("The required interactions cannot be accomodated clear of aliasing in ", 
+                nruns, " runs.")
+        else {
+            if (nruns <= 64) 
+                stop("The required interactions cannot be accomodated clear of aliasing in ", 
+                  nruns, " runs with resolution IV or higher.")
+            else stop("No resolution IV or higher design from the current catalogue can accomodate the required interactions clear of aliasing in ", 
+                nruns, " runs.")
+        }
+    map
 }
+
 ##map <-FrF2:::mapcalc(matrix(c(1,2,1,3,1,4,2,3,3,5,4,8,3,7),2,7),9,64)
 #print(FrF2:::mapcalc(matrix(c(1,2,1,3,1,4,1,5,3,5,4,5,5,7),2,7),9,32,sort="low"))
 #print(FrF2:::mapcalc(matrix(c(1,2,1,3,1,4,1,5,3,5,4,5,5,7),2,7),9,32,sort="high"))
@@ -361,11 +377,11 @@ estimable <- function(estimable, nfac, nruns,
                       clear=FALSE, res3=FALSE, max.time=60, 
                       select.catlg=catlg, 
                       perm.start=1:nfac, perms=NULL,
-                      order = 3, sort="natural"){
+                      order = 3, method="VF2", sort="natural"){
         if (clear) {
             ## perhaps relabel estimable entries such that most frequently occurring ones in front
             estimable <- 
-            map <- mapcalc(estimable,nfac,nruns,res3=res3, select.catlg=select.catlg, sort=sort)
+            map <- mapcalc(estimable,nfac,nruns,res3=res3, select.catlg=select.catlg, method=method, sort=sort)
         }
            else map <- mapcalc.distinct(estimable,nfac,nruns,res3=res3, max.time=max.time, 
                                 select.catlg=select.catlg, perm.start=perm.start, perms=perms)

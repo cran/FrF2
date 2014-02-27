@@ -3,6 +3,18 @@ Changes to package FrF2
 The package is still under development. 
 Suggestions and bug reports are very welcome.
 
+27/02/2014, version 1.7
+  - added the LAD algorithm for checking for clear designs.
+    Note: With this change, version 0.7 of package igraph 
+    is required.
+    
+    For the moment, LAD has to be requested by option method in 
+    function FrF2, while the default is the previously 
+    used VF2 algorithm. 
+    In the future, as LAD has been reported to be much faster for very slow  
+    cases of VF2, LAD may become the default.
+  - adjusted documentation to the change, and added / updated related references
+
 11/01/2014, version 1.6-9
   - added citation info for Journal of Statistical Software paper
 
@@ -10,7 +22,7 @@ Suggestions and bug reports are very welcome.
   - bug fix: imported function combn from package utils, 
     in order to allow proper functionality when package combinat is added 
     to the search path later
-  - ??? DO ??? moved many packages to Imports rather than depends, 
+  - moved many packages to Imports rather than depends, 
     and adjusted example code and test code accordingly
 
 16/08/2013, version 1.6-7
@@ -36,7 +48,7 @@ Suggestions and bug reports are very welcome.
     factors in the splitplot documentation file
   - mentioned in FrF2 documentation that option MaxC2 is ignored when using  
     the estimable functionality, and discouraged the use of that option
-  - fixed funtion CIGstatic to work as advertised
+  - fixed function CIGstatic to work as advertised
 
 22/03/2013, version 1.6-5
   - made usage of catalogues from package FrF2.catlg128 more comfortable:
