@@ -147,7 +147,7 @@ estim <- compromise(17,15:17)$requirement ## all interactions of factors 15 to 1
 CIG(estim)
 FrF2(128, 17, estimable=estim)  ## will run for a very long time
 ## interrupt with ESC key, after a short period of waiting
-.FrF2.currentlychecked    ## displays the design that is currently checked 
+FrF2.currentlychecked()   ## displays the design that is currently checked 
                           ## should be 17-10.2407
 CIG("17-10.2407")
 ## clearly, using columns 1, 8 and 9 for factors 15:17 does the job
@@ -160,7 +160,7 @@ CIG("17-10.2407")
     FrF2(128, 17, estimable=estim, select.catlg=catlg[2375:length(catlg)])  
     ## will run for a very long time
     ## interrupting after short waiting time yields
-    .FrF2.currentlychecked    ## displays the design that is currently checked 
+    FrF2.currentlychecked()   ## displays the design that is currently checked 
                               ## should be 17-10.4177
 
 ## note: in this example, option sort="high" would make the automatic search fast

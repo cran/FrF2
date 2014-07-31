@@ -136,9 +136,11 @@ Analysis of alias structure for linear models of \code{FrF2} designs: \code{\lin
     # interaction plots
     IAPlot(iM.lm)
     # interaction plots with attention drawn to aliases
-    IAPlot(iM.lm, show.alias=TRUE)
+    aus <- IAPlot(iM.lm, show.alias=TRUE)
     # alias groups corresponding to interaction plots
     aliases(iM.lm)$aliases[9:15]
+    # returned object
+    aus
     # cube plot of three factors
     # (not very useful for this model, for demonstration only)
       ## per default, modeled means are shown

@@ -777,7 +777,6 @@ design.info(BSS.cheese.exm)
   ## would run for a long long time (I have not yet been patient enough)
   FrF2(32, nfactors=11, estimable = formula("~(A+B+C+D+E+F)^2"), clear=FALSE, 
        max.time=Inf)
-  }
   ## can be easily done with perms, 
   ## as only different subsets of six factors are non-isomorphic
   perms.6 <- combn(11,6)
@@ -786,6 +785,7 @@ design.info(BSS.cheese.exm)
      perms.full[i,] <- c(perms.6[,i],setdiff(1:11,perms.6[,i]))
   FrF2(32, nfactors=11, estimable = formula("~(A+B+C+D+E+F)^2"), clear=FALSE, 
       perms = perms.full )
+  }
 }
 
 % Add one or more standard keywords, see file 'KEYWORDS' in the

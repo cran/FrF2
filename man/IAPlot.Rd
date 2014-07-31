@@ -87,7 +87,10 @@ remodel(obj)
               of the list entry from aliases(obj)\$aliases 
               (cf. \code{\link{aliases}}) in order to support immediate 
               diagnosis of which depicted interaction may be due to other 
-              than the shown effect because of aliasing}
+              than the shown effect because of aliasing;\cr
+              CAUTION: if the \code{select} option is used, 
+              the model is reduced to the selected factors, i.e. aliases with 
+              unselected factors are not shown!}
   \item{i}{integer, for internal use only}
   \item{j}{integer, for internal use only}
   \item{mat}{matrix, for internal use only}
@@ -123,7 +126,11 @@ remodel(obj)
   }
 }
 \value{
-  \code{MEPlot} and \code{IAPlot} are used for their side effects only. 
+  \code{MEPlot} and \code{IAPlot} invisibly return the plotted effects (two-row 
+           matrix or four-row matrix, respectively). If \code{show.alias=TRUE}, 
+           the matrix returned by IAPlot has as the attribute \code{aliasgroups},
+           which contains all alias groups (list element number corresponds to 
+           number in the graphics tableau).
   
   The internal function \code{check} is used within other functions for checking 
            whether the model is a fractional factorial with 2-level factors and 

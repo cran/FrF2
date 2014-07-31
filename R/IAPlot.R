@@ -227,5 +227,9 @@ function(obj, main=paste("Interaction plot matrix for",respnam), pch=c(15,17),
    }
    title(main, line=1.5, outer=TRUE, cex.main=cex.title*par("cex.main"))
    par(mfrow=omfrow,mar=omar,oma=ooma)
+   rownames(predmat) <- c("-:-","+:-","-:+","+:+")
+   if (show.alias) attr(predmat, "aliasgroups") <- 
+        lapply(unique(alnum), function(obj) names(alnum)[alnum==obj])
+   invisible(predmat)
 }
 

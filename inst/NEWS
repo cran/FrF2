@@ -3,6 +3,19 @@ Changes to package FrF2
 The package is still under development. 
 Suggestions and bug reports are very welcome.
 
+31/07/2014, version 1.7-1
+  - MEPlot and IAPlot now invisibly return the estimated values 
+    so that the plots can be accompanied by tables, if desired.
+  - fixed documentation file CIG.Rd, 
+    replacing .FrF2.currentlychecked by FrF2.currentlychecked()
+  - documented DanielPlot name clash with BsMD, 
+    and how to nevertheless access FrF2::DanielPlot
+  - removed import of function as.integer.basedInt from sfsmisc
+    and made FrF2 import from version >= 1.0-26 of sfsmisc
+  - moved an example to don't run section, 
+    in order to prevent issues under periodical Valgrind test runs
+
+
 27/02/2014, version 1.7
   - added the LAD algorithm for checking for clear designs.
     Note: With this change, version 0.7 of package igraph 

@@ -94,5 +94,7 @@ function(obj, main=paste("Main effects plot for", respnam), pch=15,
      }
    title(main, line=1.5, outer=TRUE, cex.main=cex.title*cex.main)
    par(mfrow=omfrow,mar=omar,oma=ooma)
+   rownames(predmat) <- c("-","+")
+   invisible(predmat)
 }
 

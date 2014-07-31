@@ -112,6 +112,10 @@ DanielPlot(fit, ...)
     To appear in \emph{Encyclopedia of Statistics in Quality and Reliability}, Wiley, New York.
     Downloadable at \url{http://www.wiley.com/legacy/wileychi/eqr/docs/sample_1.pdf}.
 }
+\note{If you load package \pkg{BsMD} after package \pkg{FrF2}, 
+    a mere call to function \code{DanielPlot} will use the function from package \pkg{BsMD} 
+    rather than the one from package \pkg{FrF2}. You can explicitly request 
+    usage of the \pkg{FrF2} function by \code{FrF2::DanielPlot}. }
 \author{Ernesto Barrios, modified by Ulrike Groemping.}
 \seealso{\code{\link{qqnorm}}, \code{\link[DoE.base]{halfnormal}}, 
    \code{\link[BsMD]{LenthPlot}}, \code{BsMD-package} }
