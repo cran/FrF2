@@ -1,6 +1,17 @@
      import(BsMD,DoE.base,igraph,scatterplot3d)
      importFrom(utils,combn) 
      importFrom(sfsmisc,AsciiToInt,as.intBase,digitsBase)
+     importFrom("grDevices", "grey", "rgb", "xyz.coords")
+     importFrom("graphics", "abline", "axis", "box", "lines", "mtext",
+             "par", "plot", "plot.default", "plot.new", "plot.window",
+             "points", "segments", "strwidth", "symbols", "text",
+             "title")
+     importFrom("methods", "is")
+     importFrom("stats", "aggregate", "as.formula", "coef", "contrasts",
+             "contrasts<-", "formula", "model.matrix", "ppoints",
+             "predict", "qnorm", "qqnorm", "rnorm", "terms")
+     importFrom("utils", "as.roman", "packageVersion", "sessionInfo")
+
      export("DanielPlot", "aliases", "aliasprint", "IAPlot", "MEPlot", 
             "cubePlot", "cubedraw", "cubecorners", "cubelabel",
             "FrF2","pb","FrF2Large","nrunsV","fold.design","add.center",

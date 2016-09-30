@@ -1,7 +1,7 @@
 
-R Under development (unstable) (2013-09-05 r63851) -- "Unsuffered Consequences"
-Copyright (C) 2013 The R Foundation for Statistical Computing
-Platform: i386-w64-mingw32/i386 (32-bit)
+R version 3.3.1 (2016-06-21) -- "Bug in Your Hair"
+Copyright (C) 2016 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -31,43 +31,47 @@ The following object is masked from 'package:graphics':
 
     plot.design
 
+The following object is masked from 'package:base':
+
+    lengths
+
 > reshuffled <- FrF2(32,9, estimable=c("AC","BC","AB"))
 > basic <- FrF2(32,9, estimable=c("CJ"))
 > FrF2:::generators.from.design(basic)
 [[1]]
 x6 ~ x1 * x2 * x3
-<environment: 0x04c25954>
+<environment: 0x0000000009383c88>
 
 [[2]]
 x7 ~ x1 * x2 * x4
-<environment: 0x04c1fa7c>
+<environment: 0x0000000009376d00>
 
 [[3]]
 x8 ~ x1 * x2 * x5
-<environment: 0x048ba0f4>
+<environment: 0x000000000936ce40>
 
 [[4]]
 x9 ~ x1 * x3 * x4 * x5
-<environment: 0x048b5654>
+<environment: 0x00000000093638e8>
 
 > FrF2:::generators.from.design(reshuffled)
 [[1]]
 x6 ~ x1 * x3 * x4 * x5
-<environment: 0x048d18e8>
+<environment: 0x000000000946bd78>
 
 [[2]]
 x7 ~ x1 * x2 * x3
-<environment: 0x048cb968>
+<environment: 0x0000000009461b98>
 
 [[3]]
 x8 ~ x2 * x3 * x4 * x5
-<environment: 0x048c6eac>
+<environment: 0x0000000009457200>
 
 [[4]]
 x9 ~ x1 * x2 * x4 * x5
-<environment: 0x048bd100>
+<environment: 0x000000000944b508>
 
 > 
 > proc.time()
    user  system elapsed 
-   1.91    0.09    1.99 
+   6.07    0.56    7.10 

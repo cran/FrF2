@@ -21,7 +21,7 @@ catlg.name <- deparse(substitute(select.catlg))
       catlgs128 <- c("catlg128.8to15","catlg128.26to33",paste("catlg128",16:25,sep="."))
       
       if (catlg.name %in% catlgs128){
-             if (!require("FrF2.catlg128", quietly=TRUE, character.only=TRUE)) 
+             if (!requireNamespace("FrF2.catlg128", quietly=TRUE, character.only=TRUE)) 
                   stop("Package FrF2.catlg128 is not available")
              if (packageVersion("FrF2.catlg128") < numeric_version(1.2)){ 
                   if (catlg.name %in% catlgs128[c(1,3:11)])

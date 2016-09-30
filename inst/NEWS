@@ -3,6 +3,15 @@ Changes to package FrF2
 The package is still under development. 
 Suggestions and bug reports are very welcome.
 
+29/09/2016, version 1.7-2
+  - replaced require to requireNamespace for suggested package
+  - changed namespace and description files to conform with latest 
+    R checking rules
+  - adapted test output to changes in base R (all functions) 
+    and to a bug fix in function rerandomize.design
+    of package DoE.base (add.center tests)
+
+
 31/07/2014, version 1.7-1
   - MEPlot and IAPlot now invisibly return the estimated values 
     so that the plots can be accompanied by tables, if desired.

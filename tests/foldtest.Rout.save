@@ -1,7 +1,7 @@
 
-R Under development (unstable) (2013-09-05 r63851) -- "Unsuffered Consequences"
-Copyright (C) 2013 The R Foundation for Statistical Computing
-Platform: i386-w64-mingw32/i386 (32-bit)
+R version 3.3.1 (2016-06-21) -- "Bug in Your Hair"
+Copyright (C) 2016 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -29,6 +29,10 @@ The following objects are masked from 'package:stats':
 The following object is masked from 'package:graphics':
 
     plot.design
+
+The following object is masked from 'package:base':
+
+    lengths
 
 > ### test programs for fold.design
 > 
@@ -1914,4 +1918,4 @@ NOTE: columns run.no and run.no.std.rp are annotation, not part of the data fram
 > 
 > proc.time()
    user  system elapsed 
-   5.42    0.23    5.67 
+  15.35    1.20   17.53 
