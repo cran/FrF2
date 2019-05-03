@@ -106,7 +106,17 @@ nrunsV(nfactors)
   \item{randomize}{ logical. If TRUE, the design is randomized. This is the default. 
        In case of replications, the nature of randomization depends on the setting of 
        option \code{repeat.only}.}
-  \item{seed}{ optional seed for the randomization process }
+  \item{seed}{ optional seed for the randomization process \cr
+        In R version 3.6.0 and later, the default behavior of function \code{\link{sample}}
+        has changed. If you work in a new (i.e., >= 3.6.-0) R version and want to reproduce 
+        a randomized design from an earlier R version (before 3.6.0), 
+        you have to change the RNGkind setting by\cr
+        \code{RNGkind(sample.kind="Rounding")}\cr
+        before running function \code{FrF2Large}.\cr
+        It is recommended to change the setting back to the new recommended way afterwards:\cr
+        \code{RNGkind(sample.kind="default")}\cr
+        For an example, see the documentation of the example data set \code{\link[DoE.base]{VSGFS}}.
+        }
   \item{alias.info}{ can be 2 or 3, gives the order of interaction effects for which 
        alias information is to be included in the \code{aliased} component of the 
        \code{design.info} element of the output object. }
@@ -207,9 +217,15 @@ nrunsV(nfactors)
      \emph{ACM Transactions on Modeling and Computer Simulation} 
      \bold{15}, 362-377.
 }
+\section{Warning}{
+   Since R version 3.6.0, the behavior of function \code{\link{sample}} has changed 
+   (correction of a biased previous behavior that might be relevant for the randomization 
+   of very large designs). 
+   For reproducing a randomized design that was produced with an earlier R version, 
+   please follow the steps described with the argument \code{seed}.
+}
 \author{ Ulrike Groemping }
 
-\note{ This package is still under development, but does already provide useful and well-tested results.}
 \seealso{ See also \code{\link{FrF2}} for smaller regular fractional factorials and 
 \code{\link[DoE.base]{oacat}} for two non-regular resolution V fractional factorials (reported e.g. by 
 Mee 2009) for up to 19 factors in 256 runs or up to 63 factors in 2048 runs }

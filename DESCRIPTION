@@ -1,11 +1,11 @@
 Package: FrF2
 Title: Fractional Factorial Designs with 2-Level Factors
-Version: 1.7-2
+Version: 1.7-3
 Depends: R(>= 2.13.0), DoE.base(>= 0.25)
 Imports: sfsmisc(>= 1.0-26), BsMD, utils, scatterplot3d, igraph(>=
         0.7), methods
 Suggests: FrF2.catlg128
-Date: 2016-09-29
+Date: 2019-05-03
 Author: Ulrike Groemping
 Maintainer: Ulrike Groemping <groemping@beuth-hochschule.de>
 Description: Regular and non-regular Fractional Factorial 2-level designs 
@@ -22,6 +22,6 @@ Encoding: latin1
 URL: http://prof.beuth-hochschule.de/groemping/DoE/,
         http://prof.beuth-hochschule.de/groemping/
 NeedsCompilation: no
-Packaged: 2016-09-29 09:02:32 UTC; Groemping
+Packaged: 2019-05-03 12:26:55 UTC; Grömping
 Repository: CRAN
-Date/Publication: 2016-09-30 10:24:57
+Date/Publication: 2019-05-03 13:40:03 UTC

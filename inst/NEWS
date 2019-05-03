@@ -3,6 +3,18 @@ Changes to package FrF2
 The package is still under development. 
 Suggestions and bug reports are very welcome.
 
+03/05/2019, version 1.7-3
+  - documented how to reproduce designs 
+    created by R versions prior to 3.6.0 with 
+    R versions 3.6.0 and later (due to the changed behavior 
+    of function sample, default randomization changed) 
+    in the instructions for argument seed and in a 
+    "Warning" section for functions pb, FrF2 and FrF2Large
+  - show the entire output of function str again 
+    (strOptions(drop.deparse.attr=FALSE)) in tests
+  - adjusted the test output to reflect the new default
+    randomization behavior
+
 29/09/2016, version 1.7-2
   - replaced require to requireNamespace for suggested package
   - changed namespace and description files to conform with latest 

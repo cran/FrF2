@@ -1,6 +1,6 @@
 
-R version 3.3.1 (2016-06-21) -- "Bug in Your Hair"
-Copyright (C) 2016 The R Foundation for Statistical Computing
+R version 3.6.0 (2019-04-26) -- "Planting of a Tree"
+Copyright (C) 2019 The R Foundation for Statistical Computing
 Platform: x86_64-w64-mingw32/x64 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -174,7 +174,7 @@ $`block generators`
 [1] ABC ADE
 
 
-no aliasing of main effects or 2fis among experimental factors
+no aliasing of main effects or 2fis  among experimental factors
 
 Aliased with block main effects:
 [1] none
@@ -323,11 +323,11 @@ $generators
 [1] full factorial
 
 
-no aliasing of main effects or 2fis among experimental factors
+no aliasing of main effects or 2fis  among experimental factors
 
 
 split-plot design:  4  whole plots
-                 : first  2  factors are whole plot factors
+   first  2  factors are whole plot factors
 > design.info(planfull)[-which(names(design.info(planfull))=="FrF2.version")]
 $type
 [1] "FrF2.splitplot"
@@ -434,7 +434,7 @@ $fi2
 
 
 split-plot design:  4  whole plots
-                 : first  3  factors are whole plot factors
+   first  3  factors are whole plot factors
 > design.info(plan0)[-which(names(design.info(plan0))=="FrF2.version")]
 $type
 [1] "FrF2.splitplot"
@@ -547,7 +547,7 @@ $main
 
 
 split-plot design:  4  whole plots
-                 : first  3  factors are whole plot factors
+   first  3  factors are whole plot factors
 > generators(plan)
 $generators
 [1] "C=AB"   "G=ADEF"
@@ -670,7 +670,7 @@ $fi2
 
 
 split-plot design:  4  whole plots
-                 : first  3  factors are whole plot factors
+   first  3  factors are whole plot factors
 > generators(plan2)
 $generators
 [1] "C=AB"   "G=ABDE"
@@ -762,4 +762,4 @@ FrF2(32, 7, gen = c(6, 15), WPs = 4, nfac.WP = 3, WPfacs = c(2,
 > 
 > proc.time()
    user  system elapsed 
-  15.45    0.82   17.39 
+   3.64    0.31    3.98 

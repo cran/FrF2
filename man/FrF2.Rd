@@ -249,7 +249,17 @@ FrF2.currentlychecked()
   \item{randomize}{ logical. If TRUE, the design is randomized. This is the default. 
        In case of replications, the nature of randomization depends on the setting of 
        option \code{repeat.only}.}
-  \item{seed}{ optional seed for the randomization process }
+  \item{seed}{ optional seed for the randomization process \cr
+        In R version 3.6.0 and later, the default behavior of function \code{\link{sample}}
+        has changed. If you work in a new (i.e., >= 3.6.-0) R version and want to reproduce 
+        a randomized design from an earlier R version (before 3.6.0), 
+        you have to change the RNGkind setting by\cr
+        \code{RNGkind(sample.kind="Rounding")}\cr
+        before running function \code{FrF2}.\cr
+        It is recommended to change the setting back to the new recommended way afterwards:\cr
+        \code{RNGkind(sample.kind="default")}\cr
+        For an example, see the documentation of the example data set \code{\link[DoE.base]{VSGFS}}.
+        }
   \item{alias.info}{ can be 2 or 3, gives the order of interaction effects for which 
        alias information is to be included in the \code{aliased} component of the 
        \code{design.info} element of the output object. }
@@ -582,8 +592,13 @@ Wu, C.F.J. and Chen, Y. (1992)
 A graph-aided method for planning two-level experiments when certain interactions 
 are important. 
 \emph{Technometrics} \bold{34}, 162-175. 
+}
 
-
+\section{Warning}{
+   Since R version 3.6.0, the behavior of function \code{\link{sample}} has changed 
+   (correction of a biased previous behavior that should not be relevant for the randomization of designs). 
+   For reproducing a randomized design that was produced with an earlier R version, 
+   please follow the steps described with the argument \code{seed}.
 }
 \author{ Ulrike Groemping }
 

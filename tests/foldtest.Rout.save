@@ -1,6 +1,6 @@
 
-R version 3.3.1 (2016-06-21) -- "Bug in Your Hair"
-Copyright (C) 2016 The R Foundation for Statistical Computing
+R version 3.6.0 (2019-04-26) -- "Planting of a Tree"
+Copyright (C) 2019 The R Foundation for Statistical Computing
 Platform: x86_64-w64-mingw32/x64 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -253,7 +253,8 @@ $fi2
 31     31          10.2  1 -1 -1   mirror  1  1
 32     32           9.2 -1 -1 -1   mirror -1 -1
 class=design, type= FrF2.folded 
-NOTE: columns run.no and run.no.std.rp are annotation, not part of the data frame
+NOTE: columns run.no and run.no.std.rp  are annotation, 
+ not part of the data frame
 [1] "********************* fp3 *******************************"
 [[1]]
 FrF2(8, 5, replications = 2, repeat.only = TRUE)
@@ -275,22 +276,22 @@ $fi2
 [1] "unknown"
 [1] "FrF2.folded"
     A  B  C     fold  D  E y.1 y.2
-1  -1 -1 -1 original  1  1  NA  NA
-2  -1  1  1 original -1 -1  NA  NA
-3  -1  1 -1 original -1  1  NA  NA
-4   1  1  1 original  1  1  NA  NA
-5   1 -1 -1 original -1 -1  NA  NA
-6  -1 -1  1 original  1 -1  NA  NA
-7   1  1 -1 original  1 -1  NA  NA
-8   1 -1  1 original -1  1  NA  NA
-11  1  1  1   mirror -1 -1  NA  NA
-21  1 -1 -1   mirror  1  1  NA  NA
-31  1 -1  1   mirror  1 -1  NA  NA
-41 -1 -1 -1   mirror -1 -1  NA  NA
-51 -1  1  1   mirror  1  1  NA  NA
-61  1  1 -1   mirror -1  1  NA  NA
-71 -1 -1  1   mirror -1  1  NA  NA
-81 -1  1 -1   mirror  1 -1  NA  NA
+1  -1  1 -1 original -1  1  NA  NA
+2   1 -1 -1 original -1 -1  NA  NA
+3  -1 -1  1 original  1 -1  NA  NA
+4  -1 -1 -1 original  1  1  NA  NA
+5  -1  1  1 original -1 -1  NA  NA
+6   1  1  1 original  1  1  NA  NA
+7   1 -1  1 original -1  1  NA  NA
+8   1  1 -1 original  1 -1  NA  NA
+11  1 -1  1   mirror  1 -1  NA  NA
+21 -1  1  1   mirror  1  1  NA  NA
+31  1  1 -1   mirror -1  1  NA  NA
+41  1  1  1   mirror -1 -1  NA  NA
+51  1 -1 -1   mirror  1  1  NA  NA
+61 -1 -1 -1   mirror -1 -1  NA  NA
+71 -1  1 -1   mirror  1 -1  NA  NA
+81 -1 -1  1   mirror -1  1  NA  NA
 class=design, type= FrF2.folded 
 [1] "********************* fp4 *******************************"
 [[1]]
@@ -1015,22 +1016,22 @@ attr(,"class")
 [1] "unknown"
 [1] "FrF2.estimable.folded"
    one two three     fold four
-1   -1  -1    -1 original    1
-2   -1   1     1 original   -1
-3   -1  -1     1 original   -1
-4    1   1     1 original    1
-5    1  -1    -1 original   -1
-6   -1   1    -1 original    1
-7    1  -1     1 original    1
-8    1   1    -1 original   -1
-9    1   1     1   mirror   -1
-10   1  -1    -1   mirror    1
-11   1   1    -1   mirror    1
-12  -1  -1    -1   mirror   -1
-13  -1   1     1   mirror    1
-14   1  -1     1   mirror   -1
-15  -1   1    -1   mirror   -1
-16  -1  -1     1   mirror    1
+1   -1  -1     1 original   -1
+2    1  -1    -1 original   -1
+3   -1   1    -1 original    1
+4   -1  -1    -1 original    1
+5   -1   1     1 original   -1
+6    1   1     1 original    1
+7    1   1    -1 original   -1
+8    1  -1     1 original    1
+9    1   1    -1   mirror    1
+10  -1   1     1   mirror    1
+11   1  -1     1   mirror   -1
+12   1   1     1   mirror   -1
+13   1  -1    -1   mirror    1
+14  -1  -1    -1   mirror   -1
+15  -1  -1     1   mirror    1
+16  -1   1    -1   mirror   -1
 class=design, type= FrF2.estimable.folded 
 [1] "********************* fp12 *******************************"
 [[1]]
@@ -1058,22 +1059,22 @@ attr(,"class")
 [1] "unknown"
 [1] "FrF2.estimable.folded"
    one two three     fold four
-1   -1  -1    -1 original   -1
-2   -1   1     1 original   -1
-3   -1   1    -1 original    1
-4    1   1     1 original    1
-5    1  -1    -1 original    1
-6   -1  -1     1 original    1
-7    1   1    -1 original   -1
-8    1  -1     1 original   -1
-9    1   1     1   mirror    1
-10   1  -1    -1   mirror    1
-11   1  -1     1   mirror   -1
-12  -1  -1    -1   mirror   -1
-13  -1   1     1   mirror   -1
-14   1   1    -1   mirror   -1
-15  -1  -1     1   mirror    1
-16  -1   1    -1   mirror    1
+1   -1   1    -1 original    1
+2    1  -1    -1 original    1
+3   -1  -1     1 original    1
+4   -1  -1    -1 original   -1
+5   -1   1     1 original   -1
+6    1   1     1 original    1
+7    1  -1     1 original   -1
+8    1   1    -1 original   -1
+9    1  -1     1   mirror   -1
+10  -1   1     1   mirror   -1
+11   1   1    -1   mirror   -1
+12   1   1     1   mirror    1
+13   1  -1    -1   mirror    1
+14  -1  -1    -1   mirror   -1
+15  -1   1    -1   mirror    1
+16  -1  -1     1   mirror    1
 class=design, type= FrF2.estimable.folded 
 [1] "********************* fp13 *******************************"
 [[1]]
@@ -1102,38 +1103,38 @@ attr(,"class")
 [1] "unknown"
 [1] "FrF2.estimable.folded"
     A  B  C  D     fold  E  F  G
-1   1 -1 -1 -1 original  1  1  1
-2  -1  1  1  1 original -1 -1 -1
-3   1 -1  1 -1 original -1  1 -1
-4  -1  1 -1 -1 original  1  1 -1
-5  -1 -1  1 -1 original  1 -1  1
+1  -1  1 -1 -1 original  1  1 -1
+2   1 -1 -1  1 original  1 -1 -1
+3  -1 -1  1 -1 original  1 -1  1
+4  -1 -1 -1  1 original -1  1  1
+5  -1  1  1  1 original -1 -1 -1
 6   1  1 -1 -1 original -1 -1  1
-7  -1  1  1 -1 original -1  1  1
-8   1 -1 -1  1 original  1 -1 -1
-9   1  1 -1  1 original -1  1 -1
-10  1  1  1  1 original  1  1  1
-11 -1 -1 -1 -1 original -1 -1 -1
-12 -1  1 -1  1 original  1 -1  1
-13  1 -1  1  1 original -1 -1  1
-14  1  1  1 -1 original  1 -1 -1
-15 -1 -1  1  1 original  1  1 -1
-16 -1 -1 -1  1 original -1  1  1
-17 -1  1  1  1   mirror -1 -1 -1
-18  1 -1 -1 -1   mirror  1  1  1
-19 -1  1 -1  1   mirror  1 -1  1
-20  1 -1  1  1   mirror -1 -1  1
-21  1  1 -1  1   mirror -1  1 -1
+7   1  1  1  1 original  1  1  1
+8   1 -1  1  1 original -1 -1  1
+9  -1  1 -1  1 original  1 -1  1
+10 -1  1  1 -1 original -1  1  1
+11  1  1 -1  1 original -1  1 -1
+12  1  1  1 -1 original  1 -1 -1
+13  1 -1  1 -1 original -1  1 -1
+14 -1 -1 -1 -1 original -1 -1 -1
+15  1 -1 -1 -1 original  1  1  1
+16 -1 -1  1  1 original  1  1 -1
+17  1 -1  1  1   mirror -1 -1  1
+18 -1  1  1 -1   mirror -1  1  1
+19  1  1 -1  1   mirror -1  1 -1
+20  1  1  1 -1   mirror  1 -1 -1
+21  1 -1 -1 -1   mirror  1  1  1
 22 -1 -1  1  1   mirror  1  1 -1
-23  1 -1 -1  1   mirror  1 -1 -1
-24 -1  1  1 -1   mirror -1  1  1
-25 -1 -1  1 -1   mirror  1 -1  1
-26 -1 -1 -1 -1   mirror -1 -1 -1
-27  1  1  1  1   mirror  1  1  1
-28  1 -1  1 -1   mirror -1  1 -1
-29 -1  1 -1 -1   mirror  1  1 -1
-30 -1 -1 -1  1   mirror -1  1  1
-31  1  1 -1 -1   mirror -1 -1  1
-32  1  1  1 -1   mirror  1 -1 -1
+23 -1 -1 -1 -1   mirror -1 -1 -1
+24 -1  1 -1 -1   mirror  1  1 -1
+25  1 -1  1 -1   mirror -1  1 -1
+26  1 -1 -1  1   mirror  1 -1 -1
+27 -1 -1  1 -1   mirror  1 -1  1
+28 -1 -1 -1  1   mirror -1  1  1
+29 -1  1 -1  1   mirror  1 -1  1
+30  1  1  1  1   mirror  1  1  1
+31 -1  1  1  1   mirror -1 -1 -1
+32  1  1 -1 -1   mirror -1 -1  1
 class=design, type= FrF2.estimable.folded 
 [1] "********************* fp14 *******************************"
 [[1]]
@@ -1255,7 +1256,8 @@ attr(,"class")
 63     63        34.8.3 mirror -1 -1 -1 -1 -1  1 -1 -1 -1  1  1  1  1  1
 64     64        33.8.4 mirror -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 class=design, type= FrF2.splitplot.folded 
-NOTE: columns run.no and run.no.std.rp are annotation, not part of the data frame
+NOTE: columns run.no and run.no.std.rp  are annotation, 
+ not part of the data frame
 [1] "********************* fp14b *******************************"
 [[1]]
 FrF2(32, 14, WPs = 8, nfac.WP = 4, randomize = FALSE)
@@ -1388,7 +1390,8 @@ attr(,"class")
 63     63        62.8.3 mirror -1 -1 1 1  1 -1  1  1  1 -1 -1 -1 -1 -1
 64     64        61.8.4 mirror -1 -1 1 1  1  1  1  1  1  1  1  1  1  1
 class=design, type= FrF2.splitplot.folded 
-NOTE: columns run.no and run.no.std.rp are annotation, not part of the data frame
+NOTE: columns run.no and run.no.std.rp  are annotation, 
+ not part of the data frame
 [1] "********************* fp14c *******************************"
 [[1]]
 FrF2(32, 14, WPs = 8, nfac.WP = 4, randomize = FALSE)
@@ -1521,7 +1524,8 @@ attr(,"class")
 63     63        47.8.3 mirror 1 1 1 1 -1  1 -1 -1 -1  1  1  1  1  1
 64     64        48.8.4 mirror 1 1 1 1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 class=design, type= FrF2.splitplot.folded 
-NOTE: columns run.no and run.no.std.rp are annotation, not part of the data frame
+NOTE: columns run.no and run.no.std.rp  are annotation, 
+ not part of the data frame
 [1] "********************* fp15 *******************************"
 [[1]]
 FrF2(32, 14, WPs = 8, nfac.WP = 2, randomize = FALSE)
@@ -1656,7 +1660,8 @@ attr(,"class")
 63     63        34.8.3 mirror -1 -1  -1 -1  1 -1 -1 -1  1  1  1  1  1  1  1
 64     64        33.8.4 mirror -1 -1  -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 class=design, type= FrF2.splitplot.folded 
-NOTE: columns run.no and run.no.std.rp are annotation, not part of the data frame
+NOTE: columns run.no and run.no.std.rp  are annotation, 
+ not part of the data frame
 [1] "********************* fp15b *******************************"
 [[1]]
 FrF2(32, 14, WPs = 8, nfac.WP = 2, randomize = FALSE)
@@ -1781,7 +1786,8 @@ attr(,"class")
 63     63        62.8.3 mirror -1 -1   1  1 -1  1  1  1 -1 -1 -1 -1 -1 -1 -1
 64     64        61.8.4 mirror -1 -1   1  1  1  1  1  1  1  1  1  1  1  1  1
 class=design, type= FrF2.splitplot.folded 
-NOTE: columns run.no and run.no.std.rp are annotation, not part of the data frame
+NOTE: columns run.no and run.no.std.rp  are annotation, 
+ not part of the data frame
 [1] "********************* fp15c *******************************"
 [[1]]
 FrF2(32, 14, WPs = 8, nfac.WP = 2, randomize = FALSE)
@@ -1914,8 +1920,9 @@ attr(,"class")
 63     63        53.8.3 mirror 1 -1   1 -1 -1  1  1  1 -1 -1 -1 -1 -1 -1 -1
 64     64        54.8.4 mirror 1 -1   1 -1  1  1  1  1  1  1  1  1  1  1  1
 class=design, type= FrF2.splitplot.folded 
-NOTE: columns run.no and run.no.std.rp are annotation, not part of the data frame
+NOTE: columns run.no and run.no.std.rp  are annotation, 
+ not part of the data frame
 > 
 > proc.time()
    user  system elapsed 
-  15.35    1.20   17.53 
+   4.10    0.28    4.45 

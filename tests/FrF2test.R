@@ -15,6 +15,7 @@ test <- FrF2(8,4,replications=2, repeat.only=FALSE)
 run.order(test)
 test
 
+strOptions(drop.deparse.attr = FALSE)
 str.wover <- function(obj){
     di <- attr(obj, "design.info") 
     if (!is.null(di$orig.design.info)) di$orig.design.info <- di$orig.design.info[-which(names(di$orig.design.info)=="FrF2.version")]

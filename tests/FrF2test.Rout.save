@@ -1,6 +1,6 @@
 
-R version 3.3.1 (2016-06-21) -- "Bug in Your Hair"
-Copyright (C) 2016 The R Foundation for Statistical Computing
+R version 3.6.0 (2019-04-26) -- "Planting of a Tree"
+Copyright (C) 2019 The R Foundation for Statistical Computing
 Platform: x86_64-w64-mingw32/x64 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -55,83 +55,103 @@ class=design, type= FrF2
 > test <- FrF2(8,4,replications=2, repeat.only=TRUE)
 > run.order(test)
    run.no.in.std.order run.no run.no.std.rp
-1                    1      1           1.1
-2                    1      2           1.2
-3                    7      3           7.1
-4                    7      4           7.2
-5                    3      5           3.1
-6                    3      6           3.2
-7                    8      7           8.1
-8                    8      8           8.2
-9                    2      9           2.1
-10                   2     10           2.2
-11                   5     11           5.1
-12                   5     12           5.2
-13                   4     13           4.1
-14                   4     14           4.2
-15                   6     15           6.1
-16                   6     16           6.2
+1                    3      1           3.1
+2                    3      2           3.2
+3                    2      3           2.1
+4                    2      4           2.2
+5                    5      5           5.1
+6                    5      6           5.2
+7                    1      7           1.1
+8                    1      8           1.2
+9                    7      9           7.1
+10                   7     10           7.2
+11                   8     11           8.1
+12                   8     12           8.2
+13                   6     13           6.1
+14                   6     14           6.2
+15                   4     15           4.1
+16                   4     16           4.2
 > test
    run.no run.no.std.rp  A  B  C  D
-1       1           1.1 -1 -1 -1 -1
-2       2           1.2 -1 -1 -1 -1
-3       3           7.1 -1  1  1 -1
-4       4           7.2 -1  1  1 -1
-5       5           3.1 -1  1 -1  1
-6       6           3.2 -1  1 -1  1
-7       7           8.1  1  1  1  1
-8       8           8.2  1  1  1  1
-9       9           2.1  1 -1 -1  1
-10     10           2.2  1 -1 -1  1
-11     11           5.1 -1 -1  1  1
-12     12           5.2 -1 -1  1  1
-13     13           4.1  1  1 -1 -1
-14     14           4.2  1  1 -1 -1
-15     15           6.1  1 -1  1 -1
-16     16           6.2  1 -1  1 -1
+1       1           3.1 -1  1 -1  1
+2       2           3.2 -1  1 -1  1
+3       3           2.1  1 -1 -1  1
+4       4           2.2  1 -1 -1  1
+5       5           5.1 -1 -1  1  1
+6       6           5.2 -1 -1  1  1
+7       7           1.1 -1 -1 -1 -1
+8       8           1.2 -1 -1 -1 -1
+9       9           7.1 -1  1  1 -1
+10     10           7.2 -1  1  1 -1
+11     11           8.1  1  1  1  1
+12     12           8.2  1  1  1  1
+13     13           6.1  1 -1  1 -1
+14     14           6.2  1 -1  1 -1
+15     15           4.1  1  1 -1 -1
+16     16           4.2  1  1 -1 -1
 class=design, type= FrF2 
-NOTE: columns run.no and run.no.std.rp are annotation, not part of the data frame
+NOTE: columns run.no and run.no.std.rp  are annotation, 
+ not part of the data frame
 > test <- FrF2(8,4,replications=2, repeat.only=TRUE, randomize=FALSE)
 > test <- FrF2(8,4,replications=2, repeat.only=FALSE)
 > run.order(test)
    run.no.in.std.order run.no run.no.std.rp
-1                    5      1           5.1
-2                    2      2           2.1
-3                    1      3           1.1
-4                    4      4           4.1
-5                    6      5           6.1
-6                    8      6           8.1
-7                    3      7           3.1
-8                    7      8           7.1
+1                    7      1           7.1
+2                    3      2           3.1
+3                    4      3           4.1
+4                    6      4           6.1
+5                    1      5           1.1
+6                    2      6           2.1
+7                    5      7           5.1
+8                    8      8           8.1
 9                    5      9           5.2
-10                   7     10           7.2
-11                   2     11           2.2
-12                   4     12           4.2
-13                   3     13           3.2
-14                   6     14           6.2
+10                   3     10           3.2
+11                   4     11           4.2
+12                   2     12           2.2
+13                   6     13           6.2
+14                   1     14           1.2
 15                   8     15           8.2
-16                   1     16           1.2
+16                   7     16           7.2
 > test
    run.no run.no.std.rp  A  B  C  D
-1       1           5.1 -1 -1  1  1
-2       2           2.1  1 -1 -1  1
-3       3           1.1 -1 -1 -1 -1
-4       4           4.1  1  1 -1 -1
-5       5           6.1  1 -1  1 -1
-6       6           8.1  1  1  1  1
-7       7           3.1 -1  1 -1  1
-8       8           7.1 -1  1  1 -1
+1       1           7.1 -1  1  1 -1
+2       2           3.1 -1  1 -1  1
+3       3           4.1  1  1 -1 -1
+4       4           6.1  1 -1  1 -1
+5       5           1.1 -1 -1 -1 -1
+6       6           2.1  1 -1 -1  1
+7       7           5.1 -1 -1  1  1
+8       8           8.1  1  1  1  1
 9       9           5.2 -1 -1  1  1
-10     10           7.2 -1  1  1 -1
-11     11           2.2  1 -1 -1  1
-12     12           4.2  1  1 -1 -1
-13     13           3.2 -1  1 -1  1
-14     14           6.2  1 -1  1 -1
+10     10           3.2 -1  1 -1  1
+11     11           4.2  1  1 -1 -1
+12     12           2.2  1 -1 -1  1
+13     13           6.2  1 -1  1 -1
+14     14           1.2 -1 -1 -1 -1
 15     15           8.2  1  1  1  1
-16     16           1.2 -1 -1 -1 -1
+16     16           7.2 -1  1  1 -1
 class=design, type= FrF2 
-NOTE: columns run.no and run.no.std.rp are annotation, not part of the data frame
+NOTE: columns run.no and run.no.std.rp  are annotation, 
+ not part of the data frame
 > 
+> strOptions(drop.deparse.attr = FALSE)
+$strict.width
+[1] "no"
+
+$digits.d
+[1] 3
+
+$vec.len
+[1] 4
+
+$drop.deparse.attr
+[1] FALSE
+
+$formatNum
+function (x, ...) 
+format(x, trim = TRUE, drop0trailing = TRUE, ...)
+<environment: 0x0000000018a36200>
+
 > str.wover <- function(obj){
 +     di <- attr(obj, "design.info") 
 +     if (!is.null(di$orig.design.info)) di$orig.design.info <- di$orig.design.info[-which(names(di$orig.design.info)=="FrF2.version")]
@@ -211,7 +231,7 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
   ..$ repeat.only : logi FALSE
   ..$ randomize   : logi FALSE
   ..$ seed        : NULL
-  ..$ creator     : language FrF2(16, 6, randomize = FALSE, factor.names = list(eins = c(1, 2), zwei = c(43,      87), drei = c("alt", "neu"), vier = "", fuenf = "", sechs = ""))
+  ..$ creator     : language FrF2(16, 6, randomize = FALSE, factor.names = list(eins = c(1, 2), zwei = c(43,      87), drei = c("alt", "neu"),| __truncated__
 > str.wover(FrF2(16,randomize=FALSE, factor.names=list(eins=c(1,2),zwei=c(43,87),drei=c("alt","neu"),vier="",fuenf="",sechs="")))
 Classes 'design' and 'data.frame':	16 obs. of  6 variables:
  $ eins : Factor w/ 2 levels "1","2": 1 2 1 2 1 2 1 2 1 2 ...
@@ -284,7 +304,7 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
   ..$ repeat.only : logi FALSE
   ..$ randomize   : logi FALSE
   ..$ seed        : NULL
-  ..$ creator     : language FrF2(16, randomize = FALSE, factor.names = list(eins = c(1, 2), zwei = c(43,      87), drei = c("alt", "neu"), vier = "", fuenf = "", sechs = ""))
+  ..$ creator     : language FrF2(16, randomize = FALSE, factor.names = list(eins = c(1, 2), zwei = c(43,      87), drei = c("alt", "neu"), vi| __truncated__
 > str.wover(FrF2(16,design="6-2.2",randomize=FALSE))
 Classes 'design' and 'data.frame':	16 obs. of  6 variables:
  $ A: Factor w/ 2 levels "-1","1": 1 2 1 2 1 2 1 2 1 2 ...
@@ -418,7 +438,7 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
   ..$ repeat.only : logi FALSE
   ..$ randomize   : logi FALSE
   ..$ seed        : NULL
-  ..$ creator     : language FrF2(16, generators = catlg[["6-2.2"]]$gen, randomize = FALSE, factor.names = list(eins = c(1,      2), zwei = c(43, 87), drei = c("alt", "neu"), vier = "", fuenf = "",  ...
+  ..$ creator     : language FrF2(16, generators = catlg[["6-2.2"]]$gen, randomize = FALSE, factor.names = list(eins = c(1,      2), zwei = c(| __truncated__ ...
 > ## alias structure for three generators that differ only by sign
 > design.info(FrF2(16,generators=c(7,13,15),randomize=FALSE))$aliased
 $legend
@@ -524,7 +544,7 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
   ..$ repeat.only : logi FALSE
   ..$ randomize   : logi FALSE
   ..$ seed        : NULL
-  ..$ creator     : language FrF2(16, design = "6-2.2", randomize = FALSE, factor.names = list(eins = c(1,      2), zwei = c(43, 87), drei = c("alt", "neu"), vier = "", fuenf = "",  ...
+  ..$ creator     : language FrF2(16, design = "6-2.2", randomize = FALSE, factor.names = list(eins = c(1,      2), zwei = c(43, 87), drei = c| __truncated__ ...
 > str.wover(FrF2(16,design="6-2.2",nfactors=6,randomize=FALSE))
 Classes 'design' and 'data.frame':	16 obs. of  6 variables:
  $ A: Factor w/ 2 levels "-1","1": 1 2 1 2 1 2 1 2 1 2 ...
@@ -670,7 +690,7 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
   ..$ repeat.only : logi FALSE
   ..$ randomize   : logi FALSE
   ..$ seed        : NULL
-  ..$ creator     : language FrF2(16, design = "6-2.2", randomize = FALSE, factor.names = list(eins = c(1,      2), zwei = c(43, 87), drei = c("alt", "neu"), vier = "", fuenf = "",  ...
+  ..$ creator     : language FrF2(16, design = "6-2.2", randomize = FALSE, factor.names = list(eins = c(1,      2), zwei = c(43, 87), drei = c| __truncated__ ...
 > 
 > ## estimable in examples
 > ## replications in examples
@@ -721,7 +741,8 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
 31     31        31.8.3      8  1  1  1  1 -1  1  1  1  1 -1 -1 -1 -1 -1
 32     32        32.8.4      8  1  1  1  1  1  1  1  1  1  1  1  1  1  1
 class=design, type= FrF2.blocked 
-NOTE: columns run.no and run.no.std.rp are annotation, not part of the data frame
+NOTE: columns run.no and run.no.std.rp  are annotation, 
+ not part of the data frame
 >   ## automatic selection without aliasing of 2fis with blocks
 >   FrF2(32,6,blocks=4,randomize=FALSE)
   run.no run.no.std.rp Blocks  A  B  C  D  E  F
@@ -761,7 +782,8 @@ NOTE: columns run.no and run.no.std.rp are annotation, not part of the data fram
 31     31        27.4.7      4  1  1 -1  1 -1 -1
 32     32        32.4.8      4  1  1  1  1  1  1
 class=design, type= FrF2.blocked 
-NOTE: columns run.no and run.no.std.rp are annotation, not part of the data frame
+NOTE: columns run.no and run.no.std.rp  are annotation, 
+ not part of the data frame
 >   ## automatic selection with factor names
 >   FrF2(32,6,blocks=4,randomize=FALSE, factor.names=Letters[20:25])
   run.no run.no.std.rp Blocks  U  V  W  X  Y  Z
@@ -801,7 +823,8 @@ NOTE: columns run.no and run.no.std.rp are annotation, not part of the data fram
 31     31        27.4.7      4  1  1 -1  1 -1 -1
 32     32        32.4.8      4  1  1  1  1  1  1
 class=design, type= FrF2.blocked 
-NOTE: columns run.no and run.no.std.rp are annotation, not part of the data frame
+NOTE: columns run.no and run.no.std.rp  are annotation, 
+ not part of the data frame
 >   ## manual selection
 >   FrF2(32,6,blocks="A",randomize=FALSE)
    run.no run.no.std.rp Blocks  B  C  D  E  F
@@ -839,7 +862,8 @@ NOTE: columns run.no and run.no.std.rp are annotation, not part of the data fram
 31     31       31.2.15      1  1  1  1 -1 -1
 32     32       32.2.16      1  1  1  1  1  1
 class=design, type= FrF2.blocked 
-NOTE: columns run.no and run.no.std.rp are annotation, not part of the data frame
+NOTE: columns run.no and run.no.std.rp  are annotation, 
+ not part of the data frame
 >   FrF2(32,6,blocks=c("ABC","DE"),randomize=FALSE)
   run.no run.no.std.rp Blocks  A  B  C  D  E F
 1      1         2.1.1      1 -1 -1 -1 -1  1 1
@@ -878,7 +902,8 @@ NOTE: columns run.no and run.no.std.rp are annotation, not part of the data fram
 31     31        29.4.7      4  1  1  1 -1 -1 1
 32     32        32.4.8      4  1  1  1  1  1 1
 class=design, type= FrF2.blocked 
-NOTE: columns run.no and run.no.std.rp are annotation, not part of the data frame
+NOTE: columns run.no and run.no.std.rp  are annotation, 
+ not part of the data frame
 >   FrF2(32,8,blocks=list(c(1,2,3),c(4,5)),randomize=FALSE)
   run.no run.no.std.rp Blocks  A  B  C  D  E  F  G  H
 1      1         2.1.1      1 -1 -1 -1 -1  1 -1 -1 -1
@@ -917,7 +942,8 @@ NOTE: columns run.no and run.no.std.rp are annotation, not part of the data fram
 31     31        29.4.7      4  1  1  1 -1 -1 1 -1  1
 32     32        32.4.8      4  1  1  1  1  1 1  1  1
 class=design, type= FrF2.blocked 
-NOTE: columns run.no and run.no.std.rp are annotation, not part of the data frame
+NOTE: columns run.no and run.no.std.rp  are annotation, 
+ not part of the data frame
 >   FrF2(32,8,blocks=list(c(1,2,3,4),c(7,8)),randomize=FALSE)
   run.no run.no.std.rp Blocks  A  B  C  D  E  F  G  H
 1      1         3.1.1      1 -1 -1 -1  1 -1 -1  1 -1
@@ -956,7 +982,8 @@ NOTE: columns run.no and run.no.std.rp are annotation, not part of the data fram
 31     31        25.4.7      4  1  1 -1 -1 -1 -1 -1 -1
 32     32        32.4.8      4  1  1  1  1  1  1  1  1
 class=design, type= FrF2.blocked 
-NOTE: columns run.no and run.no.std.rp are annotation, not part of the data frame
+NOTE: columns run.no and run.no.std.rp  are annotation, 
+ not part of the data frame
 >   FrF2(32,8,blocks=list(2,5,7),randomize=FALSE)
   run.no run.no.std.rp Blocks  A  C  D  F  H
 1      1         1.1.1 -1-1-1 -1 -1 -1 -1  1
@@ -999,7 +1026,8 @@ NOTE: columns run.no and run.no.std.rp are annotation, not part of the data fram
 31     31        28.8.3    111  1 -1  1 -1 -1
 32     32        32.8.4    111  1  1  1  1  1
 class=design, type= FrF2.blocked 
-NOTE: columns run.no and run.no.std.rp are annotation, not part of the data frame
+NOTE: columns run.no and run.no.std.rp  are annotation, 
+ not part of the data frame
 >   ## mixed single and generated
 >   str.wover(FrF2(32,8,blocks=list(2,5,c(6,7)),randomize=FALSE))
 Classes 'design' and 'data.frame':	32 obs. of  7 variables:
@@ -1154,7 +1182,7 @@ Classes 'design' and 'data.frame':	32 obs. of  7 variables:
   ..$ repeat.only        : logi FALSE
   ..$ randomize          : logi FALSE
   ..$ seed               : NULL
-  ..$ creator            : language FrF2(32, blocks = c("ABC", "DE"), factor.names = list(first = c("-", "+"),      second = c("old", "new"), third = c(1000, 2000), fourth = "", fifth = "",  ...
+  ..$ creator            : language FrF2(32, blocks = c("ABC", "DE"), factor.names = list(first = c("-", "+"),      second = c("old", "new"), third =| __truncated__ ...
 >   str.wover(dat <- FrF2(32,blocks=c(7,20,25),
 +        factor.names=list(first=c("-","+"),second=c("old","new"),
 +                          third=c(1000,2000),fourth="",fifth="",sixth=""),
@@ -1235,7 +1263,7 @@ Classes 'design' and 'data.frame':	32 obs. of  7 variables:
   ..$ repeat.only        : logi FALSE
   ..$ randomize          : logi FALSE
   ..$ seed               : NULL
-  ..$ creator            : language FrF2(32, blocks = c(7, 20, 25), factor.names = list(first = c("-", "+"),      second = c("old", "new"), third = c(1000, 2000), fourth = "", fifth = "",  ...
+  ..$ creator            : language FrF2(32, blocks = c(7, 20, 25), factor.names = list(first = c("-", "+"),      second = c("old", "new"), third = c| __truncated__ ...
 >   str.wover(FrF2(32,blocks=list(1,2),
 +        factor.names=list(first=c("-","+"),second=c("old","new"),
 +                          third=c(1000,2000),fourth="",fifth="",sixth="",seven="",eight="",nine=""),
@@ -1320,7 +1348,7 @@ Classes 'design' and 'data.frame':	32 obs. of  8 variables:
   ..$ repeat.only        : logi FALSE
   ..$ randomize          : logi FALSE
   ..$ seed               : NULL
-  ..$ creator            : language FrF2(32, blocks = list(1, 2), factor.names = list(first = c("-", "+"),      second = c("old", "new"), third = c(1000, 2000), fourth = "", fifth = "",  ...
+  ..$ creator            : language FrF2(32, blocks = list(1, 2), factor.names = list(first = c("-", "+"),      second = c("old", "new"), third = c(1| __truncated__ ...
 >   ## using blockpick.big
 >   str.wover(FrF2(64,7,blocks=32,alias.block.2fis=TRUE,randomize=FALSE))
 Classes 'design' and 'data.frame':	64 obs. of  8 variables:
@@ -1447,7 +1475,8 @@ Classes 'design' and 'data.frame':	64 obs. of  8 variables:
 31     31        31.8.3 1 1 1 1  1 -1  1  1  1 -1 -1 -1 -1 -1
 32     32        32.8.4 1 1 1 1  1  1  1  1  1  1  1  1  1  1
 class=design, type= FrF2.splitplot 
-NOTE: columns run.no and run.no.std.rp are annotation, not part of the data frame
+NOTE: columns run.no and run.no.std.rp  are annotation, 
+ not part of the data frame
 >   FrF2(32,14,WPs=8,nfac.WP=2,randomize=FALSE)
   run.no run.no.std.rp  A  B WP3  C  D  E  F  G  H  J  K  L  M  N  O
 1      1         1.1.1 -1 -1  -1 -1 -1  1  1  1 -1 -1 -1  1  1  1  1
@@ -1490,7 +1519,8 @@ NOTE: columns run.no and run.no.std.rp are annotation, not part of the data fram
 31     31        31.8.3 1 1   1  1 -1  1  1  1 -1 -1 -1 -1 -1 -1 -1
 32     32        32.8.4 1 1   1  1  1  1  1  1  1  1  1  1  1  1  1
 class=design, type= FrF2.splitplot 
-NOTE: columns run.no and run.no.std.rp are annotation, not part of the data frame
+NOTE: columns run.no and run.no.std.rp  are annotation, 
+ not part of the data frame
 Warning message:
 In FrF2(32, 14, WPs = 8, nfac.WP = 2, randomize = FALSE) :
   There are fewer factors than needed for a full factorial whole plot design. 1 dummy splitting factor(s) have been introduced.
@@ -1968,77 +1998,78 @@ Classes 'design' and 'data.frame':	14 obs. of  14 variables:
 31     31     8.2.4.2.1    2.2  1  1  1
 32     32     8.2.4.2.2    2.2  1  1  1
 class=design, type= FrF2.blocked 
-NOTE: columns run.no and run.no.std.rp are annotation, not part of the data frame
+NOTE: columns run.no and run.no.std.rp  are annotation, 
+ not part of the data frame
 > set.seed(68702)
 > run.order(FrF2(8,3,blocks=2,bbreps=2,wbreps=2,randomize=TRUE))
    run.no.in.std.order run.no run.no.std.rp
-1                7.1.4      1     7.1.4.1.1
-2                6.1.3      2     6.1.3.1.1
-3                4.1.2      3     4.1.2.1.1
-4                1.1.1      4     1.1.1.1.1
+1                6.1.3      1     6.1.3.1.1
+2                4.1.2      2     4.1.2.1.1
+3                1.1.1      3     1.1.1.1.1
+4                7.1.4      4     7.1.4.1.1
 5                4.1.2      5     4.1.2.1.2
 6                6.1.3      6     6.1.3.1.2
-7                7.1.4      7     7.1.4.1.2
-8                1.1.1      8     1.1.1.1.2
+7                1.1.1      7     1.1.1.1.2
+8                7.1.4      8     7.1.4.1.2
 9                2.2.1      9     2.2.1.1.1
-10               8.2.4     10     8.2.4.1.1
-11               5.2.3     11     5.2.3.1.1
-12               3.2.2     12     3.2.2.1.1
-13               3.2.2     13     3.2.2.1.2
+10               5.2.3     10     5.2.3.1.1
+11               3.2.2     11     3.2.2.1.1
+12               8.2.4     12     8.2.4.1.1
+13               2.2.1     13     2.2.1.1.2
 14               5.2.3     14     5.2.3.1.2
 15               8.2.4     15     8.2.4.1.2
-16               2.2.1     16     2.2.1.1.2
-17               1.1.1     17     1.1.1.2.1
-18               4.1.2     18     4.1.2.2.1
-19               6.1.3     19     6.1.3.2.1
+16               3.2.2     16     3.2.2.1.2
+17               6.1.3     17     6.1.3.2.1
+18               1.1.1     18     1.1.1.2.1
+19               4.1.2     19     4.1.2.2.1
 20               7.1.4     20     7.1.4.2.1
-21               7.1.4     21     7.1.4.2.2
-22               6.1.3     22     6.1.3.2.2
-23               1.1.1     23     1.1.1.2.2
-24               4.1.2     24     4.1.2.2.2
-25               2.2.1     25     2.2.1.2.1
-26               8.2.4     26     8.2.4.2.1
-27               3.2.2     27     3.2.2.2.1
+21               1.1.1     21     1.1.1.2.2
+22               4.1.2     22     4.1.2.2.2
+23               7.1.4     23     7.1.4.2.2
+24               6.1.3     24     6.1.3.2.2
+25               3.2.2     25     3.2.2.2.1
+26               2.2.1     26     2.2.1.2.1
+27               8.2.4     27     8.2.4.2.1
 28               5.2.3     28     5.2.3.2.1
-29               8.2.4     29     8.2.4.2.2
-30               3.2.2     30     3.2.2.2.2
+29               2.2.1     29     2.2.1.2.2
+30               8.2.4     30     8.2.4.2.2
 31               5.2.3     31     5.2.3.2.2
-32               2.2.1     32     2.2.1.2.2
+32               3.2.2     32     3.2.2.2.2
 > set.seed(68702)
 > run.order(FrF2(8,3,blocks=2,bbreps=2,wbreps=2,repeat.only=TRUE,randomize=TRUE))
    run.no.in.std.order run.no run.no.std.rp
-1                7.1.4      1     7.1.4.1.1
-2                7.1.4      2     7.1.4.1.2
-3                6.1.3      3     6.1.3.1.1
-4                6.1.3      4     6.1.3.1.2
-5                4.1.2      5     4.1.2.1.1
-6                4.1.2      6     4.1.2.1.2
-7                1.1.1      7     1.1.1.1.1
-8                1.1.1      8     1.1.1.1.2
+1                6.1.3      1     6.1.3.1.1
+2                6.1.3      2     6.1.3.1.2
+3                4.1.2      3     4.1.2.1.1
+4                4.1.2      4     4.1.2.1.2
+5                1.1.1      5     1.1.1.1.1
+6                1.1.1      6     1.1.1.1.2
+7                7.1.4      7     7.1.4.1.1
+8                7.1.4      8     7.1.4.1.2
 9                3.2.2      9     3.2.2.1.1
 10               3.2.2     10     3.2.2.1.2
 11               5.2.3     11     5.2.3.1.1
 12               5.2.3     12     5.2.3.1.2
-13               8.2.4     13     8.2.4.1.1
-14               8.2.4     14     8.2.4.1.2
-15               2.2.1     15     2.2.1.1.1
-16               2.2.1     16     2.2.1.1.2
+13               2.2.1     13     2.2.1.1.1
+14               2.2.1     14     2.2.1.1.2
+15               8.2.4     15     8.2.4.1.1
+16               8.2.4     16     8.2.4.1.2
 17               1.1.1     17     1.1.1.2.1
 18               1.1.1     18     1.1.1.2.2
-19               7.1.4     19     7.1.4.2.1
-20               7.1.4     20     7.1.4.2.2
-21               6.1.3     21     6.1.3.2.1
-22               6.1.3     22     6.1.3.2.2
-23               4.1.2     23     4.1.2.2.1
-24               4.1.2     24     4.1.2.2.2
-25               3.2.2     25     3.2.2.2.1
-26               3.2.2     26     3.2.2.2.2
+19               6.1.3     19     6.1.3.2.1
+20               6.1.3     20     6.1.3.2.2
+21               4.1.2     21     4.1.2.2.1
+22               4.1.2     22     4.1.2.2.2
+23               7.1.4     23     7.1.4.2.1
+24               7.1.4     24     7.1.4.2.2
+25               2.2.1     25     2.2.1.2.1
+26               2.2.1     26     2.2.1.2.2
 27               5.2.3     27     5.2.3.2.1
 28               5.2.3     28     5.2.3.2.2
 29               8.2.4     29     8.2.4.2.1
 30               8.2.4     30     8.2.4.2.2
-31               2.2.1     31     2.2.1.2.1
-32               2.2.1     32     2.2.1.2.2
+31               3.2.2     31     3.2.2.2.1
+32               3.2.2     32     3.2.2.2.2
 > 
 > ## replications in combination with split plot 
 >   FrF2(32,14,WPs=8,nfac.WP=2,randomize=FALSE, replications=3)
@@ -2163,7 +2194,8 @@ NOTE: columns run.no and run.no.std.rp are annotation, not part of the data fram
 95     95      31.8.3.3 1 1   1  1 -1  1  1  1 -1 -1 -1 -1 -1 -1 -1
 96     96      32.8.4.3 1 1   1  1  1  1  1  1  1  1  1  1  1  1  1
 class=design, type= FrF2.splitplot 
-NOTE: columns run.no and run.no.std.rp are annotation, not part of the data frame
+NOTE: columns run.no and run.no.std.rp  are annotation, 
+ not part of the data frame
 Warning message:
 In FrF2(32, 14, WPs = 8, nfac.WP = 2, randomize = FALSE, replications = 3) :
   There are fewer factors than needed for a full factorial whole plot design. 1 dummy splitting factor(s) have been introduced.
@@ -2289,133 +2321,135 @@ In FrF2(32, 14, WPs = 8, nfac.WP = 2, randomize = FALSE, replications = 3) :
 95     95      31.8.3.3 1 1 1 1 1 1  1 -1  1  1 -1 -1 -1 -1
 96     96      32.8.4.3 1 1 1 1 1 1  1  1  1  1  1  1  1  1
 class=design, type= FrF2.splitplot 
-NOTE: columns run.no and run.no.std.rp are annotation, not part of the data frame
+NOTE: columns run.no and run.no.std.rp  are annotation, 
+ not part of the data frame
 >   set.seed(123451)
 >   FrF2(32,14,WPs=8,nfac.WP=6,replications=3)
-  run.no run.no.std.rp A  B  C  D  E F  G  H  J  K  L  M  N  O
-1      1      18.5.2.1 1 -1 -1 -1 -1 1 -1  1 -1 -1  1  1  1  1
-2      2      20.5.4.1 1 -1 -1 -1 -1 1  1  1  1  1  1  1 -1 -1
-3      3      17.5.1.1 1 -1 -1 -1 -1 1 -1 -1 -1 -1 -1 -1 -1 -1
-4      4      19.5.3.1 1 -1 -1 -1 -1 1  1 -1  1  1 -1 -1  1  1
+  run.no run.no.std.rp  A B  C  D E  F  G  H  J  K  L  M  N  O
+1      1       9.3.1.1 -1 1 -1 -1 1 -1 -1 -1  1  1  1  1  1  1
+2      2      12.3.4.1 -1 1 -1 -1 1 -1  1  1 -1 -1 -1 -1  1  1
+3      3      10.3.2.1 -1 1 -1 -1 1 -1 -1  1  1  1 -1 -1 -1 -1
+4      4      11.3.3.1 -1 1 -1 -1 1 -1  1 -1 -1 -1  1  1 -1 -1
   run.no run.no.std.rp  A  B  C D E F  G  H  J  K  L  M  N  O
 5      5       2.1.2.1 -1 -1 -1 1 1 1 -1  1  1 -1 -1  1  1 -1
-6      6       3.1.3.1 -1 -1 -1 1 1 1  1 -1 -1  1  1 -1  1 -1
-7      7       1.1.1.1 -1 -1 -1 1 1 1 -1 -1  1 -1  1 -1 -1  1
+6      6       1.1.1.1 -1 -1 -1 1 1 1 -1 -1  1 -1  1 -1 -1  1
+7      7       3.1.3.1 -1 -1 -1 1 1 1  1 -1 -1  1  1 -1  1 -1
 8      8       4.1.4.1 -1 -1 -1 1 1 1  1  1 -1  1 -1  1 -1  1
-   run.no run.no.std.rp A B C D E F  G  H  J  K  L  M  N  O
-9       9      32.8.4.1 1 1 1 1 1 1  1  1  1  1  1  1  1  1
-10     10      31.8.3.1 1 1 1 1 1 1  1 -1  1  1 -1 -1 -1 -1
-11     11      30.8.2.1 1 1 1 1 1 1 -1  1 -1 -1  1  1 -1 -1
-12     12      29.8.1.1 1 1 1 1 1 1 -1 -1 -1 -1 -1 -1  1  1
-   run.no run.no.std.rp  A B C  D  E F  G  H  J  K  L  M  N  O
-13     13      13.4.1.1 -1 1 1 -1 -1 1 -1 -1  1 -1  1 -1  1 -1
-14     14      14.4.2.1 -1 1 1 -1 -1 1 -1  1  1 -1 -1  1 -1  1
-15     15      16.4.4.1 -1 1 1 -1 -1 1  1  1 -1  1 -1  1  1 -1
-16     16      15.4.3.1 -1 1 1 -1 -1 1  1 -1 -1  1  1 -1 -1  1
-   run.no run.no.std.rp  A B  C  D E  F  G  H  J  K  L  M  N  O
-17     17      11.3.3.1 -1 1 -1 -1 1 -1  1 -1 -1 -1  1  1 -1 -1
-18     18      10.3.2.1 -1 1 -1 -1 1 -1 -1  1  1  1 -1 -1 -1 -1
-19     19      12.3.4.1 -1 1 -1 -1 1 -1  1  1 -1 -1 -1 -1  1  1
-20     20       9.3.1.1 -1 1 -1 -1 1 -1 -1 -1  1  1  1  1  1  1
-   run.no run.no.std.rp A B  C D  E  F  G  H  J  K  L  M  N  O
-21     21      27.7.3.1 1 1 -1 1 -1 -1  1 -1  1 -1 -1  1 -1  1
-22     22      25.7.1.1 1 1 -1 1 -1 -1 -1 -1 -1  1 -1  1  1 -1
-23     23      28.7.4.1 1 1 -1 1 -1 -1  1  1  1 -1  1 -1  1 -1
-24     24      26.7.2.1 1 1 -1 1 -1 -1 -1  1 -1  1  1 -1 -1  1
-   run.no run.no.std.rp  A  B C D  E  F  G  H  J  K  L  M  N  O
-25     25       8.2.4.1 -1 -1 1 1 -1 -1  1  1 -1 -1 -1 -1 -1 -1
-26     26       7.2.3.1 -1 -1 1 1 -1 -1  1 -1 -1 -1  1  1  1  1
-27     27       5.2.1.1 -1 -1 1 1 -1 -1 -1 -1  1  1  1  1 -1 -1
-28     28       6.2.2.1 -1 -1 1 1 -1 -1 -1  1  1  1 -1 -1  1  1
    run.no run.no.std.rp A  B C  D E  F  G  H  J  K  L  M  N  O
-29     29      21.6.1.1 1 -1 1 -1 1 -1 -1 -1 -1  1 -1  1 -1  1
-30     30      22.6.2.1 1 -1 1 -1 1 -1 -1  1 -1  1  1 -1  1 -1
-31     31      24.6.4.1 1 -1 1 -1 1 -1  1  1  1 -1  1 -1 -1  1
-32     32      23.6.3.1 1 -1 1 -1 1 -1  1 -1  1 -1 -1  1  1 -1
-33     33      22.6.2.2 1 -1 1 -1 1 -1 -1  1 -1  1  1 -1  1 -1
-34     34      21.6.1.2 1 -1 1 -1 1 -1 -1 -1 -1  1 -1  1 -1  1
-35     35      24.6.4.2 1 -1 1 -1 1 -1  1  1  1 -1  1 -1 -1  1
-36     36      23.6.3.2 1 -1 1 -1 1 -1  1 -1  1 -1 -1  1  1 -1
-   run.no run.no.std.rp  A B C  D  E F  G  H  J  K  L  M  N  O
-37     37      15.4.3.2 -1 1 1 -1 -1 1  1 -1 -1  1  1 -1 -1  1
-38     38      16.4.4.2 -1 1 1 -1 -1 1  1  1 -1  1 -1  1  1 -1
-39     39      14.4.2.2 -1 1 1 -1 -1 1 -1  1  1 -1 -1  1 -1  1
-40     40      13.4.1.2 -1 1 1 -1 -1 1 -1 -1  1 -1  1 -1  1 -1
-   run.no run.no.std.rp A B  C D  E  F  G  H  J  K  L  M  N  O
-41     41      28.7.4.2 1 1 -1 1 -1 -1  1  1  1 -1  1 -1  1 -1
-42     42      27.7.3.2 1 1 -1 1 -1 -1  1 -1  1 -1 -1  1 -1  1
-43     43      26.7.2.2 1 1 -1 1 -1 -1 -1  1 -1  1  1 -1 -1  1
-44     44      25.7.1.2 1 1 -1 1 -1 -1 -1 -1 -1  1 -1  1  1 -1
-   run.no run.no.std.rp  A B  C  D E  F  G  H  J  K  L  M  N  O
-45     45       9.3.1.2 -1 1 -1 -1 1 -1 -1 -1  1  1  1  1  1  1
-46     46      10.3.2.2 -1 1 -1 -1 1 -1 -1  1  1  1 -1 -1 -1 -1
-47     47      11.3.3.2 -1 1 -1 -1 1 -1  1 -1 -1 -1  1  1 -1 -1
-48     48      12.3.4.2 -1 1 -1 -1 1 -1  1  1 -1 -1 -1 -1  1  1
-   run.no run.no.std.rp  A  B C D  E  F  G  H  J  K  L  M  N  O
-49     49       7.2.3.2 -1 -1 1 1 -1 -1  1 -1 -1 -1  1  1  1  1
-50     50       5.2.1.2 -1 -1 1 1 -1 -1 -1 -1  1  1  1  1 -1 -1
-51     51       6.2.2.2 -1 -1 1 1 -1 -1 -1  1  1  1 -1 -1  1  1
-52     52       8.2.4.2 -1 -1 1 1 -1 -1  1  1 -1 -1 -1 -1 -1 -1
-   run.no run.no.std.rp A  B  C  D  E F  G  H  J  K  L  M  N  O
-53     53      19.5.3.2 1 -1 -1 -1 -1 1  1 -1  1  1 -1 -1  1  1
-54     54      17.5.1.2 1 -1 -1 -1 -1 1 -1 -1 -1 -1 -1 -1 -1 -1
-55     55      20.5.4.2 1 -1 -1 -1 -1 1  1  1  1  1  1  1 -1 -1
-56     56      18.5.2.2 1 -1 -1 -1 -1 1 -1  1 -1 -1  1  1  1  1
-   run.no run.no.std.rp  A  B  C D E F  G  H  J  K  L  M  N  O
-57     57       2.1.2.2 -1 -1 -1 1 1 1 -1  1  1 -1 -1  1  1 -1
-58     58       1.1.1.2 -1 -1 -1 1 1 1 -1 -1  1 -1  1 -1 -1  1
-59     59       4.1.4.2 -1 -1 -1 1 1 1  1  1 -1  1 -1  1 -1  1
-60     60       3.1.3.2 -1 -1 -1 1 1 1  1 -1 -1  1  1 -1  1 -1
+9       9      21.6.1.1 1 -1 1 -1 1 -1 -1 -1 -1  1 -1  1 -1  1
+10     10      23.6.3.1 1 -1 1 -1 1 -1  1 -1  1 -1 -1  1  1 -1
+11     11      22.6.2.1 1 -1 1 -1 1 -1 -1  1 -1  1  1 -1  1 -1
+12     12      24.6.4.1 1 -1 1 -1 1 -1  1  1  1 -1  1 -1 -1  1
    run.no run.no.std.rp A B C D E F  G  H  J  K  L  M  N  O
-61     61      32.8.4.2 1 1 1 1 1 1  1  1  1  1  1  1  1  1
-62     62      29.8.1.2 1 1 1 1 1 1 -1 -1 -1 -1 -1 -1  1  1
-63     63      30.8.2.2 1 1 1 1 1 1 -1  1 -1 -1  1  1 -1 -1
-64     64      31.8.3.2 1 1 1 1 1 1  1 -1  1  1 -1 -1 -1 -1
+13     13      31.8.3.1 1 1 1 1 1 1  1 -1  1  1 -1 -1 -1 -1
+14     14      32.8.4.1 1 1 1 1 1 1  1  1  1  1  1  1  1  1
+15     15      29.8.1.1 1 1 1 1 1 1 -1 -1 -1 -1 -1 -1  1  1
+16     16      30.8.2.1 1 1 1 1 1 1 -1  1 -1 -1  1  1 -1 -1
+   run.no run.no.std.rp  A  B C D  E  F  G  H  J  K  L  M  N  O
+17     17       8.2.4.1 -1 -1 1 1 -1 -1  1  1 -1 -1 -1 -1 -1 -1
+18     18       5.2.1.1 -1 -1 1 1 -1 -1 -1 -1  1  1  1  1 -1 -1
+19     19       6.2.2.1 -1 -1 1 1 -1 -1 -1  1  1  1 -1 -1  1  1
+20     20       7.2.3.1 -1 -1 1 1 -1 -1  1 -1 -1 -1  1  1  1  1
+   run.no run.no.std.rp A B  C D  E  F  G  H  J  K  L  M  N  O
+21     21      25.7.1.1 1 1 -1 1 -1 -1 -1 -1 -1  1 -1  1  1 -1
+22     22      27.7.3.1 1 1 -1 1 -1 -1  1 -1  1 -1 -1  1 -1  1
+23     23      26.7.2.1 1 1 -1 1 -1 -1 -1  1 -1  1  1 -1 -1  1
+24     24      28.7.4.1 1 1 -1 1 -1 -1  1  1  1 -1  1 -1  1 -1
+   run.no run.no.std.rp A  B  C  D  E F  G  H  J  K  L  M  N  O
+25     25      20.5.4.1 1 -1 -1 -1 -1 1  1  1  1  1  1  1 -1 -1
+26     26      19.5.3.1 1 -1 -1 -1 -1 1  1 -1  1  1 -1 -1  1  1
+27     27      18.5.2.1 1 -1 -1 -1 -1 1 -1  1 -1 -1  1  1  1  1
+28     28      17.5.1.1 1 -1 -1 -1 -1 1 -1 -1 -1 -1 -1 -1 -1 -1
+   run.no run.no.std.rp  A B C  D  E F  G  H  J  K  L  M  N  O
+29     29      14.4.2.1 -1 1 1 -1 -1 1 -1  1  1 -1 -1  1 -1  1
+30     30      16.4.4.1 -1 1 1 -1 -1 1  1  1 -1  1 -1  1  1 -1
+31     31      15.4.3.1 -1 1 1 -1 -1 1  1 -1 -1  1  1 -1 -1  1
+32     32      13.4.1.1 -1 1 1 -1 -1 1 -1 -1  1 -1  1 -1  1 -1
+   run.no run.no.std.rp A  B  C  D  E F  G  H  J  K  L  M  N  O
+33     33      20.5.4.2 1 -1 -1 -1 -1 1  1  1  1  1  1  1 -1 -1
+34     34      19.5.3.2 1 -1 -1 -1 -1 1  1 -1  1  1 -1 -1  1  1
+35     35      18.5.2.2 1 -1 -1 -1 -1 1 -1  1 -1 -1  1  1  1  1
+36     36      17.5.1.2 1 -1 -1 -1 -1 1 -1 -1 -1 -1 -1 -1 -1 -1
+   run.no run.no.std.rp  A  B C D  E  F  G  H  J  K  L  M  N  O
+37     37       6.2.2.2 -1 -1 1 1 -1 -1 -1  1  1  1 -1 -1  1  1
+38     38       7.2.3.2 -1 -1 1 1 -1 -1  1 -1 -1 -1  1  1  1  1
+39     39       8.2.4.2 -1 -1 1 1 -1 -1  1  1 -1 -1 -1 -1 -1 -1
+40     40       5.2.1.2 -1 -1 1 1 -1 -1 -1 -1  1  1  1  1 -1 -1
+   run.no run.no.std.rp  A B  C  D E  F  G  H  J  K  L  M  N  O
+41     41      12.3.4.2 -1 1 -1 -1 1 -1  1  1 -1 -1 -1 -1  1  1
+42     42      10.3.2.2 -1 1 -1 -1 1 -1 -1  1  1  1 -1 -1 -1 -1
+43     43       9.3.1.2 -1 1 -1 -1 1 -1 -1 -1  1  1  1  1  1  1
+44     44      11.3.3.2 -1 1 -1 -1 1 -1  1 -1 -1 -1  1  1 -1 -1
+   run.no run.no.std.rp  A B C  D  E F  G  H  J  K  L  M  N  O
+45     45      14.4.2.2 -1 1 1 -1 -1 1 -1  1  1 -1 -1  1 -1  1
+46     46      13.4.1.2 -1 1 1 -1 -1 1 -1 -1  1 -1  1 -1  1 -1
+47     47      15.4.3.2 -1 1 1 -1 -1 1  1 -1 -1  1  1 -1 -1  1
+48     48      16.4.4.2 -1 1 1 -1 -1 1  1  1 -1  1 -1  1  1 -1
    run.no run.no.std.rp A  B C  D E  F  G  H  J  K  L  M  N  O
-65     65      23.6.3.3 1 -1 1 -1 1 -1  1 -1  1 -1 -1  1  1 -1
-66     66      22.6.2.3 1 -1 1 -1 1 -1 -1  1 -1  1  1 -1  1 -1
-67     67      21.6.1.3 1 -1 1 -1 1 -1 -1 -1 -1  1 -1  1 -1  1
-68     68      24.6.4.3 1 -1 1 -1 1 -1  1  1  1 -1  1 -1 -1  1
-   run.no run.no.std.rp  A B C  D  E F  G  H  J  K  L  M  N  O
-69     69      14.4.2.3 -1 1 1 -1 -1 1 -1  1  1 -1 -1  1 -1  1
-70     70      13.4.1.3 -1 1 1 -1 -1 1 -1 -1  1 -1  1 -1  1 -1
-71     71      16.4.4.3 -1 1 1 -1 -1 1  1  1 -1  1 -1  1  1 -1
-72     72      15.4.3.3 -1 1 1 -1 -1 1  1 -1 -1  1  1 -1 -1  1
-   run.no run.no.std.rp A B  C D  E  F  G  H  J  K  L  M  N  O
-73     73      26.7.2.3 1 1 -1 1 -1 -1 -1  1 -1  1  1 -1 -1  1
-74     74      27.7.3.3 1 1 -1 1 -1 -1  1 -1  1 -1 -1  1 -1  1
-75     75      25.7.1.3 1 1 -1 1 -1 -1 -1 -1 -1  1 -1  1  1 -1
-76     76      28.7.4.3 1 1 -1 1 -1 -1  1  1  1 -1  1 -1  1 -1
-   run.no run.no.std.rp A  B  C  D  E F  G  H  J  K  L  M  N  O
-77     77      17.5.1.3 1 -1 -1 -1 -1 1 -1 -1 -1 -1 -1 -1 -1 -1
-78     78      18.5.2.3 1 -1 -1 -1 -1 1 -1  1 -1 -1  1  1  1  1
-79     79      20.5.4.3 1 -1 -1 -1 -1 1  1  1  1  1  1  1 -1 -1
-80     80      19.5.3.3 1 -1 -1 -1 -1 1  1 -1  1  1 -1 -1  1  1
-   run.no run.no.std.rp  A  B C D  E  F  G  H  J  K  L  M  N  O
-81     81       6.2.2.3 -1 -1 1 1 -1 -1 -1  1  1  1 -1 -1  1  1
-82     82       8.2.4.3 -1 -1 1 1 -1 -1  1  1 -1 -1 -1 -1 -1 -1
-83     83       5.2.1.3 -1 -1 1 1 -1 -1 -1 -1  1  1  1  1 -1 -1
-84     84       7.2.3.3 -1 -1 1 1 -1 -1  1 -1 -1 -1  1  1  1  1
+49     49      24.6.4.2 1 -1 1 -1 1 -1  1  1  1 -1  1 -1 -1  1
+50     50      23.6.3.2 1 -1 1 -1 1 -1  1 -1  1 -1 -1  1  1 -1
+51     51      21.6.1.2 1 -1 1 -1 1 -1 -1 -1 -1  1 -1  1 -1  1
+52     52      22.6.2.2 1 -1 1 -1 1 -1 -1  1 -1  1  1 -1  1 -1
    run.no run.no.std.rp  A  B  C D E F  G  H  J  K  L  M  N  O
-85     85       4.1.4.3 -1 -1 -1 1 1 1  1  1 -1  1 -1  1 -1  1
-86     86       1.1.1.3 -1 -1 -1 1 1 1 -1 -1  1 -1  1 -1 -1  1
-87     87       3.1.3.3 -1 -1 -1 1 1 1  1 -1 -1  1  1 -1  1 -1
-88     88       2.1.2.3 -1 -1 -1 1 1 1 -1  1  1 -1 -1  1  1 -1
-   run.no run.no.std.rp  A B  C  D E  F  G  H  J  K  L  M  N  O
-89     89      11.3.3.3 -1 1 -1 -1 1 -1  1 -1 -1 -1  1  1 -1 -1
-90     90       9.3.1.3 -1 1 -1 -1 1 -1 -1 -1  1  1  1  1  1  1
-91     91      12.3.4.3 -1 1 -1 -1 1 -1  1  1 -1 -1 -1 -1  1  1
-92     92      10.3.2.3 -1 1 -1 -1 1 -1 -1  1  1  1 -1 -1 -1 -1
+53     53       2.1.2.2 -1 -1 -1 1 1 1 -1  1  1 -1 -1  1  1 -1
+54     54       3.1.3.2 -1 -1 -1 1 1 1  1 -1 -1  1  1 -1  1 -1
+55     55       4.1.4.2 -1 -1 -1 1 1 1  1  1 -1  1 -1  1 -1  1
+56     56       1.1.1.2 -1 -1 -1 1 1 1 -1 -1  1 -1  1 -1 -1  1
+   run.no run.no.std.rp A B  C D  E  F  G  H  J  K  L  M  N  O
+57     57      26.7.2.2 1 1 -1 1 -1 -1 -1  1 -1  1  1 -1 -1  1
+58     58      28.7.4.2 1 1 -1 1 -1 -1  1  1  1 -1  1 -1  1 -1
+59     59      25.7.1.2 1 1 -1 1 -1 -1 -1 -1 -1  1 -1  1  1 -1
+60     60      27.7.3.2 1 1 -1 1 -1 -1  1 -1  1 -1 -1  1 -1  1
    run.no run.no.std.rp A B C D E F  G  H  J  K  L  M  N  O
-93     93      31.8.3.3 1 1 1 1 1 1  1 -1  1  1 -1 -1 -1 -1
-94     94      30.8.2.3 1 1 1 1 1 1 -1  1 -1 -1  1  1 -1 -1
-95     95      32.8.4.3 1 1 1 1 1 1  1  1  1  1  1  1  1  1
-96     96      29.8.1.3 1 1 1 1 1 1 -1 -1 -1 -1 -1 -1  1  1
+61     61      30.8.2.2 1 1 1 1 1 1 -1  1 -1 -1  1  1 -1 -1
+62     62      32.8.4.2 1 1 1 1 1 1  1  1  1  1  1  1  1  1
+63     63      31.8.3.2 1 1 1 1 1 1  1 -1  1  1 -1 -1 -1 -1
+64     64      29.8.1.2 1 1 1 1 1 1 -1 -1 -1 -1 -1 -1  1  1
+65     65      32.8.4.3 1 1 1 1 1 1  1  1  1  1  1  1  1  1
+66     66      30.8.2.3 1 1 1 1 1 1 -1  1 -1 -1  1  1 -1 -1
+67     67      29.8.1.3 1 1 1 1 1 1 -1 -1 -1 -1 -1 -1  1  1
+68     68      31.8.3.3 1 1 1 1 1 1  1 -1  1  1 -1 -1 -1 -1
+   run.no run.no.std.rp  A  B  C D E F  G  H  J  K  L  M  N  O
+69     69       1.1.1.3 -1 -1 -1 1 1 1 -1 -1  1 -1  1 -1 -1  1
+70     70       3.1.3.3 -1 -1 -1 1 1 1  1 -1 -1  1  1 -1  1 -1
+71     71       4.1.4.3 -1 -1 -1 1 1 1  1  1 -1  1 -1  1 -1  1
+72     72       2.1.2.3 -1 -1 -1 1 1 1 -1  1  1 -1 -1  1  1 -1
+   run.no run.no.std.rp  A  B C D  E  F  G  H  J  K  L  M  N  O
+73     73       8.2.4.3 -1 -1 1 1 -1 -1  1  1 -1 -1 -1 -1 -1 -1
+74     74       6.2.2.3 -1 -1 1 1 -1 -1 -1  1  1  1 -1 -1  1  1
+75     75       7.2.3.3 -1 -1 1 1 -1 -1  1 -1 -1 -1  1  1  1  1
+76     76       5.2.1.3 -1 -1 1 1 -1 -1 -1 -1  1  1  1  1 -1 -1
+   run.no run.no.std.rp A  B C  D E  F  G  H  J  K  L  M  N  O
+77     77      21.6.1.3 1 -1 1 -1 1 -1 -1 -1 -1  1 -1  1 -1  1
+78     78      23.6.3.3 1 -1 1 -1 1 -1  1 -1  1 -1 -1  1  1 -1
+79     79      22.6.2.3 1 -1 1 -1 1 -1 -1  1 -1  1  1 -1  1 -1
+80     80      24.6.4.3 1 -1 1 -1 1 -1  1  1  1 -1  1 -1 -1  1
+   run.no run.no.std.rp A B  C D  E  F  G  H  J  K  L  M  N  O
+81     81      27.7.3.3 1 1 -1 1 -1 -1  1 -1  1 -1 -1  1 -1  1
+82     82      25.7.1.3 1 1 -1 1 -1 -1 -1 -1 -1  1 -1  1  1 -1
+83     83      28.7.4.3 1 1 -1 1 -1 -1  1  1  1 -1  1 -1  1 -1
+84     84      26.7.2.3 1 1 -1 1 -1 -1 -1  1 -1  1  1 -1 -1  1
+   run.no run.no.std.rp  A B  C  D E  F  G  H  J  K  L  M  N  O
+85     85      11.3.3.3 -1 1 -1 -1 1 -1  1 -1 -1 -1  1  1 -1 -1
+86     86       9.3.1.3 -1 1 -1 -1 1 -1 -1 -1  1  1  1  1  1  1
+87     87      10.3.2.3 -1 1 -1 -1 1 -1 -1  1  1  1 -1 -1 -1 -1
+88     88      12.3.4.3 -1 1 -1 -1 1 -1  1  1 -1 -1 -1 -1  1  1
+   run.no run.no.std.rp  A B C  D  E F  G  H  J  K  L  M  N  O
+89     89      14.4.2.3 -1 1 1 -1 -1 1 -1  1  1 -1 -1  1 -1  1
+90     90      13.4.1.3 -1 1 1 -1 -1 1 -1 -1  1 -1  1 -1  1 -1
+91     91      16.4.4.3 -1 1 1 -1 -1 1  1  1 -1  1 -1  1  1 -1
+92     92      15.4.3.3 -1 1 1 -1 -1 1  1 -1 -1  1  1 -1 -1  1
+   run.no run.no.std.rp A  B  C  D  E F  G  H  J  K  L  M  N  O
+93     93      19.5.3.3 1 -1 -1 -1 -1 1  1 -1  1  1 -1 -1  1  1
+94     94      18.5.2.3 1 -1 -1 -1 -1 1 -1  1 -1 -1  1  1  1  1
+95     95      20.5.4.3 1 -1 -1 -1 -1 1  1  1  1  1  1  1 -1 -1
+96     96      17.5.1.3 1 -1 -1 -1 -1 1 -1 -1 -1 -1 -1 -1 -1 -1
 class=design, type= FrF2.splitplot 
-NOTE: columns run.no and run.no.std.rp are annotation, not part of the data frame
+NOTE: columns run.no and run.no.std.rp  are annotation, 
+ not part of the data frame
 > 
 > ## generators in combination!!!
 > 
 > proc.time()
    user  system elapsed 
-  33.85    2.03   37.26 
+   9.37    0.29    9.79 

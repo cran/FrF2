@@ -71,7 +71,17 @@ pb.list
        \code{repeat.only=FALSE}, i.e. the complete experiment 
        is conducted in \code{replications} blocks, and each run occurs in each block. }
   \item{randomize}{ logical. If TRUE, the design is randomized. This is the default. }
-  \item{seed}{ optional seed for the randomization process }
+  \item{seed}{ optional seed for the randomization process \cr
+        In R version 3.6.0 and later, the default behavior of function \code{\link{sample}}
+        has changed. If you work in a new (i.e., >= 3.6.-0) R version and want to reproduce 
+        a randomized design from an earlier R version (before 3.6.0), 
+        you have to change the RNGkind setting by\cr
+        \code{RNGkind(sample.kind="Rounding")}\cr
+        before running function \code{pb}.\cr
+        It is recommended to change the setting back to the new recommended way afterwards:\cr
+        \code{RNGkind(sample.kind="default")}\cr
+        For an example, see the documentation of the example data set \code{\link[DoE.base]{VSGFS}}.
+        }
   \item{oldver}{ logical. If \code{TRUE}, the column ordering from 
        package versions 1.0-5 to 1.2.10 is used. This affects designs in 
        40, 52, 56, 64, 76, 92, 96 and 100 runs. 
@@ -179,6 +189,12 @@ pb.list
   Department of Mathematical Sciences, The Norwegian University of Science and Technology, Norway}.  
   
   Williamson, J. (1946) Determinants whose elements are 0 and 1. \emph{American Mathematical Monthly} \bold{53}, 427-434.
+}
+\section{Warning}{
+   Since R version 3.6.0, the behavior of function \code{\link{sample}} has changed 
+   (correction of a biased previous behavior that should not be relevant for the randomization of designs). 
+   For reproducing a randomized design that was produced with an earlier R version, 
+   please follow the steps described with the argument \code{seed}.
 }
 \author{ Ulrike Groemping }
 
