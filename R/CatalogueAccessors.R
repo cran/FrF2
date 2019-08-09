@@ -28,6 +28,17 @@ dominating <- function(catlg) UseMethod("dominating")
 #WLP.default <- function(catlg) stop(gettext("WLP works on class catlg objects only"))
 #dominating.default <- function(catlg) stop(gettext("dominating works on class catlg objects only"))
 
+## define character string methods
+res.character <- function(catlg) res(FrF2::catlg[catlg])
+nclear.2fis.character <- function(catlg) nclear.2fis(FrF2::catlg[catlg])
+clear.2fis.character <- function(catlg) clear.2fis(FrF2::catlg[catlg])
+#all.2fis.clear.character <- function(catlg) all.2fis.clear(FrF2::catlg[catlg])
+# not made generic because of conflict with generic all
+nfac.character <- function(catlg) nfac(FrF2::catlg[catlg])
+nruns.character <- function(catlg) nruns(FrF2::catlg[catlg])
+WLP.character <- function(catlg) WLP(FrF2::catlg[catlg])
+dominating.character <- function(catlg) dominating(FrF2::catlg[catlg])
+
 res.catlg <- function(catlg) sapply(catlg, function(obj) obj$res)
 nclear.2fis.catlg <- function(catlg) sapply(catlg, function(obj) obj$nclear.2fis)
 clear.2fis.catlg <- function(catlg) lapply(catlg, function(obj) obj$clear.2fis)

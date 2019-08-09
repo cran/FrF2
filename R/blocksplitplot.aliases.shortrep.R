@@ -1,5 +1,7 @@
 ## utility functions in support of valid and readable 
 ## alias info in the summary for block and splitplot designs
+## old versions (before FrF2 2.0) at the top
+## new versions at the bottom of the file
 
 recalc.alias.block <- function(dia,leg){
 ## dia is the aliased element of a blocked or split plot design without the legend element
@@ -53,4 +55,48 @@ struc.aliased <- function(struc, nk, order){
         else aus <- list(main = sort(struc[wme]), fi2 = sort(struc[wme2]), 
             fi3 = sort(struc[wme3]))
     aus
+}
+
+recalc.alias.block.new <- function (dia, leg) 
+{
+  ## dia was in factor names before aliases was replaced by blockfull
+  ## now remove ":" only
+  ## leg is not needed here any more
+  ## blockfull so far only treats up to 50 factors
+  ## 30 July 2019
+  if (is.list(dia)){ 
+    return(unname(sapply(dia, function(obj){
+      obj <- gsub(":","", obj)
+      paste(obj, collapse="=")
+    })))
+  }
+  else return(gsub(":", "", dia))
+}
+
+struc.aliased.new <- function (struc, nk, order) 
+{
+  ## struc is the outcome of recalc.alias.block.new
+  if (nk <= 50) {
+    wme <- grep("^[[:alpha:]]=[[:alpha:][:punct:]]*", 
+                struc)
+    wme2 <- grep("^[[:alpha:]]{2}=[[:alpha:][:punct:]]*", 
+                 struc)
+    if (order == 3) 
+      wme3 <- grep("^[[:alpha:]]{3}=[[:alpha:][:punct:]]*", 
+                   struc)
+  }
+  else {
+    wme <- grep("^F[[:digit:]]+=F[[:digit:][:punct:]]*", 
+                struc)
+    wme2 <- grep("^F[[:digit:]]+:F[[:digit:]]+=F[[:digit:][:punct:]]*", 
+                 struc)
+    if (order == 3) 
+      wme3 <- grep("^F[[:digit:]]+:F[[:digit:]]+:F[[:digit:]]+=F[[:digit:][:punct:]]*", 
+                   struc)
+  }
+  if (order == 2) 
+    aus <- list(main = sort(struc[wme]), fi2 = sort(struc[wme2]))
+  else aus <- list(main = sort(struc[wme]), fi2 = sort(struc[wme2]), 
+                   fi3 = sort(struc[wme3]))
+  aus
 }

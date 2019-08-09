@@ -121,7 +121,7 @@ function (fit, code = FALSE, autolab = TRUE, alpha=0.05,
         pch = pch, xlab = xlab, ylab = ylab, cex=cex.pch, cex.lab = cex.lab, 
         mgp=c(2,1,0), main = main, ...)
     ## at the top below main title, mainly for warning in case of split-plot
-    if (!is.null(subtitle)) mtext(subtitle)
+    if (!is.null(subtitle)) mtext(subtitle, cex=cex.lab)  ## added cex.lab July 2019
     if (is.null(faclab)) {
         if (!code) {
             effect.code <- labx
@@ -178,26 +178,28 @@ function (fit, code = FALSE, autolab = TRUE, alpha=0.05,
                   max.order, factor.code, factor.label)
             }
         }
+        ## changed text position to be farther from the points July 2019
         if (autolab){ 
                faclab <- list(idx = which(crit<=abs(factor.effects)),
                   lab = effect.code[which(crit<=abs(factor.effects))])
                if (length(faclab$idx) > 0)
-               text(as.data.frame(tn)[faclab$idx,], paste(" ", faclab$lab), cex = cex.fac, adj = 0, 
+               text(as.data.frame(tn)[faclab$idx,], paste(" ", faclab$lab), cex = cex.fac, pos = 4, 
                   xpd = NA)
            }
         else
-        text(tn, paste("   ", effect.code), cex = cex.fac, adj = 0, 
+        text(tn, paste("   ", effect.code), cex = cex.fac, pos=4, 
             xpd = NA)
     }
     else {
         if (!is.list(faclab)) 
             stop("* Argument 'faclab' has to be NULL or a list with idx and lab objects")
         if (length(faclab$lab)>0) text(tn$x[faclab$idx], tn$y[faclab$idx], labels = faclab$lab, 
-            cex = cex.fac, adj = 0)
+            cex = cex.fac, pos=4)
     }
     if (!length(pch)==length(factor.effects)) pchs <- rep(pch, length(factor.effects))
     if (code) aus <- cbind(as.data.frame(tn), no = 1:length(tn$x), effect=names(factor.effects), coded=effect.code, pchs=pch)
       else aus <- cbind(as.data.frame(tn), no = 1:length(tn$x), effect=names(factor.effects), pchs=pch)
+    aus$effect <- as.character(aus$effect)
     invisible(aus)
 }
 

@@ -11,14 +11,14 @@
   one. 
 }
 \usage{
-CIG(design, select.catlg=catlg, static=FALSE, layout=layout.auto, label="num", 
-   plot=TRUE, ...)
-CIGstatic(graph, id, label="num", xlim=c(-1,1), ylim=c(1,-1), ...)
+CIG(design, select.catlg = catlg, nfac = NULL, static = FALSE, 
+   layout = layout.auto, label = "num", plot = TRUE, ...)
+CIGstatic(graph, id, label = "num", xlim = c(-1,1), ylim = c(1,-1), ...)
 gen2CIG(nruns, gen)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{design}{a character string that identifies a design in the cataloge specified 
+  \item{design}{a character string that identifies a design in the catalogue specified 
        by option \code{select.catlg}, \cr
        OR a class \code{catlg} object with a single entry, \cr
        OR a formula with all main effects and the requested clear 2-factor 
@@ -31,10 +31,11 @@ gen2CIG(nruns, gen)
        interactions.\cr
        The first two are for graphing design CIGs, the other ones for requirement 
        set CIGs.}
-  \item{\dots}{further arguments to be passed to function \code{\link[igraph]{tkplot}}, 
-      or graphical parameters to be passed to \code{plot}.}
   \item{select.catlg}{name of catalogue (not in quotes); 
         only relevant, if \code{design} is a character string}
+  \item{nfac}{number of factors; this is not needed for a class \code{catlg} object, 
+       or if the graph is supposed to show only factors that are involved 
+       in at least one interaction}
   \item{static}{logical. If \code{TRUE}, a static graphic is produced, 
         otherwise an interactive graphic is created that can be modified 
         by moving aroung nodes; only relevant for \code{plot=TRUE}}
@@ -58,6 +59,8 @@ gen2CIG(nruns, gen)
         \code{\link[igraph:cliques]{largest.cliques}}, 
         \code{\link[igraph:independent.vertex.sets]{independence.number}},
         \code{\link[igraph:degree]{degree}}) }
+  \item{\dots}{further arguments to be passed to function \code{\link[igraph]{tkplot}}, 
+      or graphical parameters to be passed to \code{plot}.}
   \item{graph}{a graph object from package \code{igraph}, or a list whose first 
         element is such a graph object (like the output from function \code{CIG})}
   \item{id}{identification number of the interactive graph to be reproduced in 

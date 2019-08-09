@@ -21,8 +21,10 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
         perm.start=NULL, perms = NULL, 
         MaxC2 = FALSE, replications = 1, repeat.only = FALSE, 
         randomize = TRUE, seed = NULL, alias.info = 2, 
-        blocks = 1, block.name = "Blocks", bbreps=replications, wbreps=1, 
-        alias.block.2fis = FALSE, hard = NULL, check.hard=10, WPs=1,nfac.WP=0,
+        blocks = 1, block.name = "Blocks", block.old=FALSE, 
+        bbreps=replications, wbreps=1, 
+        alias.block.2fis = FALSE, 
+        hard = NULL, check.hard=10, WPs=1,nfac.WP=0,
         WPfacs=NULL, check.WPs = 10, ...)
 FrF2.currentlychecked()
 }
@@ -180,7 +182,7 @@ FrF2.currentlychecked()
         which was the only available algorithm before version 1.7 of package FrF2. 
         The alternative \code{"LAD"} uses the LAD algorithm by Solnon (2010), which was 
         reported to be substantially faster than VF2 especially for some notoriously 
-        difficult VF2 cases (see Grömping 2014b).         
+        difficult VF2 cases (see Gr?mping 2014b).         
         This option is relevant for \code{estimable} with \code{clear=TRUE} only.\cr
         NOTE: The resulting design may be different for different settings of this option!}
   \item{sort}{ character string indicating how the estimability requirement and the 
@@ -279,14 +281,15 @@ FrF2.currentlychecked()
        \item that no negative signs are allowed. }
        
        If \code{blocks} is a single number, it must be a power of 2. 
-       A blocked design can have at most \code{nruns-blocks} treatment 
+       A blocked design can have at most \code{nruns-blocks-1} treatment 
        factors, but should usually have fewer than that. \cr
        
-       If the experiment is randomized, randomization happens within blocks. \cr
+       If the experiment is randomized, randomization happens within blocks. In case of many blocks, units should also be randomized to blocks wherever possible! \cr
        
        For the statistical and algorithmic background of blocked designs, see \code{\link{block}}.
        }
   \item{block.name}{ name of the block factor, default \dQuote{Blocks}}
+  \item{block.old}{logical; if TRUE, blocking behavior of FrF2 version 1.7.2 is activated}
   \item{bbreps}{ between block replications; these are always taken as genuine replications, 
        not repeat runs; default: equal to \code{replications};
        CAUTION: you should not modify \code{bbreps} if you do not work with blocks, 
@@ -295,9 +298,10 @@ FrF2.currentlychecked()
        depends on the setting of \code{repeat.only}}
   \item{alias.block.2fis}{ logical indicating whether blocks may be aliased 
        with 2fis (default: \code{FALSE}); \cr
-       the option is effective only for automatic block assignment (cf. \code{\link{block}});\cr 
        it will often be necessary to modify this option, because there is otherwise no solution.\cr 
-       CAUTION: If \code{alias.block.2fis=TRUE}, no effort is made to avoid aliasing 
+       CAUTION: If \code{alias.block.2fis=TRUE} and the design is relatively small 
+       (i.e. not with the Godolphin 2019 method), 
+       no effort is made to avoid aliasing 
        of 2fis with block main effects, even if complete de-aliasing were possible.}
   \item{hard}{ gives the number of hard to change factors. These must be the 
        first factors in \code{factor.names}. Implementation is via a non-randomized split-plot 
@@ -431,13 +435,18 @@ FrF2.currentlychecked()
        different from the usual order with the first base factor changing \emph{fastest}. 
        Also note that the run number in standard order may not refer to 
        the base columns one would naturally expect for designs created with blocking,  
-       estimable 2fis or split plot designs; the elements \code{map} for and/or  
+       estimable 2fis or split plot designs; the elements \code{map} and/or  
        \code{orig.fac.order} of the attribute \code{design.info} help identify 
        which base factors drive the run number in standard order.
        (In case of option \code{hard=TRUE}, the remark on split plot designs applies, 
        and the numbering refers to the special slow change matrix from 
        Cheng et al. 1998.)\cr
-       For blocked designs created internally with function \code{blockpick.big}, 
+       Before version 2 of package FrF2, blocking for large situations was internally 
+       done with function \code{blockpick.big}. This behavior can be reproduced 
+       using the argument \code{block.old=TRUE}; if blocking for a large design is 
+       not successful otherwise, \code{block.old=TRUE} might be worth a try. 
+       For blocked designs created internally with 
+       function \code{blockpick.big}, 
        the run number in standard order is not easily related to the final 
        design.}
   \item{design.info}{list with the entries 
@@ -563,6 +572,8 @@ An improved algorithm for matching large graphs. \emph{Proc. of the 3rd
 IAPR TC-15 Workshop on Graphbased Representations in Pattern Recognition},
 149--159.
 
+Godolphin, J. (2019). Construction of blocked factorial designs to estimate main effects and selected two-factor interactions. \url{https://arxiv.org/abs/1907.02373}
+
 Groemping, U. (2012). Creating clear designs: a graph-based algorithm and a 
 catalogue of clear compromise plans. \emph{IIE Transactions} \bold{44}, 988--1001.
 Preprint available at \url{http://www1.beuth-hochschule.de/FB_II/reports/Report-2010-005.pdf}. 
@@ -681,6 +692,8 @@ FrF2(16,7,blocks=4,alias.block.2fis=TRUE,factor.names=c("MotorSpeed",
 ## isomorphic non-catalogued design as basis
 FrF2(16,gen=c(7,11,14),blocks=4,alias.block.2fis=TRUE)
 ## FrF2 uses blockpick.big and ignores the generator
+FrF2(64,gen=c(7,11,14),blocks=16,alias.block.2fis=TRUE, block.old=TRUE)
+## FrF2 uses Godolphin approach
 FrF2(64,gen=c(7,11,14),blocks=16,alias.block.2fis=TRUE)
 
 ########## manual blocked design ####################

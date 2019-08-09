@@ -17,6 +17,14 @@
 \alias{clear.2fis.catlg}
 \alias{all.2fis.clear.catlg}
 \alias{dominating.catlg}
+\alias{res.character}
+\alias{nruns.character}
+\alias{nfac.character}
+\alias{WLP.character}
+\alias{nclear.2fis.character}
+\alias{clear.2fis.character}
+\alias{all.2fis.clear.character}
+\alias{dominating.character}
 \alias{catlg}
 \alias{block.catlg}
 %- Also NEED an '\alias' for EACH other topic documented here.
@@ -27,20 +35,27 @@
 \usage{
 res(catlg)
 \method{res}{catlg}(catlg)
+\method{res}{character}(catlg)
 nruns(catlg)
 \method{nruns}{catlg}(catlg)
+\method{nruns}{character}(catlg)
 nfac(catlg)
 \method{nfac}{catlg}(catlg)
+\method{nfac}{character}(catlg)
 WLP(catlg)
 \method{WLP}{catlg}(catlg)
+\method{WLP}{character}(catlg)
 nclear.2fis(catlg)
 \method{nclear.2fis}{catlg}(catlg)
+\method{nclear.2fis}{character}(catlg)
 clear.2fis(catlg)
 \method{clear.2fis}{catlg}(catlg)
+\method{clear.2fis}{character}(catlg)
 all.2fis.clear.catlg(catlg)
 %\method{all.2fis.clear}{catlg}(catlg)
 dominating(catlg)
 \method{dominating}{catlg}(catlg)
+\method{dominating}{character}(catlg)
 catlg
 \method{[}{catlg}(catlg,i)
 \method{print}{catlg}(x, name="all", nruns="all", nfactors="all", 
@@ -50,7 +65,7 @@ block.catlg
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{catlg}{ Catalogue of designs of class \code{catlg} (cf. details section)}
+  \item{catlg}{ Catalogue of designs of class \code{catlg} (cf. details section), or character vector with name(s) of \code{catlg} element(s) in case of accessor functions}
   \item{i}{ vector of index positions or logical vector that can be used for indexing a \code{catlg} object }
   \item{x}{ an object of class \code{catlg} }
   \item{name}{ character vector of entry names from \code{x}; default \dQuote{all} means: no selection made }
@@ -242,6 +257,9 @@ c8 <- catlg[nruns(catlg)==8]
 nclear.2fis(c8)
 clear.2fis(c8)
 all.2fis.clear.catlg(c8)
+
+## inspecting a specific catalogue element
+clear.2fis("9-4.2")
 
 ## usage of print function for inspecting catalogued designs
 ## the first 10 resolution V+ designs in catalogue catlg

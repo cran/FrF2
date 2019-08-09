@@ -1,6 +1,6 @@
 require(FrF2)
 set.seed(3456)
-planblock1 <- FrF2(32,7,blocks=list(c(1,2,3),c(2,4,5),c(3,6,7)), alias.block.2fi=TRUE)
+planblock1 <- FrF2(32,7,blocks=c("AB","AF","CD"), alias.block.2fi=TRUE)
 set.seed(3456)
 planblock2 <- FrF2(32,7,blocks=8, alias.block.2fi=TRUE)
 set.seed(3456)

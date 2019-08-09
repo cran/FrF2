@@ -1,4 +1,4 @@
-CIG <- function (design, select.catlg = catlg, static = FALSE, layout = layout.auto,
+CIG <- function (design, select.catlg = catlg, nfac=NULL, static = FALSE, layout = layout.auto,
     label = "num", plot = TRUE, ...)
 {
 
@@ -16,7 +16,8 @@ CIG <- function (design, select.catlg = catlg, static = FALSE, layout = layout.a
         design <- design[[1]]
     }
     else {
-        if (is.matrix(design) || (is.character(design) & length(design)>1) || is(design,"formula")){
+        if (is.matrix(design) || (is.character(design) & length(design)>1) || 
+            is(design,"formula")){
         ## Formel
         if (is(design,"formula")){
             fn <- row.names(attr(terms(formula(design)), "factors"))
@@ -26,20 +27,31 @@ CIG <- function (design, select.catlg = catlg, static = FALSE, layout = layout.a
              else if (!length(vertex.label)==length(fn)) warning("vertex.label has wrong length")
             design$res <- 4
         } 
-        ## character or numeric two-row matrix, or character vector with elements from Letters
+        ## character or numeric two-row matrix, 
+        ## or character vector with elements from Letters
         if (is.matrix(design)){
              if (!nrow(design)==2) stop("matrix design must have two rows.")
-             if (any (design[1,]==design[2,])) stop("entries in the same column of matrix design must be different")
-             fn <- names(table(design))
+             if (any (design[1,]==design[2,])) 
+               stop("entries in the same column of matrix design must be different")
+             fn <- unique(design)
+             if (!is.null(nfac) && all(fn %in% 1:nfac)) fn <- 1:nfac
              if (!exists("vertex.label", inherits=FALSE))  vertex.label <- fn
-             else if (!length(vertex.label)==length(fn)) warning("vertex.label has wrong length")
-             design <- list(clear.2fis=matrix(sapply(design, function(obj) which(fn==obj)),nrow=2), nfac=length(fn),res=4)
-             }
+             else if (!length(vertex.label)==length(fn)) 
+               warning("vertex.label has wrong length")
+             if (is.character(design)) design <- list(clear.2fis=matrix(sapply(design, function(obj) 
+               which(fn==obj)), nrow=2), nfac=length(fn),res=4)
+             else design <- list(clear.2fis=design, nfac=length(fn), res=4)
+        }
         if (is.character(design) && length(design)>1){
              if (!all(nchar(design)==2)) stop("character vector design must have length 2 entries only")
-             design <- estimable.check(design,NULL,NULL)
-             if (!exists("vertex.label", inherits=FALSE))  vertex.label <- Letters[1:design$nfac]
-             else if (!length(vertex.label)==design$nfac) warning("vertex.label has wrong length")
+             if (is.null(nfac)) nfac <- 
+                 max(which(Letters %in% unique(unlist(strsplit(design,"")))))
+             design <- estimable.check(design,nfac,NULL)
+
+             if (!exists("vertex.label", inherits=FALSE))  
+               vertex.label <- Letters[1:design$nfac]
+             else if (!length(vertex.label)==design$nfac) 
+               warning("vertex.label has wrong length")
              names(design) <- c("clear.2fis","nfac")
              if (any (design$clear.2fis[1,]==design$clear.2fis[2,]))
                stop("characters in the same element of vector design must be different")
@@ -50,7 +62,7 @@ CIG <- function (design, select.catlg = catlg, static = FALSE, layout = layout.a
     else{
         if (!"catlg" %in% class(select.catlg))
             stop("select.catlg must be a catalogue")
-        if (!(is.character(design) & length(design) == 1))
+        if (!(is.character(design) && length(design) == 1))
             stop("design must be a design name")
         if (!(design %in% names(select.catlg)))
             stop("design must be a design name that occurs in select.catlg")

@@ -9,7 +9,7 @@
      importFrom("methods", "is")
      importFrom("stats", "aggregate", "as.formula", "coef", "contrasts",
              "contrasts<-", "formula", "model.matrix", "ppoints",
-             "predict", "qnorm", "qqnorm", "rnorm", "terms")
+             "predict", "qnorm", "qqnorm", "rnorm", "terms", "setNames")
      importFrom("utils", "as.roman", "packageVersion", "sessionInfo")
 
      export("DanielPlot", "aliases", "aliasprint", "IAPlot", "MEPlot", 
@@ -17,10 +17,12 @@
             "FrF2","pb","FrF2Large","nrunsV","fold.design","add.center",
             "blockpick","blockpick.big","splitpick","leftadjust",
             "nruns", "nfac", "nclear.2fis",
-            "clear.2fis","all.2fis.clear.catlg","res","WLP","dominating",
+            "clear.2fis","all.2fis.clear.catlg",
+            "res","WLP","dominating",
             "CIG","CIGstatic","catlg","Yates","BsProb.design",
             "block.catlg","pb.list","compromise","gen2CIG",
-            "FrF2.currentlychecked")
+            "FrF2.currentlychecked","blockgencreate","phimax",
+            "colpick", "Xcalc")
 
      S3method("[",catlg)
      S3method(print,catlg)
@@ -41,6 +43,15 @@
 #     S3method(all.2fis.clear,catlg)
      S3method(WLP,catlg)
      S3method(dominating,catlg)
+
+     S3method(nruns,character)
+     S3method(nfac,character)
+     S3method(res,character)
+     S3method(nclear.2fis,character)
+     S3method(clear.2fis,character)
+#     S3method(all.2fis.clear,character)
+     S3method(WLP,character)
+     S3method(dominating,character)
 
 #     S3method(nruns,default)
 #     S3method(nfac,default)

@@ -5,7 +5,7 @@
 Fractional Factorial designs with 2-level factors
 }
 \description{
-This package creates regular and non-regular Fractional Factorial 2-level designs. 
+creates regular and non-regular Fractional Factorial 2-level designs. 
 Furthermore, analysis tools for Fractional Factorial designs with 2-level factors 
 are offered (main effects and interaction plots for all factors simultaneously, 
 cube plot for looking at the simultaneous effects of three factors, full or half normal plot, 
@@ -19,8 +19,7 @@ Please contact me, if you have suggestions.
 
 This package designs and analyses Fractional Factorial experiments with 2-level factors. 
 Regular (function \code{\link{FrF2}}) and non-regular (function \code{\link{pb}}) 2-level fractional factorial 
-designs can be generated. 
-Function \code{\link{FrF2}}) can generate regular fractional factorials as blocked or split-plot designs, and hard-to-change 
+designs can be generated. For regular fractional factorials, function \code{\link{FrF2}} permits the specification of effects of interest, whose estimation is requested clear of aliasing with other effects. The function can furthermore generate regular fractional factorials as blocked or split-plot designs, and hard-to-change 
 factors can be specified in order to keep the number of level changes low.
 Regular resolution V designs larger than those obtainable from function \code{FrF2} 
 can be created by function \code{\link{FrF2Large}} (these are not guaranteed to be optimal). 
@@ -31,9 +30,8 @@ Functions \code{fac.design}, \code{fractionate} or \code{oa.design} from
 Chambers and Hastie (1993) have been used as role models e.g. for 
 the option \code{factor.names} or for outputting a data frame with attributes. 
 However, S compatibility has not been considered in devising this package. The original 
-abovementioned functions are not available in \code{R}; similar 
-functions have been from package \pkg{\link[DoE.base:DoE.base-package]{DoE.base}} are 
-available together with other general functionality for experimental designs.
+above-mentioned functions are not available in \code{R}; similar 
+functions have been implemented in package \pkg{\link[DoE.base:DoE.base-package]{DoE.base}} together with other general functionality for experimental designs.
 
 In terms of analysis, package \code{FrF2} works on linear models and enables convenient main effects and 
 interaction plots (functions \code{MEPlot} and \code{IAPlot}) similar to those 
@@ -44,7 +42,9 @@ For the (less frequent) case of suspected three-factor-interactions, function
 means of three factors simultaneously.
 Furthermore, the function \code{DanielPlot} from package \pkg{BsMD} has been 
 modified to automatically label effects significant according to the 
-Lenth-criterion, and to provide more usage comfort to the analyst.  
+Lenth-criterion, to automatically distinguish between whole-plot and 
+split-plot effects for split-plot designs, and to provide more usage comfort 
+to the analyst.\cr
 Finally, the function \code{aliases} determines the alias structure of a 
 Fractional Factorial 2-level design in a format more suitable for human readers 
 than the output from the built-in function \code{alias}. 

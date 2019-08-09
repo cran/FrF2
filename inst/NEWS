@@ -3,6 +3,50 @@ Changes to package FrF2
 The package is still under development. 
 Suggestions and bug reports are very welcome.
 
+09/08/2019, version 2.0
+  Major changes:
+  - added the possibility to request estimable 2fis 
+    (with clear=TRUE only) together with blocking
+    (supported by the new blocking functions, 
+    see below)
+  - improved speed of creating manual blocked designs
+    (new internal function blockfull; 
+    use blockfull instead of aliases in function FrF2 
+    for blocked designs)
+  - added quality checks for manual block specifications 
+    (enabled by previous bullet)
+    - adjusted examples to not throw errors from these
+    - adjusted test cases to not throw errors from these
+  - improved algorithm for creating blocked designs 
+    with large number of blocks or factors, 
+    based on Godolphin 2019
+    (blockpick.big abandoned; supported by internal function and 
+    blockgengroup, as well as user-visible functions 
+    blockgencreate, phimax, colpick and Xcalc)
+  - created specific test cases for the new functionality
+  - implemented option block.old so that the old blockpick.big 
+    methodology is still available 
+    (internal function FrF2old, called from FrF2, 
+    if block.old is set to TRUE and blocking is requested)
+    
+  Minor changes and bug fixes:
+  - added character string method for catalogue accessors, 
+    so that these can be used on a vector of design names 
+    for catalogue catlg
+  - support making CIGs include singletons for character and matrix 
+    representations through new argument nfac
+  - throw error if WP arguments are set without specifying WPs
+  - (serious bug!) bugfix for WP with generators: 
+    generator columns are no longer  
+    re-ordered or omitted in design.info;
+    this also fixes previous errors in summaries of WP designs with generators.
+  - changes to DanielPlot: 
+      - apply cex.lab also for subtitle, 
+      - and change position of point labels to be farther from points 
+        (adj=0 changed to pos=4)
+      - returned data.frame has effect names 
+        no longer as a factor but in character vector
+
 03/05/2019, version 1.7-3
   - documented how to reproduce designs 
     created by R versions prior to 3.6.0 with 

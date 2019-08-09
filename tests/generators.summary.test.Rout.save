@@ -116,7 +116,7 @@ $`block generators`
 
 Alias structure:
 $fi2
- [1] AD=BG AE=BH AG=BD AH=BE CD=FG CE=FH CG=DF CH=EF DH=EG GH=DE
+ [1] AD=BG AE=BH AG=BD AH=BE CD=FG CE=FH CG=DF CH=EF DE=GH DH=EG
 
 Aliased with block main effects:
 [1] AB AC AF BC BF CF DG EH
@@ -146,7 +146,7 @@ $`block generators`
 
 Alias structure:
 $fi2
- [1] AD=BG AE=BH AG=BD AH=BE CD=FG CE=FH CG=DF CH=EF DH=EG GH=DE
+ [1] AD=BG AE=BH AG=BD AH=BE CD=FG CE=FH CG=DF CH=EF DE=GH DH=EG
 
 Aliased with block main effects:
 [1] AB AC AF BC BF CF DG EH
@@ -258,11 +258,11 @@ $fi2
 [1] AC=DG AD=CG AG=CD EF=HJ EH=FJ EJ=FH
 
 > 
-> ### blockpick.big, a design that uses map
-> plan <- FrF2(64,15,blocks=16,alias.block.2fi=TRUE)
+> ### blockpick.big, a design that uses map (old version)
+> plan <- FrF2(64,15,blocks=16,alias.block.2fi=TRUE,block.old=TRUE)
 > summary(plan,brief=TRUE)
 Call:
-FrF2(64, 15, blocks = 16, alias.block.2fi = TRUE)
+FrF2(64, 15, blocks = 16, alias.block.2fi = TRUE, block.old = TRUE)
 
 Experimental design of type  FrF2.blocked 
 64  runs
@@ -762,4 +762,4 @@ FrF2(32, 7, gen = c(6, 15), WPs = 4, nfac.WP = 3, WPfacs = c(2,
 > 
 > proc.time()
    user  system elapsed 
-   3.64    0.31    3.98 
+   3.39    0.26    3.68 

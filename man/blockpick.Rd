@@ -48,16 +48,24 @@ blockpick.big(k, gen, k.block, design = NULL, show = 10,
 }
 \details{
   Function \code{blockpick} is used per default by function \code{\link{FrF2}} 
-  for problems with \code{choose(nruns-1-nfactors,k.block) < 100000}, otherwise 
-  \code{blockpick.big} is used. 
-  \code{blockpick} is preferrable for smaller problems, because it will find a design, if it 
-  exists. However, it may take a long time and/or much storage space in problems with 
+  for problems with \code{choose(nruns-1-nfactors,k.block) < 100000} and without 
+  estimability requirements. \code{blockpick} will find a design, if it exists. 
+  However, it may take a long time and/or much storage space in problems with 
   large numbers of runs and blocks.
+
+  In \pkg{FrF2} versions before 2.0, function \code{blockpick.big} was used for 
+  large use cases; this can still be requested using argument \code{block.old=TRUE}. 
+  Since FrF2 version 2, the \code{\link[FrF2:godolphin]{Godolphin (2019) based approach}} 
+  is used instead, both for 
+  large cases and for cases where blocking is combined with estimability requirements 
+  (\code{clear=TRUE} only); the big advantage is the ability of combining blocking with 
+  estimability requirements, and a substantial speed gain if small blocks are needed. 
   
-  Both functions investigate the potential assignment of blocks such that 
+  All approaches investigate the potential assignment of blocks such that 
   main effects of treatment factors are not aliased with block main effects. 
   It is left to the user whether or not 2fis amoong treatment effects may be 
-  aliased with block main effects (option \code{alias.block.2fis}). 
+  aliased with block main effects (option \code{alias.block.2fis}). (For the Godolphin 
+  approach to work, one will usually need to set \code{alias.block.2fis} to TRUE.)
   
   Following Sun, Wu and Chen (1997), there is no single best block assignment. 
   \code{blockpick} uses their catalogue for full factorials (implemented up to 256 runs). 
@@ -116,7 +124,7 @@ Optimal blocking schemes for 2\^p and 2\^(n-p) designs. \emph{Technometrics} \bo
 ## the 8th to 10th design have more clear 2fis than the earlier ones
 blockpick(k=5,design="6-1.1",k.block=3,alias.block.2fis=TRUE)
 ## function FrF2 can be used to manually accomodate this 
-des32.6fac.8blocks.MaxC2 <- FrF2(32,6,blocks=c(3,12,21))
+des32.6fac.8blocks.MaxC2 <- FrF2(32,6,blocks=c(3,12,21),alias.block.2fis=TRUE)
 summary(des32.6fac.8blocks.MaxC2)
 ## automatic block generation leads to more aliased 2fis
 summary(FrF2(32,6,blocks=8,alias.block.2fis=TRUE))

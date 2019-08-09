@@ -13,7 +13,6 @@
 mapcalc <- function (estimable, nfac, nruns, res3 = FALSE, select.catlg = catlg, 
     method="VF2", sort = "natural") 
 {
-## not clear whether map is correct for lad
     if (ncol(estimable) > nruns - nfac - 1) 
         stop("too many interactions requested for this number of runs and factors")
     if (nruns > 32 & res3) {

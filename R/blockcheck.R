@@ -11,7 +11,8 @@ block.check <- function (k, blocks, nfactors, factor.names=Letters[1:nfactors])
     else {
         ## number of blocks
         if (is.numeric(blocks) & length(blocks)==1) {
-            if (!(2^round(log2(blocks)))==blocks) stop ("The number blocks must be an integer power of 2.")
+            if (!(2^round(log2(blocks)))==blocks) 
+              stop ("The number of blocks must be an integer power of 2.")
             return(blocks)
         }
         ## invalid blocks
@@ -40,7 +41,51 @@ block.check <- function (k, blocks, nfactors, factor.names=Letters[1:nfactors])
                 obj))
             }
     }
-    ## now blocks is a list
+    ## now blocks is a list (a number of blocks was returned above)
     ## must be checked for singularity outside of block.check
     blocks
+}
+
+blockfull <- function(block.gen, k, des.gen=NULL){
+  ## function for obtaining the generating columns for 
+  ## all block contrasts
+  ## block.gen is a list of vectors of design column numbers
+  ##    or a numeric vector of Yates column numbers
+  ##    or a vector of character strings like "ABD", "CF" etc
+  ## des.gen is a vector of Yates column numbers, 
+  ##    including those for the base factors
+  if (is.list(block.gen) && is.null(des.gen)) 
+    stop("for list-valued block.gen, ", 
+         "des.gen is needed (vector of Yates column numbers)")
+  k.block <- length(block.gen)
+  if (is.character(block.gen)) 
+    block.gen <- sapply(block.gen, function(obj) which(names(Yates) == obj))
+  if (is.list(block.gen))
+    block.gen <- sapply(block.gen, function(obj) 
+      as.intBase(paste(rowSums(do.call(cbind,
+             lapply(obj, function(obj2) 
+             digitsBase(des.gen[obj2],2,k))))%%2, collapse="")))
+
+  ## now, blockgen is a vector of Yates column numbers
+  aus <- block.gen
+  if (k.block > 1)
+    for (i in 2:k.block){
+    sel <- DoE.base:::nchoosek(k.block, i)
+    aus <- c(aus, 
+             sapply(1:ncol(sel), 
+                    function(obj) 
+                      as.intBase(  ## convert to Yates column number
+                        paste(     ## convert to character string
+                          rowSums( ## obtain interaction pattern of combination
+                            do.call(cbind,
+                                    lapply(sel[,obj], function(obj2) 
+                                      digitsBase(block.gen[obj2],2,k)  
+                                      ## obtain binary for Yates column number
+                                    ))
+                          )%%2, 
+                          collapse="")
+                      )
+             ))
+  }
+  aus
 }

@@ -21,11 +21,11 @@
   (i.e. the user specifies exactly which columns are to be used for which purpose) and automatic 
   definition. Each situation has its specifics. These are detailed below. For users with 
   not so much mathematical/statistical background, it will often be best to use the automatic way, 
-  specifying the treatement factors of interest via \code{nfactors} or \code{factor.names} 
+  specifying the treatment factors of interest via \code{nfactors} or \code{factor.names} 
   and a single number for \code{blocks} or \code{WPs}. 
   Users with more mathematical background may want to use the manual definitions, perhaps 
   in conjunction with published catalogues of good block designs, or 
-  after inspecting possibilities with functions \code{\link{blockpick}} or \code{\link{blockpick.big}}.
+  after inspecting possibilities with functions \code{\link{blockpick}}, \code{\link{blockpick.big}} (default before version 2 for large settings) or \code{\link{colpick}} (default since version 2 for large settings or settings with estimability requirements).
   
   \describe{
   \item{Manual definition of blocked designs for regular fractional factorials}{
@@ -57,22 +57,23 @@
   CAUTION: If the user manually generates a blocked design, it is his/her responsibility to ensure a 
   good choice of design (e.g. by using a catalogued design from Bisgaard 1994, 
   Sun, Wu and Chen 1997, Sitter, Chen and Feder (1997), or Cheng and Wu 2002).
+  Since version 2 of package \pkg{FrF2}, manual blocking is also checked for confounding of the block factor with main effects or two-factor interactions; this implies that some earlier code will now require the additional specification of argument \code{alias.block.2fis=TRUE} in order to avoid errors.
   }
     \item{Automatic definition of blocked designs for regular fractional factorials}{
   If the user only specifies the number of blocks required for the experiment, function \code{\link{FrF2}} 
   automatically generates the blocks. For full factorial designs, function \code{\link{FrF2}} uses 
-  the Sun, Wu and Chen (1997) catalogue of blocked designs (implemented in function \code{\link{blockpick}}). 
-  Otherwise, depending on the size of the problem, 
-  function \code{\link{FrF2}} uses function \code{\link{blockpick}} or function \code{\link{blockpick.big}} 
-  for finding an appropriate allocation of block generator columns: 
-  Smaller problems \cr
-  (\code{choose(nruns-1-nfactors,k.block) < 100000}) \cr
-  are treated with \code{\link{blockpick}}. 
+  the Sun, Wu and Chen (1997) catalogue of blocked designs (implemented in function \code{\link{blockpick}}), unless estimability criteria are specified, in which case function \code{\link{colpick}} is used. 
+  Otherwise, depending on the situation, 
+  function \code{\link{FrF2}} uses function \code{\link{blockpick}} or function \code{\link{colpick}} with subsequent \code{\link{blockgencreate}}; 
+  function \code{\link{blockpick}} treats smaller problems (\code{choose(nruns-1-nfactors,k.block) < 100000}) without estimability requirements, other problems are treated by 
+  function \code{\link{colpick}}.
+  
+  Use of the earlier default function \code{\link{blockpick.big}} for large cases can be requested with the argument \code{block.old=TRUE}; this should only be done for reproducing earlier results, as the new methodology is definitely superior. 
   
   The search for an appropriate blocked design starts with the overall best unblocked design 
   (in terms of aberration or MaxC2, if requested). 
   If this best design does not yield an adequate blocking possibility, the search continues with 
-  the next best design and so forth. \cr
+  the next best design and so forth (exception: with an estimability requirement, only a single design, prefiltered for the estimability requirement, is subjected to the blocking algorithm). \cr
   For the smaller problems, function \code{\link{blockpick}} 
   looks for \code{k.block} independent subsets among the eligible columns of the design. 
   (The eligible columns are all columns of the Yates matrix that are neither occupied 
@@ -81,21 +82,23 @@
   (if \code{alias.block.2fis=TRUE}). Note that no effort is made to avoid aliasing with 2-factor interactions, 
   if \code{alias.block.2fis=TRUE} is chosen. 
   
-  For the larger problems, 
+  For the larger problems, or blocking in combination with requiring some 2fis two be clear of aliasing,
+  function \code{\link{colpick}} creates a \eqn{q \times}{q times} \code{nfactors} \bold{X} matrix for creating blocks of size \eqn{2^q} based on the approach described by Godolphin (2019); function \code{blockgencreate} creates block generators from this matrix. This approach can be used in combination with argument \code{estimable}, as long as \code{clear=TRUE}. The implementation of this approach is described in Groemping (2019).
+  
+  For the larger problems, in versions before 2.0, which can be activated in current versions with \code{block.old=TRUE},
   function \code{\link{blockpick.big}} permutes the k~base factors of candidate designs with \code{nfactors + k.block} factors 
-  in search of a design the first \code{k.block}~factors of which can be used for block construction. In the latter case, any 
+  in search of a design the first \code{k.block}~factors of which can be used for block construction. Any 
   specification of design (via options \code{design} or \code{generators}) is ignored. Note that function 
   \code{\link{blockpick.big}} is not guaranteed to find an existing blocked design.
   
-  Sun, Wu and Chen (1997) provide a catalogue of blocked designs 
-  with a few quality criteria, and they state that there is no single best design, but that the choice 
+  Sun, Wu and Chen (1997) provided a catalogue of blocked designs 
+  with a few quality criteria, and they stated that there is no single best design, but that the choice 
   depends on the situation. \code{FrF2} always comes up with one specific solution design. 
   Comparisons to the catalogued designs in Sun, Wu and Chen (1997) have shown that 
   the designs found in \code{FrF2} are often but not always isomorphic to the catalogued ones. 
   Differences do occur, especially if the base designs are resolution III, or if \code{\link{blockpick.big}} 
-  has to be used. Users who want to be certain to use a \dQuote{best} blocked design should manually 
-  implement a specific catalogued design or inspect several solutions from functions \code{\link{blockpick}} 
-  \code{\link{blockpick.big}}. 
+  has to be used. Expert users who want to be certain to use a \dQuote{best} blocked design should manually 
+  implement a specific catalogued design or inspect several solutions from functions \code{\link{blockpick}} or \code{\link{colpick}} (or, if desparate, \code{\link{blockpick.big}}). 
   }
   }
   
@@ -116,6 +119,13 @@ Optimal two-level regular fractional factorial block and split-plot designs.
 Cheng, S.W. and Wu, C.F.J. (2002). 
 Choice of optimal blocking schemes in 2-level and 3-level designs. 
 \emph{Technometrics} \bold{44}, 269-277. 
+
+Godolphin, J. (2019). Construction of blocked factorial designs to estimate main effects and selected two-factor interactions. \url{https://arxiv.org/abs/1907.02373}
+
+Groemping, U. (2019). Blocking regular 2-level fractional factorial designs 
+   with R, while maintaining estimability of selected two-factor interactions. 
+   \emph{Reports in Mathematics, Physics and Chemistry}, \href{http://www1.beuth-hochschule.de/FB_II/reports}{technical report}, 
+   Department II, Beuth University of Applied Sciences Berlin.
 
 Sitter, R.R., Chen, J. and Feder, M. (1997). 
 Fractional Resolution and Minimum Aberration in Blocked 2n-k Designs.

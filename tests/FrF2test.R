@@ -49,28 +49,35 @@ str.wover(FrF2(16,design="6-2.2",randomize=FALSE,factor.names=list(eins=c(1,2),z
   ## automatic selection with factor names
   FrF2(32,6,blocks=4,randomize=FALSE, factor.names=Letters[20:25])
   ## manual selection
+  ##    new with version 2: checks for forbidden behavior
   FrF2(32,6,blocks="A",randomize=FALSE)
-  FrF2(32,6,blocks=c("ABC","DE"),randomize=FALSE)
-  FrF2(32,8,blocks=list(c(1,2,3),c(4,5)),randomize=FALSE)
-  FrF2(32,8,blocks=list(c(1,2,3,4),c(7,8)),randomize=FALSE)
-  FrF2(32,8,blocks=list(2,5,7),randomize=FALSE)
+  FrF2(32,6,blocks=c("ABE","ACD"),randomize=FALSE, alias.block.2fis=TRUE)
+  FrF2(32,8,blocks=list(c(1,2,3),c(4,5)),randomize=FALSE, alias.block.2fis=TRUE)
+  FrF2(32,8,blocks=list(c(1,2,3,4),c(7,8)),randomize=FALSE, alias.block.2fis=TRUE)
+  FrF2(32,8,blocks=list(2,5,7),randomize=FALSE, alias.block.2fis=TRUE)
   ## mixed single and generated
-  str.wover(FrF2(32,8,blocks=list(2,5,c(6,7)),randomize=FALSE))
+  str.wover(FrF2(32,8,blocks=list(2,5,c(6,7)),randomize=FALSE, alias.block.2fis=TRUE))
   ## with factor names
-  str.wover(FrF2(32,blocks=c("ABC","DE"),
+  str.wover(FrF2(32,blocks=c("ABE","ACD"),
        factor.names=list(first=c("-","+"),second=c("old","new"),
                          third=c(1000,2000),fourth="",fifth="",sixth=""),
-       randomize=FALSE))
+       randomize=FALSE, alias.block.2fis=TRUE))
   str.wover(dat <- FrF2(32,blocks=c(7,20,25),
        factor.names=list(first=c("-","+"),second=c("old","new"),
                          third=c(1000,2000),fourth="",fifth="",sixth=""),
-       randomize=FALSE,alias.info=3))
+       randomize=FALSE,alias.info=3, alias.block.2fis=TRUE))
   str.wover(FrF2(32,blocks=list(1,2),
        factor.names=list(first=c("-","+"),second=c("old","new"),
                          third=c(1000,2000),fourth="",fifth="",sixth="",seven="",eight="",nine=""),
-       randomize=FALSE))
+       randomize=FALSE, alias.block.2fis=TRUE))
   ## using blockpick.big
+  str.wover(FrF2(64,7,blocks=32,alias.block.2fis=TRUE,randomize=FALSE, block.old=TRUE))
+  ## using godolphin
   str.wover(FrF2(64,7,blocks=32,alias.block.2fis=TRUE,randomize=FALSE))
+
+  ## godolphin with estimable
+  str.wover(FrF2(64,9,blocks=16,estimable=compromise(9,3)$requirement,
+       alias.block.2fis=TRUE,randomize=FALSE))
 
 ## split plot
   ## automatic selection

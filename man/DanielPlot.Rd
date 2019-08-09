@@ -83,10 +83,11 @@ DanielPlot(fit, ...)
 }
 
 \value{
-    The function returns an invisible data frame with columns: \code{x}, \code{y},
+    The function invisibly returns a data frame with columns: \code{x}, \code{y},
     \code{no}, \code{effect}, \code{coded} (if coded plot was requested) 
     and \code{pchs}, for the coordinates, the position numbers, 
-    the effect names, the coded effect names, and the plotting characters for plotted points.
+    the effect names, the coded effect names, and the plotting characters 
+    for plotted points.
     
     The plotting characters are particularly useful for split-plot designs and can be used 
     for subsequent separate plotting of whole-plot and split-plot effects, if necessary.

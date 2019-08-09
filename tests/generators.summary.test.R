@@ -13,8 +13,8 @@ C1 <- compromise(10, 1:2, msg=FALSE)
 summary(plan3 <- FrF2(nruns= 64 ,nfactors= 10 , 
     estimable= C1$requirement, perms=C1$perms.full, clear=FALSE ), brief=TRUE)
 
-### blockpick.big, a design that uses map
-plan <- FrF2(64,15,blocks=16,alias.block.2fi=TRUE)
+### blockpick.big, a design that uses map (old version)
+plan <- FrF2(64,15,blocks=16,alias.block.2fi=TRUE,block.old=TRUE)
 summary(plan,brief=TRUE)
 
 ### various split-plot setups

@@ -77,6 +77,7 @@ Yates
   \item{perms}{ like in \code{\link{FrF2}} }
   \item{method}{ like in \code{\link{FrF2}} }
   \item{sort}{ like in \code{\link{FrF2}} }
+  \item{clearcur}{is the set of clear 2fis after removing aliases with the block factor}
   \item{map}{ map of experiment factors to design factors, used in \code{estimable} }
   \item{formula}{ formula to be translated into matrix for \code{estimable} }
   \item{char}{ character vector to be translated into matrix for \code{estimable} }
@@ -106,7 +107,7 @@ Yates
     \code{estimable.check} determines a list including elements \code{estimable}, 
     a 2-row-matrix indicating estimable 2fis from the permissible inputs, and \code{nfac}, 
        the number of factors from input parameter \code{estimable}, 
-    function \code{estimable} calculates the appropriate design if a certain effects have been requested to be estimable, and 
+    function \code{estimable} calculates the appropriate design if certain effects have been requested to be estimable, and 
     all subsequent functions are auxiliary functions to function \code{estimable}.
     
    \code{Yates} is a user-visible constant (cf. details section). 
