@@ -19,7 +19,10 @@ Please contact me, if you have suggestions.
 
 This package designs and analyses Fractional Factorial experiments with 2-level factors. 
 Regular (function \code{\link{FrF2}}) and non-regular (function \code{\link{pb}}) 2-level fractional factorial 
-designs can be generated. For regular fractional factorials, function \code{\link{FrF2}} permits the specification of effects of interest, whose estimation is requested clear of aliasing with other effects. The function can furthermore generate regular fractional factorials as blocked or split-plot designs, and hard-to-change 
+designs can be generated. For regular fractional factorials, function \code{\link{FrF2}} 
+permits the specification of effects of interest, whose estimation is requested clear of aliasing 
+with other effects. The function can furthermore generate regular fractional factorials 
+as blocked or split-plot designs, and hard-to-change 
 factors can be specified in order to keep the number of level changes low.
 Regular resolution V designs larger than those obtainable from function \code{FrF2} 
 can be created by function \code{\link{FrF2Large}} (these are not guaranteed to be optimal). 
@@ -31,7 +34,8 @@ Chambers and Hastie (1993) have been used as role models e.g. for
 the option \code{factor.names} or for outputting a data frame with attributes. 
 However, S compatibility has not been considered in devising this package. The original 
 above-mentioned functions are not available in \code{R}; similar 
-functions have been implemented in package \pkg{\link[DoE.base:DoE.base-package]{DoE.base}} together with other general functionality for experimental designs.
+functions have been implemented in package \pkg{\link[DoE.base:DoE.base-package]{DoE.base}} 
+together with other general functionality for experimental designs.
 
 In terms of analysis, package \code{FrF2} works on linear models and enables convenient main effects and 
 interaction plots (functions \code{MEPlot} and \code{IAPlot}) similar to those 

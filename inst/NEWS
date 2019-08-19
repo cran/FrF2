@@ -3,6 +3,43 @@ Changes to package FrF2
 The package is still under development. 
 Suggestions and bug reports are very welcome.
 
+18/08/2019, version 2.1
+  Major change for new blocking with estimability features: changed algorithmic strategy    to do subgraph isomorphism checks for each candidate X:
+  - changed the strategy in function colpick to do the subgraph isomorphism 
+    check for each blocking X matrix. 
+    The workhorse function for this is function mapcalc.block.
+    The previous function colpick was renamed to colpickIV (not exported, 
+    but callable from FrF2 by useV=FALSE).
+  Further improvements for the methodology:
+  - added argument ignore.dom to FrF2 with suitable 
+    default, in order to include non-dominating 
+    catalogue elements in the search
+  - added argument ignore.dom to internal function mapcalc, 
+    in support of the above
+  - allowed specification of design name with estimable in FrF2 
+    (will always trigger ignorance of dominating entry)
+  - made error messages of FrF2 more informative
+    for combination of blocking and estimable designs
+  - added argument res3 to function colpick and colpickIV, and made the 
+    functions generally suppress dominating check in mapcalc
+  - made estimability with blocking respect choices for method and 
+    sort option in subgraph isomorphism checks
+  - excluded X matrices with less than q different columns 
+    in functions colpick and colpickIV
+  - changed functions colpick and colpickIV 
+    to also attempt maximum possible 
+    number of clear 2fis when blocking with a requirement CIG
+    (can be suppressed with firsthit=TRUE, which has also 
+    become an argument for function FrF2)
+  - added a new light-weight function FF_from_X in order to 
+    allow implementation of blocking with hand-crafted X matrices
+  - added simple functions for creating X matrices
+  - added correct link to technical report for new blocking 
+    with estimability features
+  - changed the sort order of the profiles output from 
+    function colpick in case all=TRUE to comply with 
+    Godolphin's paper and technical report
+
 09/08/2019, version 2.0
   Major changes:
   - added the possibility to request estimable 2fis 

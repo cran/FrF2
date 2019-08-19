@@ -1,7 +1,8 @@
-colpick <- function(design, q, all=FALSE, 
-                    select.catlg=catlg, estimable=NULL,
-                    method="VF2", sort="natural", res3=FALSE, all0=FALSE, 
-                    quiet=FALSE, firsthit=is.numeric(design)){
+colpickIV <- function(design, q, all=FALSE, 
+                    select.catlg=catlg, 
+                    estimable=NULL, method="VF2", sort="natural", 
+                    res3=FALSE, all0=FALSE, quiet=FALSE,
+                    firsthit=is.numeric(design)){
   ## design is a character string that identifies a catalogued design
   ##    or a length 1 catlg object
   ##    of the number of factors for a full factorial
@@ -10,48 +11,48 @@ colpick <- function(design, q, all=FALSE,
   ## select.catlg is a design catalogue of class catlg
   ## estimable is a character vector of estimable 2fis in letter notation, 
   ##    or a two row numeric matrix with factor numbers (each column indicates a clear 2fi)
+  ## method is the method to use for subgraph isomorphism checking
+  ## sort is the method to use for pre-sorting in the subgraph isomorphism check
   ## all0 = TRUE also outputs X matrices with zero columns
   ## for all=FALSE, the function returns a list with an X matrix 
   ## the clear2fis, 
   ## and possibly a mapping (if estimable is specified)
   ## for all=TRUE, the function returns a list of three or four lists (X matrices, estimable 2fis, profiles)
-  ## if estimable is specified, the fourth list indicates a re-mapping with which the requirement can be accommodated
+  ## if estimable is specified, 
+  ## the fourth list indicates a re-mapping with which the requirement can be accommodated
   catlg <- select.catlg
   if (!("catlg" %in% class(design) || is.character(design) || is.numeric(design)))
     stop("design must be the number of factors of a full factorial", 
          " or a character string that refers to an element of select.catlg", 
          " or of class catlg")
   if (is.numeric(design)){
+    ## full factorial
     element <- list(list(nfac  = design,
                          nruns = 2^design,
                          res = Inf,
                          nclear.2fis = choose(design, 2),
                          clear.2fis = combn(design, 2),
                          gen = numeric(0), 
-                         WLP = rep(0, 4)))
+                         WLP = rep(0, 4),
+                         dominating = TRUE))
     class(element) <- c("catlg", "list")
   }
   if (is.character(design)){
     element <- catlg[design]    ## class catlg
   }
-  if ("catlg" %in% class(design)) element <- design[1]       ## more than one element is ignored without warning
+  if ("catlg" %in% class(design)) 
+    element <- design[1]       ## more than one element is ignored without warning
   N <- element[[1]]$nruns
   n <- element[[1]]$nfac
   gen <- element[[1]]$gen         ## Yates column numbers
   p <- length(gen)
   k <- n - p
-  
-  ## clear before blocking
-  clear2fis <- clear.2fis(element)
-  nclear2fis <- nclear.2fis(element)
-  
-  if (length(clear2fis[[1]])==0) 
-    clear2fis <- character(0) 
-  else
-    clear2fis <- sapply(1:ncol(clear2fis[[1]]), function(obj) 
-      paste(Letters[clear2fis[[1]][,obj]], collapse = ""))
-  
+  map <- NULL        ## overwrite any map object from global environment
+
+  ## select adequate element of catlg in case of estimable
   if (!is.null(estimable)){
+    ## stricter checks than with estimable.check
+    ## as there need not be factor.names etc.
     if (!is.numeric(estimable) && !is.character(estimable))
       stop("estimable must be an integer-valued two row matrix",
            " or a character vector")
@@ -62,30 +63,53 @@ colpick <- function(design, q, all=FALSE,
     if (is.character(estimable))
       estimable <- sapply(estimable, 
                           function(obj) which(Letters %in% unlist(strsplit(obj, "", fixed=TRUE))))
-    #graph_requirement <- graph.empty(n = n, directed = FALSE)
-    #graph_requirement <- add.edges(graph_requirement, estimable)
+    ## estimable is now a two-row matrix
+    ## obtain map with which the requirement set can be accommodated in the design
+    if (p==0) map <- 1:n else
+    map <- mapcalc(estimable, n, N, select.catlg=element, method=method, sort=sort, 
+                   res3=res3, ignore.dom=TRUE)[[1]]
+    ## adapt estimable to the mapping
+    estimable <- matrix(map[estimable], nrow=2)  
+    ## sort columns in ascending order
+    for (i in 1:ncol(estimable)) estimable[,i] <- sort(estimable[,i])
+    estimchar <- sapply(1:ncol(estimable), 
+                        function(obj) 
+                          paste0(Letters[estimable[,obj]], collapse=""))
+    ## character representation for later success checking
   } 
+
+  ## clear before blocking
+  clear2fis <- clear.2fis(element)
+  if (length(clear2fis[[1]])==0) 
+    clear2fis <- character(0) 
+  else
+    clear2fis <- sapply(1:ncol(clear2fis[[1]]), function(obj) 
+      paste(Letters[clear2fis[[1]][,obj]], collapse = ""))
+  nclear2fis <- length(clear2fis)
+  
   Z <- t(sapply(gen, function(obj) rev(digitsBase(obj, 2, k))))
   div <- 2^q-1
-  
+
   ## list of possible X column vectors
   Xcands <- lapply(1:div, function(obj) digitsBase(obj, 2, ndigits=q))
-  
-  
+
   success <- FALSE
   Xlist <- vector(mode="list")
   tablist <- vector(mode="list")
   clearlist <- vector(mode="list")
-  if (!is.null(estimable)) maplist <- vector(mode="list")
   ## each row of picks provides a possible XI matrix
+  ## lazy expanding in order to facilitate large problems
+  ## modify Godolphin as follows:
+  ##    only use up to the first e elements in position e
   poscands <- lapply(1:k, function(obj) 
     if (obj <= div) 
       1:obj
     else 1:div
   )
   nxt <- do.call(lazyExpandGrid, poscands)
-  #picks <- as.matrix(expand.grid(poscands))
   nr <- prod(lengths(poscands))
+  # picks <- as.matrix(expand.grid(rep(list(1:div), k-1)))
+  # picks would have nr rows
   message("checking up to ", nr, " matrices")
   
   ## initialize to a heavily balanced first matrix
@@ -96,39 +120,46 @@ colpick <- function(design, q, all=FALSE,
   jetzt <- rep(1:div, (k%/%div+1))[1:k]
   i <- 0
   while (i <= nr){
+    ## nr + 1, because the first jetzt is extra
     XI <- do.call(cbind, Xcands[jetzt])
-    if (length(Z)>0){ 
-      XII <- (XI%*%t(Z))%%2
-      X <- cbind(XI, XII)
-    }
-    else X <- XI   ## full factorial
+        if (length(Z)>0){ 
+          XII <- (XI%*%t(Z))%%2
+          X <- cbind(XI, XII)
+        }
+        else X <- XI   ## full factorial
+        
+        ## skip settings with less than q different columns
+        ## i.e. with row rank less than q
+        hilf <- lapply(1:n, function(obj) X[,obj])
+        if (length(unique(hilf)) < q){
+          jetzt <- unlist(nxt())
+          i <- i+1
+          next 
+        }
+        
     if (all(colSums(X) > 0) || all0){ 
       ## remove direct aliases from blocking
+      clearcur <- clear2fis
       if (length(clear2fis) > 0){
         ingroup <- character(0)
-        for (i in 1:(n-1))
-          for (j in (i+1):n)
-            if (all(X[,i]==X[,j])) 
+        for (ii in 1:(n-1))
+          for (jj in (ii+1):n)
+            if (all(X[,ii]==X[,jj]))
               ingroup <- c(ingroup,
-                           paste0(Letters[i],Letters[j]))
-            clearcur <- setdiff(clear2fis, ingroup)
+                           paste0(Letters[ii],Letters[jj]))
+        clearcur <- setdiff(clearcur, ingroup)
       }
-      else clearcur <- clear2fis
+      
       if (is.null(estimable))
         success <- TRUE 
       else{
-        map <- mapcalc.block(estimable, n, 
-                             sapply(clearcur,
-                                    function(obj) which(Letters %in% 
-                                                          unlist(strsplit(obj, "", 
-                                                        fixed=TRUE)))),
-                             method=method, sort=sort)[[1]]
-        if (!is.null(map)) {
+        if (all(estimchar %in% clearcur)) {
           success <- TRUE
-          if (success && !all && firsthit) 
-              return(list(X=X, clear2fis=clearcur, map=map))
+          if (firsthit) 
+            return(list(X=X, clear2fis=clearcur, map=map))
         }
         else{
+          ## skip matrices that violate estimability requirement
           jetzt <- unlist(nxt())
           i <- i+1
           if (is.logical(jetzt)){
@@ -139,22 +170,23 @@ colpick <- function(design, q, all=FALSE,
       }  
     }
     else {
+      ## skip matrices with all-zero column
       jetzt <- unlist(nxt())
       i <- i+1
       if (is.logical(jetzt)){
         if (!jetzt) break
       }
-      next
-      }## 
-    tab <- sort(table(apply(X, 2, paste0, collapse="")))
+      next 
+    }
+    tab <- sort(table(apply(X, 2, paste0, collapse="")), decreasing = TRUE)
     tab <- unname(tab)
     ## optimal in terms of maximum number
-    if (length(clearcur)== min(phimax(n,q), nclear2fis) && !all){
+    if (length(clearcur) == min(phimax(n,q), nclear2fis) && !all){
+      ## maximum possible with this candidate and this q
       if (is.null(estimable)) 
         return(list(X=X, clear2fis=clearcur))
-      else  {## if firsthit=FALSE
+      else 
         return(list(X=X, clear2fis=clearcur, map=map))
-      }
     } else{
       if (is.null(estimable)){
         Xlist <- c(Xlist, list(X))
@@ -166,7 +198,6 @@ colpick <- function(design, q, all=FALSE,
           Xlist <- c(Xlist, list(X))
           tablist <- c(tablist, list(tab))
           clearlist <- c(clearlist, list(clearcur))
-          maplist <- c(maplist, list(map))
         }
       }
     }
@@ -175,17 +206,17 @@ colpick <- function(design, q, all=FALSE,
     i <- i+1
     if (is.logical(jetzt)){
       if (!jetzt) break
-    }
+      }
   } ## end of loop
   if (!success) {
     if (!quiet) message("no suitable block arrangement was found")
-    return(NULL)
+    return(invisible(NULL))
   }
   if (all) {
     if (is.null(estimable)) 
       return(list(X_matrices=Xlist, clearlist=clearlist, profiles=tablist))
-    else   ### firstcalc=FALSE, otherwise was already returned
-      return(list(X_matrices=Xlist, clearlist=clearlist, profiles=tablist, maplist=maplist))
+    else
+      return(list(X_matrices=Xlist, clearlist=clearlist, profiles=tablist, map=map))
   } ## else
   
   lens <- lengths(clearlist)
@@ -194,7 +225,9 @@ colpick <- function(design, q, all=FALSE,
   clearlist <- clearlist[lens==max(lens)]
   diffs <- sapply(tablist, function(obj) diff(range(obj)))
   pos <- which.min(diffs)
-  if (!is.null(estimable))
-    return(list(X=Xlist[[pos]], clear2fis=clearlist[[pos]], map=maplist[[pos]]))
-  list(X=Xlist[[pos]], clear2fis=clearlist[[pos]])
+  if (is.null(estimable))
+    return(list(X=Xlist[[pos]], clear2fis=clearlist[[pos]]))
+  else
+    return(list(X=Xlist[[pos]], clear2fis=clearlist[[pos]], map=map))
 }
+

@@ -6,8 +6,8 @@ phimax <- function(n, q, profile=NULL) {
     return(choose(n,2) - v*w - div*choose(v, 2))
   }
   else{
-    if (!length(profile)==div)
-      stop("for q = ", q ,", ", "profile must have length ", div)
+    if (!length(profile)<=div)
+      stop("for q = ", q ,", ", "profile must have length <= ", div)
     if (any(profile < 0)) 
       stop("entries of profile must be non-negative")
     if (any(!profile==floor(profile)) ) 

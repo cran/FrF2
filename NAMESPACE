@@ -22,7 +22,8 @@
             "CIG","CIGstatic","catlg","Yates","BsProb.design",
             "block.catlg","pb.list","compromise","gen2CIG",
             "FrF2.currentlychecked","blockgencreate","phimax",
-            "colpick", "Xcalc")
+            "Xcalc", "FF_from_X", "X_from_profile",
+            "X_from_parts", "colpick")
 
      S3method("[",catlg)
      S3method(print,catlg)

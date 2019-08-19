@@ -76,8 +76,25 @@ str.wover(FrF2(16,design="6-2.2",randomize=FALSE,factor.names=list(eins=c(1,2),z
   str.wover(FrF2(64,7,blocks=32,alias.block.2fis=TRUE,randomize=FALSE))
 
   ## godolphin with estimable
-  str.wover(FrF2(64,9,blocks=16,estimable=compromise(9,3)$requirement,
+  str.wover(FrF2(64,9,blocks=16,factor.names=Letters[15:23], 
+       estimable=compromise(9,3)$requirement,
        alias.block.2fis=TRUE,randomize=FALSE))
+  
+  ## godolphin with estimable and full factorial
+  str.wover(FrF2(64,6,blocks=16,factor.names=Letters[15:20], 
+                 estimable=compromise(6,3)$requirement,
+                 alias.block.2fis=TRUE,randomize=FALSE, firsthit=FALSE))
+  
+  ## godolphin with estimable and the need that ignore.dom takes the value TRUE
+  ## (which it should automatically do due to its default)
+  str.wover(FrF2(64, 9, blocks=16, estimable=compromise(9,1:2)$requirement, 
+       alias.block.2fis = TRUE, select.catlg = catlg[-1378]))
+  summary(FrF2(256, 13, blocks=64, alias.block.2fis=TRUE, 
+               factor.names = list(C1="",C2="",C3="",C4="",C5="",C6="",C7="",C8="",
+                                   C9="",C10="",C11="",C12="",
+                                   N1=c("low","high")), 
+               default.levels = c("current","new"),
+               estimable=compromise(13, 1)$requirement))
 
 ## split plot
   ## automatic selection

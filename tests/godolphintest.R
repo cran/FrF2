@@ -14,6 +14,8 @@ colpick("6-1.1", 3, estimable=compromise(6, 4)$requirement)
 colpick(catlg["6-1.1"], 3, estimable=compromise(6, 4)$requirement)
 ## impossible request
 colpick(catlg["8-2.1"], 1)
+## request that requires to suppress dominating filter
+colpick("9-3.2", 2)  ## (implemented with version 2.1)
 
 ## phimax
 phimax(8, 2)            ## maximum possible
@@ -21,8 +23,9 @@ phimax(8, 2, c(4,3,1))  ## fewer
 phimax(9, 4)            ## all
 
 ## blockgencreate
-blockgencreate(rbind(c(1,1,1,0,0,0,1),
-                     c(1,1,0,1,1,1,0)), 2)
+X <- rbind(c(1,1,1,0,0,0,1),
+           c(1,1,0,1,1,1,0))
+blockgencreate(X, 2)
 
 ## Xcalc
 ## gen character

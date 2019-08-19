@@ -16,8 +16,9 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
         default.levels = c(-1, 1), ncenter=0, center.distribute=NULL, 
         generators = NULL, design = NULL, 
         resolution = NULL, select.catlg=catlg, 
-        estimable = NULL, clear = TRUE, method="VF2", sort="natural",  
-        res3 = FALSE, max.time = 60, 
+        estimable = NULL, clear = TRUE, method="VF2", sort="natural", 
+        ignore.dom = !isTRUE(all.equal(blocks,1)), 
+        useV = TRUE, firsthit=FALSE, res3 = FALSE, max.time = 60, 
         perm.start=NULL, perms = NULL, 
         MaxC2 = FALSE, replications = 1, repeat.only = FALSE, 
         randomize = TRUE, seed = NULL, alias.info = 2, 
@@ -197,6 +198,13 @@ FrF2.currentlychecked()
         It has been added, because pre-sorting of vertices sometimes speeds up the 
         search by several orders of magnitude especially for the \code{VF2} method.\cr
         NOTE: The resulting design may be different for different settings of this option!}
+  \item{ignore.dom}{ logical, default FALSE for unblocked designs, TRUE for blocked designs; 
+        if TRUE, \code{estimable} ignores 
+        the dominating attribute of the catalogue entries; can be useful for 
+        searching a blocked design with estimable 2fis from a reduced catalogue}
+  \item{useV}{ NULL or logical; relevant for designs with \code{blocks} and \code{estimable} only; if TRUE, function \code{link{colpick}} is used (default), otherwise function \code{link{colpickIV}}; if set to NULL, \code{colpick} is used for fractions with resolution at least V and function \code{link{colpickIV}} for resolution IV fractions;\cr
+     \code{useV=FALSE} does the subgraph isomorphism check once only, at the expense of missing out opportunities; it may be worth trying \code{useV=NULL} or \code{useV=FALSE} for resolution IV situations, for which the search takes very long with the default}
+  \item{firsthit}{ logical; relevant for designs with \code{blocks} and \code{estimable} only; if FALSE, the function tries to find a design with as many as possible clear 2fis, otherwise the function stops at the first possible blocking; in case of resource problems, setting \code{firsthit} to TRUE may be helpful}
   \item{res3}{ logical; if TRUE, \code{estimable} includes resolution III designs 
         into the search for adequate designs; otherwise resolution IV and higher designs 
         are included only. }
@@ -578,13 +586,17 @@ Groemping, U. (2012). Creating clear designs: a graph-based algorithm and a
 catalogue of clear compromise plans. \emph{IIE Transactions} \bold{44}, 988--1001.
 Preprint available at \url{http://www1.beuth-hochschule.de/FB_II/reports/Report-2010-005.pdf}. 
 
-    Groemping, U. (2014a). {R} Package {FrF2} for Creating and Analyzing Fractional 
-    Factorial 2-Level Designs. \emph{Journal of Statistical Software}, \bold{56}, 
-    Issue 1, 1-56. \url{http://www.jstatsoft.org/v56/i01/}.
+Groemping, U. (2014a). {R} Package {FrF2} for Creating and Analyzing Fractional 
+Factorial 2-Level Designs. \emph{Journal of Statistical Software}, \bold{56}, 
+Issue 1, 1-56. \url{http://www.jstatsoft.org/v56/i01/}.
     
-    Groemping, U. (2014b). A Note on Dominating Fractional Factorial 
-    Two-Level Designs With Clear Two-Factor Interactions. \emph{Technometrics} 
-    \bold{56}, 42--45.
+Groemping, U. (2014b). A Note on Dominating Fractional Factorial 
+Two-Level Designs With Clear Two-Factor Interactions. \emph{Technometrics} 
+\bold{56}, 42--45.
+    
+Groemping, U. (2019). An Algorithm for blocking regular 2-level fractional factorial designs, while keeping selected two-factor interactions clear. 
+   \emph{Reports in Mathematics, Physics and Chemistry}, \href{http://www1.beuth-hochschule.de/FB_II/reports}{technical report}, 
+   Department II, Beuth University of Applied Sciences Berlin.
 
 Huang, P., Chen, D. and Voelkel, J.O. (1998). Minimum-Aberration Two-Level Split-Plot Designs. 
 \emph{Technometrics} \bold{40}, 314-326. 
@@ -702,6 +714,24 @@ FrF2(64,gen=c(7,11,14),blocks=16,alias.block.2fis=TRUE)
 FrF2(32,9,blocks=c("Day","Shift"),alias.block.2fis=TRUE, 
     factor.names=list(Day=c("Wednesday","Thursday"), Shift=c("Morning","Afternoon"),
         F1="",F2="",F3="",F4="",F5="",F6="",F7=""), default.levels=c("current","new"))
+
+########## blocked design with estimable 2fis ####################
+### all interactions of last two factors to be estimable clearly
+### in 64 run design with blocks of size 4
+### not possible with catalogue entry 9-3.1
+FrF2(64, 6, blocks=16, factor.names=Letters[15:20], 
+                 estimable=compromise(6,3)$requirement,
+                 alias.block.2fis=TRUE, randomize=FALSE)
+FrF2(design="9-3.2", blocks=16, alias.block.2fis=TRUE, 
+    factor.names = list(C1="",C2="",C3="",C4="",C5="",C6="",C7="",
+    N1=c("low","high"),N2=c("low","high")), 
+    default.levels = c("current","new"),
+    estimable=compromise(9, 8:9)$requirement)
+FrF2(256, 13, blocks=64, alias.block.2fis=TRUE, 
+    factor.names = list(C1="",C2="",C3="",C4="",C5="",C6="",C7="",C8="",
+    N1=c("low","high")), 
+    default.levels = c("current","new"),
+    estimable=compromise(13, 1)$requirement)
 
 ########## hard to change factors ####################
 ## example from Bingham and Sitter Technometrics 19999

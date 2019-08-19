@@ -11,8 +11,11 @@
 #}
 
 mapcalc <- function (estimable, nfac, nruns, res3 = FALSE, select.catlg = catlg, 
-    method="VF2", sort = "natural") 
+    method="VF2", sort = "natural", ignore.dom = FALSE) 
 {
+    ## 12 August: added argument ignore.dom
+    ##            with default FALSE
+    ## TRUE can support the combination of estimable with blocking
     if (ncol(estimable) > nruns - nfac - 1) 
         stop("too many interactions requested for this number of runs and factors")
     if (nruns > 32 & res3) {
@@ -36,9 +39,11 @@ mapcalc <- function (estimable, nfac, nruns, res3 = FALSE, select.catlg = catlg,
     ## added further pre-filtering criteria 9 July 2012
     indep2 <- independence.number(go2)         ## required maximum independence number
     clique2 <- clique.number(go2)              ## required minimum clique size
+    tobechecked <- catlg[which(nfac(catlg) == nfac & nruns(catlg) == nruns)]
     ## reduced attention to dominating designs, if applicable (29 June 2012)
-    tobechecked <- catlg[which(nfac(catlg) == nfac & nruns(catlg) == 
-        nruns & dominating(catlg))]
+    ## made reduction to dominating designs respond to ignore.dom argument (12 August 2019)
+    if (!ignore.dom)
+        tobechecked <- tobechecked[which(dominating(tobechecked))]
     if (length(tobechecked) > 0) 
         if (!res3) 
             tobechecked <- tobechecked[which(res(tobechecked) >= 
@@ -294,7 +299,11 @@ check.subisomorphic.matrix <- function(estimable, nfac, hilf2, hilf3=NULL, res3=
 
 map2design <- function(map, select.catlg=catlg){
           hilf <- select.catlg[[names(map)]]
-          hilf <- FrF2(nruns=hilf$nruns,nfactors=hilf$nfac,generators=hilf$gen,randomize=FALSE)[,map[[1]]]
+          ## added for handling of full factorials August 2019
+          gen <- hilf$gen
+          if (length(gen)==0) gen <- NULL
+          hilf <- FrF2(nruns=hilf$nruns,nfactors=hilf$nfac,
+                       generators=gen,randomize=FALSE)[,map[[1]]]
           colnames(hilf) <- Letters[1:ncol(hilf)]
           hilf
     }
@@ -376,11 +385,13 @@ estimable <- function(estimable, nfac, nruns,
                       clear=FALSE, res3=FALSE, max.time=60, 
                       select.catlg=catlg, 
                       perm.start=1:nfac, perms=NULL,
-                      order = 3, method="VF2", sort="natural"){
+                      order = 3, method="VF2", sort="natural", 
+                      ignore.dom = FALSE){
         if (clear) {
             ## perhaps relabel estimable entries such that most frequently occurring ones in front
             estimable <- 
-            map <- mapcalc(estimable,nfac,nruns,res3=res3, select.catlg=select.catlg, method=method, sort=sort)
+            map <- mapcalc(estimable,nfac,nruns,res3=res3, select.catlg=select.catlg, 
+                           method=method, sort=sort, ignore.dom=ignore.dom)
         }
            else map <- mapcalc.distinct(estimable,nfac,nruns,res3=res3, max.time=max.time, 
                                 select.catlg=select.catlg, perm.start=perm.start, perms=perms)

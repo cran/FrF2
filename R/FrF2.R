@@ -4,7 +4,8 @@ FrF2 <- function(nruns=NULL, nfactors=NULL,
                  default.levels = c(-1,1), ncenter=0, center.distribute=NULL,
                  generators=NULL, design=NULL, resolution=NULL, select.catlg=catlg, 
                  estimable=NULL, clear=TRUE, method="VF2", sort="natural", 
-                 res3=FALSE, max.time=60, 
+                 ignore.dom=!isTRUE(all.equal(blocks,1)),
+                 useV = TRUE, firsthit = FALSE, res3=FALSE, max.time=60, 
                  perm.start=NULL, perms=NULL, MaxC2=FALSE, 
                  replications=1, repeat.only=FALSE, 
                  randomize=TRUE, seed=NULL, alias.info=2, 
@@ -69,16 +70,31 @@ if (ncenter>0 && !identical(WPs,1)) stop("center points for split plot designs a
 if (!(is.null(generators) || (identical(WPs,1) || !is.null(WPfacs)))) stop("generators can only be used with split-plot designs, if WPfacs are specified.")
 if (!is.null(nruns)) if (ncenter>0) if (center.distribute > nruns + 1) 
     stop("center.distribute must not be larger than nruns+1")
-if (!(is.null(design) || is.null(estimable))) stop("design and estimable must not be specified together.")
-if (!(is.null(generators) || is.null(design))) stop("generators and design must not be specified together.")
-if (is.null(nruns) & !(is.null(generators))) stop("If generators is specified, nruns must be given.")
-if (!(is.null(generators) || is.null(estimable))) stop("generators and estimable must not be specified together.")
+if (!(is.null(generators) || is.null(design))) 
+  stop("generators and design must not be specified together.")
+if (is.null(nruns) & !(is.null(generators))) 
+  stop("If generators is specified, nruns must be given.")
+if (!(is.null(generators) || is.null(estimable))) 
+  stop("generators and estimable must not be specified together.")
 if (!(identical(blocks,1) || is.null(estimable))){
   if (!(is.numeric(blocks) && length(blocks)==1)) 
   stop("estimable can only be combined with automatic blocking.")
   if (!clear) message("clear=FALSE will be ignored, ", 
                       "as estimability for blocked designs is only implemented for clear 2fis.")
 }
+igdom <- ignore.dom ## ignore.dom argument for estimable
+if (!(is.null(design) || is.null(estimable))){ 
+  ## design and estimable together, 12 August 2019
+  ## validity of design was not yet checked
+  message("estimability is only attempted for the specified design")
+  igdom <- TRUE   ## always ignore dominating entry of one specific design
+}
+if (!is.null(useV)) {
+  if (!is.logical(useV)) stop("useV must be logical")
+}
+if (!is.logical(firsthit)) stop("firsthit must be logical")
+### NULL case will be decided when resolution of ingoing design is known
+    
     ## 1.7 it might be desirable to alleviate this constraint, and it might also be possible!
     ## 1.8 alleviated this constraint
 if (!(identical(WPs,1) || is.null(estimable))) stop("WPs and estimable must not be specified together.")
@@ -191,7 +207,8 @@ if (!(is.null(resolution) || is.null(nruns))) warning("resolution is ignored, if
                    if (!ncol(perms)==nfactors) stop ("matrix perms must have nfactors columns.")
                    if (any(apply(perms,1,function(obj) any(!sort(obj)==1:nfactors)))) 
                         stop("Each row of perms must be a permutation of 1:nfactors.")
-                   }
+                }
+        if (is.null(design)) cand <- select.catlg   ## otherwise, cand has already been set
     }
           ## from here on, estimable is a numeric matrix with two rows
           ## and nfactors is known
@@ -224,7 +241,7 @@ if (!(is.null(resolution) || is.null(nruns))) warning("resolution is ignored, if
 
     ### prepare generators case
     if (!is.null(generators)){
-               ### nruns and k are always given for this situation
+               ## nruns and k are always given for this situation
               generators <- gen.check(k, generators)
                  g <- nfactors - k
                  if (!length(generators)== g) 
@@ -417,7 +434,7 @@ if (!(is.null(resolution) || is.null(nruns))) warning("resolution is ignored, if
           Please reduce the number of runs and introduce replications instead.")
        ## artificial generators and cand for full factorial with blocks or WPs
        if (nfactors == k) {
-           generators <- as.list(numeric(0))
+              generators <- as.list(numeric(0))
                cand <- list(custom=list(res=Inf, nfac=nfactors, nruns=nruns, 
                     gen=numeric(0), 
                     WLP=c(0,0,0,0), nclear.2fis=choose(k,2), 
@@ -433,11 +450,12 @@ if (!(is.null(resolution) || is.null(nruns))) warning("resolution is ignored, if
          if (!is.null(estimable)) {
             ## determine design that satisfies estimability requests
               desmat <- estimable(estimable, nfactors, nruns, 
-                clear=clear, res3=res3, max.time=max.time, select.catlg=select.catlg, 
+                clear=clear, res3=res3, max.time=max.time, select.catlg=cand, 
                      method=method,sort=sort,
-                     perm.start=perm.start, perms=perms, order=alias.info)
+                     perm.start=perm.start, perms=perms, order=alias.info,
+                     ignore.dom=igdom)              ## added ignore.dom, August 2019
               map <- desmat$map                  ## for use in blocking, if needed (July 2019)
-              cand <- select.catlg[names(map)]   ## for use in blocking, if needed (July 2019)
+              cand <- cand[names(map)]   ## for use in blocking, if needed (July 2019)
               design.info <- list(type="FrF2.estimable", 
                      nruns=nruns, nfactors=nfactors, factor.names=factor.names, 
                      catlg.name = catlg.name,
@@ -502,8 +520,17 @@ if (!(is.null(resolution) || is.null(nruns))) warning("resolution is ignored, if
                      ## since 1.8: Godolphin approach
                      ##    if estimable, cand contains a single design 
                      ##            that has been preselected with the estimable function
-                  for (i in 1:length(cand)){ 
-                    X <- colpick(cand[i], k - k.block, estimable=estimable, quiet=TRUE)
+                  for (i in 1:length(cand)){
+                    if (is.null(useV)) useV <- cand[[1]]$res > 4 && !is.null(estimable)
+  
+                    if (useV)
+                      X <- colpick(cand[i], k - k.block, estimable=estimable, quiet=TRUE, 
+                                    method=method, sort=sort,
+                                   select.catlg = cand[i], res3=res3, firsthit=firsthit)
+                    else
+                      X <- colpickIV(cand[i], k - k.block, estimable=estimable, quiet=TRUE, 
+                                   method=method, sort=sort,
+                                 select.catlg = cand[i], res3=res3, firsthit=firsthit)
                         if (!is.null(X)) {
                           ## found a successful block structure
                           ## in cand[i]
@@ -531,10 +558,29 @@ if (!(is.null(resolution) || is.null(nruns))) warning("resolution is ignored, if
                     }
                     
                     } ## end else (for big case)
-                if (alias.block.2fis && !is.list(blocks)) 
-                         stop("no adequate block design found")
-                if ((!alias.block.2fis) && !is.list(blocks)) 
-                         stop("no adequate block design found with 2fis unconfounded with blocks")
+                if (!is.list(blocks)) {
+                    stopmsg <- "no adequate blocked design found"
+                    if (!alias.block.2fis) 
+                      stopmsg <- c(stopmsg, " with 2fis unconfounded with blocks")
+                    if (!is.null(design))
+                      stopmsg <- c(stopmsg, paste(" in design", design))
+                    else {
+                      if (!is.null(estimable)){
+                        stopmsg <- c(stopmsg, paste(" in design", names(cand)))
+                      }
+                    if (!is.null(estimable)){
+                        if (ignore.dom) 
+                          stopmsg <- c(stopmsg, " which is the first suitable element of select.catlg")
+                        else 
+                          stopmsg <- c(stopmsg, " which is the first suitable dominating element of select.catlg")
+                        if (!useV && !nfactors==log2(nruns)) 
+                          stopmsg <- c(stopmsg, 
+                                       " without trying to reshuffle map from unblocked fraction", 
+                                       " (useV=TRUE might be worth a try)")
+                        }
+                    }
+                    stop(stopmsg)
+                }
                 }
                 }
             if (is.list(blocks)) {
@@ -1049,7 +1095,7 @@ else {
                 list(base.design=paste("generator columns:", paste(cand[[1]]$gen, collapse=", "))))
            else 
            design.info <- c(design.info, 
-                list(base.design="full factorial"))
+                list(base.design=paste("generator columns:", numeric(0))))
                 }
            else design.info <- c(design.info, list(catlg.name = catlg.name, base.design=names(cand[1])))
            if (!is.null(estimable)) design.info <- c(design.info, list(map=map))

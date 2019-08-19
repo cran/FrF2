@@ -122,9 +122,9 @@ Choice of optimal blocking schemes in 2-level and 3-level designs.
 
 Godolphin, J. (2019). Construction of blocked factorial designs to estimate main effects and selected two-factor interactions. \url{https://arxiv.org/abs/1907.02373}
 
-Groemping, U. (2019). Blocking regular 2-level fractional factorial designs 
-   with R, while maintaining estimability of selected two-factor interactions. 
-   \emph{Reports in Mathematics, Physics and Chemistry}, \href{http://www1.beuth-hochschule.de/FB_II/reports}{technical report}, 
+Groemping, U. (2019). An algorithm for blocking regular fractional 
+  factorial 2-level designs with clear two-factor interactions. 
+   \emph{Reports in Mathematics, Physics and Chemistry}, \href{http://www1.beuth-hochschule.de/FB_II/reports/Report-2019-003.pdf}{Report 3/2019}, 
    Department II, Beuth University of Applied Sciences Berlin.
 
 Sitter, R.R., Chen, J. and Feder, M. (1997). 
@@ -165,6 +165,16 @@ FrF2(64,gen=c(7,11,14),blocks=16,alias.block.2fis=TRUE)
 FrF2(32,9,blocks=c("Day","Shift"),alias.block.2fis=TRUE, 
     factor.names=list(Day=c("Wednesday","Thursday"), Shift=c("Morning","Afternoon"),
         F1="",F2="",F3="",F4="",F5="",F6="",F7=""), default.levels=c("current","new"))
+
+########## blocked design with estimable 2fis ####################
+### all interactions of last two factors to be estimable clearly
+### in 64 run design with blocks of size 4
+### not possible with catalogue entry 9-3.1
+FrF2(design="9-3.2", blocks=16, alias.block.2fis=TRUE, 
+    factor.names = list(C1="",C2="",C3="",C4="",C5="",C6="",C7="",
+    N1=c("low","high"),N2=c("low","high")), 
+    default.levels = c("current","new"),
+    estimable=compromise(9, 8:9)$requirement)
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

@@ -8,6 +8,7 @@
 \alias{estimable.check}
 \alias{mapcalc}
 \alias{mapcalc.distinct}
+\alias{mapcalc.block}
 \alias{map2design}
 \alias{gen2clear.2fis}
 \alias{formula2matrix}
@@ -35,8 +36,10 @@ gen.check(k, gen)
 estimable.check(estimable, nfac, factor.names)
 estimable(estimable, nfac, nruns, clear=FALSE, res3=FALSE, max.time=60, 
             select.catlg=catlg, perm.start=1:nfac, perms=NULL, order = 3, 
-            method="VF2", sort="natural")
+            method="VF2", sort="natural", ignore.dom=FALSE)
 mapcalc(estimable, nfac, nruns, res3=FALSE, select.catlg=catlg, 
+            method="VF2", sort="natural", ignore.dom=FALSE)
+mapcalc.block(estimable, nfac, clearcur, 
             method="VF2", sort="natural")
 mapcalc.distinct(estimable, nfac, nruns, res3=FALSE, max.time=60, 
         select.catlg=catlg, perm.start=1:nfac, perms=NULL)
@@ -77,6 +80,10 @@ Yates
   \item{perms}{ like in \code{\link{FrF2}} }
   \item{method}{ like in \code{\link{FrF2}} }
   \item{sort}{ like in \code{\link{FrF2}} }
+  \item{ignore.dom}{per default (\code{ignore.dom=FALSE}), 
+      non-dominating elements of \code{select.catlg} will be removed before searching; 
+      set \code{ignore.dom} to TRUE to change that (needed for combination of blocking 
+      with estimable requirement)}
   \item{clearcur}{is the set of clear 2fis after removing aliases with the block factor}
   \item{map}{ map of experiment factors to design factors, used in \code{estimable} }
   \item{formula}{ formula to be translated into matrix for \code{estimable} }

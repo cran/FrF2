@@ -233,6 +233,8 @@ alias3fi <- function(k, gen, order=3){
    gen.check <- function(k,gen){   if (!is.list(gen)) {
                  if (!(is.numeric(gen) | is.character(gen))) 
                       stop("gen must be a list of generator vectors, a vector of column numbers or a character vector of generators.")
+             ## August 2019: handle full factorial
+                 if (length(gen)==0) return(vector(mode="list"))
                  if (is.character(gen)){
                      absgen <- sub("-","",gen)
                      minus <- grep("^-",gen)

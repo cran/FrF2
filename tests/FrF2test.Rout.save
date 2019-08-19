@@ -150,7 +150,7 @@ $drop.deparse.attr
 $formatNum
 function (x, ...) 
 format(x, trim = TRUE, drop0trailing = TRUE, ...)
-<environment: 0x0000000018a6a7b8>
+<environment: 0x000000001938f1d8>
 
 > str.wover <- function(obj){
 +     di <- attr(obj, "design.info") 
@@ -1512,7 +1512,8 @@ Classes 'design' and 'data.frame':	64 obs. of  8 variables:
   ..$ creator            : language FrF2(64, 7, blocks = 32, alias.block.2fis = TRUE, randomize = FALSE)
 > 
 >   ## godolphin with estimable
->   str.wover(FrF2(64,9,blocks=16,estimable=compromise(9,3)$requirement,
+>   str.wover(FrF2(64,9,blocks=16,factor.names=Letters[15:23], 
++        estimable=compromise(9,3)$requirement,
 +        alias.block.2fis=TRUE,randomize=FALSE))
 a clear design requires at least 32 runs
 checking up to 162 matrices
@@ -1522,47 +1523,47 @@ Classes 'design' and 'data.frame':	64 obs. of  10 variables:
   .. ..- attr(*, "dimnames")=List of 2
   .. .. ..$ : chr  "1" "2" "3" "4" ...
   .. .. ..$ : NULL
- $ A     : Factor w/ 2 levels "-1","1": 1 1 2 2 1 1 2 2 1 1 ...
+ $ P     : Factor w/ 2 levels "-1","1": 1 1 2 2 1 1 2 2 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
   .. .. ..$ : chr  "-1" "1"
   .. .. ..$ : NULL
- $ B     : Factor w/ 2 levels "-1","1": 2 2 1 1 2 2 1 1 2 2 ...
+ $ Q     : Factor w/ 2 levels "-1","1": 1 2 1 2 1 2 1 2 1 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
   .. .. ..$ : chr  "-1" "1"
   .. .. ..$ : NULL
- $ D     : Factor w/ 2 levels "-1","1": 2 2 1 1 2 2 1 1 2 2 ...
+ $ S     : Factor w/ 2 levels "-1","1": 2 1 2 1 2 1 2 1 2 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
   .. .. ..$ : chr  "-1" "1"
   .. .. ..$ : NULL
- $ C     : Factor w/ 2 levels "-1","1": 1 2 1 2 1 2 1 2 1 2 ...
+ $ R     : Factor w/ 2 levels "-1","1": 1 2 2 1 1 2 2 1 1 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
   .. .. ..$ : chr  "-1" "1"
   .. .. ..$ : NULL
- $ E     : Factor w/ 2 levels "-1","1": 2 2 1 1 2 2 1 1 1 1 ...
+ $ T     : Factor w/ 2 levels "-1","1": 2 1 2 1 2 1 2 1 1 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
   .. .. ..$ : chr  "-1" "1"
   .. .. ..$ : NULL
- $ F     : Factor w/ 2 levels "-1","1": 2 2 1 1 1 1 2 2 2 2 ...
+ $ U     : Factor w/ 2 levels "-1","1": 2 2 1 1 1 1 2 2 2 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
   .. .. ..$ : chr  "-1" "1"
   .. .. ..$ : NULL
- $ G     : Factor w/ 2 levels "-1","1": 1 1 2 2 1 1 2 2 1 1 ...
+ $ V     : Factor w/ 2 levels "-1","1": 2 2 1 1 2 2 1 1 2 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
   .. .. ..$ : chr  "-1" "1"
   .. .. ..$ : NULL
- $ H     : Factor w/ 2 levels "-1","1": 2 1 1 2 2 1 1 2 1 2 ...
+ $ W     : Factor w/ 2 levels "-1","1": 1 2 1 2 1 2 1 2 2 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
   .. .. ..$ : chr  "-1" "1"
   .. .. ..$ : NULL
- $ J     : Factor w/ 2 levels "-1","1": 2 1 1 2 1 2 2 1 2 1 ...
+ $ X     : Factor w/ 2 levels "-1","1": 2 2 1 1 1 1 2 2 2 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
   .. .. ..$ : chr  "-1" "1"
@@ -1572,32 +1573,34 @@ Classes 'design' and 'data.frame':	64 obs. of  10 variables:
   .. ..$ : chr  "1" "2" "3" "4" ...
   .. ..$ : chr  "Blocks1" "Blocks2" "Blocks3" "Blocks4" ...
  - attr(*, "run.order")='data.frame':	64 obs. of  3 variables:
-  ..$ run.no.in.std.order: Factor w/ 64 levels "1.16.1","2.15.1",..: 28 32 33 37 27 31 34 38 26 30 ...
+  ..$ run.no.in.std.order: Factor w/ 64 levels "1.12.1","2.11.1",..: 12 22 47 49 11 21 48 50 10 24 ...
   ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
-  ..$ run.no.std.rp      : Factor w/ 64 levels "1.16.1","2.15.1",..: 28 32 33 37 27 31 34 38 26 30 ...
+  ..$ run.no.std.rp      : Factor w/ 64 levels "1.12.1","2.11.1",..: 12 22 47 49 11 21 48 50 10 24 ...
  - attr(*, "design.info")=List of 21
   ..$ type               : chr "FrF2.blocked"
   ..$ block.name         : chr "Blocks"
   ..$ nruns              : num 64
   ..$ nfactors           : num 9
   ..$ nblocks            : num 16
-  ..$ block.gen          : Named int  3 5 17 33
-  .. ..- attr(*, "names")= chr  "AB" "AC" "AE" "AF"
+  ..$ block.gen          : Named int  6 11 18 33
+  .. ..- attr(*, "names")= chr  "BC" "ABD" "BE" "AF"
   ..$ blocksize          : num 4
   ..$ ntreat             : num 9
   ..$ factor.names       :List of 9
-  .. ..$ A: num  -1 1
-  .. ..$ B: num  -1 1
-  .. ..$ D: num  -1 1
-  .. ..$ C: num  -1 1
-  .. ..$ E: num  -1 1
-  .. ..$ F: num  -1 1
-  .. ..$ G: num  -1 1
-  .. ..$ H: num  -1 1
-  .. ..$ J: num  -1 1
-  ..$ aliased.with.blocks: chr  "AB" "AC" "AE" "AF" ...
-  ..$ aliased            :List of 1
-  .. ..$ legend: chr  "A=A" "B=B" "C=D" "D=C" ...
+  .. ..$ P: num  -1 1
+  .. ..$ Q: num  -1 1
+  .. ..$ S: num  -1 1
+  .. ..$ R: num  -1 1
+  .. ..$ T: num  -1 1
+  .. ..$ U: num  -1 1
+  .. ..$ V: num  -1 1
+  .. ..$ W: num  -1 1
+  .. ..$ X: num  -1 1
+  ..$ aliased.with.blocks: chr  "AF" "AG" "AJ" "BC" ...
+  ..$ aliased            :List of 3
+  .. ..$ legend: chr  "A=P" "B=Q" "C=S" "D=R" ...
+  .. ..$ main  : chr 
+  .. ..$ fi2   : chr  "AB=CG" "AC=BG"
   ..$ bbreps             : num 1
   ..$ wbreps             : num 1
   ..$ catlg.name         : chr "catlg"
@@ -1607,7 +1610,232 @@ Classes 'design' and 'data.frame':	64 obs. of  10 variables:
   ..$ repeat.only        : logi FALSE
   ..$ randomize          : logi FALSE
   ..$ seed               : NULL
-  ..$ creator            : language FrF2(64, 9, blocks = 16, estimable = compromise(9, 3)$requirement, alias.block.2fis = TRUE,      randomize = FALSE)
+  ..$ creator            : language FrF2(64, 9, blocks = 16, factor.names = Letters[15:23], estimable = compromise(9,      3)$requirement, alias.bloc| __truncated__
+>   
+>   ## godolphin with estimable and full factorial
+>   str.wover(FrF2(64,6,blocks=16,factor.names=Letters[15:20], 
++                  estimable=compromise(6,3)$requirement,
++                  alias.block.2fis=TRUE,randomize=FALSE, firsthit=FALSE))
+a clear design requires at least 16 runs
+creating full factorial with 64 runs ...
+
+checking up to 162 matrices
+Classes 'design' and 'data.frame':	64 obs. of  7 variables:
+ $ Blocks: Factor w/ 16 levels "1","2","3","4",..: 1 1 1 1 2 2 2 2 3 3 ...
+  ..- attr(*, "contrasts")= num [1:16, 1:15] -1 1 -1 1 -1 1 -1 1 -1 1 ...
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "1" "2" "3" "4" ...
+  .. .. ..$ : NULL
+ $ P     : Factor w/ 2 levels "-1","1": 1 1 2 2 1 1 2 2 1 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ R     : Factor w/ 2 levels "-1","1": 1 2 1 2 1 2 1 2 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ Q     : Factor w/ 2 levels "-1","1": 1 2 2 1 1 2 2 1 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ S     : Factor w/ 2 levels "-1","1": 2 1 2 1 2 1 2 1 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ T     : Factor w/ 2 levels "-1","1": 2 2 1 1 2 2 1 1 1 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ U     : Factor w/ 2 levels "-1","1": 2 2 1 1 1 1 2 2 2 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ - attr(*, "desnum")= num [1:64, 1:21] -1 -1 -1 -1 1 1 1 1 -1 -1 ...
+  ..- attr(*, "dimnames")=List of 2
+  .. ..$ : chr  "1" "2" "3" "4" ...
+  .. ..$ : chr  "Blocks1" "Blocks2" "Blocks3" "Blocks4" ...
+ - attr(*, "run.order")='data.frame':	64 obs. of  3 variables:
+  ..$ run.no.in.std.order: Factor w/ 64 levels "1.8.1","2.7.1",..: 8 28 45 49 7 27 46 50 6 26 ...
+  ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
+  ..$ run.no.std.rp      : Factor w/ 64 levels "1.8.1","2.7.1",..: 8 28 45 49 7 27 46 50 6 26 ...
+ - attr(*, "design.info")=List of 20
+  ..$ type               : chr "FrF2.blocked"
+  ..$ block.name         : chr "Blocks"
+  ..$ nruns              : num 64
+  ..$ nfactors           : num 6
+  ..$ nblocks            : num 16
+  ..$ block.gen          : Named int  7 10 17 33
+  .. ..- attr(*, "names")= chr  "ABC" "BD" "AE" "AF"
+  ..$ blocksize          : num 4
+  ..$ ntreat             : num 6
+  ..$ factor.names       :List of 6
+  .. ..$ P: num  -1 1
+  .. ..$ R: num  -1 1
+  .. ..$ Q: num  -1 1
+  .. ..$ S: num  -1 1
+  .. ..$ T: num  -1 1
+  .. ..$ U: num  -1 1
+  ..$ aliased.with.blocks: chr  "AE" "AF" "BD" "EF"
+  ..$ aliased            :List of 1
+  .. ..$ legend: chr  "A=P" "B=R" "C=Q" "D=S" ...
+  ..$ bbreps             : num 1
+  ..$ wbreps             : num 1
+  ..$ base.design        : chr "generator columns: 7, 10, 17, 33"
+  ..$ map                : num  1 3 2 4 5 6
+  ..$ replications       : num 1
+  ..$ repeat.only        : logi FALSE
+  ..$ randomize          : logi FALSE
+  ..$ seed               : NULL
+  ..$ creator            : language FrF2(64, 6, blocks = 16, factor.names = Letters[15:20], estimable = compromise(6,      3)$requirement, alias.bloc| __truncated__
+>   
+>   ## godolphin with estimable and the need that ignore.dom takes the value TRUE
+>   ## (which it should automatically do due to its default)
+>   str.wover(FrF2(64, 9, blocks=16, estimable=compromise(9,1:2)$requirement, 
++        alias.block.2fis = TRUE, select.catlg = catlg[-1378]))
+a clear design requires at least 32 runs
+checking up to 162 matrices
+Classes 'design' and 'data.frame':	64 obs. of  10 variables:
+ $ Blocks: Factor w/ 16 levels "1","2","3","4",..: 1 1 1 1 2 2 2 2 3 3 ...
+  ..- attr(*, "contrasts")= num [1:16, 1:15] -1 1 -1 1 -1 1 -1 1 -1 1 ...
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "1" "2" "3" "4" ...
+  .. .. ..$ : NULL
+ $ C     : Factor w/ 2 levels "-1","1": 1 1 2 2 1 2 2 1 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ D     : Factor w/ 2 levels "-1","1": 2 2 1 1 2 1 1 2 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ E     : Factor w/ 2 levels "-1","1": 2 2 1 1 2 1 1 2 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ F     : Factor w/ 2 levels "-1","1": 2 2 1 1 2 1 1 2 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ G     : Factor w/ 2 levels "-1","1": 2 2 1 1 1 2 2 1 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ A     : Factor w/ 2 levels "-1","1": 2 1 1 2 1 1 2 2 2 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ H     : Factor w/ 2 levels "-1","1": 1 1 2 2 1 2 2 1 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ J     : Factor w/ 2 levels "-1","1": 1 1 2 2 2 1 1 2 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ $ B     : Factor w/ 2 levels "-1","1": 1 2 1 2 2 1 2 1 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : NULL
+ - attr(*, "desnum")= num [1:64, 1:24] -1 -1 -1 -1 1 1 1 1 -1 -1 ...
+  ..- attr(*, "dimnames")=List of 2
+  .. ..$ : chr  "1" "2" "3" "4" ...
+  .. ..$ : chr  "Blocks1" "Blocks2" "Blocks3" "Blocks4" ...
+ - attr(*, "run.order")='data.frame':	64 obs. of  3 variables:
+  ..$ run.no.in.std.order: Factor w/ 64 levels "1.16.1","2.16.2",..: 32 31 33 34 29 35 36 30 38 28 ...
+  ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
+  ..$ run.no.std.rp      : Factor w/ 64 levels "1.16.1","2.16.2",..: 32 31 33 34 29 35 36 30 38 28 ...
+ - attr(*, "design.info")=List of 21
+  ..$ type               : chr "FrF2.blocked"
+  ..$ block.name         : chr "Blocks"
+  ..$ nruns              : num 64
+  ..$ nfactors           : num 9
+  ..$ nblocks            : num 16
+  ..$ block.gen          : Named int  3 5 9 17
+  .. ..- attr(*, "names")= chr  "AB" "AC" "AD" "AE"
+  ..$ blocksize          : num 4
+  ..$ ntreat             : num 9
+  ..$ factor.names       :List of 9
+  .. ..$ C: num  -1 1
+  .. ..$ D: num  -1 1
+  .. ..$ E: num  -1 1
+  .. ..$ F: num  -1 1
+  .. ..$ G: num  -1 1
+  .. ..$ A: num  -1 1
+  .. ..$ H: num  -1 1
+  .. ..$ J: num  -1 1
+  .. ..$ B: num  -1 1
+  ..$ aliased.with.blocks: chr  "AB" "AC" "AD" "AE" ...
+  ..$ aliased            :List of 1
+  .. ..$ legend: chr  "A=C" "B=D" "C=E" "D=F" ...
+  ..$ bbreps             : num 1
+  ..$ wbreps             : num 1
+  ..$ catlg.name         : chr "catlg[-1378]"
+  ..$ base.design        : chr "9-3.2"
+  ..$ map                : num  6 9 1 2 3 4 5 7 8
+  ..$ replications       : num 1
+  ..$ repeat.only        : logi FALSE
+  ..$ randomize          : logi TRUE
+  ..$ seed               : NULL
+  ..$ creator            : language FrF2(64, 9, blocks = 16, estimable = compromise(9, 1:2)$requirement, alias.block.2fis = TRUE,      select.catlg = catlg[-1378])
+>   summary(FrF2(256, 13, blocks=64, alias.block.2fis=TRUE, 
++                factor.names = list(C1="",C2="",C3="",C4="",C5="",C6="",C7="",C8="",
++                                    C9="",C10="",C11="",C12="",
++                                    N1=c("low","high")), 
++                default.levels = c("current","new"),
++                estimable=compromise(13, 1)$requirement))
+a clear design requires at least 64 runs
+checking up to 1458 matrices
+Call:
+FrF2(256, 13, blocks = 64, alias.block.2fis = TRUE, factor.names = list(C1 = "", 
+    C2 = "", C3 = "", C4 = "", C5 = "", C6 = "", C7 = "", C8 = "", 
+    C9 = "", C10 = "", C11 = "", C12 = "", N1 = c("low", "high")), 
+    default.levels = c("current", "new"), estimable = compromise(13, 
+        1)$requirement)
+
+Experimental design of type  FrF2.blocked 
+256  runs
+blocked design with  64  blocks of size  4 
+
+Factor settings (scale ends):
+       C2      C3      C4      C5      C6      C7      C8      C9     C10
+1 current current current current current current current current current
+2     new     new     new     new     new     new     new     new     new
+      C11     C12   N1      C1
+1 current current  low current
+2     new     new high     new
+
+Design generating information:
+$legend
+ [1] A=C2  B=C3  C=C4  D=C5  E=C6  F=C7  G=C8  H=C9  J=C10 K=C11 L=C12 M=N1 
+[13] N=C1 
+
+$`generators for design itself`
+[1] J=BCDEFGH K=BCDEJ   L=BCFGJ   M=BDFHJ   N=BEGH   
+
+$`block generators`
+[1] BC BD AE AF AG AH
+
+
+no aliasing of main effects or 2fis  among experimental factors
+
+Aliased with block main effects:
+ [1] AE AF AG AH BC BD BJ BK BL BM CD CJ CK CL CM DJ DK DL DM EF EG EH FG FH GH
+[26] JK JL JM KL KM LM
 > 
 > ## split plot
 >   ## automatic selection
@@ -2630,4 +2858,4 @@ NOTE: columns run.no and run.no.std.rp  are annotation,
 > 
 > proc.time()
    user  system elapsed 
-   8.04    0.56    8.65 
+  11.32    0.48   11.81 

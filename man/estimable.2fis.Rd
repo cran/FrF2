@@ -51,9 +51,17 @@
   is often fast. If it isn't, option \code{sort} 
   of function \code{\link{FrF2}} can help. For the occasional situation where 
   this doesn't help either, a manual search may help, see \code{\link{CIG}} 
-  for an example of how to proceed.
-  
-  
+  for an example of how to proceed.\cr
+  Since version 2 of package \pkg{FrF2}, requesting 2fis to be clear is compatible 
+  with blocking a design. The algorithm behind that functionality is based on 
+  Godolphin (2019) and is described in Groemping (2019). 
+  The default implementation strives for a guartanteed and best possible result. 
+  Arguments \code{firsthit} and \code{useV} to function \code{\link{FrF2}} 
+  can be used for trying to obtain a possibly not best result (\code{firsthit}) 
+  faster or to use a (sometimes) faster algorithm that is not guaranteed 
+  to deliver a result even though it might exist for resolution IV situations 
+  (\code{useV=FALSE}). 
+    
   With \code{clear=FALSE}, the algorithm loops through the eligible designs from 
   \code{catlg.select} from good to worse (in terms of MA) and, for each design, loops 
   through all eligible permutations of the experiment factors from \code{perms}. 
@@ -138,6 +146,10 @@ An improved algorithm for matching large graphs. \emph{Proc. of the 3rd
 IAPR TC-15 Workshop on Graphbased Representations in Pattern Recognition},
 149--159.
 
+    Godolphin, J. (2019). Construction of Blocked Factorial Designs to Estimate 
+   Main Effects and Selected Two-Factor Interactions. *Unpublished report* 
+   available at \url{https://arxiv.org/abs/1907.02373}.
+   
 Groemping, U. (2010). \dQuote{Clear} and \dQuote{Distinct}: two approaches for regular 
 fractional factorial designs with estimability requirements. 
 \emph{Reports in Mathematics, Physics and Chemistry}, report 02/2010, 
@@ -154,6 +166,11 @@ Preprint available at \url{http://www1.beuth-hochschule.de/FB_II/reports/Report-
     Groemping, U. (2014b). A Note on Dominating Fractional Factorial 
     Two-Level Designs With Clear Two-Factor Interactions. \emph{Technometrics} 
     \bold{56}, 42--45.
+
+Groemping, U. (2019). An algorithm for blocking regular fractional 
+  factorial 2-level designs with clear two-factor interactions. 
+   \emph{Reports in Mathematics, Physics and Chemistry}, \href{http://www1.beuth-hochschule.de/FB_II/reports/Report-2019-003.pdf}{Report 3/2019}, 
+   Department II, Beuth University of Applied Sciences Berlin.
 
 Ke, W., Tang, B. and Wu, H. (2005). Compromise plans with clear two-factor interactions. 
 \emph{Statistica Sinica} \bold{15}, 709-715.
