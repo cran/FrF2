@@ -229,19 +229,20 @@ add.center <- function(design, ncenter, distribute=NULL, ...){
             if (length(blockids)==1){
                ## one (replication) block only
                new <- rbind(hilf, new)
-               ronew <- rbind(ro, ronew)
+               ronew <- rbind(ro, ronew, stringsAsFactors=TRUE)
                }
             else{
                ## more than one (replication) block
                ## as distribute equals 1, blockids == blockid
                new <- rbind(getrennt[[1]], new)
-               ronew <- rbind(ro.getrennt[[1]], ronew)
+               ronew <- rbind(ro.getrennt[[1]], ronew, stringsAsFactors=TRUE)
                for (i in 2:length(blockids)){
                   if (!is.null(di$blocksize)) 
                   new <- rbind(new, getrennt[[i]], 
-                      cbind(matrix(getrennt[[i]][1,di$block.name],nrow=nadd[1],ncol=1, dimnames=list(NULL, di$block.name)),centers[[1]]))
+                      cbind(matrix(getrennt[[i]][1,di$block.name],nrow=nadd[1],ncol=1, dimnames=list(NULL, di$block.name)),
+                            centers[[1]]))
                   else new <- rbind(new, getrennt[[i]], centers[[1]])
-                  ronew <- rbind(ronew, ro.getrennt[[i]], ros[[i]][[1]])
+                  ronew <- rbind(ronew, ro.getrennt[[i]], ros[[i]][[1]], stringsAsFactors=TRUE)
                }
               }
             }
@@ -256,7 +257,7 @@ add.center <- function(design, ncenter, distribute=NULL, ...){
                   new <- rbind(new, 
                       cbind(matrix(getrennt[[iblock[1]]][1,di$block.name],nrow=nadd[1],ncol=1, dimnames=list(NULL, di$block.name)),centers[[1]]))
                   else new <- rbind(new, centers[[1]])
-                  ronew <- rbind(ronew, ros[[iblock[1]]][[1]])
+                  ronew <- rbind(ronew, ros[[iblock[1]]][[1]], stringsAsFactors=TRUE)
                   }
               for (j in 1:length(iblock)){
                   ## append next data with subsequent center points for the current (replication) block 
@@ -264,7 +265,7 @@ add.center <- function(design, ncenter, distribute=NULL, ...){
                   new <- rbind(new, getrennt[[iblock[j]]],
                       cbind(matrix(getrennt[[iblock[j]]][1,di$block.name],nrow=nadd[j+1],ncol=1, dimnames=list(NULL, di$block.name)),centers[[j+1]]))
                   else new <- rbind(new, getrennt[[iblock[j]]], centers[[j+1]])
-                  ronew <- rbind(ronew, ro.getrennt[[iblock[j]]], ros[[iblock[1]]][[j+1]])
+                  ronew <- rbind(ronew, ro.getrennt[[iblock[j]]], ros[[iblock[1]]][[j+1]], stringsAsFactors=TRUE)
                   }
               }
               }

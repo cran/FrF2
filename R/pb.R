@@ -249,7 +249,7 @@ pb <- function (nruns, nfactors = nruns - 1, factor.names = if (nfactors <=
         attr(aus, "desnum") <- sel
         orig.no <- factor(orig.no, levels = unique(orig.no[orig.no.levord]))
         attr(aus, "run.order") <- data.frame(run.no.in.std.order = orig.no,
-            run.no = 1:nrow(sel), run.no.std.rp = orig.no.rp)
+            run.no = 1:nrow(sel), run.no.std.rp = orig.no.rp, stringsAsFactors=TRUE)
         attr(aus, "design.info") <- list(type = "pb", nruns = nruns,
             nfactors = nfactors, factor.names = factor.names, ndummies = n.error,
             replications = replications, repeat.only = repeat.only,

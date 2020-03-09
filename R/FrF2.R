@@ -985,7 +985,7 @@ else {
         }
 
     if (is.list(blocks)) {
-        desdf <- cbind(Blocks, desdf)
+        desdf <- cbind(Blocks, desdf, stringsAsFactors=TRUE)
         ## make sure that experimental factors are assigned to those 
         ## columns that reflect their estimability needs
 
@@ -1182,8 +1182,8 @@ else {
       ## added 14 Feb 2013
       orig.no.rp <- factor(orig.no.rp, levels=unique(orig.no.rp[orig.no.levord]))
     if (!(is.list(blocks) | WPs > 1)) 
-       attr(aus,"run.order") <- data.frame("run.no.in.std.order"=orig.no,"run.no"=1:nrow(desmat),"run.no.std.rp"=orig.no.rp)
-    else attr(aus,"run.order") <- data.frame("run.no.in.std.order"=orig.no,"run.no"=1:nrow(desmat),"run.no.std.rp"=orig.no.rp)
+       attr(aus,"run.order") <- data.frame("run.no.in.std.order"=orig.no,"run.no"=1:nrow(desmat),"run.no.std.rp"=orig.no.rp, stringsAsFactors=TRUE)
+    else attr(aus,"run.order") <- data.frame("run.no.in.std.order"=orig.no,"run.no"=1:nrow(desmat),"run.no.std.rp"=orig.no.rp, stringsAsFactors=TRUE)
     ## make repeat.only reflect the calculated status instead of the status requested by the user 
     ## (which can be seen in the creator element)
     if (design.info$type=="FrF2.blocked") {

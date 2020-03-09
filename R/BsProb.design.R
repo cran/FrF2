@@ -1,6 +1,7 @@
 BsProb.design <- function(design, mFac = NULL, response=NULL, select=NULL, mInt = 2, p = 0.25, g = 2,
     ng = 1, nMod = 10){
  ## accessor function for BsProb from package BsMD
+    if (!requireNamespace("BsMD", quiet=TRUE)) stop("Package BsMD is not available. Please install it before using this function.")
     if (!"design" %in% class(design)) stop("This function is for class design objects only.")
     di <- design.info(design)
     if (!(length(grep("FrF2",di$type))>0 |

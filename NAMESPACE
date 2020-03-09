@@ -1,4 +1,4 @@
-     import(BsMD,DoE.base,igraph,scatterplot3d)
+     import(DoE.base,igraph,scatterplot3d)
      importFrom(utils,combn) 
      importFrom(sfsmisc,AsciiToInt,as.intBase,digitsBase)
      importFrom("grDevices", "grey", "rgb", "xyz.coords")

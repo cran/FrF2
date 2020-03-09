@@ -218,7 +218,7 @@ FrF2Large <- function(nruns, nfactors=NULL,
       ## change 27 Jan 2011: leave orig.no as a factor, but with better-ordered levels
       orig.no <- factor(orig.no, levels=unique(orig.no[orig.no.levord]))
       attr(desdf, "run.order") <- data.frame("run.no.in.std.order"=orig.no,
-           "run.no"=1:nrow(desmat),"run.no.std.rp"=orig.no.rp)
+           "run.no"=1:nrow(desmat),"run.no.std.rp"=orig.no.rp, stringsAsFactors=TRUE)
       design.info <- list(type="FrF2.large", nruns=nruns,
           nfactors=nfactors, factor.names=factor.names, generators=generators,
           aliased = alias3fi(k,cand[1][[1]]$gen,order=alias.info),

@@ -59,6 +59,9 @@ for which print, plot and summary methods are available from package \pkg{BsMD}.
     cf. documentation of function \code{\link[BsMD]{BsProb}}
 }
 
+\note{
+    This method relies on the availability of package \pkg{BsMD}.
+}
 
 \references{
 Barrios, E. (2013). Using the BsMD Package for Bayesian Screening and Model
@@ -85,10 +88,12 @@ Box, G. E. P and R. D. Meyer (1993).
    set.seed(8655)
    y <- dn\%*\%c(2,2,2,2,3,0,0,0,0,0,0) + dn[,1]*dn[,3]*2 - dn[,5]*dn[,4] + rnorm(12)/10
    plan.r <- add.response(plan, response=y)
+   if (requireNamespace("BsMD", quiet=TRUE)){
    plot(bpmInt2 <- BsProb.design(plan.r), code=FALSE)
    plot(bpmInt1 <- BsProb.design(plan.r, mInt=1), code=FALSE) ## much better!
    summary(bpmInt2)
    summary(bpmInt1)
+   }
    ### For comparison: A Daniel plot does not show any significant effects according 
    ### to Lenths method, but makes the right effects stick out
    DanielPlot(plan.r, half=TRUE, alpha=1)

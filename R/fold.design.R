@@ -48,12 +48,12 @@ fold.design <- function(design, columns="full", ...){
    ##       at the beginning of the factors (FrF2.splitplot), or after the base factors (other FrF2)
      if (substr(di$type,1,2)=="pb" | di$nfactors <= k){
         if (length(on)>0){
-           hilf.mirror <- cbind(hilf.mirror,fold=rep("mirror",nrow(design)),matrix(NA,ncol=length(on),nrow=nrow(design)))
-           hilf <- cbind(hilf, fold=rep("original",nrow(design)), design[,on])
+           hilf.mirror <- cbind(hilf.mirror,fold=rep("mirror",nrow(design)), matrix(NA,ncol=length(on),nrow=nrow(design)), stringsAsFactors=TRUE)
+           hilf <- cbind(hilf, fold=rep("original",nrow(design)), design[,on], stringsAsFactors=TRUE)
            }
         else{
-           hilf.mirror <- cbind(hilf.mirror,fold=rep("mirror",nrow(design)))
-           hilf <- cbind(hilf, fold=rep("original",nrow(design)))
+           hilf.mirror <- cbind(hilf.mirror,fold=rep("mirror",nrow(design)), stringsAsFactors=TRUE)
+           hilf <- cbind(hilf, fold=rep("original",nrow(design)), stringsAsFactors=TRUE)
          }
         colnames(hilf.mirror) <- colnames(hilf)
         di$factor.names <- c(di$factor.names,list(fold=c("original","mirror")))
@@ -65,12 +65,12 @@ fold.design <- function(design, columns="full", ...){
        ## Fold factor after the WP factors because it is WP factor!!!
        if (di$type=="FrF2.splitplot"){
          if (length(on)>0){
-           hilf.mirror <- cbind(fold=rep("mirror",nrow(design)),hilf.mirror,matrix(NA,ncol=length(on),nrow=nrow(design)))
-           hilf <- cbind(fold=rep("original",nrow(design)), hilf, design[,on])
+           hilf.mirror <- cbind(fold=rep("mirror",nrow(design)),hilf.mirror,matrix(NA,ncol=length(on),nrow=nrow(design)), stringsAsFactors=TRUE)
+           hilf <- cbind(fold=rep("original",nrow(design)), hilf, design[,on], stringsAsFactors=TRUE)
          }
          else{
-           hilf.mirror <- cbind(fold=rep("mirror",nrow(design)),hilf.mirror)
-           hilf <- cbind(fold=rep("original",nrow(design)),hilf)
+           hilf.mirror <- cbind(fold=rep("mirror",nrow(design)),hilf.mirror, stringsAsFactors=TRUE)
+           hilf <- cbind(fold=rep("original",nrow(design)),hilf, stringsAsFactors=TRUE)
            }
           di$factor.names <- c(list(fold=c("original","mirror")),di$factor.names)
            } 
@@ -81,12 +81,13 @@ fold.design <- function(design, columns="full", ...){
              hilf.mirror <- cbind(hilf.mirror[,1:k],
                                   fold=rep("mirror",nrow(design)),
                                   hilf.mirror[,(k+1):ncol(hilf.mirror),drop=FALSE],
-                                  matrix(NA,ncol=length(on),nrow=nrow(design)))
-             hilf <- cbind(hilf[,1:k], fold=rep("original",nrow(design)), hilf[,(k+1):ncol(hilf),drop=FALSE], design[,on])
+                                  matrix(NA,ncol=length(on),nrow=nrow(design)), stringsAsFactors=TRUE)
+             hilf <- cbind(hilf[,1:k], fold=rep("original",nrow(design)), hilf[,(k+1):ncol(hilf),drop=FALSE], design[,on], 
+             stringsAsFactors=TRUE)
          }
          else{ hilf.mirror <- cbind(hilf.mirror[,1:k],fold=rep("mirror",nrow(design)),
-                             hilf.mirror[,(k+1):ncol(hilf.mirror),drop=FALSE])
-             hilf <- cbind(hilf[,1:k], fold=rep("original",nrow(design)), hilf[,(k+1):ncol(hilf),drop=FALSE])
+                             hilf.mirror[,(k+1):ncol(hilf.mirror),drop=FALSE], stringsAsFactors=TRUE)
+             hilf <- cbind(hilf[,1:k], fold=rep("original",nrow(design)), hilf[,(k+1):ncol(hilf),drop=FALSE], stringsAsFactors=TRUE)
          }
          if (!di$nfactors>k)
             di$factor.names <- c(di$factor.names,list(fold=c("original","mirror")))
@@ -99,7 +100,7 @@ fold.design <- function(design, columns="full", ...){
 #     hilf <- cbind(hilf, fold=rep("original",nrow(design)), design[,on])
 #   else
 #     hilf <- cbind(hilf, fold=rep("original",nrow(design)))
-     hilf <- rbind(hilf, hilf.mirror)
+     hilf <- rbind(hilf, hilf.mirror, stringsAsFactors=TRUE)
      for (nam in fn){ 
         hilf[[nam]] <- factor(hilf[[nam]])
         contrasts(hilf[[nam]]) <- contr.FrF2(2)
@@ -213,7 +214,7 @@ fold.design <- function(design, columns="full", ...){
      run.no.std.rp <- c(as.character(ro$run.no.std.rp), run.no.std.rp2)
    }
      
-   ro <- data.frame(run.no.in.std.order,run.no, run.no.std.rp)
+   ro <- data.frame(run.no.in.std.order,run.no, run.no.std.rp, stringsAsFactors = TRUE)
    di$type <- paste(di$type,"folded",sep=".")
    aus <- hilf
    class(aus) <- c("design","data.frame")
