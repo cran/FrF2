@@ -160,13 +160,19 @@ block.catlg
   \item various further \dQuote{good} resolution IV designs in 128 runs obtained by evaluating 
   designs from the complete catalogue by Xu (2009, catalogue on his website) 
   w.r.t. aberration and number of clear 2fis (including also all designs that yield 
-  minimum aberration clear compromise designs according to Groemping 2010).
+  minimum aberration clear compromise designs according to Groemping 2010); all designs 
+  with resolution at least IV for up to 11 factors have been added with version 2.2.
+  
+  \item the MA even designs in 128 runs, in support of blocking according to the 
+  Godolphin approach have been added with version 2.2.
 
-  Note that the complete catalogue of non-isomorphic resolution IV designs in 128 runs is 
-  available for up to 24 factors. For up to 23 factors, it is separately provided in 
-  package (\pkg{FrF2.catlg128}), since it is quite large and should not be forced upon 
-  users of this package who do not need it; the very large catalogue for 24 factors  
-  can be separately downloaded from the authors website (as an R work space).
+  Note that additional non-isomorphic resolution IV designs in 128 runs are 
+  available in package (\pkg{FrF2.catlg128}); since the catalogues are quite large, 
+  they are not forced upon users of this package who do not need them. 
+  Since version 1.1 of that package, the catalogues are not complete but contain 
+  high resolution fractions and even/odd fractions only (status: version 1.2-x); 
+  re-inclusion of at least selected even fractions is intended, because these 
+  may yield improved support of blocking in connection with estimable 2fis.
   
   \item the best (MA) resolution IV or higher designs in \cr
   256 runs for up to 36 factors (resolution V up to 17 factors),\cr 

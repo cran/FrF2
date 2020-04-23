@@ -3,6 +3,94 @@ Changes to package FrF2
 The package is still under development. 
 Suggestions and bug reports are very welcome.
 
+23/04/2020, version 2.2
+  - The full factorial case with blocking for non-catalogued
+    cases has been moved to the Godolphin strategy, since this 
+    usually yields much better designs. 
+    (This fixes a bug of versions 2.0 and 2.1, 
+    for which blocking full factorials 
+    that were neither covered by published catalogues nor 
+    involved an estimability requirement did not 
+    work (error message).) Such cases are now covered by 
+    the Godolphin method. 
+  - The block.gen elemenent of the design.info attribute of 
+    blocked FrF2 designs now reports Yates column numbers, 
+    and the generator columns from block.gen are not
+    included in the base design's generator columns any more.
+  - The design.info attribute of blocked FrF2 designs 
+    has gained a block.old element (block.old is the function 
+    argument for requesting the old blocking strategy for cases 
+    that are by default treated by the Godolphin method since 
+    version 2.0 of FrF2).
+  - The alias information for blocked designs with manually 
+    specified individual block factors does no longer report 
+    aliasing for the block factors among the aliases for the 
+    treatment factors. It only provides block effects 
+    under "aliased.with.blocks".
+  - The new argument force.godolphin allows to override the 
+    default blocking strategy of function FrF2 for small cases 
+    that would normally be covered by the old strategy.
+  - colpick has become faster for full factorials without 
+    estimability requirements, and works now for more 
+    than 50 factors
+  - catlg has been augmented by additional dominated fractions 
+    in support of blocking with the Godolphin approach:
+      - non-MA fractions for 128 runs with up to 11 factors, 
+        for which there were only the high-resolution MA 
+        fractions before
+      - the MA even fractions for up to 24 factors, 
+        which are the best fractions that can be blocked 
+        into blocks of size 2 
+        (without these, blocking into blocks of size 2 
+        was impossible for the larger cases and used 
+        a worse designs than necessary for the smaller cases)
+    The documentation has been updated accordingly.
+  - added a function makecatlg for creating a catalogue 
+    from a vector of generators (needed for using function 
+    colpick with such generators)
+  - added an internal function clear2fis_from_profile 
+    for supporting experts in playing with the Godolphin method
+  - A warning was added to the (dontrun) interrupt example in 
+    FrF2 documentation, because this can crash R, 
+    depending on igraph versions.
+  - The interrupt example in CIG documentation was replaced by 
+    a smaller non-dangerous one.
+  - The CIGs in example code for function CIG were beautified 
+    by assigning reasonable colors.
+  - function clear.2fis.catlg now mends the one clear 2fi 
+    case for catalogues for which this does not hold 
+    a one-column matrix but a length 2 vector
+  - added test cases to FrF2 tests: 
+      - for the Godolphin variant of a full factorial 
+      - for full factorials (unblocked or blocked) with center points
+      - for a blocked design with more than 50 factors
+  - added a test case for function colpick with more than 50 factors 
+  - set stringsAsFactors argument for cbind and data.frame to TRUE 
+    also for function FF_from_X (so that these work in the same way,
+    regardless of users' stringsAsFactors settings)
+
+  Bug fixes:
+  - blocking for full factorials did not work for some cases 
+    (see first bullet above)
+  - adding center points to blocked designs failed, 
+    if center points were to be distributed over too many places; 
+    added a fix for feasible cases and error messages for others 
+    (thanks to Chris Nachtsheim for the bug report)
+  - The documentation wrongly claimed that FrF2.catlg128 
+    contains complete catalogues. This has not been correct 
+    since version 1.1 of that package: 
+    FrF2.catlg128 comes without any even designs in 
+    versions 1.1 and 1.2-x; this was very reasonable, 
+    while clear 2fis were the only purpose for providing 
+    these fractions. Now, omitting even designs 
+    implies that blocking into size 2 blocks is not supported; 
+    the documentation has been corrected w.r.t. completeness 
+    of FrF2.catlg128. 
+    That package may be supplemented by additional fractions 
+    again in a separate update (though providing a complete 
+    catalogue with also the even fractions is not an option 
+    because of their huge number for larger cases).
+
 09/03/2020, version 2.1-1
   Several changes were made in order to prepare for R version 4.0 
   (new stringsAsFactors default in R CMD check and R)

@@ -23,7 +23,7 @@
             "block.catlg","pb.list","compromise","gen2CIG",
             "FrF2.currentlychecked","blockgencreate","phimax",
             "Xcalc", "FF_from_X", "X_from_profile",
-            "X_from_parts", "colpick")
+            "X_from_parts", "colpick", "makecatlg")
 
      S3method("[",catlg)
      S3method(print,catlg)

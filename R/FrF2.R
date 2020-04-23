@@ -9,12 +9,14 @@ FrF2 <- function(nruns=NULL, nfactors=NULL,
                  perm.start=NULL, perms=NULL, MaxC2=FALSE, 
                  replications=1, repeat.only=FALSE, 
                  randomize=TRUE, seed=NULL, alias.info=2, 
-                 blocks=1, block.name="Blocks", block.old=FALSE, 
+                 blocks=1, block.name="Blocks", block.old=FALSE, force.godolphin=FALSE,
                  bbreps=replications, wbreps=1, alias.block.2fis = FALSE,
                  hard=NULL, check.hard=10, WPs=1, nfac.WP=0, WPfacs=NULL, check.WPs=10, ...){
 ## Version 1.7: added the LAD method and made it the default for clear designs
 ## method option allows to change it to VF2
 creator <- sys.call()
+if (!is.logical(block.old)) stop("block.old must be logical")
+
 if (block.old && ! identical(blocks, 1)){
   ## revert the call to the old FrF2 version
   cc <- as.list(creator)
@@ -25,6 +27,7 @@ if (block.old && ! identical(blocks, 1)){
   erg <- eval(cc)
   di <- design.info(erg)
   di$creator <- creator
+  di$block.old <- block.old
   design.info(erg) <- di
   return(erg)
 }
@@ -67,7 +70,8 @@ catlg.name <- deparse(substitute(select.catlg))
 ## check that no incompatible options are used together
 ## used || or && instead of | or & whereever appropriate (July 2019)
 if (ncenter>0 && !identical(WPs,1)) stop("center points for split plot designs are not supported")
-if (!(is.null(generators) || (identical(WPs,1) || !is.null(WPfacs)))) stop("generators can only be used with split-plot designs, if WPfacs are specified.")
+if (!(is.null(generators) || (identical(WPs,1) || !is.null(WPfacs)))) 
+    stop("generators can only be used with split-plot designs, if WPfacs are specified.")
 if (!is.null(nruns)) if (ncenter>0) if (center.distribute > nruns + 1) 
     stop("center.distribute must not be larger than nruns+1")
 if (!(is.null(generators) || is.null(design))) 
@@ -119,8 +123,8 @@ if (!(is.null(resolution) || is.null(nruns))) warning("resolution is ignored, if
 ## simple checks for individual option entries
     if (default.levels[1]==default.levels[2]) stop("Both default levels are identical.")
     if (!(is.logical(clear) & is.logical(res3) & is.logical(MaxC2) & is.logical(repeat.only) 
-         & is.logical(randomize) & is.logical(alias.block.2fis) ))
-         stop("clear, res3, MaxC2, repeat.only, randomize, and alias.block.2fis must be logicals (TRUE or FALSE).")
+         & is.logical(randomize) & is.logical(alias.block.2fis) & is.logical(force.godolphin)))
+         stop("clear, res3, MaxC2, repeat.only, randomize, alias.block.2fis and force.godolphin must be logicals (TRUE or FALSE).")
     if (!is.numeric(max.time)) 
          stop("max.time must be a positive maximum run time for searching a design with estimable given and clear=FALSE.")
     if (!is.numeric(check.hard)) stop("check.hard must be an integer number.")
@@ -170,14 +174,14 @@ if (!(is.null(resolution) || is.null(nruns))) warning("resolution is ignored, if
     if (!is.null(nruns)){
        k <- round(log2(nruns))
        if (!2^k==nruns) stop("nruns must be a power of 2.")
-       if (nruns < 4 | nruns > 4096) stop("less than 4 or more than 4096 runs are not covered by FrF2.")
+       if (nruns < 4 | nruns > 4096) stop("less than 4 or more than 4096 runs are not covered by function FrF2.")
        }
 
     ## check factor specifications
-    if (is.null(factor.names) & is.null(nfactors) & (is.null(nruns) | is.null(generators)) & is.null(estimable)) 
+    if (is.null(factor.names) && is.null(nfactors) && (is.null(nruns) || is.null(generators)) && is.null(estimable)) 
          stop("The number of factors must be specified via nfactors, via factor.names, via estimable, through selecting 
          one specific catalogued design or via nruns together with generators.")
-    if (!is.null(factor.names) & !(is.character(factor.names) | is.list(factor.names)) ) 
+    if (!is.null(factor.names) && !(is.character(factor.names) || is.list(factor.names)) ) 
          stop("factor.names must be a character vector or a list.")
     if (is.null(nfactors)) {if (!is.null(factor.names)) nfactors <- length(factor.names)
                           else if (!is.null(generators)) nfactors <- length(generators)+k 
@@ -214,7 +218,7 @@ if (!(is.null(resolution) || is.null(nruns))) warning("resolution is ignored, if
           ## and nfactors is known
     if (!nfactors==floor(nfactors)) 
          stop("nfactors must be an integer number.")
-    if (!is.null(factor.names) & !length(factor.names)==nfactors) 
+    if (!is.null(factor.names) && !length(factor.names)==nfactors) 
          stop("There must be nfactors factor names, if any.")
     if (is.null(factor.names)) 
          if(nfactors<=50) factor.names <- Letters[1:nfactors] else factor.names <- paste("F",1:nfactors,sep="")
@@ -240,7 +244,9 @@ if (!(is.null(resolution) || is.null(nruns))) warning("resolution is ignored, if
        stop("Center points are implemented for experiments with all factors quantitative only.")
 
     ### prepare generators case
+    genspec <- FALSE  ## for later checks, April 2020
     if (!is.null(generators)){
+              genspec <- TRUE
                ## nruns and k are always given for this situation
               generators <- gen.check(k, generators)
                  g <- nfactors - k
@@ -268,6 +274,8 @@ if (!(is.null(resolution) || is.null(nruns))) warning("resolution is ignored, if
                      
                if (g < 20){
                WLP <- wl$WLP
+                 ## added if for avoiding warning (April 2020)
+                 if (all(WLP==0)) res <- Inf else
                  res <- min(as.numeric(names(WLP)[which(WLP>0)]))
                  if (res==Inf) {if (g<10) res="7+"
                    else if (g<15) res="6+"
@@ -286,7 +294,7 @@ if (!(is.null(resolution) || is.null(nruns))) warning("resolution is ignored, if
                gen <- gen*sapply(generators, function(obj) sign(obj[1]))
 
                cand <- list(custom=list(res=res, nfac=nfactors, nruns=nruns, 
-                    gen=gen, 
+                    gen=unlist(gen), 
                     WLP=WLP, nclear.2fis=nclear.2fis, clear.2fis=clear.2fis, all.2fis.clear=all.2fis.clear))
                ## needs to be list of list, because access later is always via cand[1]
                class(cand) <- c("catlg","list")
@@ -433,7 +441,10 @@ if (!(is.null(resolution) || is.null(nruns))) warning("resolution is ignored, if
        if (nfactors < k) stop("A full factorial for nfactors factors requires fewer than nruns runs. 
           Please reduce the number of runs and introduce replications instead.")
        ## artificial generators and cand for full factorial with blocks or WPs
+       full <- FALSE
        if (nfactors == k) {
+              full <- TRUE
+              genspec <- TRUE   ## base.design entry of design.info handled in generators section
               generators <- as.list(numeric(0))
                cand <- list(custom=list(res=Inf, nfac=nfactors, nruns=nruns, 
                     gen=numeric(0), 
@@ -455,7 +466,7 @@ if (!(is.null(resolution) || is.null(nruns))) warning("resolution is ignored, if
                      perm.start=perm.start, perms=perms, order=alias.info,
                      ignore.dom=igdom)              ## added ignore.dom, August 2019
               map <- desmat$map                  ## for use in blocking, if needed (July 2019)
-              cand <- cand[names(map)]   ## for use in blocking, if needed (July 2019)
+              cand <- cand[names(map)]           ## for use in blocking, if needed (July 2019)
               design.info <- list(type="FrF2.estimable", 
                      nruns=nruns, nfactors=nfactors, factor.names=factor.names, 
                      catlg.name = catlg.name,
@@ -481,12 +492,14 @@ if (!(is.null(resolution) || is.null(nruns))) warning("resolution is ignored, if
             if (!is.list(blocks)){
                 if (blocks > 1) {
                     ### small case, without estimability requirements
-                    if ((g==0 || choose(nruns - 1 - nfactors, k.block) < 100000)  && is.null(estimable)){
+                    if ((g==0 || choose(nruns - 1 - nfactors, k.block) < 100000)  && 
+                    is.null(estimable) && !force.godolphin ){
                     for (i in 1:length(cand)){
                       ### loop through possible generator designs from best to worse overall
                       ### break stops the loop as soon as design has been found
                       if (g==0) {blockpick.out <- try(blockpick(k, gen=0, 
                             k.block=k.block, show=1, alias.block.2fis = alias.block.2fis),TRUE)
+#print(blockpick.out)  ## correct
                             }
                       else {
                       if (is.null(generators))
@@ -495,10 +508,9 @@ if (!(is.null(resolution) || is.null(nruns))) warning("resolution is ignored, if
                       else  blockpick.out <- try(blockpick(k, gen=cand[[i]]$gen, 
                             k.block=k.block, show=1, alias.block.2fis = alias.block.2fis),TRUE)
                       }
-
                       if (!"try-error" %in% class(blockpick.out)) {
                          blocks <- blockpick.out$blockcols   ## column numbers in Yates matrix
-                         block.gen <- blocks ## for design.info
+                         block.gen <- unlist(c(blocks)) ## for design.info; ## cannot be a list
                          cand <- cand[i]
                          cand[[1]]$gen <- c(cand[[1]]$gen, block.gen)
                          blocks <- nfactors + (1:k.block) ## now in terms of factors
@@ -520,6 +532,7 @@ if (!(is.null(resolution) || is.null(nruns))) warning("resolution is ignored, if
                      ## since 1.8: Godolphin approach
                      ##    if estimable, cand contains a single design 
                      ##            that has been preselected with the estimable function
+                     ##    !!! and map has to be observed !!! April 2020
                   for (i in 1:length(cand)){
                     if (is.null(useV)) useV <- cand[[1]]$res > 4 && !is.null(estimable)
   
@@ -535,40 +548,47 @@ if (!(is.null(resolution) || is.null(nruns))) warning("resolution is ignored, if
                           ## found a successful block structure
                           ## in cand[i]
                           cand <- cand[i]
-                          block.gen <- blockgencreate(X$X, p=g)  ## character version
+                          ## all possible generating vectors (character version with letters)
+                          block.gen <- blockgencreate(X$X, p=g)
+                          ## Yates column numbers
                           block.gen <- sapply(block.gen, function(obj) 
-                                        which(names(Yates) %in% obj))  ## Yates column number
+                                        which(names(Yates) %in% obj))  
+                          if (any(block.gen %in% cand[[1]]$gen)) 
+                                   warning("block generator coincides with main effect")
                           cand[[1]]$gen <- c(cand[[1]]$gen, block.gen)
-                          blocks <- nfactors + 1:k.block  ## column numbers
+                          blocks <- nfactors + 1:k.block  ## column numbers for blocks
                           #### nfactors changed, will be reduced again later
                           nfactors <- nfactors + k.block
                           cand[[1]]$nfactors <- nfactors
                           g <- g + k.block
                           ### adjust factor.names
-                          hilf <- factor.names
+                          if (!is.null(estimable)) map <- X$map
+                          hilf <- factor.names # [map]
                           factor.names <- vector("list", nfactors)
                           factor.names[-blocks] <- hilf
                           factor.names[blocks] <- list(default.levels)
                           names(factor.names) <- c(names(hilf),
                                                    paste("b",1:k.block, sep=""))
-                          if (!is.null(estimable)) map <- X$map
-                          blocks <- as.list(blocks)   ### rest is treated with the manual routine
+                          blocks <- as.list(blocks)   
+                                  ### rest is treated with the manual routine
+                                  ## for a list of added factor columns
                           break
                         }
                     }
-                    
                     } ## end else (for big case)
                 if (!is.list(blocks)) {
                     stopmsg <- "no adequate blocked design found"
+                    if (nruns >= 128 && !full) stopmsg <- c(stopmsg, 
+                              " in catalogue ", deparse(substitute(select.catlg)))
                     if (!alias.block.2fis) 
                       stopmsg <- c(stopmsg, " with 2fis unconfounded with blocks")
                     if (!is.null(design))
                       stopmsg <- c(stopmsg, paste(" in design", design))
                     else {
-                      if (!is.null(estimable)){
+                      if (!is.null(estimable) && !full){
                         stopmsg <- c(stopmsg, paste(" in design", names(cand)))
                       }
-                    if (!is.null(estimable)){
+                    if (!is.null(estimable) && !full){
                         if (ignore.dom) 
                           stopmsg <- c(stopmsg, " which is the first suitable element of select.catlg")
                         else 
@@ -585,13 +605,14 @@ if (!(is.null(resolution) || is.null(nruns))) warning("resolution is ignored, if
                 }
             if (is.list(blocks)) {
                 # can be a pre-treated automatic situation or a manual specification
-                hilf.gen <- c(2^(0:(k-1)), cand[[1]]$gen)    ### cand[[1]] exists ?
+                hilf.gen <- c(2^(0:(k-1)), cand[[1]]$gen)    ### cand[[1]] exists 
                 ## obtain Yates column numbers for block generators
                 hilf.block.gen <- sapply(blocks, function(obj) 
                        as.intBase(paste(rowSums(do.call(cbind,
                           lapply(obj, function(obj2) 
                             digitsBase(hilf.gen[obj2],2,k))))%%2, collapse=""))
                        )
+                     ## hilf.block.gen holds Yates matrix column numbers
                 ## number of original factors that are manually declared block factors
                 k.block.add <- length(intersect(hilf.block.gen, hilf.gen))
                 if (is.null(block.gen)) {
@@ -601,7 +622,9 @@ if (!(is.null(resolution) || is.null(nruns))) warning("resolution is ignored, if
                    ## hilf.gen still contains generators for block factors
                    ## these must be kept for the automatic case
                    }
-                bf <- blockfull(block.gen, k, hilf.gen)  ### obtain all block contrasts
+                ## c makes matrix into vector (list remains list)
+                ## blockfull works with any of blocks or block.gen or hilf.block.gen
+                bf <- blockfull(blocks, k, hilf.gen)  ### obtain all block contrasts
                                                          ### as Yates column numbers
                 ### check that manual choices for block entries contain independent entries only
                 if (k.block > 1) {if (length(unique(bf)) < 2^k.block - 1)
@@ -621,7 +644,7 @@ if (!(is.null(resolution) || is.null(nruns))) warning("resolution is ignored, if
                 #   }
                 #rm(hilf)
                 #}
-            
+
                 ### check for implied confounding of main effects (26 July 2019)
                 if (length(intersect(bf, hilf.gen)) > k.block.add){
                   if (alias.block.2fis && length(bf) > 4) 
@@ -631,17 +654,18 @@ if (!(is.null(resolution) || is.null(nruns))) warning("resolution is ignored, if
                             "The design is a split-plot design",
                             "and has to be analyzed as such",
                             "(only recommended in case of many blocks).", 
-                            "Preferrably, construct it with arguments WPs and WPfacs."))
+                            "Preferrably, construct it with arguments WPs and WPfacs.", 
+                            "You may also want to try using function FF_from_X", 
+                            "for obtaining a better block structure."))
                   else stop("main effects confounded with blocks")
                 }
                 ### prepare alias information
                 ### remove extra columns for blocks from hilf.gen
                 hilf.gen <- setdiff(hilf.gen, block.gen) 
-        
                 sel <- combn(ntreat, 2)
                 nam2fis <- sapply(1:ncol(sel), 
-                                  function(obj) paste0(Letters[sel[,obj]], 
-                                                       collapse=":"))
+                                  function(obj) ifelse(ntreat<=50, paste0(Letters[sel[,obj]], collapse=":"), 
+                                                                            paste0("F",sel[,obj], collapse=":")))
                 twoficols <- sapply(1:ncol(sel), 
                                     function(obj) 
                                       as.intBase(paste(rowSums(do.call(cbind,
@@ -651,12 +675,19 @@ if (!(is.null(resolution) || is.null(nruns))) warning("resolution is ignored, if
                 names(twoficols) <- nam2fis
                 ## check for implied confounding with 2fis, if forbidden (July 26 2019)
                 if (!alias.block.2fis)
-                  if (length(intersect(bf, twoficols)) > 0)
-                    stop("blocks aliased with 2-factor interactions,", "although alias.block.2fis=FALSE")
+                  if (length(intersect(bf, twoficols)) > 0){
+                    if (force.godolphin) stop("blocks aliased with 2-factor interactions, ", 
+                                              "although alias.block.2fis=FALSE; ",
+                                              "force.godolphin=TRUE does not attempt ", 
+                                              "to avoid confounding of non-clear 2fis")
+                    else
+                    stop("blocks aliased with 2-factor interactions, ", "although alias.block.2fis=FALSE")
+                    }
             if (alias.info == 3){
                 sel <- combn(ntreat, 3)
                 nam3fis <- sapply(1:ncol(sel), 
-                                  function(obj) paste0(Letters[sel[,obj]], collapse=":"))
+                                  function(obj) ifelse(ntreat<=50, paste0(Letters[sel[,obj]], collapse=":"), 
+                                                                            paste0("F",sel[,obj], collapse=":")))
                 threeficols <- sapply(1:ncol(sel), 
                                       function(obj) 
                                       as.intBase(paste(rowSums(do.call(cbind,
@@ -665,7 +696,8 @@ if (!(is.null(resolution) || is.null(nruns))) warning("resolution is ignored, if
                 )
                 names(threeficols) <- nam3fis
             }
-            }
+            if (is.null(generators)) generators <- gen.check(k, hilf.gen[-(1:k)])  ## April 4 2020; extract of Yates (list)
+            } ## end of is.list(blocks) case
             ## automatic treatment of split-plot designs
             if (WPs > 1){ 
                WP.auto <- FALSE
@@ -685,7 +717,7 @@ if (!(is.null(resolution) || is.null(nruns))) warning("resolution is ignored, if
                         if (cand[[i]]$res>=5 & nfac.WP > max.res.5[k.WP]) next
                         if (cand[[i]]$res>=4 & nfac.WP > WPs/2) next
                       }
-                      if (nfac.WP > WPs/2 | nfac.WP <= k.WP)
+                      if (nfac.WP > WPs/2 || nfac.WP <= k.WP)
                       splitpick.out <- try(splitpick(k, cand[[i]]$gen, k.WP=k.WP, nfac.WP=nfac.WP, show=1),TRUE)
                       else  splitpick.out <- try(splitpick(k, cand[[i]]$gen, k.WP=k.WP, nfac.WP=nfac.WP, 
                              show=check.WPs),TRUE)
@@ -751,7 +783,7 @@ else {
     ## maximize clear 2fis among maximum resolution designs (res3=FALSE)
     ##     or among all designs (res3=TRUE)
     ##   changed 28 01 2011 from always maximum resolution
-    if (MaxC2 & is.null(estimable) & is.null(generators) ) {
+    if (MaxC2 && is.null(estimable) && is.null(generators) ) {
            if (!res3)
            cand <- cand[which.max(sapply(cand[which(sapply(cand, 
                    function(obj) obj$res)==max(sapply(cand, function(obj) obj$res)))], 
@@ -765,6 +797,9 @@ else {
                          k <- round(log2(nruns))
                          g <- nfactors - k}
     if (is.null(estimable) || is.list(blocks)){
+       ### that is, blocks with or without estimable, 
+       ### and anything else without estimable (e.g. WP) 
+       ### for estimable with blocks, map has already been processed 
        destxt <- "expand.grid(c(-1,1)"
        for (i in 2:k) destxt <- paste(destxt,",c(-1,1)",sep="")
        destxt <- paste("as.matrix(",destxt,"))",sep="")
@@ -804,8 +839,7 @@ else {
 
       ## make sure matrix desmat has rownames (14 Feb 2013)
       if (is.null(rownames(desmat))) rownames(desmat) <- 1:nruns
-
-       if (is.list(blocks)) {
+      if (is.list(blocks)) {
            ## manually blocked designs and continuation of automatically blocked designs
            ## including the estimable case (July 2019)
             if (is.null(block.gen)) block.gen <- blocks
@@ -989,7 +1023,7 @@ else {
         ## make sure that experimental factors are assigned to those 
         ## columns that reflect their estimability needs
 
-              ## blocking makes approach analogous to function map2design more complicated
+        ## blocking makes approach analogous to function map2design more complicated
         ## reassign levels for Blocks to concatenation of manual build factors
         ## if they are built from only single factors
         ## !!! it is important to maintain the original order of numbered blocks factor
@@ -1009,7 +1043,10 @@ else {
             desmat <- desmat[,-hilf]
             factor.names <- factor.names[-hilf]
         }
+
         if (!is.null(estimable)) {
+          ## April 2020
+          #factor.names <- factor.names[map]
           factor.names <- factor.names[invperm(map)]
           names(desdf) <- c(block.name, names(factor.names))
         }
@@ -1023,13 +1060,13 @@ else {
                 ## but what to do with twoficols in that case ?
                 ## also remove related twoficols ?
                          
-        names(MEcols) <- Letters[1:ntreat]
+        if (ntreat<=50) names(MEcols) <- Letters[1:ntreat] else names(MEcols) <- paste0("F",1:ntreat)
         effs <- c(MEcols, twoficols)
         if (alias.info==3) effs <- c(effs, threeficols)
         aliased.with.blocks <- names(effs[effs %in% bf])
         effs <- effs[!effs %in% bf]   ## only those effects that are not aliased with blocks
-        aliased <- split(names(effs), effs)
-        aliased <- aliased[lengths(aliased) > 1]
+        aliased <- split(names(effs), effs) ### list of effects on the same non-block Yates matrix column
+        aliased <- aliased[lengths(aliased) > 1]    ## columns with more than one effect
       ### code before July 26 2019: this part was really slow for large designs or many blocks
       # if (alias.info==3)
       #  hilf <- aliases(lm((1:nrow(desmat))~(.)^3,data=data.frame(desmat)))
@@ -1060,16 +1097,18 @@ else {
 ## recalc.alias.blocked destroys the structure, 
 ## if factor.names deviates from factor letters
              aliased.with.blocks <- recalc.alias.block.new(aliased.with.blocks, leg)
+             #aliased.with.blocks <- recalc.alias.block(aliased.with.blocks, leg)
              aliased.with.blocks <- aliased.with.blocks[ord(data.frame(nchar(aliased.with.blocks),aliased.with.blocks))]
+             if (nfactors <= 50) aliased.with.blocks <- gsub(":","",aliased.with.blocks)
            }
       ## determine treatment effects that are aliased with each other
       #  aliased <- hilf$aliases[-(1:(2^k.block-1))]
       #  aliased <- aliased[which(sapply(aliased,length)>1)]
         ## update: same format like aliased element of unblocked designs
         ## July 2019: adapt to new blocking strategy
-        if (length(aliased)>0) aliased <- struc.aliased.new(recalc.alias.block.new(aliased, leg), 
-                                                            nfactors, alias.info)
-
+#        if (length(aliased)>0) aliased <- struc.aliased.new(recalc.alias.block(aliased, leg),
+        if (length(aliased) > 0) aliased <- struc.aliased.new(struc=recalc.alias.block.new(aliased, leg), 
+                                                                     nk=nfactors, order=alias.info)
         ## prepare design info for blocked designs
         ntreat <- ncol(desdf) - 1
         if (block.auto) factor.names <- factor.names[1:ntreat]
@@ -1082,20 +1121,20 @@ else {
  #           aliased.with.blocks=aliased.with.blocks, aliased=aliased,
  #           bbreps=bbreps, wbreps=wbreps)
         
-        ## create new type FrF2.blocked.estimable ???
+        ## create new type FrF2.blocked.estimable ??? decided against this
           design.info <- list(type="FrF2.blocked", block.name=block.name, 
             nruns=nruns, nfactors=ntreat, nblocks=nblocks, block.gen=block.gen, blocksize=blocksize, 
             ntreat=ntreat,factor.names=factor.names,
             aliased.with.blocks=aliased.with.blocks, aliased=aliased,
             bbreps=bbreps, wbreps=wbreps, 
             FrF2.version = sessionInfo(package="FrF2")$otherPkgs$FrF2$Version)
-        if (!is.null(generators)) {
+        if (!is.null(generators) && genspec) {## April 2020 added genspec
            if (g>0) 
            design.info <- c(design.info, 
-                list(base.design=paste("generator columns:", paste(cand[[1]]$gen, collapse=", "))))
+                list(base.design=paste("generator columns:", paste(setdiff(cand[[1]]$gen, block.gen), collapse=", "))))
            else 
            design.info <- c(design.info, 
-                list(base.design=paste("generator columns:", numeric(0))))
+                list(base.design="full factorial"))
                 }
            else design.info <- c(design.info, list(catlg.name = catlg.name, base.design=names(cand[1])))
            if (!is.null(estimable)) design.info <- c(design.info, list(map=map))
@@ -1133,16 +1172,15 @@ else {
             ##       provide the columns for character generators 
             ##       and provide them in original order instead of resorted for all cases
             ##       (was wrong use of which)
-            if (!is.null(generators)){ 
-                gennam <- names(generators)
-                if (is.null(gennam)){
+            if (!is.null(generators) && genspec){ 
+                gennam <- names(generators)   ## generator names can only refer to basic factors
+                if (is.null(gennam))
                   if (is.list(generators)) 
                     gennam <- sapply(generators, function(obj) paste0(Letters[sort(obj)], collapse=""))
-                  else if(is.character(generators)) gennam <- generators
-                }
+                  else if(is.character(generators)) gennam <- generators  
+                gencols <- sapply(gennam, function(obj) which(names(Yates)[1:(nruns-1)] == obj))
                 design.info <- c(design.info, 
-                     list(base.design=paste("generator columns:", 
-                     paste(sapply(gennam, function(obj) which(names(Yates)[1:(nruns-1)] == obj)), collapse=", ")), 
+                     list(base.design=paste("generator columns:", paste(gencols, collapse=", ")), 
                      map=map, 
                      orig.fac.order = c(orignew, setdiff(1:nfactors,orignew))))
                 }
@@ -1150,7 +1188,7 @@ else {
                                                         base.design=names(cand[1]), 
                      map=map, 
                      orig.fac.order = c(orignew, setdiff(1:nfactors,orignew))))
-                }
+      } ## end of WPs > 1
 
 ## should this be changed to omit the condition on estimable ? July 30 2019
     #    if (is.null(generators) && !(is.list(blocks) || WPs > 1))
@@ -1181,17 +1219,22 @@ else {
       orig.no <- factor(orig.no, levels=unique(orig.no[orig.no.levord]))
       ## added 14 Feb 2013
       orig.no.rp <- factor(orig.no.rp, levels=unique(orig.no.rp[orig.no.levord]))
-    if (!(is.list(blocks) | WPs > 1)) 
-       attr(aus,"run.order") <- data.frame("run.no.in.std.order"=orig.no,"run.no"=1:nrow(desmat),"run.no.std.rp"=orig.no.rp, stringsAsFactors=TRUE)
-    else attr(aus,"run.order") <- data.frame("run.no.in.std.order"=orig.no,"run.no"=1:nrow(desmat),"run.no.std.rp"=orig.no.rp, stringsAsFactors=TRUE)
+    if (!(is.list(blocks) || WPs > 1)) 
+       attr(aus,"run.order") <- data.frame("run.no.in.std.order"=orig.no,"run.no"=1:nrow(desmat),
+           "run.no.std.rp"=orig.no.rp, stringsAsFactors=TRUE)
+    else attr(aus,"run.order") <- data.frame("run.no.in.std.order"=orig.no,"run.no"=1:nrow(desmat),
+           "run.no.std.rp"=orig.no.rp, stringsAsFactors=TRUE)
     ## make repeat.only reflect the calculated status instead of the status requested by the user 
     ## (which can be seen in the creator element)
     if (design.info$type=="FrF2.blocked") {
         if (design.info$wbreps==1) repeat.only <- FALSE
+        design.info$block.old <- block.old   ## April 4 2020
         nfactors <- ntreat
     }
-    if (nfactors<=50) design.info$aliased <- c(list(legend=paste(Letters[1:nfactors],names(factor.names),sep="=")),design.info$aliased)
-       else design.info$aliased <- c(list(legend=paste(paste("F",1:nfactors,sep=""),names(factor.names),sep="=")),design.info$aliased)
+    if (nfactors<=50) design.info$aliased <- c(list(legend=paste(Letters[1:nfactors],names(factor.names),sep="=")),
+                     design.info$aliased)
+       else design.info$aliased <- c(list(legend=paste(paste("F",1:nfactors,sep=""),names(factor.names),sep="=")),
+                     design.info$aliased)
     attr(aus,"design.info") <- c(design.info, list(replications=replications, repeat.only=repeat.only,
       randomize=randomize, seed=seed, creator=creator))
     ## add center points, if requested

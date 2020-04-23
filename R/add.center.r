@@ -14,13 +14,18 @@ add.center <- function(design, ncenter, distribute=NULL, ...){
     if (!length(ncenter)==1) stop("ncenter must be a number")
     if (!ncenter==floor(ncenter)) stop("ncenter must be an integer number")
     if (is.null(distribute)){
-      if (ncenter==0 | !di$randomize) distribute <- 1
-         else distribute <- min(ncenter, 3)}
+      if (ncenter==0 || !di$randomize) distribute <- 1
+         else distribute <- min(ncenter, 3)
+         if (di$type=="FrF2.blocked") distribute <- min(distribute, di$blocksize+1)
+         }
     if (!is.numeric(distribute)) stop("distribute must be a number")
     if (!distribute==floor(distribute)) stop("distribute must be an integer number")
-    if (distribute < 1 | distribute > max(1,min(di$nruns+1, ncenter)))
+    if (distribute < 1 || distribute > max(1, min(di$nruns+1, ncenter)))
        stop("distribute must be at least 1 and at most min(ncenter, nruns+1 of the design)")
-    if (di$randomize & distribute==1 & ncenter > 1) warning("running all center point runs together is usually not a good idea.")
+    if (di$type=="FrF2.blocked") 
+       if (distribute>di$blocksize+1) stop("distribute must not exceed the block size by more than one")
+    if (di$randomize && distribute==1 && ncenter > 1) 
+       warning("running all center point runs together is usually not a good idea.")
     
     if (any(is.na(sapply(factor.names(design),"is.numeric"))))
        stop("Center points are implemented for experiments with all factors quantitative only.")
@@ -143,8 +148,10 @@ add.center <- function(design, ncenter, distribute=NULL, ...){
         
         ## added 15 Feb 2013
         std <- lapply(ro.getrennt, function(obj) {
-           hilf <- t(as.matrix(sapply(obj$run.no.in.std.order, function(obj2) unlist(strsplit(as.character(obj2),".",fixed=TRUE)))))
-           if (nrow(hilf)==1) hilf <- t(hilf)
+           hilf <- t(as.matrix(sapply(obj$run.no.in.std.order, function(obj2) 
+                      unlist(strsplit(as.character(obj2),".",fixed=TRUE)))))
+#           if (nrow(hilf)==1) hilf <- t(hilf) ## commented out April 2020
+                                               ## caused trouble with blocked case
            hilf
            })
         stdrp <- lapply(ro.getrennt, function(obj) {
@@ -178,7 +185,7 @@ add.center <- function(design, ncenter, distribute=NULL, ...){
     #        no.center.groups <- distribute*di$replications
         centers <- vector("list")
         ros <- lapply(1:length(std), function(obj) vector("list"))
-    
+
         ## centers and ros for WITHIN each block
         more <- setdiff(colnames(hilf), c(di$block.name, names(di$factor.names)))
             ## columns other than design factors, e.g. responses

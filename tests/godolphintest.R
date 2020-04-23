@@ -16,6 +16,8 @@ colpick(catlg["6-1.1"], 3, estimable=compromise(6, 4)$requirement)
 colpick(catlg["8-2.1"], 1)
 ## request that requires to suppress dominating filter
 colpick("9-3.2", 2)  ## (implemented with version 2.1)
+## request with more than 50 factors (don't try to create the design!)
+tail(colpick(55, 2)$clear2fis)
 
 ## phimax
 phimax(8, 2)            ## maximum possible
@@ -42,3 +44,5 @@ Xcalc(rbind(c(1,1,0,0),c(0,1,1,1)),
              gen=catlg[nruns(catlg)==16 & 
                          res(catlg)==4])
 
+plangodolphin <- FF_from_X(colpick(4, 2)$X, randomize=FALSE)
+cbind(run.order(plangodolphin), plangodolphin)

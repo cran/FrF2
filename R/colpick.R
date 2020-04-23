@@ -44,12 +44,16 @@ colpick <- function(design, q, all=FALSE,
   ## clear before blocking
   clear2fis <- clear.2fis(element)
   nclear2fis <- nclear.2fis(element)
-  
   if (length(clear2fis[[1]])==0) 
     clear2fis <- character(0) 
-  else
+  else{
+    if (n <= 50) 
     clear2fis <- sapply(1:ncol(clear2fis[[1]]), function(obj) 
       paste(Letters[clear2fis[[1]][,obj]], collapse = ""))
+    else
+    clear2fis <- sapply(1:ncol(clear2fis[[1]]), function(obj) 
+      paste("F",clear2fis[[1]][,obj], sep="", collapse = ":"))
+    }
   
   if (!is.null(estimable)){
     if (!is.numeric(estimable) && !is.character(estimable))
@@ -59,19 +63,27 @@ colpick <- function(design, q, all=FALSE,
       stop("if numeric, estimable must be a matrix with two rows")
     if (is.numeric(estimable) && !nrow(estimable)==2)
       stop("if numeric, estimable must be a matrix with two rows")
-    if (is.character(estimable))
+    if (is.character(estimable)){
+      colons <- grep(":", estimable)
+      if (!(length(colons)==0 || length(colons)==length(estimable)))
+          stop("All elements of estimable must have the same format")
+      if (length(colons)==0)
       estimable <- sapply(estimable, 
                           function(obj) which(Letters %in% unlist(strsplit(obj, "", fixed=TRUE))))
+      else   estimable <- sapply(estimable, 
+                          function(obj) as.numeric(gsub( "F", "", unlist(strsplit(obj, ":", fixed=TRUE)) )))
+      if (!is.matrix(estimable)) stop("invalid estimable")
+     }
     #graph_requirement <- graph.empty(n = n, directed = FALSE)
     #graph_requirement <- add.edges(graph_requirement, estimable)
   } 
   Z <- t(sapply(gen, function(obj) rev(digitsBase(obj, 2, k))))
   div <- 2^q-1
+  divbase <- 2^(0:(q-1))
   
   ## list of possible X column vectors
   Xcands <- lapply(1:div, function(obj) digitsBase(obj, 2, ndigits=q))
-  
-  
+    
   success <- FALSE
   Xlist <- vector(mode="list")
   tablist <- vector(mode="list")
@@ -85,8 +97,9 @@ colpick <- function(design, q, all=FALSE,
   )
   nxt <- do.call(lazyExpandGrid, poscands)
   #picks <- as.matrix(expand.grid(poscands))
+  #for storage reasons, avoid expand.grid
   nr <- prod(lengths(poscands))
-  message("checking up to ", nr, " matrices")
+  if (!quiet) message("checking up to ", nr, " matrices")
   
   ## initialize to a heavily balanced first matrix
   ## not yet using nxt()
@@ -110,12 +123,19 @@ colpick <- function(design, q, all=FALSE,
           for (j in (i+1):n)
             if (all(X[,i]==X[,j])) 
               ingroup <- c(ingroup,
-                           paste0(Letters[i],Letters[j]))
+                           ifelse(n<=50,
+                                  paste0(Letters[i],Letters[j]),
+                                  paste0("F",i,":F",j)))
             clearcur <- setdiff(clear2fis, ingroup)
       }
       else clearcur <- clear2fis
-      if (is.null(estimable))
+      if (is.null(estimable)){
+        ### added April 4th 2020, return 
+        ### blocking for full factorial as early as possible
+        if (length(Z)==0 && !all)         
+            return(list(X=X, clear2fis=clearcur))
         success <- TRUE 
+        }
       else{
         map <- mapcalc.block(estimable, n, 
                              sapply(clearcur,

@@ -150,7 +150,7 @@ $drop.deparse.attr
 $formatNum
 function (x, ...) 
 format(x, trim = TRUE, drop0trailing = TRUE, ...)
-<environment: 0x000000001938f1d8>
+<environment: 0x00000000197d5a00>
 
 > str.wover <- function(obj){
 +     di <- attr(obj, "design.info") 
@@ -1075,7 +1075,7 @@ Classes 'design' and 'data.frame':	32 obs. of  7 variables:
   ..$ run.no.in.std.order: Factor w/ 32 levels "1.2.1","2.4.1",..: 3 5 19 21 1 7 17 23 4 6 ...
   ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
   ..$ run.no.std.rp      : Factor w/ 32 levels "1.2.1","2.4.1",..: 3 5 19 21 1 7 17 23 4 6 ...
- - attr(*, "design.info")=List of 20
+ - attr(*, "design.info")=List of 21
   ..$ type               : chr "FrF2.blocked"
   ..$ block.name         : chr "Blocks"
   ..$ nruns              : num 32
@@ -1100,6 +1100,7 @@ Classes 'design' and 'data.frame':	32 obs. of  7 variables:
   ..$ wbreps             : num 1
   ..$ catlg.name         : chr "catlg"
   ..$ base.design        : chr "8-3.1"
+  ..$ block.old          : logi FALSE
   ..$ replications       : num 1
   ..$ repeat.only        : logi FALSE
   ..$ randomize          : logi FALSE
@@ -1154,7 +1155,7 @@ Classes 'design' and 'data.frame':	32 obs. of  7 variables:
   ..$ run.no.in.std.order: Factor w/ 32 levels "1.1.1","2.3.1",..: 1 7 10 16 20 22 27 29 3 5 ...
   ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
   ..$ run.no.std.rp      : Factor w/ 32 levels "1.1.1","2.3.1",..: 1 7 10 16 20 22 27 29 3 5 ...
- - attr(*, "design.info")=List of 20
+ - attr(*, "design.info")=List of 21
   ..$ type               : chr "FrF2.blocked"
   ..$ block.name         : chr "Blocks"
   ..$ nruns              : num 32
@@ -1177,6 +1178,7 @@ Classes 'design' and 'data.frame':	32 obs. of  7 variables:
   ..$ wbreps             : num 1
   ..$ catlg.name         : chr "catlg"
   ..$ base.design        : chr "6-1.1"
+  ..$ block.old          : logi FALSE
   ..$ replications       : num 1
   ..$ repeat.only        : logi FALSE
   ..$ randomize          : logi FALSE
@@ -1230,7 +1232,7 @@ Classes 'design' and 'data.frame':	32 obs. of  7 variables:
   ..$ run.no.in.std.order: Factor w/ 32 levels "1.3.1","2.2.1",..: 4 13 23 26 2 15 21 28 1 16 ...
   ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
   ..$ run.no.std.rp      : Factor w/ 32 levels "1.3.1","2.2.1",..: 4 13 23 26 2 15 21 28 1 16 ...
- - attr(*, "design.info")=List of 20
+ - attr(*, "design.info")=List of 21
   ..$ type               : chr "FrF2.blocked"
   ..$ block.name         : chr "Blocks"
   ..$ nruns              : num 32
@@ -1257,6 +1259,7 @@ Classes 'design' and 'data.frame':	32 obs. of  7 variables:
   ..$ wbreps             : num 1
   ..$ catlg.name         : chr "catlg"
   ..$ base.design        : chr "6-1.1"
+  ..$ block.old          : logi FALSE
   ..$ replications       : num 1
   ..$ repeat.only        : logi FALSE
   ..$ randomize          : logi FALSE
@@ -1315,7 +1318,7 @@ Classes 'design' and 'data.frame':	32 obs. of  8 variables:
   ..$ run.no.in.std.order: Factor w/ 32 levels "1.1.1","2.1.2",..: 1 2 3 4 5 6 7 8 9 10 ...
   ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
   ..$ run.no.std.rp      : Factor w/ 32 levels "1.1.1","2.1.2",..: 1 2 3 4 5 6 7 8 9 10 ...
- - attr(*, "design.info")=List of 20
+ - attr(*, "design.info")=List of 21
   ..$ type               : chr "FrF2.blocked"
   ..$ block.name         : chr "Blocks"
   ..$ nruns              : num 32
@@ -1341,6 +1344,7 @@ Classes 'design' and 'data.frame':	32 obs. of  8 variables:
   ..$ wbreps             : num 1
   ..$ catlg.name         : chr "catlg"
   ..$ base.design        : chr "9-4.1"
+  ..$ block.old          : logi FALSE
   ..$ replications       : num 1
   ..$ repeat.only        : logi FALSE
   ..$ randomize          : logi FALSE
@@ -1397,7 +1401,7 @@ Classes 'design' and 'data.frame':	64 obs. of  8 variables:
   ..$ run.no.in.std.order: Factor w/ 64 levels "1.1.1","2.1.2",..: 1 2 3 4 5 6 7 8 9 10 ...
   ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
   ..$ run.no.std.rp      : Factor w/ 64 levels "1.1.1","2.1.2",..: 1 2 3 4 5 6 7 8 9 10 ...
- - attr(*, "design.info")=List of 21
+ - attr(*, "design.info")=List of 22
   ..$ type               : chr "FrF2.blocked"
   ..$ block.name         : chr "Blocks"
   ..$ nruns              : num 64
@@ -1427,10 +1431,9 @@ Classes 'design' and 'data.frame':	64 obs. of  8 variables:
   ..$ randomize          : logi FALSE
   ..$ seed               : NULL
   ..$ creator            : language FrF2(64, 7, blocks = 32, alias.block.2fis = TRUE, randomize = FALSE, block.old = TRUE)
+  ..$ block.old          : logi TRUE
 >   ## using godolphin
 >   str.wover(FrF2(64,7,blocks=32,alias.block.2fis=TRUE,randomize=FALSE))
-checking up to 1 matrices
-checking up to 1 matrices
 Classes 'design' and 'data.frame':	64 obs. of  8 variables:
  $ Blocks: Factor w/ 32 levels "1","2","3","4",..: 1 1 2 2 3 3 4 4 5 5 ...
   ..- attr(*, "contrasts")= num [1:32, 1:31] -1 1 -1 1 -1 1 -1 1 -1 1 ...
@@ -1480,7 +1483,7 @@ Classes 'design' and 'data.frame':	64 obs. of  8 variables:
   ..$ run.no.in.std.order: Factor w/ 64 levels "1.32.1","2.31.1",..: 32 33 31 34 30 35 29 36 28 37 ...
   ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
   ..$ run.no.std.rp      : Factor w/ 64 levels "1.32.1","2.31.1",..: 32 33 31 34 30 35 29 36 28 37 ...
- - attr(*, "design.info")=List of 20
+ - attr(*, "design.info")=List of 21
   ..$ type               : chr "FrF2.blocked"
   ..$ block.name         : chr "Blocks"
   ..$ nruns              : num 64
@@ -1505,6 +1508,7 @@ Classes 'design' and 'data.frame':	64 obs. of  8 variables:
   ..$ wbreps             : num 1
   ..$ catlg.name         : chr "catlg"
   ..$ base.design        : chr "7-1.2"
+  ..$ block.old          : logi FALSE
   ..$ replications       : num 1
   ..$ repeat.only        : logi FALSE
   ..$ randomize          : logi FALSE
@@ -1516,7 +1520,6 @@ Classes 'design' and 'data.frame':	64 obs. of  8 variables:
 +        estimable=compromise(9,3)$requirement,
 +        alias.block.2fis=TRUE,randomize=FALSE))
 a clear design requires at least 32 runs
-checking up to 162 matrices
 Classes 'design' and 'data.frame':	64 obs. of  10 variables:
  $ Blocks: Factor w/ 16 levels "1","2","3","4",..: 1 1 1 1 2 2 2 2 3 3 ...
   ..- attr(*, "contrasts")= num [1:16, 1:15] -1 1 -1 1 -1 1 -1 1 -1 1 ...
@@ -1576,7 +1579,7 @@ Classes 'design' and 'data.frame':	64 obs. of  10 variables:
   ..$ run.no.in.std.order: Factor w/ 64 levels "1.12.1","2.11.1",..: 12 22 47 49 11 21 48 50 10 24 ...
   ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
   ..$ run.no.std.rp      : Factor w/ 64 levels "1.12.1","2.11.1",..: 12 22 47 49 11 21 48 50 10 24 ...
- - attr(*, "design.info")=List of 21
+ - attr(*, "design.info")=List of 22
   ..$ type               : chr "FrF2.blocked"
   ..$ block.name         : chr "Blocks"
   ..$ nruns              : num 64
@@ -1606,6 +1609,7 @@ Classes 'design' and 'data.frame':	64 obs. of  10 variables:
   ..$ catlg.name         : chr "catlg"
   ..$ base.design        : chr "9-3.1"
   ..$ map                : num  1 2 4 3 5 6 7 8 9
+  ..$ block.old          : logi FALSE
   ..$ replications       : num 1
   ..$ repeat.only        : logi FALSE
   ..$ randomize          : logi FALSE
@@ -1619,7 +1623,6 @@ Classes 'design' and 'data.frame':	64 obs. of  10 variables:
 a clear design requires at least 16 runs
 creating full factorial with 64 runs ...
 
-checking up to 162 matrices
 Classes 'design' and 'data.frame':	64 obs. of  7 variables:
  $ Blocks: Factor w/ 16 levels "1","2","3","4",..: 1 1 1 1 2 2 2 2 3 3 ...
   ..- attr(*, "contrasts")= num [1:16, 1:15] -1 1 -1 1 -1 1 -1 1 -1 1 ...
@@ -1664,7 +1667,7 @@ Classes 'design' and 'data.frame':	64 obs. of  7 variables:
   ..$ run.no.in.std.order: Factor w/ 64 levels "1.8.1","2.7.1",..: 8 28 45 49 7 27 46 50 6 26 ...
   ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
   ..$ run.no.std.rp      : Factor w/ 64 levels "1.8.1","2.7.1",..: 8 28 45 49 7 27 46 50 6 26 ...
- - attr(*, "design.info")=List of 20
+ - attr(*, "design.info")=List of 21
   ..$ type               : chr "FrF2.blocked"
   ..$ block.name         : chr "Blocks"
   ..$ nruns              : num 64
@@ -1686,8 +1689,9 @@ Classes 'design' and 'data.frame':	64 obs. of  7 variables:
   .. ..$ legend: chr  "A=P" "B=R" "C=Q" "D=S" ...
   ..$ bbreps             : num 1
   ..$ wbreps             : num 1
-  ..$ base.design        : chr "generator columns: 7, 10, 17, 33"
+  ..$ base.design        : chr "generator columns: "
   ..$ map                : num  1 3 2 4 5 6
+  ..$ block.old          : logi FALSE
   ..$ replications       : num 1
   ..$ repeat.only        : logi FALSE
   ..$ randomize          : logi FALSE
@@ -1699,7 +1703,6 @@ Classes 'design' and 'data.frame':	64 obs. of  7 variables:
 >   str.wover(FrF2(64, 9, blocks=16, estimable=compromise(9,1:2)$requirement, 
 +        alias.block.2fis = TRUE, select.catlg = catlg[-1378]))
 a clear design requires at least 32 runs
-checking up to 162 matrices
 Classes 'design' and 'data.frame':	64 obs. of  10 variables:
  $ Blocks: Factor w/ 16 levels "1","2","3","4",..: 1 1 1 1 2 2 2 2 3 3 ...
   ..- attr(*, "contrasts")= num [1:16, 1:15] -1 1 -1 1 -1 1 -1 1 -1 1 ...
@@ -1759,7 +1762,7 @@ Classes 'design' and 'data.frame':	64 obs. of  10 variables:
   ..$ run.no.in.std.order: Factor w/ 64 levels "1.16.1","2.16.2",..: 32 31 33 34 29 35 36 30 38 28 ...
   ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
   ..$ run.no.std.rp      : Factor w/ 64 levels "1.16.1","2.16.2",..: 32 31 33 34 29 35 36 30 38 28 ...
- - attr(*, "design.info")=List of 21
+ - attr(*, "design.info")=List of 22
   ..$ type               : chr "FrF2.blocked"
   ..$ block.name         : chr "Blocks"
   ..$ nruns              : num 64
@@ -1787,6 +1790,7 @@ Classes 'design' and 'data.frame':	64 obs. of  10 variables:
   ..$ catlg.name         : chr "catlg[-1378]"
   ..$ base.design        : chr "9-3.2"
   ..$ map                : num  6 9 1 2 3 4 5 7 8
+  ..$ block.old          : logi FALSE
   ..$ replications       : num 1
   ..$ repeat.only        : logi FALSE
   ..$ randomize          : logi TRUE
@@ -1799,7 +1803,6 @@ Classes 'design' and 'data.frame':	64 obs. of  10 variables:
 +                default.levels = c("current","new"),
 +                estimable=compromise(13, 1)$requirement))
 a clear design requires at least 64 runs
-checking up to 1458 matrices
 Call:
 FrF2(256, 13, blocks = 64, alias.block.2fis = TRUE, factor.names = list(C1 = "", 
     C2 = "", C3 = "", C4 = "", C5 = "", C6 = "", C7 = "", C8 = "", 
@@ -1825,7 +1828,7 @@ $legend
 [13] N=C1 
 
 $`generators for design itself`
-[1] J=BCDEFGH K=BCDEJ   L=BCFGJ   M=BDFHJ   N=BEGH   
+[1] J=ABCDEFG K=ABCDH   L=ABEFH   M=ACEGH   N=ADFG   
 
 $`block generators`
 [1] BC BD AE AF AG AH
@@ -2856,6 +2859,89 @@ NOTE: columns run.no and run.no.std.rp  are annotation,
 > 
 > ## generators in combination!!!
 > 
+> ## blocks with more than 50 factors
+> str.wover(design.info(FrF2(128, 55, blocks=64, alias.block.2fis = TRUE)))
+List of 22
+ $ type               : chr "FrF2.blocked"
+ $ block.name         : chr "Blocks"
+ $ nruns              : num 128
+ $ nfactors           : num 55
+ $ nblocks            : num 64
+ $ block.gen          : Named int [1:6] 3 5 9 17 33 65
+  ..- attr(*, "names")= chr [1:6] "AB" "AC" "AD" "AE" ...
+ $ blocksize          : num 2
+ $ ntreat             : num 55
+ $ factor.names       :List of 55
+  ..$ F1 : num [1:2] -1 1
+  ..$ F2 : num [1:2] -1 1
+  ..$ F3 : num [1:2] -1 1
+  ..$ F4 : num [1:2] -1 1
+  ..$ F5 : num [1:2] -1 1
+  ..$ F6 : num [1:2] -1 1
+  ..$ F7 : num [1:2] -1 1
+  ..$ F8 : num [1:2] -1 1
+  ..$ F9 : num [1:2] -1 1
+  ..$ F10: num [1:2] -1 1
+  ..$ F11: num [1:2] -1 1
+  ..$ F12: num [1:2] -1 1
+  ..$ F13: num [1:2] -1 1
+  ..$ F14: num [1:2] -1 1
+  ..$ F15: num [1:2] -1 1
+  ..$ F16: num [1:2] -1 1
+  ..$ F17: num [1:2] -1 1
+  ..$ F18: num [1:2] -1 1
+  ..$ F19: num [1:2] -1 1
+  ..$ F20: num [1:2] -1 1
+  ..$ F21: num [1:2] -1 1
+  ..$ F22: num [1:2] -1 1
+  ..$ F23: num [1:2] -1 1
+  ..$ F24: num [1:2] -1 1
+  ..$ F25: num [1:2] -1 1
+  ..$ F26: num [1:2] -1 1
+  ..$ F27: num [1:2] -1 1
+  ..$ F28: num [1:2] -1 1
+  ..$ F29: num [1:2] -1 1
+  ..$ F30: num [1:2] -1 1
+  ..$ F31: num [1:2] -1 1
+  ..$ F32: num [1:2] -1 1
+  ..$ F33: num [1:2] -1 1
+  ..$ F34: num [1:2] -1 1
+  ..$ F35: num [1:2] -1 1
+  ..$ F36: num [1:2] -1 1
+  ..$ F37: num [1:2] -1 1
+  ..$ F38: num [1:2] -1 1
+  ..$ F39: num [1:2] -1 1
+  ..$ F40: num [1:2] -1 1
+  ..$ F41: num [1:2] -1 1
+  ..$ F42: num [1:2] -1 1
+  ..$ F43: num [1:2] -1 1
+  ..$ F44: num [1:2] -1 1
+  ..$ F45: num [1:2] -1 1
+  ..$ F46: num [1:2] -1 1
+  ..$ F47: num [1:2] -1 1
+  ..$ F48: num [1:2] -1 1
+  ..$ F49: num [1:2] -1 1
+  ..$ F50: num [1:2] -1 1
+  ..$ F51: num [1:2] -1 1
+  ..$ F52: num [1:2] -1 1
+  ..$ F53: num [1:2] -1 1
+  ..$ F54: num [1:2] -1 1
+  ..$ F55: num [1:2] -1 1
+ $ aliased.with.blocks: chr [1:1485] "F1:F2" "F1:F3" "F1:F4" "F1:F5" ...
+ $ aliased            :List of 1
+  ..$ legend: chr [1:55] "F1=F1" "F2=F2" "F3=F3" "F4=F4" ...
+ $ bbreps             : num 1
+ $ wbreps             : num 1
+ $ FrF2.version       : chr "2.2"
+ $ catlg.name         : chr "catlg"
+ $ base.design        : chr "55-48.1"
+ $ block.old          : logi FALSE
+ $ replications       : num 1
+ $ repeat.only        : logi FALSE
+ $ randomize          : logi TRUE
+ $ seed               : NULL
+ $ creator            : language FrF2(128, 55, blocks = 64, alias.block.2fis = TRUE)
+> 
 > proc.time()
    user  system elapsed 
-  11.32    0.48   11.81 
+  10.39    0.90   11.26 

@@ -57,26 +57,29 @@ struc.aliased <- function(struc, nk, order){
     aus
 }
 
-recalc.alias.block.new <- function (dia, leg) 
+recalc.alias.block.new <- function (dia, leg=NULL) 
 {
   ## dia was in factor names before aliases was replaced by blockfull
-  ## now remove ":" only
   ## leg is not needed here any more
   ## blockfull so far only treats up to 50 factors
   ## 30 July 2019
+  ## April 2020: restriction to 50 factors removed;
+  ##             return with colons, remove colons later
+  ##             otherwise, struc.aliased.new does not work
   if (is.list(dia)){ 
     return(unname(sapply(dia, function(obj){
-      obj <- gsub(":","", obj)
+      #obj <- gsub(":","", obj)
       paste(obj, collapse="=")
     })))
   }
-  else return(gsub(":", "", dia))
+  else return(dia) #return(gsub(":", "", dia))
 }
 
 struc.aliased.new <- function (struc, nk, order) 
 {
   ## struc is the outcome of recalc.alias.block.new
   if (nk <= 50) {
+    struc <- unname(sapply(struc, function(obj) gsub(":", "", obj)))
     wme <- grep("^[[:alpha:]]=[[:alpha:][:punct:]]*", 
                 struc)
     wme2 <- grep("^[[:alpha:]]{2}=[[:alpha:][:punct:]]*", 
@@ -98,5 +101,7 @@ struc.aliased.new <- function (struc, nk, order)
     aus <- list(main = sort(struc[wme]), fi2 = sort(struc[wme2]))
   else aus <- list(main = sort(struc[wme]), fi2 = sort(struc[wme2]), 
                    fi3 = sort(struc[wme3]))
+  ## remove ':'
+  #if (nk <= 50) aus <- lapply(aus, function(obj) gsub(":","",obj))
   aus
 }

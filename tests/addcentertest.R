@@ -89,3 +89,14 @@ rerandomize.design(test9)
 rerandomize.design(test10)
 rerandomize.design(test11)
 rerandomize.design(test12)
+
+set.seed(3456)
+planfull <- FrF2(32, 5)
+planfullblock <- FrF2(32, 5, blocks=8, alias.block.2fis=TRUE)
+planfullgodolphin <- FF_from_X(colpick(5,2)$X)
+testfull <- add.center(planfull, 6) ## center points in full factorial
+testfullblock <- add.center(planfullblock, 2) ## center points in blockedfull factorial
+testfullgodolphin <- add.center(planfullgodolphin, 2) 
+                 ## center points in blockedfull factorial, godolphin approach
+cbind(run.order(testfullblock), testfullblock)
+cbind(run.order(testfullgodolphin), testfullgodolphin)

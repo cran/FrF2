@@ -125,3 +125,6 @@ run.order(FrF2(8,3,blocks=2,bbreps=2,wbreps=2,repeat.only=TRUE,randomize=TRUE))
   FrF2(32,14,WPs=8,nfac.WP=6,replications=3)
 
 ## generators in combination!!!
+
+## blocks with more than 50 factors
+str.wover(design.info(FrF2(128, 55, blocks=64, alias.block.2fis = TRUE)))

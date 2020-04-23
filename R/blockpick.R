@@ -28,16 +28,27 @@ blockpick <- function(k, gen, k.block, design=NULL, show=10, alias.block.2fis=FA
        gen <- select.catlg[[design]]$gen
        res <- select.catlg[[design]]$res
   }
-  if (identical(gen,0) | length(gen)==0) {
+  bcols <- NULL
+  if (identical(gen,0) || length(gen)==0) {
       ## treat full factorials by catalogue (block.catlg)
+      ## or by Godolphin (since April 2020)
+      ##    before: error for untreated in block.catlg
+      ##        or blocked design based on MA catlg entry
       gen <- numeric(0)
-      if (k <= max(block.catlg$k) & k.block <= ncol(block.catlg)-2){
-        if (length(which(block.catlg$k==k & block.catlg$k.block==k.block))>0)
+      if (k <= max(block.catlg$k) && k.block <= ncol(block.catlg)-2){
+        if (length(which(block.catlg$k==k & block.catlg$k.block==k.block)) > 0)
         bcols <- block.catlg[which(block.catlg$k==k & block.catlg$k.block==k.block)[1],
                          paste("b",1:k.block,sep="")]
-        else stop("This full factorial is not in the catalogue.")
+        # else stop("This full factorial is not in the catalogue.")
       }
-      else bcols <- catlg[[paste(k+k.block,"-",k.block,".",1,sep="")]]$gen
+      # else bcols <- catlg[[paste(k+k.block,"-",k.block,".",1,sep="")]]$gen
+      ## if bcols has been found, full factorial will not be treated by 
+      ## Godolphin method
+      ## return result now
+      if (is.null(bcols)) bcols <- which(names(Yates) %in% blockgencreate(colpick(k, k - k.block)$X))
+      if (!is.null(bcols)) return(list(gen=gen, 
+           basics = c(nruns=2^k, nblocks=2^k.block, ntreat=k, res.base=Inf), 
+           blockcols=bcols))
       }
   g <- length(gen)
   minus <- 1
@@ -60,7 +71,8 @@ blockpick <- function(k, gen, k.block, design=NULL, show=10, alias.block.2fis=FA
         
   ## assignment of k.block factors to the remaining columns
   ## 
-  hilf <- cols(k, gen)
+  hilf <- cols(k, gen) ## elements main, fi2s and freecols
+
   fi2s <- hilf$fi2s
         names(fi2s) <- apply(combn(k+g,2),2,function(obj) paste(Letters[obj],collapse=""))
         minus2fis <- which(apply(combn(k+g,2),2,function(obj) length(obj %in% minus)==1))
@@ -76,11 +88,11 @@ blockpick <- function(k, gen, k.block, design=NULL, show=10, alias.block.2fis=FA
   else {banned <- c(hilf$main,fi2cols); eligible <- hilf$freecols}
   if (length(eligible)<2^k.block-1 & !alias.block.2fis) 
           stop("no adequate block design found with 2fis unconfounded with blocks")
-  if (length(eligible)<2^k.block-1) stop("no adequate block design found")
-  if (g>0)
+  if (length(eligible) < 2^k.block-1) stop("no adequate block design found")
+  if (g > 0)
   perm <- t(combn(length(eligible),k.block))  ## rows are possible selections of k.block
   else {
-      if (g==0 & !alias.block.2fis) if (!all(bcols %in% eligible))
+      if (g==0 && !alias.block.2fis && !is.null(bcols)) if (!all(bcols %in% eligible))
              stop("no adequate block design found with 2fis unconfounded with blocks")
       perm <- matrix(which(eligible %in% bcols),nrow=1)
   }
@@ -92,11 +104,11 @@ blockpick <- function(k, gen, k.block, design=NULL, show=10, alias.block.2fis=FA
   banned.block <- 99
          ## will contain number of block main effects aliased with banned columns
   dependent.block <- TRUE
-         ## will contain number of block main effects aliased with banned columns
+         ## will indicate presence of aliasing among block main effect columns
   n2fis.block <- NA
          ## number of 2fis aliased with block main effects
   n2fis.clear <- NA
-         ## number of 2fis aliased with block main effects
+         ## number of clear 2fis
   hilfc <- Yates[1:(2^k.block-1)]
          ## combination patterns of block factors into all block main effects
   count <- 0 ## number of possibilities found
@@ -135,11 +147,10 @@ blockpick <- function(k, gen, k.block, design=NULL, show=10, alias.block.2fis=FA
              }
       if (nrow(perm) <= length(last)) stopp <- TRUE
   }  ## end of loop over permutations
-  
   pick <- which(banned.block==0 & !dependent.block)
 
-  if (length(pick)<show) show <- length(pick) 
-  if (show==0 & !alias.block.2fis) stop("no adequate block design found with 2fis unconfounded with blocks")
+  if (length(pick) < show) show <- length(pick) 
+  if (show==0 && !alias.block.2fis) stop("no adequate block design found with 2fis unconfounded with blocks")
   if (show==0) stop("no adequate block design found") else {
     ntreat <- k+length(gen)
     blocks <- 2^k.block

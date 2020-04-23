@@ -44,6 +44,7 @@ colpickIV <- function(design, q, all=FALSE,
     element <- design[1]       ## more than one element is ignored without warning
   N <- element[[1]]$nruns
   n <- element[[1]]$nfac
+    #if (n>50) stop("colpickIV works for up to 50 factors only")
   gen <- element[[1]]$gen         ## Yates column numbers
   p <- length(gen)
   k <- n - p
@@ -60,9 +61,17 @@ colpickIV <- function(design, q, all=FALSE,
       stop("if numeric, estimable must be a matrix with two rows")
     if (is.numeric(estimable) && !nrow(estimable)==2)
       stop("if numeric, estimable must be a matrix with two rows")
-    if (is.character(estimable))
+    if (is.character(estimable)){
+      colons <- grep(":", estimable)
+      if (!(length(colons)==0 || length(colons)==length(estimable)))
+          stop("All elements of estimable must have the same format")
+      if (length(colons)==0)
       estimable <- sapply(estimable, 
                           function(obj) which(Letters %in% unlist(strsplit(obj, "", fixed=TRUE))))
+      else   estimable <- sapply(estimable, 
+                          function(obj) as.numeric(gsub( "F", "", unlist(strsplit(obj, ":", fixed=TRUE)) )))
+      if (!is.matrix(estimable)) stop("invalid estimable")
+     }
     ## estimable is now a two-row matrix
     ## obtain map with which the requirement set can be accommodated in the design
     if (p==0) map <- 1:n else
@@ -72,9 +81,11 @@ colpickIV <- function(design, q, all=FALSE,
     estimable <- matrix(map[estimable], nrow=2)  
     ## sort columns in ascending order
     for (i in 1:ncol(estimable)) estimable[,i] <- sort(estimable[,i])
-    estimchar <- sapply(1:ncol(estimable), 
+    if (n<=50) estimchar <- sapply(1:ncol(estimable), 
                         function(obj) 
                           paste0(Letters[estimable[,obj]], collapse=""))
+    else estimchar <- sapply(1:ncol(estimable), function(obj) 
+      paste("F",estimable[,obj], sep="", collapse = ":"))
     ## character representation for later success checking
   } 
 
@@ -82,9 +93,14 @@ colpickIV <- function(design, q, all=FALSE,
   clear2fis <- clear.2fis(element)
   if (length(clear2fis[[1]])==0) 
     clear2fis <- character(0) 
-  else
+  else{
+    if (n <= 50) 
     clear2fis <- sapply(1:ncol(clear2fis[[1]]), function(obj) 
       paste(Letters[clear2fis[[1]][,obj]], collapse = ""))
+    else
+    clear2fis <- sapply(1:ncol(clear2fis[[1]]), function(obj) 
+      paste("F",clear2fis[[1]][,obj], sep="", collapse = ":"))
+    }
   nclear2fis <- length(clear2fis)
   
   Z <- t(sapply(gen, function(obj) rev(digitsBase(obj, 2, k))))
@@ -145,8 +161,9 @@ colpickIV <- function(design, q, all=FALSE,
         for (ii in 1:(n-1))
           for (jj in (ii+1):n)
             if (all(X[,ii]==X[,jj]))
-              ingroup <- c(ingroup,
-                           paste0(Letters[ii],Letters[jj]))
+              ingroup <- c(ingroup,ifelse(n<=50,
+                                  paste0(Letters[ii],Letters[jj]),
+                                  paste0("F",ii,":F",jj)))
         clearcur <- setdiff(clearcur, ingroup)
       }
       

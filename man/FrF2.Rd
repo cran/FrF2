@@ -23,6 +23,7 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
         MaxC2 = FALSE, replications = 1, repeat.only = FALSE, 
         randomize = TRUE, seed = NULL, alias.info = 2, 
         blocks = 1, block.name = "Blocks", block.old=FALSE, 
+        force.godolphin=FALSE,
         bbreps=replications, wbreps=1, 
         alias.block.2fis = FALSE, 
         hard = NULL, check.hard=10, WPs=1,nfac.WP=0,
@@ -157,7 +158,7 @@ FrF2.currentlychecked()
         the design. Consult the specific help file (\code{\link{estimable.2fis}}) 
         for details of two different approaches of requesting estimability, 
         as indicated by the status of the \code{clear} option. \code{estimable} cannot be 
-        specified together with \code{block}, \code{splitplot}, \code{generators} or \code{design}.
+        specified together with \code{splitplot}, \code{generators} or \code{design}.
 
         \code{estimable} can be\cr 
         a numeric matrix with two rows, each column of which indicates one interaction,
@@ -202,9 +203,18 @@ FrF2.currentlychecked()
         if TRUE, \code{estimable} ignores 
         the dominating attribute of the catalogue entries; can be useful for 
         searching a blocked design with estimable 2fis from a reduced catalogue}
-  \item{useV}{ NULL or logical; relevant for designs with \code{blocks} and \code{estimable} only; if TRUE, function \code{link{colpick}} is used (default), otherwise function \code{link{colpickIV}}; if set to NULL, \code{colpick} is used for fractions with resolution at least V and function \code{link{colpickIV}} for resolution IV fractions;\cr
-     \code{useV=FALSE} does the subgraph isomorphism check once only, at the expense of missing out opportunities; it may be worth trying \code{useV=NULL} or \code{useV=FALSE} for resolution IV situations, for which the search takes very long with the default}
-  \item{firsthit}{ logical; relevant for designs with \code{blocks} and \code{estimable} only; if FALSE, the function tries to find a design with as many as possible clear 2fis, otherwise the function stops at the first possible blocking; in case of resource problems, setting \code{firsthit} to TRUE may be helpful}
+  \item{useV}{ NULL or logical; relevant for designs with \code{blocks} and \code{estimable} only; 
+        if TRUE, function \code{link{colpick}} is used (default), otherwise function \code{link{colpickIV}}; 
+        if set to NULL, \code{colpick} is used for fractions with resolution at least V and function 
+        \code{link{colpickIV}} for resolution IV fractions;\cr
+        \code{useV=FALSE} does the subgraph isomorphism check once only, 
+        at the expense of missing out opportunities; it may be worth trying \code{useV=NULL} 
+        or \code{useV=FALSE} for resolution IV situations, 
+        for which the search takes very long with the default}
+  \item{firsthit}{ logical; relevant for designs with \code{blocks} and \code{estimable} only; 
+        if FALSE, the function tries to find a design with as many as possible clear 2fis, 
+        otherwise the function stops at the first possible blocking; in case of resource problems, 
+        setting \code{firsthit} to TRUE may be helpful}
   \item{res3}{ logical; if TRUE, \code{estimable} includes resolution III designs 
         into the search for adequate designs; otherwise resolution IV and higher designs 
         are included only. }
@@ -292,12 +302,15 @@ FrF2.currentlychecked()
        A blocked design can have at most \code{nruns-blocks-1} treatment 
        factors, but should usually have fewer than that. \cr
        
-       If the experiment is randomized, randomization happens within blocks. In case of many blocks, units should also be randomized to blocks wherever possible! \cr
+       If the experiment is randomized, randomization happens within blocks. 
+       In case of many blocks, units should also be randomized to blocks wherever possible! \cr
        
        For the statistical and algorithmic background of blocked designs, see \code{\link{block}}.
        }
   \item{block.name}{ name of the block factor, default \dQuote{Blocks}}
   \item{block.old}{logical; if TRUE, blocking behavior of FrF2 version 1.7.2 is activated}
+  \item{force.godolphin}{logical; if TRUE, blocking is forced to be done with the 
+       Godolphin method (see \code{\link{block}})}
   \item{bbreps}{ between block replications; these are always taken as genuine replications, 
        not repeat runs; default: equal to \code{replications};
        CAUTION: you should not modify \code{bbreps} if you do not work with blocks, 
@@ -412,9 +425,11 @@ FrF2.currentlychecked()
   
   Function \code{FrF2.currentlychecked} is meant as a diagnostic tool, 
   when searching for designs with option \code{estimable}
-  and \code{clear=TRUE}. If the search takes very long, it can be interrupted, 
-  and the function returns a character string with the name of the design 
-  that was checked at the time of interruption. 
+  and \code{clear=TRUE}. If the search takes very long, it can be interrupted 
+  (CAUTION: in some igraph versions, interrupting the search may crash R). 
+  After a successful interruption, and \code{FrF2.currentlychecked()} 
+  returns a character string with the name of the design that was checked at the 
+  time of interruption. 
 }
 \value{
   Function \code{FrF2} returns a data frame of S3 class \code{\link[DoE.base:class-design]{design}} 
@@ -813,8 +828,12 @@ design.info(BSS.cheese.exm)
   \dontrun{
   estim <- compromise(17,15:17)$requirement  ## all interactions of factors 15 to 17 (P,Q,R)
   ## VF2 algorithm without pre-sorting of vertices
-  FrF2(128, 17, estimable=estim, select.catlg=catlg128.17) ## very slow,  
-                                                           ## interrupt with ESC key
+  ### CAUTION: in some igraph versions, the following may crash R ###
+  FrF2(128, 17, estimable=estim, select.catlg=catlg128.17) 
+                        ## very slow, interrupt with ESC key after a short while
+                        ## !!! save all important work before, in case R crashes
+  FrF2.currentlychecked()   ## displays the design that was currently checked 
+                            ## should be 17-10.2407, if the interrupt was successful
   ## VF2 algorithm with pre-sorting of vertices
   FrF2(128, 17, estimable=estim, sort="high", select.catlg=catlg128.17)  ## very fast
   FrF2(128, 17, estimable=estim, sort="low", select.catlg=catlg128.17)  ## very fast

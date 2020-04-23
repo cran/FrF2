@@ -123,7 +123,7 @@ Groemping, U. (2010). Creating clear designs: a graph-based algorithm and a
 }
 \examples{
 \dontrun{
-ex.CIG <- CIG("9-4.2")
+ex.CIG <- CIG("9-4.2", vertex.color="white", vertex.label.color="darkred")
 ## play around with the dynamic graph until it looks right
 ## look up its id number in the title bar of the graph window and use it for id
 par(xpd=TRUE)
@@ -140,35 +140,20 @@ largest.cliques(graph1)
 
 graph2 <- gen2CIG(32, c(7,11,14,29))   ### create graph object from generator columns
 ### check isomorphism to graph1
-graph.isomorphic(graph1,graph2)
+graph.isomorphic(graph1, graph2)
 
 \dontrun{
 ## use a CIG for manual design search
 ## requirement set: 
-estim <- compromise(17,15:17)$requirement ## all interactions of factors 15 to 17 (P,Q,R)
+estim <- compromise(9, 8:9)$requirement ## all interactions of factors 8 and 9 (H, J)
 ## graph the requirement set CIG
-CIG(estim)
-FrF2(128, 17, estimable=estim)  ## will run for a very long time
-## interrupt with ESC key, after a short period of waiting
-FrF2.currentlychecked()   ## displays the design that is currently checked 
-                          ## should be 17-10.2407
-CIG("17-10.2407")
-## clearly, using columns 1, 8 and 9 for factors 15:17 does the job
-    ## sometimes, the design where the algorithm got stuck, does not provide a solution
-    ## in that case, option select.catlg can be used for restricting the search designs 
-    ##     to designs further down in the catalogue, in order to find the next candidate
-    ##     until final success is reached
-    ## e.g.
-    which(names(catlg)=="17-10.2407")
-    FrF2(128, 17, estimable=estim, select.catlg=catlg[2375:length(catlg)])  
-    ## will run for a very long time
-    ## interrupting after short waiting time yields
-    FrF2.currentlychecked()   ## displays the design that is currently checked 
-                              ## should be 17-10.4177
-
-## note: in this example, option sort="high" would make the automatic search fast
-## so that manual treatment is not needed!
-
+CIG(estim, vertex.color="white", vertex.label.color="darkred")
+## a human can easily see that columns 1, 8 and 9 are worth a try for factors P, Q and R
+CIG("9-4.1", vertex.color="white", vertex.label.color="darkred")
+    ## obviously, 9-4.1 cannot accommodate the requirement set
+CIG("9-4.2", vertex.color="white", vertex.label.color="darkred")
+    ## 9-4.2 can, by assigning factors H and J to columns 5 and 9
+## function FrF2 automatically does such matchings
 }
 }
 \author{Ulrike Groemping}

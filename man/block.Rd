@@ -61,14 +61,19 @@
   }
     \item{Automatic definition of blocked designs for regular fractional factorials}{
   If the user only specifies the number of blocks required for the experiment, function \code{\link{FrF2}} 
-  automatically generates the blocks. For full factorial designs, function \code{\link{FrF2}} uses 
-  the Sun, Wu and Chen (1997) catalogue of blocked designs (implemented in function \code{\link{blockpick}}), unless estimability criteria are specified, in which case function \code{\link{colpick}} is used. 
+  automatically generates the blocks. For full factorial designs, function \code{\link{FrF2}} uses function \code{\link{colpick}} 
+  with subsequent \code{\link{blockgencreate}}, except where the Sun, Wu and Chen (1997) catalogue of blocked designs 
+  contains suitable block generators for a design without estimability requirements 
+  (implemented in function \code{\link{blockpick}}, which also calls \code{colpick}, if that 
+  catalogue does not offer a solution). 
   Otherwise, depending on the situation, 
   function \code{\link{FrF2}} uses function \code{\link{blockpick}} or function \code{\link{colpick}} with subsequent \code{\link{blockgencreate}}; 
   function \code{\link{blockpick}} treats smaller problems (\code{choose(nruns-1-nfactors,k.block) < 100000}) without estimability requirements, other problems are treated by 
   function \code{\link{colpick}}.
   
-  Use of the earlier default function \code{\link{blockpick.big}} for large cases can be requested with the argument \code{block.old=TRUE}; this should only be done for reproducing earlier results, as the new methodology is definitely superior. 
+  Use of the earlier default function \code{\link{blockpick.big}} for large cases or the earlier behavior for full factorial designs 
+  can be requested with the argument 
+  \code{block.old=TRUE}; this should only be done for reproducing earlier results, as the new methodology is definitely superior. 
   
   The search for an appropriate blocked design starts with the overall best unblocked design 
   (in terms of aberration or MaxC2, if requested). 
@@ -82,8 +87,16 @@
   (if \code{alias.block.2fis=TRUE}). Note that no effort is made to avoid aliasing with 2-factor interactions, 
   if \code{alias.block.2fis=TRUE} is chosen. 
   
-  For the larger problems, or blocking in combination with requiring some 2fis two be clear of aliasing,
-  function \code{\link{colpick}} creates a \eqn{q \times}{q times} \code{nfactors} \bold{X} matrix for creating blocks of size \eqn{2^q} based on the approach described by Godolphin (2019); function \code{blockgencreate} creates block generators from this matrix. This approach can be used in combination with argument \code{estimable}, as long as \code{clear=TRUE}. The implementation of this approach is described in Groemping (2019).
+  For the larger problems, or blocking in combination with requiring some 2fis to be clear of aliasing,
+  function \code{\link{colpick}} creates a \eqn{q \times}{q times} \code{nfactors} \bold{X} matrix for creating 
+  blocks of size \eqn{2^q} based on the approach described by Godolphin (2019); 
+  function \code{blockgencreate} creates block generators from this matrix. 
+  This approach can be used in combination with argument \code{estimable}, 
+  as long as \code{clear=TRUE}. The implementation of this approach is described in Groemping (2019).
+  The argument \code{force.godolphin} of function \code{\link{FrF2}} can enforce the Godolphin approach instead 
+  of the default approach for small blocked designs. Note that the Godolphin approach solely focuses on clear 2fis 
+  of the blocked design and does not attempt to avoid confounding of the block factor with non-clear 2fis; it may 
+  thus confound 2fis with the block factor even if this were avoidable, maintaining the same number of clear 2fis.
   
   For the larger problems, in versions before 2.0, which can be activated in current versions with \code{block.old=TRUE},
   function \code{\link{blockpick.big}} permutes the k~base factors of candidate designs with \code{nfactors + k.block} factors 

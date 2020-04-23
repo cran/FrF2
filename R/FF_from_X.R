@@ -12,13 +12,14 @@ FF_from_X <- function(X, randomize=TRUE, seed=NULL, alias.info=2){
   fn <- rep(list(c(-1,1)),n)
   names(fn) <- Letters[1:n] 
   desmat <- as.matrix(expand.grid(fn))
+  
   Xlogic <- matrix(as.logical(X),q,n)
   allaliasedb <- blockgengroup(X)
   allaliasedb <- allaliasedb[nchar(allaliasedb)<=alias.info]
   block.gen <- strsplit(bg <- blockgencreate(X),"",fixed=TRUE)
   hilf <- 
   cbind(data.frame(Blocks=factor(as.numeric(factor(apply(sapply(block.gen, function(obj) apply(desmat[,obj, drop=FALSE], 1, prod)), 1, 
-        function(obj) paste(obj, collapse="")))))), desmat)
+        function(obj) paste(obj, collapse=""))))), stringsAsFactors=TRUE), desmat, stringsAsFactors=TRUE)
   hilf <- hilf[ord(hilf),]
   run.no.in.std.order <- rownames(hilf)
   rownames(hilf) <- 1:nruns
@@ -53,7 +54,8 @@ FF_from_X <- function(X, randomize=TRUE, seed=NULL, alias.info=2){
               run.no= 1:nruns, 
               run.no.std.rp=paste(run.no.in.std.order, 
                                   rep(1:di$nblocks, each=di$blocksize), 
-                                  rep(1:di$blocksize, di$nblocks), sep="."))
+                                  rep(1:di$blocksize, di$nblocks), sep="."), 
+                                  stringsAsFactors = TRUE)
   desnum <- model.matrix(~., hilf)
   class(hilf) <- c("design", "data.frame")
   design.info(hilf) <- di
@@ -108,3 +110,26 @@ X_from_parts <- function(n, q, parts){
   X
 }
 
+clear2fis_from_profile <- function(n, q, profile=NULL){
+  if (!is.numeric(n) && is.numeric(q)) stop("n and q must be integer numbers")
+  if (is.null(profile)) {
+      ### default: most balanced
+      profile <- rep(n%/%(2^q-1), 2^q-1)
+      hilf <- n%%(2^q-1)
+      if (hilf > 0) for (a in 1:hilf) profile[a] <- profile[a]+1
+  }
+  if (!is.numeric(profile)) stop("if given, profile must be a numeric vector")
+  if (!sum(profile)==n) stop("entries of profile must sum to n")
+  #  if (length(profile < 2^q-1) profile <- c(profile, rep(0, 2^q-1 - length(profile)))
+  if (length(profile) > 2^q-1) stop("profile can have at most 2^q-1 entries")
+  profile <- sort(profile, decreasing=TRUE)
+  profile <- profile[profile>0]
+  lims <- cumsum(profile)
+  parts <- mapply(":", c(1,lims[-length(lims)]+1),lims, SIMPLIFY=FALSE)
+  clear2fis <- matrix(NA,2,0)
+  paare <- DoE.base:::nchoosek(length(parts),2)
+  for (i in 1:ncol(paare)){
+      clear2fis <- cbind(clear2fis, t(as.matrix(expand.grid(parts[[paare[1,i]]], parts[[paare[2,i]]]))))
+  }
+  clear2fis
+}

@@ -3,6 +3,7 @@
 \alias{FF_from_X}
 \alias{X_from_parts}
 \alias{X_from_profile}
+\alias{clear2fis_from_profile}
 \alias{blockgencreate}
 \alias{phimax}
 \alias{Xcalc}
@@ -25,6 +26,7 @@ colpick(design, q, all = FALSE, select.catlg = catlg,
       firsthit = is.numeric(design))
 FF_from_X(X, randomize = TRUE, seed = NULL, alias.info=2)
 X_from_profile(n, q, profile = NULL)
+clear2fis_from_profile(n, q, profile = NULL)
 X_from_parts(n, q, parts)
 phimax(n, q, profile = NULL)
 blockgencreate(X, p = 0)
@@ -98,7 +100,8 @@ colpickIV(design, q, all = FALSE, select.catlg = catlg,
        \code{design.info} attribute}
   \item{profile}{profile to use for calculation 
        (NULL or integer vector of up to \eqn{2^q-1} elements that sum to \eqn{n}); 
-       if NULL, the maximally balanced profile is used (which yields the overall maximum)}
+       if NULL, the maximally balanced profile is used (which yields the overall maximum
+       number of clear 2fis when blocking a full factorial)}
   \item{parts}{list that provides factor partitions; list entries 
         must either be all integers from 1 to \code{n} or the elements
         of \code{Letters[1:n]}}
@@ -121,7 +124,8 @@ colpickIV(design, q, all = FALSE, select.catlg = catlg,
 }
 
 \details{
-    These are the user-visible functions for the Godolphin (2019) approach to blocking. 
+    These are the functions for the Godolphin (2019) approach to blocking; 
+    most of them are user-visible. 
     This approach and its implementation are described in Groemping (2019). 
     Direct use of this functions is intended for expert use only.
 
@@ -159,7 +163,8 @@ colpickIV(design, q, all = FALSE, select.catlg = catlg,
     (\bold{X}_II in Godolphin notatation) based 
     on the generators provided in \code{gen}.
     
-    Function \code{blockgengroup} is internal only, as is function \code{colpickIV}.
+    Function \code{blockgengroup} is internal only, 
+    as are functions \code{colpickIV} and \code{clear2fis_from_profile}.
 }
 
 \value{
@@ -187,7 +192,9 @@ colpickIV(design, q, all = FALSE, select.catlg = catlg,
     
     The internal function \code{colpickIV} returns almost the same type of results as \code{colpick}. 
     The difference: \cr
-    if \code{all} is TRUE, there is an integer vector \code{map} instead of the \code{maplist} element, because the \code{map} does not depend on the choice of X-matrix (separate subgraph isomorphism checking is skipped with this function).
+    if \code{all} is TRUE, there is an integer vector \code{map} instead of the 
+    \code{maplist} element, because the \code{map} does not depend on the choice of X-matrix 
+    (separate subgraph isomorphism checking is skipped with this function).
 
 }
 
