@@ -1,6 +1,6 @@
 
-R version 3.6.0 (2019-04-26) -- "Planting of a Tree"
-Copyright (C) 2019 The R Foundation for Statistical Computing
+R version 4.0.0 (2020-04-24) -- "Arbor Day"
+Copyright (C) 2020 The R Foundation for Statistical Computing
 Platform: x86_64-w64-mingw32/x64 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -144,13 +144,19 @@ $digits.d
 $vec.len
 [1] 4
 
+$list.len
+[1] 99
+
+$deparse.lines
+NULL
+
 $drop.deparse.attr
 [1] FALSE
 
 $formatNum
 function (x, ...) 
 format(x, trim = TRUE, drop0trailing = TRUE, ...)
-<environment: 0x00000000197d5a00>
+<environment: 0x0000000011a8af08>
 
 > str.wover <- function(obj){
 +     di <- attr(obj, "design.info") 
@@ -164,69 +170,69 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
  $ eins : Factor w/ 2 levels "1","2": 1 2 1 2 1 2 1 2 1 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "1" "2"
+  .. .. ..$ : chr [1:2] "1" "2"
   .. .. ..$ : NULL
  $ zwei : Factor w/ 2 levels "43","87": 1 1 2 2 1 1 2 2 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "43" "87"
+  .. .. ..$ : chr [1:2] "43" "87"
   .. .. ..$ : NULL
  $ drei : Factor w/ 2 levels "alt","neu": 1 1 1 1 2 2 2 2 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "alt" "neu"
+  .. .. ..$ : chr [1:2] "alt" "neu"
   .. .. ..$ : NULL
  $ vier : Factor w/ 2 levels "-1","1": 1 1 1 1 1 1 1 1 2 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ fuenf: Factor w/ 2 levels "-1","1": 1 2 2 1 2 1 1 2 1 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ sechs: Factor w/ 2 levels "-1","1": 1 2 2 1 1 2 2 1 2 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  - attr(*, "desnum")= num [1:16, 1:6] -1 1 -1 1 -1 1 -1 1 -1 1 ...
   ..- attr(*, "dimnames")=List of 2
-  .. ..$ : chr  "1" "2" "3" "4" ...
-  .. ..$ : chr  "eins" "zwei" "drei" "vier" ...
+  .. ..$ : chr [1:16] "1" "2" "3" "4" ...
+  .. ..$ : chr [1:6] "eins" "zwei" "drei" "vier" ...
  - attr(*, "run.order")='data.frame':	16 obs. of  3 variables:
   ..$ run.no.in.std.order: Factor w/ 16 levels "1","2","3","4",..: 1 2 3 4 5 6 7 8 9 10 ...
-  ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
+  ..$ run.no             : int [1:16] 1 2 3 4 5 6 7 8 9 10 ...
   ..$ run.no.std.rp      : Factor w/ 16 levels "1","2","3","4",..: 1 2 3 4 5 6 7 8 9 10 ...
  - attr(*, "design.info")=List of 12
   ..$ type        : chr "FrF2"
   ..$ nruns       : num 16
   ..$ nfactors    : num 6
   ..$ factor.names:List of 6
-  .. ..$ eins : num  1 2
-  .. ..$ zwei : num  43 87
-  .. ..$ drei : chr  "alt" "neu"
-  .. ..$ vier : num  -1 1
-  .. ..$ fuenf: num  -1 1
-  .. ..$ sechs: num  -1 1
+  .. ..$ eins : num [1:2] 1 2
+  .. ..$ zwei : num [1:2] 43 87
+  .. ..$ drei : chr [1:2] "alt" "neu"
+  .. ..$ vier : num [1:2] -1 1
+  .. ..$ fuenf: num [1:2] -1 1
+  .. ..$ sechs: num [1:2] -1 1
   ..$ catlg.name  : chr "catlg"
   ..$ catlg.entry :List of 1
   .. ..$ 6-2.1:List of 9
   .. .. ..$ res           : int 4
   .. .. ..$ nfac          : num 6
   .. .. ..$ nruns         : num 16
-  .. .. ..$ gen           : num  7 11
-  .. .. ..$ WLP           : num  0 0 0 3 0 0 0
+  .. .. ..$ gen           : num [1:2] 7 11
+  .. .. ..$ WLP           : num [1:7] 0 0 0 3 0 0 0
   .. .. ..$ nclear.2fis   : num 0
-  .. .. ..$ clear.2fis    : num 
-  .. .. ..$ all.2fis.clear: num 
+  .. .. ..$ clear.2fis    : num(0) 
+  .. .. ..$ all.2fis.clear: num(0) 
   .. .. ..$ dominating    : logi FALSE
-  .. ..- attr(*, "class")= chr  "catlg" "list"
+  .. ..- attr(*, "class")= chr [1:2] "catlg" "list"
   ..$ aliased     :List of 3
-  .. ..$ legend: chr  "A=eins" "B=zwei" "C=drei" "D=vier" ...
-  .. ..$ main  : chr 
-  .. ..$ fi2   : chr  "AB=CE=DF" "AC=BE" "AD=BF" "AE=BC" ...
+  .. ..$ legend: chr [1:6] "A=eins" "B=zwei" "C=drei" "D=vier" ...
+  .. ..$ main  : chr(0) 
+  .. ..$ fi2   : chr [1:7] "AB=CE=DF" "AC=BE" "AD=BF" "AE=BC" ...
   ..$ replications: num 1
   ..$ repeat.only : logi FALSE
   ..$ randomize   : logi FALSE
@@ -237,69 +243,69 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
  $ eins : Factor w/ 2 levels "1","2": 1 2 1 2 1 2 1 2 1 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "1" "2"
+  .. .. ..$ : chr [1:2] "1" "2"
   .. .. ..$ : NULL
  $ zwei : Factor w/ 2 levels "43","87": 1 1 2 2 1 1 2 2 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "43" "87"
+  .. .. ..$ : chr [1:2] "43" "87"
   .. .. ..$ : NULL
  $ drei : Factor w/ 2 levels "alt","neu": 1 1 1 1 2 2 2 2 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "alt" "neu"
+  .. .. ..$ : chr [1:2] "alt" "neu"
   .. .. ..$ : NULL
  $ vier : Factor w/ 2 levels "-1","1": 1 1 1 1 1 1 1 1 2 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ fuenf: Factor w/ 2 levels "-1","1": 1 2 2 1 2 1 1 2 1 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ sechs: Factor w/ 2 levels "-1","1": 1 2 2 1 1 2 2 1 2 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  - attr(*, "desnum")= num [1:16, 1:6] -1 1 -1 1 -1 1 -1 1 -1 1 ...
   ..- attr(*, "dimnames")=List of 2
-  .. ..$ : chr  "1" "2" "3" "4" ...
-  .. ..$ : chr  "eins" "zwei" "drei" "vier" ...
+  .. ..$ : chr [1:16] "1" "2" "3" "4" ...
+  .. ..$ : chr [1:6] "eins" "zwei" "drei" "vier" ...
  - attr(*, "run.order")='data.frame':	16 obs. of  3 variables:
   ..$ run.no.in.std.order: Factor w/ 16 levels "1","2","3","4",..: 1 2 3 4 5 6 7 8 9 10 ...
-  ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
+  ..$ run.no             : int [1:16] 1 2 3 4 5 6 7 8 9 10 ...
   ..$ run.no.std.rp      : Factor w/ 16 levels "1","2","3","4",..: 1 2 3 4 5 6 7 8 9 10 ...
  - attr(*, "design.info")=List of 12
   ..$ type        : chr "FrF2"
   ..$ nruns       : num 16
   ..$ nfactors    : int 6
   ..$ factor.names:List of 6
-  .. ..$ eins : num  1 2
-  .. ..$ zwei : num  43 87
-  .. ..$ drei : chr  "alt" "neu"
-  .. ..$ vier : num  -1 1
-  .. ..$ fuenf: num  -1 1
-  .. ..$ sechs: num  -1 1
+  .. ..$ eins : num [1:2] 1 2
+  .. ..$ zwei : num [1:2] 43 87
+  .. ..$ drei : chr [1:2] "alt" "neu"
+  .. ..$ vier : num [1:2] -1 1
+  .. ..$ fuenf: num [1:2] -1 1
+  .. ..$ sechs: num [1:2] -1 1
   ..$ catlg.name  : chr "catlg"
   ..$ catlg.entry :List of 1
   .. ..$ 6-2.1:List of 9
   .. .. ..$ res           : int 4
   .. .. ..$ nfac          : num 6
   .. .. ..$ nruns         : num 16
-  .. .. ..$ gen           : num  7 11
-  .. .. ..$ WLP           : num  0 0 0 3 0 0 0
+  .. .. ..$ gen           : num [1:2] 7 11
+  .. .. ..$ WLP           : num [1:7] 0 0 0 3 0 0 0
   .. .. ..$ nclear.2fis   : num 0
-  .. .. ..$ clear.2fis    : num 
-  .. .. ..$ all.2fis.clear: num 
+  .. .. ..$ clear.2fis    : num(0) 
+  .. .. ..$ all.2fis.clear: num(0) 
   .. .. ..$ dominating    : logi FALSE
-  .. ..- attr(*, "class")= chr  "catlg" "list"
+  .. ..- attr(*, "class")= chr [1:2] "catlg" "list"
   ..$ aliased     :List of 3
-  .. ..$ legend: chr  "A=eins" "B=zwei" "C=drei" "D=vier" ...
-  .. ..$ main  : chr 
-  .. ..$ fi2   : chr  "AB=CE=DF" "AC=BE" "AD=BF" "AE=BC" ...
+  .. ..$ legend: chr [1:6] "A=eins" "B=zwei" "C=drei" "D=vier" ...
+  .. ..$ main  : chr(0) 
+  .. ..$ fi2   : chr [1:7] "AB=CE=DF" "AC=BE" "AD=BF" "AE=BC" ...
   ..$ replications: num 1
   ..$ repeat.only : logi FALSE
   ..$ randomize   : logi FALSE
@@ -310,69 +316,69 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
  $ A: Factor w/ 2 levels "-1","1": 1 2 1 2 1 2 1 2 1 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ B: Factor w/ 2 levels "-1","1": 1 1 2 2 1 1 2 2 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ C: Factor w/ 2 levels "-1","1": 1 1 1 1 2 2 2 2 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ D: Factor w/ 2 levels "-1","1": 1 1 1 1 1 1 1 1 2 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ E: Factor w/ 2 levels "-1","1": 2 1 1 2 2 1 1 2 2 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ F: Factor w/ 2 levels "-1","1": 1 2 1 2 2 1 2 1 2 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  - attr(*, "desnum")= num [1:16, 1:6] -1 1 -1 1 -1 1 -1 1 -1 1 ...
   ..- attr(*, "dimnames")=List of 2
-  .. ..$ : chr  "1" "2" "3" "4" ...
-  .. ..$ : chr  "A" "B" "C" "D" ...
+  .. ..$ : chr [1:16] "1" "2" "3" "4" ...
+  .. ..$ : chr [1:6] "A" "B" "C" "D" ...
  - attr(*, "run.order")='data.frame':	16 obs. of  3 variables:
   ..$ run.no.in.std.order: Factor w/ 16 levels "1","2","3","4",..: 1 2 3 4 5 6 7 8 9 10 ...
-  ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
+  ..$ run.no             : int [1:16] 1 2 3 4 5 6 7 8 9 10 ...
   ..$ run.no.std.rp      : Factor w/ 16 levels "1","2","3","4",..: 1 2 3 4 5 6 7 8 9 10 ...
  - attr(*, "design.info")=List of 12
   ..$ type        : chr "FrF2"
   ..$ nruns       : num 16
   ..$ nfactors    : num 6
   ..$ factor.names:List of 6
-  .. ..$ A: num  -1 1
-  .. ..$ B: num  -1 1
-  .. ..$ C: num  -1 1
-  .. ..$ D: num  -1 1
-  .. ..$ E: num  -1 1
-  .. ..$ F: num  -1 1
+  .. ..$ A: num [1:2] -1 1
+  .. ..$ B: num [1:2] -1 1
+  .. ..$ C: num [1:2] -1 1
+  .. ..$ D: num [1:2] -1 1
+  .. ..$ E: num [1:2] -1 1
+  .. ..$ F: num [1:2] -1 1
   ..$ catlg.name  : chr "catlg"
   ..$ catlg.entry :List of 1
   .. ..$ 6-2.2:List of 9
   .. .. ..$ res           : int 3
   .. .. ..$ nfac          : num 6
   .. .. ..$ nruns         : num 16
-  .. .. ..$ gen           : num  3 13
-  .. .. ..$ WLP           : num  0 0 1 1 1 0 0
+  .. .. ..$ gen           : num [1:2] 3 13
+  .. .. ..$ WLP           : num [1:7] 0 0 1 1 1 0 0
   .. .. ..$ nclear.2fis   : num 6
   .. .. ..$ clear.2fis    : num [1:2, 1:6] 2 3 2 4 2 6 3 5 4 5 ...
-  .. .. ..$ all.2fis.clear: num 
+  .. .. ..$ all.2fis.clear: num(0) 
   .. .. ..$ dominating    : logi TRUE
-  .. ..- attr(*, "class")= chr  "catlg" "list"
+  .. ..- attr(*, "class")= chr [1:2] "catlg" "list"
   ..$ aliased     :List of 3
-  .. ..$ legend: chr  "A=A" "B=B" "C=C" "D=D" ...
-  .. ..$ main  : chr  "A=BE" "B=AE" "E=AB"
-  .. ..$ fi2   : chr  "AC=DF" "AD=CF" "AF=CD"
+  .. ..$ legend: chr [1:6] "A=A" "B=B" "C=C" "D=D" ...
+  .. ..$ main  : chr [1:3] "A=BE" "B=AE" "E=AB"
+  .. ..$ fi2   : chr [1:3] "AC=DF" "AD=CF" "AF=CD"
   ..$ replications: num 1
   ..$ repeat.only : logi FALSE
   ..$ randomize   : logi FALSE
@@ -383,57 +389,57 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
  $ eins : Factor w/ 2 levels "1","2": 1 2 1 2 1 2 1 2 1 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "1" "2"
+  .. .. ..$ : chr [1:2] "1" "2"
   .. .. ..$ : NULL
  $ zwei : Factor w/ 2 levels "43","87": 1 1 2 2 1 1 2 2 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "43" "87"
+  .. .. ..$ : chr [1:2] "43" "87"
   .. .. ..$ : NULL
  $ drei : Factor w/ 2 levels "alt","neu": 1 1 1 1 2 2 2 2 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "alt" "neu"
+  .. .. ..$ : chr [1:2] "alt" "neu"
   .. .. ..$ : NULL
  $ vier : Factor w/ 2 levels "-1","1": 1 1 1 1 1 1 1 1 2 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ fuenf: Factor w/ 2 levels "-1","1": 2 1 1 2 2 1 1 2 2 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ sechs: Factor w/ 2 levels "-1","1": 1 2 1 2 2 1 2 1 2 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  - attr(*, "desnum")= num [1:16, 1:6] -1 1 -1 1 -1 1 -1 1 -1 1 ...
   ..- attr(*, "dimnames")=List of 2
-  .. ..$ : chr  "1" "2" "3" "4" ...
-  .. ..$ : chr  "eins" "zwei" "drei" "vier" ...
+  .. ..$ : chr [1:16] "1" "2" "3" "4" ...
+  .. ..$ : chr [1:6] "eins" "zwei" "drei" "vier" ...
  - attr(*, "run.order")='data.frame':	16 obs. of  3 variables:
   ..$ run.no.in.std.order: Factor w/ 16 levels "1","2","3","4",..: 1 2 3 4 5 6 7 8 9 10 ...
-  ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
+  ..$ run.no             : int [1:16] 1 2 3 4 5 6 7 8 9 10 ...
   ..$ run.no.std.rp      : Factor w/ 16 levels "1","2","3","4",..: 1 2 3 4 5 6 7 8 9 10 ...
  - attr(*, "design.info")=List of 11
   ..$ type        : chr "FrF2.generators"
   ..$ nruns       : num 16
   ..$ nfactors    : int 6
   ..$ factor.names:List of 6
-  .. ..$ eins : num  1 2
-  .. ..$ zwei : num  43 87
-  .. ..$ drei : chr  "alt" "neu"
-  .. ..$ vier : num  -1 1
-  .. ..$ fuenf: num  -1 1
-  .. ..$ sechs: num  -1 1
-  ..$ generators  : chr  "E=AB" "F=ACD"
+  .. ..$ eins : num [1:2] 1 2
+  .. ..$ zwei : num [1:2] 43 87
+  .. ..$ drei : chr [1:2] "alt" "neu"
+  .. ..$ vier : num [1:2] -1 1
+  .. ..$ fuenf: num [1:2] -1 1
+  .. ..$ sechs: num [1:2] -1 1
+  ..$ generators  : chr [1:2] "E=AB" "F=ACD"
   ..$ aliased     :List of 3
-  .. ..$ legend: chr  "A=eins" "B=zwei" "C=drei" "D=vier" ...
-  .. ..$ main  : chr  "A=BE" "B=AE" "E=AB"
-  .. ..$ fi2   : chr  "AC=DF" "AD=CF" "AF=CD"
+  .. ..$ legend: chr [1:6] "A=eins" "B=zwei" "C=drei" "D=vier" ...
+  .. ..$ main  : chr [1:3] "A=BE" "B=AE" "E=AB"
+  .. ..$ fi2   : chr [1:3] "AC=DF" "AD=CF" "AF=CD"
   ..$ replications: num 1
   ..$ repeat.only : logi FALSE
   ..$ randomize   : logi FALSE
@@ -477,69 +483,69 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
  $ eins : Factor w/ 2 levels "1","2": 1 2 1 2 1 2 1 2 1 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "1" "2"
+  .. .. ..$ : chr [1:2] "1" "2"
   .. .. ..$ : NULL
  $ zwei : Factor w/ 2 levels "43","87": 1 1 2 2 1 1 2 2 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "43" "87"
+  .. .. ..$ : chr [1:2] "43" "87"
   .. .. ..$ : NULL
  $ drei : Factor w/ 2 levels "alt","neu": 1 1 1 1 2 2 2 2 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "alt" "neu"
+  .. .. ..$ : chr [1:2] "alt" "neu"
   .. .. ..$ : NULL
  $ vier : Factor w/ 2 levels "-1","1": 1 1 1 1 1 1 1 1 2 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ fuenf: Factor w/ 2 levels "-1","1": 2 1 1 2 2 1 1 2 2 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ sechs: Factor w/ 2 levels "-1","1": 1 2 1 2 2 1 2 1 2 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  - attr(*, "desnum")= num [1:16, 1:6] -1 1 -1 1 -1 1 -1 1 -1 1 ...
   ..- attr(*, "dimnames")=List of 2
-  .. ..$ : chr  "1" "2" "3" "4" ...
-  .. ..$ : chr  "eins" "zwei" "drei" "vier" ...
+  .. ..$ : chr [1:16] "1" "2" "3" "4" ...
+  .. ..$ : chr [1:6] "eins" "zwei" "drei" "vier" ...
  - attr(*, "run.order")='data.frame':	16 obs. of  3 variables:
   ..$ run.no.in.std.order: Factor w/ 16 levels "1","2","3","4",..: 1 2 3 4 5 6 7 8 9 10 ...
-  ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
+  ..$ run.no             : int [1:16] 1 2 3 4 5 6 7 8 9 10 ...
   ..$ run.no.std.rp      : Factor w/ 16 levels "1","2","3","4",..: 1 2 3 4 5 6 7 8 9 10 ...
  - attr(*, "design.info")=List of 12
   ..$ type        : chr "FrF2"
   ..$ nruns       : num 16
   ..$ nfactors    : num 6
   ..$ factor.names:List of 6
-  .. ..$ eins : num  1 2
-  .. ..$ zwei : num  43 87
-  .. ..$ drei : chr  "alt" "neu"
-  .. ..$ vier : num  -1 1
-  .. ..$ fuenf: num  -1 1
-  .. ..$ sechs: num  -1 1
+  .. ..$ eins : num [1:2] 1 2
+  .. ..$ zwei : num [1:2] 43 87
+  .. ..$ drei : chr [1:2] "alt" "neu"
+  .. ..$ vier : num [1:2] -1 1
+  .. ..$ fuenf: num [1:2] -1 1
+  .. ..$ sechs: num [1:2] -1 1
   ..$ catlg.name  : chr "catlg"
   ..$ catlg.entry :List of 1
   .. ..$ 6-2.2:List of 9
   .. .. ..$ res           : int 3
   .. .. ..$ nfac          : num 6
   .. .. ..$ nruns         : num 16
-  .. .. ..$ gen           : num  3 13
-  .. .. ..$ WLP           : num  0 0 1 1 1 0 0
+  .. .. ..$ gen           : num [1:2] 3 13
+  .. .. ..$ WLP           : num [1:7] 0 0 1 1 1 0 0
   .. .. ..$ nclear.2fis   : num 6
   .. .. ..$ clear.2fis    : num [1:2, 1:6] 2 3 2 4 2 6 3 5 4 5 ...
-  .. .. ..$ all.2fis.clear: num 
+  .. .. ..$ all.2fis.clear: num(0) 
   .. .. ..$ dominating    : logi TRUE
-  .. ..- attr(*, "class")= chr  "catlg" "list"
+  .. ..- attr(*, "class")= chr [1:2] "catlg" "list"
   ..$ aliased     :List of 3
-  .. ..$ legend: chr  "A=eins" "B=zwei" "C=drei" "D=vier" ...
-  .. ..$ main  : chr  "A=BE" "B=AE" "E=AB"
-  .. ..$ fi2   : chr  "AC=DF" "AD=CF" "AF=CD"
+  .. ..$ legend: chr [1:6] "A=eins" "B=zwei" "C=drei" "D=vier" ...
+  .. ..$ main  : chr [1:3] "A=BE" "B=AE" "E=AB"
+  .. ..$ fi2   : chr [1:3] "AC=DF" "AD=CF" "AF=CD"
   ..$ replications: num 1
   ..$ repeat.only : logi FALSE
   ..$ randomize   : logi FALSE
@@ -550,69 +556,69 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
  $ A: Factor w/ 2 levels "-1","1": 1 2 1 2 1 2 1 2 1 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ B: Factor w/ 2 levels "-1","1": 1 1 2 2 1 1 2 2 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ C: Factor w/ 2 levels "-1","1": 1 1 1 1 2 2 2 2 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ D: Factor w/ 2 levels "-1","1": 1 1 1 1 1 1 1 1 2 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ E: Factor w/ 2 levels "-1","1": 2 1 1 2 2 1 1 2 2 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ F: Factor w/ 2 levels "-1","1": 1 2 1 2 2 1 2 1 2 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  - attr(*, "desnum")= num [1:16, 1:6] -1 1 -1 1 -1 1 -1 1 -1 1 ...
   ..- attr(*, "dimnames")=List of 2
-  .. ..$ : chr  "1" "2" "3" "4" ...
-  .. ..$ : chr  "A" "B" "C" "D" ...
+  .. ..$ : chr [1:16] "1" "2" "3" "4" ...
+  .. ..$ : chr [1:6] "A" "B" "C" "D" ...
  - attr(*, "run.order")='data.frame':	16 obs. of  3 variables:
   ..$ run.no.in.std.order: Factor w/ 16 levels "1","2","3","4",..: 1 2 3 4 5 6 7 8 9 10 ...
-  ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
+  ..$ run.no             : int [1:16] 1 2 3 4 5 6 7 8 9 10 ...
   ..$ run.no.std.rp      : Factor w/ 16 levels "1","2","3","4",..: 1 2 3 4 5 6 7 8 9 10 ...
  - attr(*, "design.info")=List of 12
   ..$ type        : chr "FrF2"
   ..$ nruns       : num 16
   ..$ nfactors    : num 6
   ..$ factor.names:List of 6
-  .. ..$ A: num  -1 1
-  .. ..$ B: num  -1 1
-  .. ..$ C: num  -1 1
-  .. ..$ D: num  -1 1
-  .. ..$ E: num  -1 1
-  .. ..$ F: num  -1 1
+  .. ..$ A: num [1:2] -1 1
+  .. ..$ B: num [1:2] -1 1
+  .. ..$ C: num [1:2] -1 1
+  .. ..$ D: num [1:2] -1 1
+  .. ..$ E: num [1:2] -1 1
+  .. ..$ F: num [1:2] -1 1
   ..$ catlg.name  : chr "catlg"
   ..$ catlg.entry :List of 1
   .. ..$ 6-2.2:List of 9
   .. .. ..$ res           : int 3
   .. .. ..$ nfac          : num 6
   .. .. ..$ nruns         : num 16
-  .. .. ..$ gen           : num  3 13
-  .. .. ..$ WLP           : num  0 0 1 1 1 0 0
+  .. .. ..$ gen           : num [1:2] 3 13
+  .. .. ..$ WLP           : num [1:7] 0 0 1 1 1 0 0
   .. .. ..$ nclear.2fis   : num 6
   .. .. ..$ clear.2fis    : num [1:2, 1:6] 2 3 2 4 2 6 3 5 4 5 ...
-  .. .. ..$ all.2fis.clear: num 
+  .. .. ..$ all.2fis.clear: num(0) 
   .. .. ..$ dominating    : logi TRUE
-  .. ..- attr(*, "class")= chr  "catlg" "list"
+  .. ..- attr(*, "class")= chr [1:2] "catlg" "list"
   ..$ aliased     :List of 3
-  .. ..$ legend: chr  "A=A" "B=B" "C=C" "D=D" ...
-  .. ..$ main  : chr  "A=BE" "B=AE" "E=AB"
-  .. ..$ fi2   : chr  "AC=DF" "AD=CF" "AF=CD"
+  .. ..$ legend: chr [1:6] "A=A" "B=B" "C=C" "D=D" ...
+  .. ..$ main  : chr [1:3] "A=BE" "B=AE" "E=AB"
+  .. ..$ fi2   : chr [1:3] "AC=DF" "AD=CF" "AF=CD"
   ..$ replications: num 1
   ..$ repeat.only : logi FALSE
   ..$ randomize   : logi FALSE
@@ -623,69 +629,69 @@ Classes 'design' and 'data.frame':	16 obs. of  6 variables:
  $ eins : Factor w/ 2 levels "1","2": 1 2 1 2 1 2 1 2 1 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "1" "2"
+  .. .. ..$ : chr [1:2] "1" "2"
   .. .. ..$ : NULL
  $ zwei : Factor w/ 2 levels "43","87": 1 1 2 2 1 1 2 2 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "43" "87"
+  .. .. ..$ : chr [1:2] "43" "87"
   .. .. ..$ : NULL
  $ drei : Factor w/ 2 levels "alt","neu": 1 1 1 1 2 2 2 2 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "alt" "neu"
+  .. .. ..$ : chr [1:2] "alt" "neu"
   .. .. ..$ : NULL
  $ vier : Factor w/ 2 levels "-1","1": 1 1 1 1 1 1 1 1 2 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ fuenf: Factor w/ 2 levels "-1","1": 2 1 1 2 2 1 1 2 2 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ sechs: Factor w/ 2 levels "-1","1": 1 2 1 2 2 1 2 1 2 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  - attr(*, "desnum")= num [1:16, 1:6] -1 1 -1 1 -1 1 -1 1 -1 1 ...
   ..- attr(*, "dimnames")=List of 2
-  .. ..$ : chr  "1" "2" "3" "4" ...
-  .. ..$ : chr  "eins" "zwei" "drei" "vier" ...
+  .. ..$ : chr [1:16] "1" "2" "3" "4" ...
+  .. ..$ : chr [1:6] "eins" "zwei" "drei" "vier" ...
  - attr(*, "run.order")='data.frame':	16 obs. of  3 variables:
   ..$ run.no.in.std.order: Factor w/ 16 levels "1","2","3","4",..: 1 2 3 4 5 6 7 8 9 10 ...
-  ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
+  ..$ run.no             : int [1:16] 1 2 3 4 5 6 7 8 9 10 ...
   ..$ run.no.std.rp      : Factor w/ 16 levels "1","2","3","4",..: 1 2 3 4 5 6 7 8 9 10 ...
  - attr(*, "design.info")=List of 12
   ..$ type        : chr "FrF2"
   ..$ nruns       : num 16
   ..$ nfactors    : num 6
   ..$ factor.names:List of 6
-  .. ..$ eins : num  1 2
-  .. ..$ zwei : num  43 87
-  .. ..$ drei : chr  "alt" "neu"
-  .. ..$ vier : num  -1 1
-  .. ..$ fuenf: num  -1 1
-  .. ..$ sechs: num  -1 1
+  .. ..$ eins : num [1:2] 1 2
+  .. ..$ zwei : num [1:2] 43 87
+  .. ..$ drei : chr [1:2] "alt" "neu"
+  .. ..$ vier : num [1:2] -1 1
+  .. ..$ fuenf: num [1:2] -1 1
+  .. ..$ sechs: num [1:2] -1 1
   ..$ catlg.name  : chr "catlg"
   ..$ catlg.entry :List of 1
   .. ..$ 6-2.2:List of 9
   .. .. ..$ res           : int 3
   .. .. ..$ nfac          : num 6
   .. .. ..$ nruns         : num 16
-  .. .. ..$ gen           : num  3 13
-  .. .. ..$ WLP           : num  0 0 1 1 1 0 0
+  .. .. ..$ gen           : num [1:2] 3 13
+  .. .. ..$ WLP           : num [1:7] 0 0 1 1 1 0 0
   .. .. ..$ nclear.2fis   : num 6
   .. .. ..$ clear.2fis    : num [1:2, 1:6] 2 3 2 4 2 6 3 5 4 5 ...
-  .. .. ..$ all.2fis.clear: num 
+  .. .. ..$ all.2fis.clear: num(0) 
   .. .. ..$ dominating    : logi TRUE
-  .. ..- attr(*, "class")= chr  "catlg" "list"
+  .. ..- attr(*, "class")= chr [1:2] "catlg" "list"
   ..$ aliased     :List of 3
-  .. ..$ legend: chr  "A=eins" "B=zwei" "C=drei" "D=vier" ...
-  .. ..$ main  : chr  "A=BE" "B=AE" "E=AB"
-  .. ..$ fi2   : chr  "AC=DF" "AD=CF" "AF=CD"
+  .. ..$ legend: chr [1:6] "A=eins" "B=zwei" "C=drei" "D=vier" ...
+  .. ..$ main  : chr [1:3] "A=BE" "B=AE" "E=AB"
+  .. ..$ fi2   : chr [1:3] "AC=DF" "AD=CF" "AF=CD"
   ..$ replications: num 1
   ..$ repeat.only : logi FALSE
   ..$ randomize   : logi FALSE
@@ -1035,45 +1041,45 @@ Classes 'design' and 'data.frame':	32 obs. of  7 variables:
  $ Blocks: Factor w/ 8 levels "1","2","3","4",..: 1 1 1 1 2 2 2 2 3 3 ...
   ..- attr(*, "contrasts")= num [1:8, 1:7] -1 1 -1 1 -1 1 -1 1 -1 -1 ...
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "1" "2" "3" "4" ...
+  .. .. ..$ : chr [1:8] "1" "2" "3" "4" ...
   .. .. ..$ : NULL
  $ A     : Factor w/ 2 levels "-1","1": 1 1 2 2 1 1 2 2 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ C     : Factor w/ 2 levels "-1","1": 1 2 1 2 1 2 1 2 1 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ D     : Factor w/ 2 levels "-1","1": 2 1 2 1 1 2 1 2 2 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ F     : Factor w/ 2 levels "-1","1": 1 2 2 1 1 2 2 1 1 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ G     : Factor w/ 2 levels "-1","1": 2 1 1 2 1 2 2 1 2 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ H     : Factor w/ 2 levels "-1","1": 1 1 2 2 2 2 1 1 2 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  - attr(*, "desnum")= num [1:32, 1:13] -1 -1 -1 -1 1 1 1 1 -1 -1 ...
   ..- attr(*, "dimnames")=List of 2
-  .. ..$ : chr  "1" "2" "3" "4" ...
-  .. ..$ : chr  "Blocks1" "Blocks2" "Blocks3" "Blocks4" ...
+  .. ..$ : chr [1:32] "1" "2" "3" "4" ...
+  .. ..$ : chr [1:13] "Blocks1" "Blocks2" "Blocks3" "Blocks4" ...
  - attr(*, "run.order")='data.frame':	32 obs. of  3 variables:
   ..$ run.no.in.std.order: Factor w/ 32 levels "1.2.1","2.4.1",..: 3 5 19 21 1 7 17 23 4 6 ...
-  ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
+  ..$ run.no             : int [1:32] 1 2 3 4 5 6 7 8 9 10 ...
   ..$ run.no.std.rp      : Factor w/ 32 levels "1.2.1","2.4.1",..: 3 5 19 21 1 7 17 23 4 6 ...
  - attr(*, "design.info")=List of 21
   ..$ type               : chr "FrF2.blocked"
@@ -1081,21 +1087,21 @@ Classes 'design' and 'data.frame':	32 obs. of  7 variables:
   ..$ nruns              : num 32
   ..$ nfactors           : num 6
   ..$ nblocks            : num 8
-  ..$ block.gen          : num  2 16 12
+  ..$ block.gen          : num [1:3] 2 16 12
   ..$ blocksize          : num 4
   ..$ ntreat             : num 6
   ..$ factor.names       :List of 6
-  .. ..$ A: num  -1 1
-  .. ..$ C: num  -1 1
-  .. ..$ D: num  -1 1
-  .. ..$ F: num  -1 1
-  .. ..$ G: num  -1 1
-  .. ..$ H: num  -1 1
-  ..$ aliased.with.blocks: chr  "AF" "BC" "DE"
+  .. ..$ A: num [1:2] -1 1
+  .. ..$ C: num [1:2] -1 1
+  .. ..$ D: num [1:2] -1 1
+  .. ..$ F: num [1:2] -1 1
+  .. ..$ G: num [1:2] -1 1
+  .. ..$ H: num [1:2] -1 1
+  ..$ aliased.with.blocks: chr [1:3] "AF" "BC" "DE"
   ..$ aliased            :List of 3
-  .. ..$ legend: chr  "A=A" "B=C" "C=D" "D=F" ...
-  .. ..$ main  : chr 
-  .. ..$ fi2   : chr  "BD=CE" "BE=CD"
+  .. ..$ legend: chr [1:6] "A=A" "B=C" "C=D" "D=F" ...
+  .. ..$ main  : chr(0) 
+  .. ..$ fi2   : chr [1:2] "BD=CE" "BE=CD"
   ..$ bbreps             : num 1
   ..$ wbreps             : num 1
   ..$ catlg.name         : chr "catlg"
@@ -1115,45 +1121,45 @@ Classes 'design' and 'data.frame':	32 obs. of  7 variables:
  $ Blocks: Factor w/ 4 levels "1","2","3","4": 1 1 1 1 1 1 1 1 2 2 ...
   ..- attr(*, "contrasts")= num [1:4, 1:3] -1 1 -1 1 -1 -1 1 1 1 -1 ...
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "1" "2" "3" "4"
+  .. .. ..$ : chr [1:4] "1" "2" "3" "4"
   .. .. ..$ : NULL
  $ first : Factor w/ 2 levels "-","+": 1 1 1 1 2 2 2 2 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-" "+"
+  .. .. ..$ : chr [1:2] "-" "+"
   .. .. ..$ : NULL
  $ second: Factor w/ 2 levels "old","new": 1 1 2 2 1 1 2 2 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "old" "new"
+  .. .. ..$ : chr [1:2] "old" "new"
   .. .. ..$ : NULL
  $ third : Factor w/ 2 levels "1000","2000": 1 2 1 2 1 2 1 2 1 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "1000" "2000"
+  .. .. ..$ : chr [1:2] "1000" "2000"
   .. .. ..$ : NULL
  $ fourth: Factor w/ 2 levels "-1","1": 1 2 1 2 2 1 2 1 2 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ fifth : Factor w/ 2 levels "-1","1": 1 1 2 2 2 2 1 1 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ sixth : Factor w/ 2 levels "-1","1": 1 1 1 1 2 2 2 2 2 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  - attr(*, "desnum")= num [1:32, 1:9] -1 -1 -1 -1 -1 -1 -1 -1 1 1 ...
   ..- attr(*, "dimnames")=List of 2
-  .. ..$ : chr  "1" "2" "3" "4" ...
-  .. ..$ : chr  "Blocks1" "Blocks2" "Blocks3" "first" ...
+  .. ..$ : chr [1:32] "1" "2" "3" "4" ...
+  .. ..$ : chr [1:9] "Blocks1" "Blocks2" "Blocks3" "first" ...
  - attr(*, "run.order")='data.frame':	32 obs. of  3 variables:
   ..$ run.no.in.std.order: Factor w/ 32 levels "1.1.1","2.3.1",..: 1 7 10 16 20 22 27 29 3 5 ...
-  ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
+  ..$ run.no             : int [1:32] 1 2 3 4 5 6 7 8 9 10 ...
   ..$ run.no.std.rp      : Factor w/ 32 levels "1.1.1","2.3.1",..: 1 7 10 16 20 22 27 29 3 5 ...
  - attr(*, "design.info")=List of 21
   ..$ type               : chr "FrF2.blocked"
@@ -1161,19 +1167,19 @@ Classes 'design' and 'data.frame':	32 obs. of  7 variables:
   ..$ nruns              : num 32
   ..$ nfactors           : num 6
   ..$ nblocks            : num 4
-  ..$ block.gen          : num  19 13
+  ..$ block.gen          : num [1:2] 19 13
   ..$ blocksize          : num 8
   ..$ ntreat             : num 6
   ..$ factor.names       :List of 6
-  .. ..$ first : chr  "-" "+"
-  .. ..$ second: chr  "old" "new"
-  .. ..$ third : num  1000 2000
-  .. ..$ fourth: num  -1 1
-  .. ..$ fifth : num  -1 1
-  .. ..$ sixth : num  -1 1
+  .. ..$ first : chr [1:2] "-" "+"
+  .. ..$ second: chr [1:2] "old" "new"
+  .. ..$ third : num [1:2] 1000 2000
+  .. ..$ fourth: num [1:2] -1 1
+  .. ..$ fifth : num [1:2] -1 1
+  .. ..$ sixth : num [1:2] -1 1
   ..$ aliased.with.blocks: chr "AF"
   ..$ aliased            :List of 1
-  .. ..$ legend: chr  "A=first" "B=second" "C=third" "D=fourth" ...
+  .. ..$ legend: chr [1:6] "A=first" "B=second" "C=third" "D=fourth" ...
   ..$ bbreps             : num 1
   ..$ wbreps             : num 1
   ..$ catlg.name         : chr "catlg"
@@ -1192,45 +1198,45 @@ Classes 'design' and 'data.frame':	32 obs. of  7 variables:
  $ Blocks: Factor w/ 8 levels "1","2","3","4",..: 1 1 1 1 2 2 2 2 3 3 ...
   ..- attr(*, "contrasts")= num [1:8, 1:7] -1 1 -1 1 -1 1 -1 1 -1 -1 ...
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "1" "2" "3" "4" ...
+  .. .. ..$ : chr [1:8] "1" "2" "3" "4" ...
   .. .. ..$ : NULL
  $ first : Factor w/ 2 levels "-","+": 1 1 2 2 1 1 2 2 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-" "+"
+  .. .. ..$ : chr [1:2] "-" "+"
   .. .. ..$ : NULL
  $ second: Factor w/ 2 levels "old","new": 1 2 1 2 1 2 1 2 1 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "old" "new"
+  .. .. ..$ : chr [1:2] "old" "new"
   .. .. ..$ : NULL
  $ third : Factor w/ 2 levels "1000","2000": 1 2 2 1 1 2 2 1 1 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "1000" "2000"
+  .. .. ..$ : chr [1:2] "1000" "2000"
   .. .. ..$ : NULL
  $ fourth: Factor w/ 2 levels "-1","1": 2 1 2 1 1 2 1 2 1 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ fifth : Factor w/ 2 levels "-1","1": 2 1 1 2 2 1 1 2 1 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ sixth : Factor w/ 2 levels "-1","1": 1 1 2 2 2 2 1 1 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  - attr(*, "desnum")= num [1:32, 1:13] -1 -1 -1 -1 1 1 1 1 -1 -1 ...
   ..- attr(*, "dimnames")=List of 2
-  .. ..$ : chr  "1" "2" "3" "4" ...
-  .. ..$ : chr  "Blocks1" "Blocks2" "Blocks3" "Blocks4" ...
+  .. ..$ : chr [1:32] "1" "2" "3" "4" ...
+  .. ..$ : chr [1:13] "Blocks1" "Blocks2" "Blocks3" "Blocks4" ...
  - attr(*, "run.order")='data.frame':	32 obs. of  3 variables:
   ..$ run.no.in.std.order: Factor w/ 32 levels "1.3.1","2.2.1",..: 4 13 23 26 2 15 21 28 1 16 ...
-  ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
+  ..$ run.no             : int [1:32] 1 2 3 4 5 6 7 8 9 10 ...
   ..$ run.no.std.rp      : Factor w/ 32 levels "1.3.1","2.2.1",..: 4 13 23 26 2 15 21 28 1 16 ...
  - attr(*, "design.info")=List of 21
   ..$ type               : chr "FrF2.blocked"
@@ -1238,23 +1244,23 @@ Classes 'design' and 'data.frame':	32 obs. of  7 variables:
   ..$ nruns              : num 32
   ..$ nfactors           : num 6
   ..$ nblocks            : num 8
-  ..$ block.gen          : Named num  7 20 25
-  .. ..- attr(*, "names")= chr  "ABC" "CE" "ADE"
+  ..$ block.gen          : Named num [1:3] 7 20 25
+  .. ..- attr(*, "names")= chr [1:3] "ABC" "CE" "ADE"
   ..$ blocksize          : num 4
   ..$ ntreat             : num 6
   ..$ factor.names       :List of 6
-  .. ..$ first : chr  "-" "+"
-  .. ..$ second: chr  "old" "new"
-  .. ..$ third : num  1000 2000
-  .. ..$ fourth: num  -1 1
-  .. ..$ fifth : num  -1 1
-  .. ..$ sixth : num  -1 1
-  ..$ aliased.with.blocks: chr  "AF" "BD" "CE" "ABC" ...
+  .. ..$ first : chr [1:2] "-" "+"
+  .. ..$ second: chr [1:2] "old" "new"
+  .. ..$ third : num [1:2] 1000 2000
+  .. ..$ fourth: num [1:2] -1 1
+  .. ..$ fifth : num [1:2] -1 1
+  .. ..$ sixth : num [1:2] -1 1
+  ..$ aliased.with.blocks: chr [1:11] "AF" "BD" "CE" "ABC" ...
   ..$ aliased            :List of 4
-  .. ..$ legend: chr  "A=first" "B=second" "C=third" "D=fourth" ...
-  .. ..$ main  : chr 
-  .. ..$ fi2   : chr 
-  .. ..$ fi3   : chr  "ABD=CEF" "ABF=CDE" "ACE=BDF" "ACF=BDE" ...
+  .. ..$ legend: chr [1:6] "A=first" "B=second" "C=third" "D=fourth" ...
+  .. ..$ main  : chr(0) 
+  .. ..$ fi2   : chr(0) 
+  .. ..$ fi3   : chr [1:6] "ABD=CEF" "ABF=CDE" "ACE=BDF" "ACF=BDE" ...
   ..$ bbreps             : num 1
   ..$ wbreps             : num 1
   ..$ catlg.name         : chr "catlg"
@@ -1273,50 +1279,50 @@ Classes 'design' and 'data.frame':	32 obs. of  8 variables:
  $ Blocks: Factor w/ 4 levels "-old","-new",..: 1 1 1 1 1 1 1 1 2 2 ...
   ..- attr(*, "contrasts")= num [1:4, 1:3] -1 1 -1 1 -1 -1 1 1 1 -1 ...
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "1" "2" "3" "4"
+  .. .. ..$ : chr [1:4] "1" "2" "3" "4"
   .. .. ..$ : NULL
  $ third : Factor w/ 2 levels "1000","2000": 1 1 1 1 2 2 2 2 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "1000" "2000"
+  .. .. ..$ : chr [1:2] "1000" "2000"
   .. .. ..$ : NULL
  $ fourth: Factor w/ 2 levels "-1","1": 1 1 2 2 1 1 2 2 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ fifth : Factor w/ 2 levels "-1","1": 1 2 1 2 1 2 1 2 1 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ sixth : Factor w/ 2 levels "-1","1": 1 1 1 1 2 2 2 2 2 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ seven : Factor w/ 2 levels "-1","1": 1 1 2 2 1 1 2 2 2 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ eight : Factor w/ 2 levels "-1","1": 1 2 1 2 1 2 1 2 2 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ nine  : Factor w/ 2 levels "-1","1": 2 1 1 2 1 2 2 1 2 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  - attr(*, "desnum")= num [1:32, 1:10] -1 -1 -1 -1 -1 -1 -1 -1 1 1 ...
   ..- attr(*, "dimnames")=List of 2
-  .. ..$ : chr  "1" "2" "3" "4" ...
-  .. ..$ : chr  "Blocks1" "Blocks2" "Blocks3" "third" ...
+  .. ..$ : chr [1:32] "1" "2" "3" "4" ...
+  .. ..$ : chr [1:10] "Blocks1" "Blocks2" "Blocks3" "third" ...
  - attr(*, "run.order")='data.frame':	32 obs. of  3 variables:
   ..$ run.no.in.std.order: Factor w/ 32 levels "1.1.1","2.1.2",..: 1 2 3 4 5 6 7 8 9 10 ...
-  ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
+  ..$ run.no             : int [1:32] 1 2 3 4 5 6 7 8 9 10 ...
   ..$ run.no.std.rp      : Factor w/ 32 levels "1.1.1","2.1.2",..: 1 2 3 4 5 6 7 8 9 10 ...
  - attr(*, "design.info")=List of 21
   ..$ type               : chr "FrF2.blocked"
@@ -1324,22 +1330,22 @@ Classes 'design' and 'data.frame':	32 obs. of  8 variables:
   ..$ nruns              : num 32
   ..$ nfactors           : num 7
   ..$ nblocks            : num 4
-  ..$ block.gen          : num  1 2
+  ..$ block.gen          : num [1:2] 1 2
   ..$ blocksize          : num 8
   ..$ ntreat             : num 7
   ..$ factor.names       :List of 7
-  .. ..$ third : num  1000 2000
-  .. ..$ fourth: num  -1 1
-  .. ..$ fifth : num  -1 1
-  .. ..$ sixth : num  -1 1
-  .. ..$ seven : num  -1 1
-  .. ..$ eight : num  -1 1
-  .. ..$ nine  : num  -1 1
-  ..$ aliased.with.blocks: chr  "AD" "BE" "CF"
+  .. ..$ third : num [1:2] 1000 2000
+  .. ..$ fourth: num [1:2] -1 1
+  .. ..$ fifth : num [1:2] -1 1
+  .. ..$ sixth : num [1:2] -1 1
+  .. ..$ seven : num [1:2] -1 1
+  .. ..$ eight : num [1:2] -1 1
+  .. ..$ nine  : num [1:2] -1 1
+  ..$ aliased.with.blocks: chr [1:3] "AD" "BE" "CF"
   ..$ aliased            :List of 3
-  .. ..$ legend: chr  "A=third" "B=fourth" "C=fifth" "D=sixth" ...
-  .. ..$ main  : chr 
-  .. ..$ fi2   : chr  "AB=DE" "AC=DF" "AE=BD" "AF=CD" ...
+  .. ..$ legend: chr [1:7] "A=third" "B=fourth" "C=fifth" "D=sixth" ...
+  .. ..$ main  : chr(0) 
+  .. ..$ fi2   : chr [1:6] "AB=DE" "AC=DF" "AE=BD" "AF=CD" ...
   ..$ bbreps             : num 1
   ..$ wbreps             : num 1
   ..$ catlg.name         : chr "catlg"
@@ -1356,50 +1362,50 @@ Classes 'design' and 'data.frame':	64 obs. of  8 variables:
  $ Blocks: Factor w/ 32 levels "1","2","3","4",..: 1 1 2 2 3 3 4 4 5 5 ...
   ..- attr(*, "contrasts")= num [1:32, 1:31] -1 1 -1 1 -1 1 -1 1 -1 1 ...
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "1" "2" "3" "4" ...
+  .. .. ..$ : chr [1:32] "1" "2" "3" "4" ...
   .. .. ..$ : NULL
  $ A     : Factor w/ 2 levels "-1","1": 1 2 1 2 1 2 1 2 1 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ B     : Factor w/ 2 levels "-1","1": 1 2 1 2 1 2 1 2 1 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ C     : Factor w/ 2 levels "-1","1": 1 2 1 2 1 2 1 2 2 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ D     : Factor w/ 2 levels "-1","1": 1 2 1 2 2 1 2 1 1 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ E     : Factor w/ 2 levels "-1","1": 1 2 2 1 1 2 2 1 2 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ F     : Factor w/ 2 levels "-1","1": 2 1 1 2 1 2 2 1 2 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ G     : Factor w/ 2 levels "-1","1": 2 1 1 2 1 2 2 1 1 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  - attr(*, "desnum")= num [1:64, 1:38] -1 -1 1 1 -1 -1 1 1 -1 -1 ...
   ..- attr(*, "dimnames")=List of 2
-  .. ..$ : chr  "1" "2" "3" "4" ...
-  .. ..$ : chr  "Blocks1" "Blocks2" "Blocks3" "Blocks4" ...
+  .. ..$ : chr [1:64] "1" "2" "3" "4" ...
+  .. ..$ : chr [1:38] "Blocks1" "Blocks2" "Blocks3" "Blocks4" ...
  - attr(*, "run.order")='data.frame':	64 obs. of  3 variables:
   ..$ run.no.in.std.order: Factor w/ 64 levels "1.1.1","2.1.2",..: 1 2 3 4 5 6 7 8 9 10 ...
-  ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
+  ..$ run.no             : int [1:64] 1 2 3 4 5 6 7 8 9 10 ...
   ..$ run.no.std.rp      : Factor w/ 64 levels "1.1.1","2.1.2",..: 1 2 3 4 5 6 7 8 9 10 ...
  - attr(*, "design.info")=List of 22
   ..$ type               : chr "FrF2.blocked"
@@ -1407,25 +1413,25 @@ Classes 'design' and 'data.frame':	64 obs. of  8 variables:
   ..$ nruns              : num 64
   ..$ nfactors           : num 7
   ..$ nblocks            : num 32
-  ..$ block.gen          : num  1 2 4 8 16
+  ..$ block.gen          : num [1:5] 1 2 4 8 16
   ..$ blocksize          : num 2
   ..$ ntreat             : num 7
   ..$ factor.names       :List of 7
-  .. ..$ A: num  -1 1
-  .. ..$ B: num  -1 1
-  .. ..$ C: num  -1 1
-  .. ..$ D: num  -1 1
-  .. ..$ E: num  -1 1
-  .. ..$ F: num  -1 1
-  .. ..$ G: num  -1 1
-  ..$ aliased.with.blocks: chr  "AB" "AC" "AD" "AE" ...
+  .. ..$ A: num [1:2] -1 1
+  .. ..$ B: num [1:2] -1 1
+  .. ..$ C: num [1:2] -1 1
+  .. ..$ D: num [1:2] -1 1
+  .. ..$ E: num [1:2] -1 1
+  .. ..$ F: num [1:2] -1 1
+  .. ..$ G: num [1:2] -1 1
+  ..$ aliased.with.blocks: chr [1:21] "AB" "AC" "AD" "AE" ...
   ..$ aliased            :List of 1
-  .. ..$ legend: chr  "A=A" "B=B" "C=C" "D=D" ...
+  .. ..$ legend: chr [1:7] "A=A" "B=B" "C=C" "D=D" ...
   ..$ bbreps             : num 1
   ..$ wbreps             : num 1
   ..$ catlg.name         : chr "catlg"
   ..$ base.design        : chr "12-6.3"
-  ..$ map                : num  2 3 4 5 6 1
+  ..$ map                : num [1:6] 2 3 4 5 6 1
   ..$ replications       : num 1
   ..$ repeat.only        : logi FALSE
   ..$ randomize          : logi FALSE
@@ -1438,50 +1444,50 @@ Classes 'design' and 'data.frame':	64 obs. of  8 variables:
  $ Blocks: Factor w/ 32 levels "1","2","3","4",..: 1 1 2 2 3 3 4 4 5 5 ...
   ..- attr(*, "contrasts")= num [1:32, 1:31] -1 1 -1 1 -1 1 -1 1 -1 1 ...
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "1" "2" "3" "4" ...
+  .. .. ..$ : chr [1:32] "1" "2" "3" "4" ...
   .. .. ..$ : NULL
  $ A     : Factor w/ 2 levels "-1","1": 1 2 1 2 1 2 1 2 1 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ B     : Factor w/ 2 levels "-1","1": 2 1 2 1 2 1 2 1 2 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ C     : Factor w/ 2 levels "-1","1": 2 1 2 1 2 1 2 1 2 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ D     : Factor w/ 2 levels "-1","1": 2 1 2 1 2 1 2 1 1 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ E     : Factor w/ 2 levels "-1","1": 2 1 2 1 1 2 1 2 2 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ F     : Factor w/ 2 levels "-1","1": 2 1 1 2 2 1 1 2 2 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ G     : Factor w/ 2 levels "-1","1": 1 2 1 2 2 1 2 1 2 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  - attr(*, "desnum")= num [1:64, 1:38] -1 -1 1 1 -1 -1 1 1 -1 -1 ...
   ..- attr(*, "dimnames")=List of 2
-  .. ..$ : chr  "1" "2" "3" "4" ...
-  .. ..$ : chr  "Blocks1" "Blocks2" "Blocks3" "Blocks4" ...
+  .. ..$ : chr [1:64] "1" "2" "3" "4" ...
+  .. ..$ : chr [1:38] "Blocks1" "Blocks2" "Blocks3" "Blocks4" ...
  - attr(*, "run.order")='data.frame':	64 obs. of  3 variables:
   ..$ run.no.in.std.order: Factor w/ 64 levels "1.32.1","2.31.1",..: 32 33 31 34 30 35 29 36 28 37 ...
-  ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
+  ..$ run.no             : int [1:64] 1 2 3 4 5 6 7 8 9 10 ...
   ..$ run.no.std.rp      : Factor w/ 64 levels "1.32.1","2.31.1",..: 32 33 31 34 30 35 29 36 28 37 ...
  - attr(*, "design.info")=List of 21
   ..$ type               : chr "FrF2.blocked"
@@ -1489,21 +1495,21 @@ Classes 'design' and 'data.frame':	64 obs. of  8 variables:
   ..$ nruns              : num 64
   ..$ nfactors           : num 7
   ..$ nblocks            : num 32
-  ..$ block.gen          : Named int  3 5 9 17 33
-  .. ..- attr(*, "names")= chr  "AB" "AC" "AD" "AE" ...
+  ..$ block.gen          : Named int [1:5] 3 5 9 17 33
+  .. ..- attr(*, "names")= chr [1:5] "AB" "AC" "AD" "AE" ...
   ..$ blocksize          : num 2
   ..$ ntreat             : num 7
   ..$ factor.names       :List of 7
-  .. ..$ A: num  -1 1
-  .. ..$ B: num  -1 1
-  .. ..$ C: num  -1 1
-  .. ..$ D: num  -1 1
-  .. ..$ E: num  -1 1
-  .. ..$ F: num  -1 1
-  .. ..$ G: num  -1 1
-  ..$ aliased.with.blocks: chr  "AB" "AC" "AD" "AE" ...
+  .. ..$ A: num [1:2] -1 1
+  .. ..$ B: num [1:2] -1 1
+  .. ..$ C: num [1:2] -1 1
+  .. ..$ D: num [1:2] -1 1
+  .. ..$ E: num [1:2] -1 1
+  .. ..$ F: num [1:2] -1 1
+  .. ..$ G: num [1:2] -1 1
+  ..$ aliased.with.blocks: chr [1:21] "AB" "AC" "AD" "AE" ...
   ..$ aliased            :List of 1
-  .. ..$ legend: chr  "A=A" "B=B" "C=C" "D=D" ...
+  .. ..$ legend: chr [1:7] "A=A" "B=B" "C=C" "D=D" ...
   ..$ bbreps             : num 1
   ..$ wbreps             : num 1
   ..$ catlg.name         : chr "catlg"
@@ -1524,60 +1530,60 @@ Classes 'design' and 'data.frame':	64 obs. of  10 variables:
  $ Blocks: Factor w/ 16 levels "1","2","3","4",..: 1 1 1 1 2 2 2 2 3 3 ...
   ..- attr(*, "contrasts")= num [1:16, 1:15] -1 1 -1 1 -1 1 -1 1 -1 1 ...
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "1" "2" "3" "4" ...
+  .. .. ..$ : chr [1:16] "1" "2" "3" "4" ...
   .. .. ..$ : NULL
  $ P     : Factor w/ 2 levels "-1","1": 1 1 2 2 1 1 2 2 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ Q     : Factor w/ 2 levels "-1","1": 1 2 1 2 1 2 1 2 1 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ S     : Factor w/ 2 levels "-1","1": 2 1 2 1 2 1 2 1 2 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ R     : Factor w/ 2 levels "-1","1": 1 2 2 1 1 2 2 1 1 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ T     : Factor w/ 2 levels "-1","1": 2 1 2 1 2 1 2 1 1 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ U     : Factor w/ 2 levels "-1","1": 2 2 1 1 1 1 2 2 2 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ V     : Factor w/ 2 levels "-1","1": 2 2 1 1 2 2 1 1 2 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ W     : Factor w/ 2 levels "-1","1": 1 2 1 2 1 2 1 2 2 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ X     : Factor w/ 2 levels "-1","1": 2 2 1 1 1 1 2 2 2 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  - attr(*, "desnum")= num [1:64, 1:24] -1 -1 -1 -1 1 1 1 1 -1 -1 ...
   ..- attr(*, "dimnames")=List of 2
-  .. ..$ : chr  "1" "2" "3" "4" ...
-  .. ..$ : chr  "Blocks1" "Blocks2" "Blocks3" "Blocks4" ...
+  .. ..$ : chr [1:64] "1" "2" "3" "4" ...
+  .. ..$ : chr [1:24] "Blocks1" "Blocks2" "Blocks3" "Blocks4" ...
  - attr(*, "run.order")='data.frame':	64 obs. of  3 variables:
   ..$ run.no.in.std.order: Factor w/ 64 levels "1.12.1","2.11.1",..: 12 22 47 49 11 21 48 50 10 24 ...
-  ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
+  ..$ run.no             : int [1:64] 1 2 3 4 5 6 7 8 9 10 ...
   ..$ run.no.std.rp      : Factor w/ 64 levels "1.12.1","2.11.1",..: 12 22 47 49 11 21 48 50 10 24 ...
  - attr(*, "design.info")=List of 22
   ..$ type               : chr "FrF2.blocked"
@@ -1585,30 +1591,30 @@ Classes 'design' and 'data.frame':	64 obs. of  10 variables:
   ..$ nruns              : num 64
   ..$ nfactors           : num 9
   ..$ nblocks            : num 16
-  ..$ block.gen          : Named int  6 11 18 33
-  .. ..- attr(*, "names")= chr  "BC" "ABD" "BE" "AF"
+  ..$ block.gen          : Named int [1:4] 6 11 18 33
+  .. ..- attr(*, "names")= chr [1:4] "BC" "ABD" "BE" "AF"
   ..$ blocksize          : num 4
   ..$ ntreat             : num 9
   ..$ factor.names       :List of 9
-  .. ..$ P: num  -1 1
-  .. ..$ Q: num  -1 1
-  .. ..$ S: num  -1 1
-  .. ..$ R: num  -1 1
-  .. ..$ T: num  -1 1
-  .. ..$ U: num  -1 1
-  .. ..$ V: num  -1 1
-  .. ..$ W: num  -1 1
-  .. ..$ X: num  -1 1
-  ..$ aliased.with.blocks: chr  "AF" "AG" "AJ" "BC" ...
+  .. ..$ P: num [1:2] -1 1
+  .. ..$ Q: num [1:2] -1 1
+  .. ..$ S: num [1:2] -1 1
+  .. ..$ R: num [1:2] -1 1
+  .. ..$ T: num [1:2] -1 1
+  .. ..$ U: num [1:2] -1 1
+  .. ..$ V: num [1:2] -1 1
+  .. ..$ W: num [1:2] -1 1
+  .. ..$ X: num [1:2] -1 1
+  ..$ aliased.with.blocks: chr [1:12] "AF" "AG" "AJ" "BC" ...
   ..$ aliased            :List of 3
-  .. ..$ legend: chr  "A=P" "B=Q" "C=S" "D=R" ...
-  .. ..$ main  : chr 
-  .. ..$ fi2   : chr  "AB=CG" "AC=BG"
+  .. ..$ legend: chr [1:9] "A=P" "B=Q" "C=S" "D=R" ...
+  .. ..$ main  : chr(0) 
+  .. ..$ fi2   : chr [1:2] "AB=CG" "AC=BG"
   ..$ bbreps             : num 1
   ..$ wbreps             : num 1
   ..$ catlg.name         : chr "catlg"
   ..$ base.design        : chr "9-3.1"
-  ..$ map                : num  1 2 4 3 5 6 7 8 9
+  ..$ map                : num [1:9] 1 2 4 3 5 6 7 8 9
   ..$ block.old          : logi FALSE
   ..$ replications       : num 1
   ..$ repeat.only        : logi FALSE
@@ -1627,45 +1633,45 @@ Classes 'design' and 'data.frame':	64 obs. of  7 variables:
  $ Blocks: Factor w/ 16 levels "1","2","3","4",..: 1 1 1 1 2 2 2 2 3 3 ...
   ..- attr(*, "contrasts")= num [1:16, 1:15] -1 1 -1 1 -1 1 -1 1 -1 1 ...
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "1" "2" "3" "4" ...
+  .. .. ..$ : chr [1:16] "1" "2" "3" "4" ...
   .. .. ..$ : NULL
  $ P     : Factor w/ 2 levels "-1","1": 1 1 2 2 1 1 2 2 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ R     : Factor w/ 2 levels "-1","1": 1 2 1 2 1 2 1 2 1 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ Q     : Factor w/ 2 levels "-1","1": 1 2 2 1 1 2 2 1 1 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ S     : Factor w/ 2 levels "-1","1": 2 1 2 1 2 1 2 1 2 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ T     : Factor w/ 2 levels "-1","1": 2 2 1 1 2 2 1 1 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ U     : Factor w/ 2 levels "-1","1": 2 2 1 1 1 1 2 2 2 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  - attr(*, "desnum")= num [1:64, 1:21] -1 -1 -1 -1 1 1 1 1 -1 -1 ...
   ..- attr(*, "dimnames")=List of 2
-  .. ..$ : chr  "1" "2" "3" "4" ...
-  .. ..$ : chr  "Blocks1" "Blocks2" "Blocks3" "Blocks4" ...
+  .. ..$ : chr [1:64] "1" "2" "3" "4" ...
+  .. ..$ : chr [1:21] "Blocks1" "Blocks2" "Blocks3" "Blocks4" ...
  - attr(*, "run.order")='data.frame':	64 obs. of  3 variables:
   ..$ run.no.in.std.order: Factor w/ 64 levels "1.8.1","2.7.1",..: 8 28 45 49 7 27 46 50 6 26 ...
-  ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
+  ..$ run.no             : int [1:64] 1 2 3 4 5 6 7 8 9 10 ...
   ..$ run.no.std.rp      : Factor w/ 64 levels "1.8.1","2.7.1",..: 8 28 45 49 7 27 46 50 6 26 ...
  - attr(*, "design.info")=List of 21
   ..$ type               : chr "FrF2.blocked"
@@ -1673,24 +1679,24 @@ Classes 'design' and 'data.frame':	64 obs. of  7 variables:
   ..$ nruns              : num 64
   ..$ nfactors           : num 6
   ..$ nblocks            : num 16
-  ..$ block.gen          : Named int  7 10 17 33
-  .. ..- attr(*, "names")= chr  "ABC" "BD" "AE" "AF"
+  ..$ block.gen          : Named int [1:4] 7 10 17 33
+  .. ..- attr(*, "names")= chr [1:4] "ABC" "BD" "AE" "AF"
   ..$ blocksize          : num 4
   ..$ ntreat             : num 6
   ..$ factor.names       :List of 6
-  .. ..$ P: num  -1 1
-  .. ..$ R: num  -1 1
-  .. ..$ Q: num  -1 1
-  .. ..$ S: num  -1 1
-  .. ..$ T: num  -1 1
-  .. ..$ U: num  -1 1
-  ..$ aliased.with.blocks: chr  "AE" "AF" "BD" "EF"
+  .. ..$ P: num [1:2] -1 1
+  .. ..$ R: num [1:2] -1 1
+  .. ..$ Q: num [1:2] -1 1
+  .. ..$ S: num [1:2] -1 1
+  .. ..$ T: num [1:2] -1 1
+  .. ..$ U: num [1:2] -1 1
+  ..$ aliased.with.blocks: chr [1:4] "AE" "AF" "BD" "EF"
   ..$ aliased            :List of 1
-  .. ..$ legend: chr  "A=P" "B=R" "C=Q" "D=S" ...
+  .. ..$ legend: chr [1:6] "A=P" "B=R" "C=Q" "D=S" ...
   ..$ bbreps             : num 1
   ..$ wbreps             : num 1
   ..$ base.design        : chr "generator columns: "
-  ..$ map                : num  1 3 2 4 5 6
+  ..$ map                : num [1:6] 1 3 2 4 5 6
   ..$ block.old          : logi FALSE
   ..$ replications       : num 1
   ..$ repeat.only        : logi FALSE
@@ -1707,60 +1713,60 @@ Classes 'design' and 'data.frame':	64 obs. of  10 variables:
  $ Blocks: Factor w/ 16 levels "1","2","3","4",..: 1 1 1 1 2 2 2 2 3 3 ...
   ..- attr(*, "contrasts")= num [1:16, 1:15] -1 1 -1 1 -1 1 -1 1 -1 1 ...
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "1" "2" "3" "4" ...
+  .. .. ..$ : chr [1:16] "1" "2" "3" "4" ...
   .. .. ..$ : NULL
  $ C     : Factor w/ 2 levels "-1","1": 1 1 2 2 1 2 2 1 2 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ D     : Factor w/ 2 levels "-1","1": 2 2 1 1 2 1 1 2 1 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ E     : Factor w/ 2 levels "-1","1": 2 2 1 1 2 1 1 2 1 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ F     : Factor w/ 2 levels "-1","1": 2 2 1 1 2 1 1 2 2 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ G     : Factor w/ 2 levels "-1","1": 2 2 1 1 1 2 2 1 1 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ A     : Factor w/ 2 levels "-1","1": 2 1 1 2 1 1 2 2 2 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ H     : Factor w/ 2 levels "-1","1": 1 1 2 2 1 2 2 1 2 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ J     : Factor w/ 2 levels "-1","1": 1 1 2 2 2 1 1 2 1 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ B     : Factor w/ 2 levels "-1","1": 1 2 1 2 2 1 2 1 1 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  - attr(*, "desnum")= num [1:64, 1:24] -1 -1 -1 -1 1 1 1 1 -1 -1 ...
   ..- attr(*, "dimnames")=List of 2
-  .. ..$ : chr  "1" "2" "3" "4" ...
-  .. ..$ : chr  "Blocks1" "Blocks2" "Blocks3" "Blocks4" ...
+  .. ..$ : chr [1:64] "1" "2" "3" "4" ...
+  .. ..$ : chr [1:24] "Blocks1" "Blocks2" "Blocks3" "Blocks4" ...
  - attr(*, "run.order")='data.frame':	64 obs. of  3 variables:
   ..$ run.no.in.std.order: Factor w/ 64 levels "1.16.1","2.16.2",..: 32 31 33 34 29 35 36 30 38 28 ...
-  ..$ run.no             : int  1 2 3 4 5 6 7 8 9 10 ...
+  ..$ run.no             : int [1:64] 1 2 3 4 5 6 7 8 9 10 ...
   ..$ run.no.std.rp      : Factor w/ 64 levels "1.16.1","2.16.2",..: 32 31 33 34 29 35 36 30 38 28 ...
  - attr(*, "design.info")=List of 22
   ..$ type               : chr "FrF2.blocked"
@@ -1768,28 +1774,28 @@ Classes 'design' and 'data.frame':	64 obs. of  10 variables:
   ..$ nruns              : num 64
   ..$ nfactors           : num 9
   ..$ nblocks            : num 16
-  ..$ block.gen          : Named int  3 5 9 17
-  .. ..- attr(*, "names")= chr  "AB" "AC" "AD" "AE"
+  ..$ block.gen          : Named int [1:4] 3 5 9 17
+  .. ..- attr(*, "names")= chr [1:4] "AB" "AC" "AD" "AE"
   ..$ blocksize          : num 4
   ..$ ntreat             : num 9
   ..$ factor.names       :List of 9
-  .. ..$ C: num  -1 1
-  .. ..$ D: num  -1 1
-  .. ..$ E: num  -1 1
-  .. ..$ F: num  -1 1
-  .. ..$ G: num  -1 1
-  .. ..$ A: num  -1 1
-  .. ..$ H: num  -1 1
-  .. ..$ J: num  -1 1
-  .. ..$ B: num  -1 1
-  ..$ aliased.with.blocks: chr  "AB" "AC" "AD" "AE" ...
+  .. ..$ C: num [1:2] -1 1
+  .. ..$ D: num [1:2] -1 1
+  .. ..$ E: num [1:2] -1 1
+  .. ..$ F: num [1:2] -1 1
+  .. ..$ G: num [1:2] -1 1
+  .. ..$ A: num [1:2] -1 1
+  .. ..$ H: num [1:2] -1 1
+  .. ..$ J: num [1:2] -1 1
+  .. ..$ B: num [1:2] -1 1
+  ..$ aliased.with.blocks: chr [1:21] "AB" "AC" "AD" "AE" ...
   ..$ aliased            :List of 1
-  .. ..$ legend: chr  "A=C" "B=D" "C=E" "D=F" ...
+  .. ..$ legend: chr [1:9] "A=C" "B=D" "C=E" "D=F" ...
   ..$ bbreps             : num 1
   ..$ wbreps             : num 1
   ..$ catlg.name         : chr "catlg[-1378]"
   ..$ base.design        : chr "9-3.2"
-  ..$ map                : num  6 9 1 2 3 4 5 7 8
+  ..$ map                : num [1:9] 6 9 1 2 3 4 5 7 8
   ..$ block.old          : logi FALSE
   ..$ replications       : num 1
   ..$ repeat.only        : logi FALSE
@@ -1939,80 +1945,80 @@ Classes 'design' and 'data.frame':	32 obs. of  14 variables:
  $ A: Factor w/ 2 levels "-1","1": 2 2 2 2 2 2 2 2 2 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ B: Factor w/ 2 levels "-1","1": 2 2 2 2 2 2 2 2 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ C: Factor w/ 2 levels "-1","1": 2 2 2 2 1 1 1 1 2 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ D: Factor w/ 2 levels "-1","1": 2 2 2 2 2 2 2 2 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ E: Factor w/ 2 levels "-1","1": 2 2 2 2 1 1 1 1 2 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ F: Factor w/ 2 levels "-1","1": 2 2 2 2 1 1 1 1 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ G: Factor w/ 2 levels "-1","1": 2 2 1 1 2 2 1 1 2 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ H: Factor w/ 2 levels "-1","1": 2 1 2 1 2 1 2 1 2 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ J: Factor w/ 2 levels "-1","1": 2 2 1 1 2 2 1 1 2 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ K: Factor w/ 2 levels "-1","1": 2 2 1 1 1 1 2 2 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ L: Factor w/ 2 levels "-1","1": 2 1 2 1 2 1 2 1 2 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ M: Factor w/ 2 levels "-1","1": 2 1 2 1 1 2 1 2 1 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ N: Factor w/ 2 levels "-1","1": 2 1 1 2 2 1 1 2 1 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ O: Factor w/ 2 levels "-1","1": 2 1 1 2 1 2 2 1 2 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  - attr(*, "desnum")= num [1:32, 1:14] 1 1 1 1 1 1 1 1 1 1 ...
   ..- attr(*, "dimnames")=List of 2
-  .. ..$ : chr  "32" "31" "30" "29" ...
-  .. ..$ : chr  "A" "B" "C" "D" ...
+  .. ..$ : chr [1:32] "32" "31" "30" "29" ...
+  .. ..$ : chr [1:14] "A" "B" "C" "D" ...
  - attr(*, "run.order")='data.frame':	32 obs. of  3 variables:
   ..$ run.no.in.std.order: Factor w/ 32 levels "1.1.1","2.1.2",..: 32 31 30 29 28 27 26 25 24 23 ...
-  ..$ run.no             : int  32 31 30 29 28 27 26 25 24 23 ...
+  ..$ run.no             : int [1:32] 32 31 30 29 28 27 26 25 24 23 ...
   ..$ run.no.std.rp      : Factor w/ 32 levels "1.1.1","2.1.2",..: 32 31 30 29 28 27 26 25 24 23 ...
  - attr(*, "design.info")=List of 19
   ..$ type          : chr "FrF2.splitplot"
@@ -2021,31 +2027,31 @@ Classes 'design' and 'data.frame':	32 obs. of  14 variables:
   ..$ nfac.WP       : num 6
   ..$ nfac.SP       : num 8
   ..$ factor.names  :List of 14
-  .. ..$ A: num  -1 1
-  .. ..$ B: num  -1 1
-  .. ..$ C: num  -1 1
-  .. ..$ D: num  -1 1
-  .. ..$ E: num  -1 1
-  .. ..$ F: num  -1 1
-  .. ..$ G: num  -1 1
-  .. ..$ H: num  -1 1
-  .. ..$ J: num  -1 1
-  .. ..$ K: num  -1 1
-  .. ..$ L: num  -1 1
-  .. ..$ M: num  -1 1
-  .. ..$ N: num  -1 1
-  .. ..$ O: num  -1 1
+  .. ..$ A: num [1:2] -1 1
+  .. ..$ B: num [1:2] -1 1
+  .. ..$ C: num [1:2] -1 1
+  .. ..$ D: num [1:2] -1 1
+  .. ..$ E: num [1:2] -1 1
+  .. ..$ F: num [1:2] -1 1
+  .. ..$ G: num [1:2] -1 1
+  .. ..$ H: num [1:2] -1 1
+  .. ..$ J: num [1:2] -1 1
+  .. ..$ K: num [1:2] -1 1
+  .. ..$ L: num [1:2] -1 1
+  .. ..$ M: num [1:2] -1 1
+  .. ..$ N: num [1:2] -1 1
+  .. ..$ O: num [1:2] -1 1
   ..$ nWPs          : num 8
   ..$ plotsize      : num 4
   ..$ res.WP        : num 3
   ..$ aliased       :List of 3
-  .. ..$ legend: chr  "A=A" "B=B" "C=C" "D=D" ...
-  .. ..$ main  : chr  "A=GJ=HL=BD=CE" "B=AD=CF" "C=AE=BF" "D=EF=AB" ...
-  .. ..$ fi2   : chr  "AF=JK=LM=NO=BE=CD" "AK=FJ" "AM=FL" "AN=FO" ...
+  .. ..$ legend: chr [1:14] "A=A" "B=B" "C=C" "D=D" ...
+  .. ..$ main  : chr [1:12] "A=GJ=HL=BD=CE" "B=AD=CF" "C=AE=BF" "D=EF=AB" ...
+  .. ..$ fi2   : chr [1:17] "AF=JK=LM=NO=BE=CD" "AK=FJ" "AM=FL" "AN=FO" ...
   ..$ catlg.name    : chr "catlg"
   ..$ base.design   : chr "14-9.6"
-  ..$ map           : num  1 2 3 4 5
-  ..$ orig.fac.order: int  1 2 3 6 7 8 4 5 9 10 ...
+  ..$ map           : num [1:5] 1 2 3 4 5
+  ..$ orig.fac.order: int [1:14] 1 2 3 6 7 8 4 5 9 10 ...
   ..$ replications  : num 1
   ..$ repeat.only   : logi FALSE
   ..$ randomize     : logi FALSE
@@ -2058,224 +2064,224 @@ Classes 'design' and 'data.frame':	32 obs. of  14 variables:
  $ A: Factor w/ 2 levels "-1","1": 1 1 1 1 1 1 1 1 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ B: Factor w/ 2 levels "-1","1": 2 2 2 2 2 2 1 1 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ C: Factor w/ 2 levels "-1","1": 2 2 1 1 1 1 2 2 2 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ D: Factor w/ 2 levels "-1","1": 1 1 1 1 1 1 2 2 2 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ E: Factor w/ 2 levels "-1","1": 1 1 2 2 2 2 1 1 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ F: Factor w/ 2 levels "-1","1": 2 2 1 1 1 1 1 1 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ G: Factor w/ 2 levels "-1","1": 1 1 2 2 1 1 2 2 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ H: Factor w/ 2 levels "-1","1": 2 1 2 1 2 1 2 1 2 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ J: Factor w/ 2 levels "-1","1": 2 2 1 1 2 2 1 1 2 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ K: Factor w/ 2 levels "-1","1": 1 1 1 1 2 2 1 1 2 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ L: Factor w/ 2 levels "-1","1": 1 2 1 2 1 2 1 2 1 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ M: Factor w/ 2 levels "-1","1": 2 1 1 2 1 2 1 2 1 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ N: Factor w/ 2 levels "-1","1": 1 2 2 1 1 2 1 2 2 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ O: Factor w/ 2 levels "-1","1": 2 1 2 1 1 2 1 2 2 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
 >   str.wover(test[,14:1])
 'data.frame':	32 obs. of  14 variables:
  $ O: Factor w/ 2 levels "-1","1": 2 1 1 2 1 2 2 1 2 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ N: Factor w/ 2 levels "-1","1": 1 2 2 1 1 2 2 1 2 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ M: Factor w/ 2 levels "-1","1": 1 2 1 2 2 1 2 1 2 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ L: Factor w/ 2 levels "-1","1": 2 1 2 1 2 1 2 1 2 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ K: Factor w/ 2 levels "-1","1": 1 1 2 2 2 2 1 1 2 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ J: Factor w/ 2 levels "-1","1": 2 2 1 1 2 2 1 1 2 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ H: Factor w/ 2 levels "-1","1": 1 2 1 2 1 2 1 2 1 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ G: Factor w/ 2 levels "-1","1": 1 1 2 2 1 1 2 2 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ F: Factor w/ 2 levels "-1","1": 2 2 2 2 1 1 1 1 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ E: Factor w/ 2 levels "-1","1": 2 2 2 2 1 1 1 1 2 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ D: Factor w/ 2 levels "-1","1": 2 2 2 2 2 2 2 2 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ C: Factor w/ 2 levels "-1","1": 1 1 1 1 2 2 2 2 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ B: Factor w/ 2 levels "-1","1": 1 1 1 1 1 1 1 1 2 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ A: Factor w/ 2 levels "-1","1": 1 1 1 1 1 1 1 1 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
 >   str.wover(test[14:1,,drop.attr=FALSE])
 Classes 'design' and 'data.frame':	14 obs. of  14 variables:
  $ A: Factor w/ 2 levels "-1","1": 1 1 1 1 1 1 1 1 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ B: Factor w/ 2 levels "-1","1": 2 2 2 2 2 2 1 1 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ C: Factor w/ 2 levels "-1","1": 2 2 1 1 1 1 2 2 2 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ D: Factor w/ 2 levels "-1","1": 1 1 1 1 1 1 2 2 2 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ E: Factor w/ 2 levels "-1","1": 1 1 2 2 2 2 1 1 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ F: Factor w/ 2 levels "-1","1": 2 2 1 1 1 1 1 1 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ G: Factor w/ 2 levels "-1","1": 1 1 2 2 1 1 2 2 1 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ H: Factor w/ 2 levels "-1","1": 2 1 2 1 2 1 2 1 2 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ J: Factor w/ 2 levels "-1","1": 2 2 1 1 2 2 1 1 2 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ K: Factor w/ 2 levels "-1","1": 1 1 1 1 2 2 1 1 2 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ L: Factor w/ 2 levels "-1","1": 1 2 1 2 1 2 1 2 1 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ M: Factor w/ 2 levels "-1","1": 2 1 1 2 1 2 1 2 1 2 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ N: Factor w/ 2 levels "-1","1": 1 2 2 1 1 2 1 2 2 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  $ O: Factor w/ 2 levels "-1","1": 2 1 2 1 1 2 1 2 2 1 ...
   ..- attr(*, "contrasts")= num [1:2, 1] -1 1
   .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr  "-1" "1"
+  .. .. ..$ : chr [1:2] "-1" "1"
   .. .. ..$ : NULL
  - attr(*, "desnum")= num [1:14, 1:14] -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
   ..- attr(*, "dimnames")=List of 2
-  .. ..$ : chr  "14" "13" "12" "11" ...
-  .. ..$ : chr  "A" "B" "C" "D" ...
+  .. ..$ : chr [1:14] "14" "13" "12" "11" ...
+  .. ..$ : chr [1:14] "A" "B" "C" "D" ...
  - attr(*, "run.order")='data.frame':	14 obs. of  3 variables:
   ..$ run.no.in.std.order: Factor w/ 32 levels "1.1.1","2.1.2",..: 14 13 12 11 10 9 8 7 6 5 ...
-  ..$ run.no             : int  14 13 12 11 10 9 8 7 6 5 ...
+  ..$ run.no             : int [1:14] 14 13 12 11 10 9 8 7 6 5 ...
   ..$ run.no.std.rp      : Factor w/ 32 levels "1.1.1","2.1.2",..: 14 13 12 11 10 9 8 7 6 5 ...
  - attr(*, "design.info")= Named list()
 > 
@@ -2860,88 +2866,376 @@ NOTE: columns run.no and run.no.std.rp  are annotation,
 > ## generators in combination!!!
 > 
 > ## blocks with more than 50 factors
-> str.wover(design.info(FrF2(128, 55, blocks=64, alias.block.2fis = TRUE)))
-List of 22
- $ type               : chr "FrF2.blocked"
- $ block.name         : chr "Blocks"
- $ nruns              : num 128
- $ nfactors           : num 55
- $ nblocks            : num 64
- $ block.gen          : Named int [1:6] 3 5 9 17 33 65
-  ..- attr(*, "names")= chr [1:6] "AB" "AC" "AD" "AE" ...
- $ blocksize          : num 2
- $ ntreat             : num 55
- $ factor.names       :List of 55
-  ..$ F1 : num [1:2] -1 1
-  ..$ F2 : num [1:2] -1 1
-  ..$ F3 : num [1:2] -1 1
-  ..$ F4 : num [1:2] -1 1
-  ..$ F5 : num [1:2] -1 1
-  ..$ F6 : num [1:2] -1 1
-  ..$ F7 : num [1:2] -1 1
-  ..$ F8 : num [1:2] -1 1
-  ..$ F9 : num [1:2] -1 1
-  ..$ F10: num [1:2] -1 1
-  ..$ F11: num [1:2] -1 1
-  ..$ F12: num [1:2] -1 1
-  ..$ F13: num [1:2] -1 1
-  ..$ F14: num [1:2] -1 1
-  ..$ F15: num [1:2] -1 1
-  ..$ F16: num [1:2] -1 1
-  ..$ F17: num [1:2] -1 1
-  ..$ F18: num [1:2] -1 1
-  ..$ F19: num [1:2] -1 1
-  ..$ F20: num [1:2] -1 1
-  ..$ F21: num [1:2] -1 1
-  ..$ F22: num [1:2] -1 1
-  ..$ F23: num [1:2] -1 1
-  ..$ F24: num [1:2] -1 1
-  ..$ F25: num [1:2] -1 1
-  ..$ F26: num [1:2] -1 1
-  ..$ F27: num [1:2] -1 1
-  ..$ F28: num [1:2] -1 1
-  ..$ F29: num [1:2] -1 1
-  ..$ F30: num [1:2] -1 1
-  ..$ F31: num [1:2] -1 1
-  ..$ F32: num [1:2] -1 1
-  ..$ F33: num [1:2] -1 1
-  ..$ F34: num [1:2] -1 1
-  ..$ F35: num [1:2] -1 1
-  ..$ F36: num [1:2] -1 1
-  ..$ F37: num [1:2] -1 1
-  ..$ F38: num [1:2] -1 1
-  ..$ F39: num [1:2] -1 1
-  ..$ F40: num [1:2] -1 1
-  ..$ F41: num [1:2] -1 1
-  ..$ F42: num [1:2] -1 1
-  ..$ F43: num [1:2] -1 1
-  ..$ F44: num [1:2] -1 1
-  ..$ F45: num [1:2] -1 1
-  ..$ F46: num [1:2] -1 1
-  ..$ F47: num [1:2] -1 1
-  ..$ F48: num [1:2] -1 1
-  ..$ F49: num [1:2] -1 1
-  ..$ F50: num [1:2] -1 1
-  ..$ F51: num [1:2] -1 1
-  ..$ F52: num [1:2] -1 1
-  ..$ F53: num [1:2] -1 1
-  ..$ F54: num [1:2] -1 1
-  ..$ F55: num [1:2] -1 1
- $ aliased.with.blocks: chr [1:1485] "F1:F2" "F1:F3" "F1:F4" "F1:F5" ...
- $ aliased            :List of 1
-  ..$ legend: chr [1:55] "F1=F1" "F2=F2" "F3=F3" "F4=F4" ...
- $ bbreps             : num 1
- $ wbreps             : num 1
- $ FrF2.version       : chr "2.2"
- $ catlg.name         : chr "catlg"
- $ base.design        : chr "55-48.1"
- $ block.old          : logi FALSE
- $ replications       : num 1
- $ repeat.only        : logi FALSE
- $ randomize          : logi TRUE
- $ seed               : NULL
- $ creator            : language FrF2(128, 55, blocks = 64, alias.block.2fis = TRUE)
+> str.wover(FrF2(128, 55, blocks=64, alias.block.2fis = TRUE))
+Classes 'design' and 'data.frame':	128 obs. of  56 variables:
+ $ Blocks: Factor w/ 64 levels "1","2","3","4",..: 1 1 2 2 3 3 4 4 5 5 ...
+  ..- attr(*, "contrasts")= num [1:64, 1:63] -1 1 -1 1 -1 1 -1 1 -1 1 ...
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:64] "1" "2" "3" "4" ...
+  .. .. ..$ : NULL
+ $ F1    : Factor w/ 2 levels "-1","1": 1 2 2 1 1 2 1 2 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F2    : Factor w/ 2 levels "-1","1": 2 1 1 2 2 1 2 1 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F3    : Factor w/ 2 levels "-1","1": 2 1 1 2 2 1 2 1 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F4    : Factor w/ 2 levels "-1","1": 2 1 1 2 2 1 2 1 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F5    : Factor w/ 2 levels "-1","1": 2 1 1 2 2 1 2 1 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F6    : Factor w/ 2 levels "-1","1": 2 1 1 2 1 2 1 2 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F7    : Factor w/ 2 levels "-1","1": 2 1 2 1 2 1 1 2 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F8    : Factor w/ 2 levels "-1","1": 1 2 2 1 1 2 1 2 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F9    : Factor w/ 2 levels "-1","1": 1 2 2 1 1 2 1 2 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F10   : Factor w/ 2 levels "-1","1": 1 2 2 1 1 2 1 2 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F11   : Factor w/ 2 levels "-1","1": 1 2 2 1 1 2 1 2 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F12   : Factor w/ 2 levels "-1","1": 2 1 1 2 2 1 2 1 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F13   : Factor w/ 2 levels "-1","1": 2 1 1 2 2 1 2 1 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F14   : Factor w/ 2 levels "-1","1": 1 2 2 1 1 2 1 2 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F15   : Factor w/ 2 levels "-1","1": 1 2 2 1 2 1 2 1 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F16   : Factor w/ 2 levels "-1","1": 1 2 2 1 2 1 2 1 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F17   : Factor w/ 2 levels "-1","1": 2 1 1 2 1 2 1 2 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F18   : Factor w/ 2 levels "-1","1": 1 2 2 1 2 1 2 1 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F19   : Factor w/ 2 levels "-1","1": 2 1 1 2 1 2 1 2 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F20   : Factor w/ 2 levels "-1","1": 2 1 1 2 1 2 1 2 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F21   : Factor w/ 2 levels "-1","1": 2 1 1 2 1 2 1 2 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F22   : Factor w/ 2 levels "-1","1": 2 1 1 2 1 2 1 2 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F23   : Factor w/ 2 levels "-1","1": 1 2 2 1 2 1 2 1 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F24   : Factor w/ 2 levels "-1","1": 2 1 1 2 1 2 1 2 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F25   : Factor w/ 2 levels "-1","1": 1 2 2 1 2 1 2 1 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F26   : Factor w/ 2 levels "-1","1": 1 2 2 1 2 1 2 1 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F27   : Factor w/ 2 levels "-1","1": 2 1 1 2 1 2 1 2 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F28   : Factor w/ 2 levels "-1","1": 1 2 1 2 1 2 2 1 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F29   : Factor w/ 2 levels "-1","1": 2 1 2 1 2 1 1 2 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F30   : Factor w/ 2 levels "-1","1": 1 2 1 2 1 2 2 1 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F31   : Factor w/ 2 levels "-1","1": 2 1 2 1 2 1 1 2 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F32   : Factor w/ 2 levels "-1","1": 2 1 2 1 2 1 1 2 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F33   : Factor w/ 2 levels "-1","1": 1 2 1 2 1 2 2 1 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F34   : Factor w/ 2 levels "-1","1": 1 2 1 2 1 2 2 1 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F35   : Factor w/ 2 levels "-1","1": 2 1 2 1 2 1 1 2 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F36   : Factor w/ 2 levels "-1","1": 1 2 1 2 1 2 2 1 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F37   : Factor w/ 2 levels "-1","1": 2 1 2 1 2 1 1 2 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F38   : Factor w/ 2 levels "-1","1": 1 2 1 2 1 2 2 1 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F39   : Factor w/ 2 levels "-1","1": 1 2 1 2 1 2 2 1 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F40   : Factor w/ 2 levels "-1","1": 1 2 1 2 2 1 1 2 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F41   : Factor w/ 2 levels "-1","1": 2 1 2 1 1 2 2 1 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F42   : Factor w/ 2 levels "-1","1": 2 1 2 1 1 2 2 1 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F43   : Factor w/ 2 levels "-1","1": 1 2 1 2 2 1 1 2 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F44   : Factor w/ 2 levels "-1","1": 2 1 2 1 1 2 2 1 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F45   : Factor w/ 2 levels "-1","1": 1 2 1 2 2 1 1 2 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F46   : Factor w/ 2 levels "-1","1": 1 2 1 2 2 1 1 2 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F47   : Factor w/ 2 levels "-1","1": 2 1 2 1 1 2 2 1 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F48   : Factor w/ 2 levels "-1","1": 2 1 2 1 1 2 2 1 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F49   : Factor w/ 2 levels "-1","1": 1 2 1 2 2 1 1 2 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F50   : Factor w/ 2 levels "-1","1": 1 2 1 2 2 1 1 2 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F51   : Factor w/ 2 levels "-1","1": 2 1 2 1 1 2 2 1 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F52   : Factor w/ 2 levels "-1","1": 1 2 1 2 2 1 1 2 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F53   : Factor w/ 2 levels "-1","1": 2 1 2 1 1 2 2 1 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F54   : Factor w/ 2 levels "-1","1": 2 1 2 1 1 2 2 1 1 2 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ $ F55   : Factor w/ 2 levels "-1","1": 1 2 1 2 2 1 1 2 2 1 ...
+  ..- attr(*, "contrasts")= num [1:2, 1] -1 1
+  .. ..- attr(*, "dimnames")=List of 2
+  .. .. ..$ : chr [1:2] "-1" "1"
+  .. .. ..$ : NULL
+ - attr(*, "desnum")= num [1:128, 1:118] -1 -1 1 1 -1 -1 1 1 -1 -1 ...
+  ..- attr(*, "dimnames")=List of 2
+  .. ..$ : chr [1:128] "1" "2" "3" "4" ...
+  .. ..$ : chr [1:118] "Blocks1" "Blocks2" "Blocks3" "Blocks4" ...
+ - attr(*, "run.order")='data.frame':	128 obs. of  3 variables:
+  ..$ run.no.in.std.order: Factor w/ 128 levels "1.64.1","2.63.1",..: 64 65 66 63 62 67 61 68 60 69 ...
+  ..$ run.no             : int [1:128] 1 2 3 4 5 6 7 8 9 10 ...
+  ..$ run.no.std.rp      : Factor w/ 128 levels "1.64.1","2.63.1",..: 64 65 66 63 62 67 61 68 60 69 ...
+ - attr(*, "design.info")=List of 21
+  ..$ type               : chr "FrF2.blocked"
+  ..$ block.name         : chr "Blocks"
+  ..$ nruns              : num 128
+  ..$ nfactors           : num 55
+  ..$ nblocks            : num 64
+  ..$ block.gen          : Named int [1:6] 3 5 9 17 33 65
+  .. ..- attr(*, "names")= chr [1:6] "AB" "AC" "AD" "AE" ...
+  ..$ blocksize          : num 2
+  ..$ ntreat             : num 55
+  ..$ factor.names       :List of 55
+  .. ..$ F1 : num [1:2] -1 1
+  .. ..$ F2 : num [1:2] -1 1
+  .. ..$ F3 : num [1:2] -1 1
+  .. ..$ F4 : num [1:2] -1 1
+  .. ..$ F5 : num [1:2] -1 1
+  .. ..$ F6 : num [1:2] -1 1
+  .. ..$ F7 : num [1:2] -1 1
+  .. ..$ F8 : num [1:2] -1 1
+  .. ..$ F9 : num [1:2] -1 1
+  .. ..$ F10: num [1:2] -1 1
+  .. ..$ F11: num [1:2] -1 1
+  .. ..$ F12: num [1:2] -1 1
+  .. ..$ F13: num [1:2] -1 1
+  .. ..$ F14: num [1:2] -1 1
+  .. ..$ F15: num [1:2] -1 1
+  .. ..$ F16: num [1:2] -1 1
+  .. ..$ F17: num [1:2] -1 1
+  .. ..$ F18: num [1:2] -1 1
+  .. ..$ F19: num [1:2] -1 1
+  .. ..$ F20: num [1:2] -1 1
+  .. ..$ F21: num [1:2] -1 1
+  .. ..$ F22: num [1:2] -1 1
+  .. ..$ F23: num [1:2] -1 1
+  .. ..$ F24: num [1:2] -1 1
+  .. ..$ F25: num [1:2] -1 1
+  .. ..$ F26: num [1:2] -1 1
+  .. ..$ F27: num [1:2] -1 1
+  .. ..$ F28: num [1:2] -1 1
+  .. ..$ F29: num [1:2] -1 1
+  .. ..$ F30: num [1:2] -1 1
+  .. ..$ F31: num [1:2] -1 1
+  .. ..$ F32: num [1:2] -1 1
+  .. ..$ F33: num [1:2] -1 1
+  .. ..$ F34: num [1:2] -1 1
+  .. ..$ F35: num [1:2] -1 1
+  .. ..$ F36: num [1:2] -1 1
+  .. ..$ F37: num [1:2] -1 1
+  .. ..$ F38: num [1:2] -1 1
+  .. ..$ F39: num [1:2] -1 1
+  .. ..$ F40: num [1:2] -1 1
+  .. ..$ F41: num [1:2] -1 1
+  .. ..$ F42: num [1:2] -1 1
+  .. ..$ F43: num [1:2] -1 1
+  .. ..$ F44: num [1:2] -1 1
+  .. ..$ F45: num [1:2] -1 1
+  .. ..$ F46: num [1:2] -1 1
+  .. ..$ F47: num [1:2] -1 1
+  .. ..$ F48: num [1:2] -1 1
+  .. ..$ F49: num [1:2] -1 1
+  .. ..$ F50: num [1:2] -1 1
+  .. ..$ F51: num [1:2] -1 1
+  .. ..$ F52: num [1:2] -1 1
+  .. ..$ F53: num [1:2] -1 1
+  .. ..$ F54: num [1:2] -1 1
+  .. ..$ F55: num [1:2] -1 1
+  ..$ aliased.with.blocks: chr [1:1485] "F1:F2" "F1:F3" "F1:F4" "F1:F5" ...
+  ..$ aliased            :List of 1
+  .. ..$ legend: chr [1:55] "F1=F1" "F2=F2" "F3=F3" "F4=F4" ...
+  ..$ bbreps             : num 1
+  ..$ wbreps             : num 1
+  ..$ catlg.name         : chr "catlg"
+  ..$ base.design        : chr "55-48.1"
+  ..$ block.old          : logi FALSE
+  ..$ replications       : num 1
+  ..$ repeat.only        : logi FALSE
+  ..$ randomize          : logi TRUE
+  ..$ seed               : NULL
+  ..$ creator            : language FrF2(128, 55, blocks = 64, alias.block.2fis = TRUE)
 > 
 > proc.time()
    user  system elapsed 
-  10.39    0.90   11.26 
+  23.77    1.13   24.97 

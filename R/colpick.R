@@ -115,7 +115,9 @@ colpick <- function(design, q, all=FALSE,
       X <- cbind(XI, XII)
     }
     else X <- XI   ## full factorial
-    if (all(colSums(X) > 0) || all0){ 
+    ## rank check added May 29 2020
+    rankdefect <- "try-error" %in% class(try(solve(tcrossprod(X)), silent=TRUE))
+    if ((all(colSums(X) > 0) || all0) && !rankdefect){ 
       ## remove direct aliases from blocking
       if (length(clear2fis) > 0){
         ingroup <- character(0)

@@ -3,6 +3,12 @@ Changes to package FrF2
 The package is still under development. 
 Suggestions and bug reports are very welcome.
 
+29/05/20, version 2.2-1
+  - function colpick did not exclude X matrices with less 
+    than full row rank for some situations
+  - removed version information from test output (one spot)
+    and adapted test output to current R
+
 23/04/2020, version 2.2
   - The full factorial case with blocking for non-catalogued
     cases has been moved to the Godolphin strategy, since this 

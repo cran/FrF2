@@ -1,6 +1,6 @@
 
-R version 3.6.0 (2019-04-26) -- "Planting of a Tree"
-Copyright (C) 2019 The R Foundation for Statistical Computing
+R version 4.0.0 (2020-04-24) -- "Arbor Day"
+Copyright (C) 2020 The R Foundation for Statistical Computing
 Platform: x86_64-w64-mingw32/x64 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -40,38 +40,38 @@ The following object is masked from 'package:base':
 > FrF2:::generators.from.design(basic)
 [[1]]
 x6 ~ x1 * x2 * x3
-<environment: 0x00000000178bd408>
+<environment: 0x0000000010033e60>
 
 [[2]]
 x7 ~ x1 * x2 * x4
-<environment: 0x00000000178c6a38>
+<environment: 0x0000000010038490>
 
 [[3]]
 x8 ~ x1 * x2 * x5
-<environment: 0x00000000178d3f08>
+<environment: 0x00000000100447a0>
 
 [[4]]
 x9 ~ x1 * x3 * x4 * x5
-<environment: 0x00000000178db688>
+<environment: 0x000000001004eb90>
 
 > FrF2:::generators.from.design(reshuffled)
 [[1]]
 x6 ~ x1 * x3 * x4 * x5
-<environment: 0x00000000172b6640>
+<environment: 0x000000000fcd29a0>
 
 [[2]]
 x7 ~ x1 * x2 * x3
-<environment: 0x00000000172c17d0>
+<environment: 0x000000000fcdaea8>
 
 [[3]]
 x8 ~ x2 * x3 * x4 * x5
-<environment: 0x00000000172ccaa0>
+<environment: 0x000000000fce5378>
 
 [[4]]
 x9 ~ x1 * x2 * x4 * x5
-<environment: 0x00000000172d5d10>
+<environment: 0x000000000fcef7a0>
 
 > 
 > proc.time()
    user  system elapsed 
-   1.48    0.14    1.62 
+   2.90    0.29    3.18 
