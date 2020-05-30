@@ -1,4 +1,4 @@
-a223d055394c250337797b9b3f519dd6 *DESCRIPTION
+b804a7fc2a437ff2d0c5f677e71c9509 *DESCRIPTION
 0f4d11151e45265d818e3bddee7787ef *NAMESPACE
 0b934ceb6e9a6c32d659444e789ac876 *R/BsProb.design.R
 5adf7eeab9a4071e5cd02475666e18d3 *R/CIG.R
@@ -36,7 +36,7 @@ ffab0c0ccc2b4a053f0407d14e4cea8e *R/gen2CIG.R
 595e0040fb1755ccaa6f08ab280c3a56 *R/godolphin.R
 0b36af12873dc14529d8cb7ccb1f84c4 *R/intfind.R
 83011a2d7ba5b6b9dd3e886f35117ca0 *R/leftadjust.R
-1f0c5514019e372c1c0befb82d1b7cea *R/makecatlg.R
+48e4c2f9f908076f36967aae0e032fb0 *R/makecatlg.R
 46a8311b8f44ddd8b0fc2223f28f9913 *R/mapcalc.block.R
 ed2e6a275bd87b4e1da5b36286b9b489 *R/myscatterplot3d.R
 8e079d9fe184337c5a96b7801dca076e *R/pb.R
@@ -50,7 +50,7 @@ f06480ccfa2e3d232573888d7eb43e0d *R/utilcat.R
 246ebe6006da805cce8df555c965be70 *R/utilpb.R
 170328a9e64be149b0b97f65623f8ee1 *R/utilperm.R
 59616baca36a166278c06da5895683d8 *inst/CITATION
-517daf8f78cab1cf33899476ee092c03 *inst/NEWS
+bc057231f4bd66297c3a318c70eb05a7 *inst/NEWS
 ac8a9054f960f86aebe1079d54c93332 *man/BsProb.design.Rd
 7f08d195e0074fc95329077358e97438 *man/CIG.Rd
 10cfef0c56155aa83c0efbd91676f088 *man/CatalogueAccessors.Rd
@@ -69,7 +69,7 @@ c1cffd489b9f0abfd37ef99a415015e7 *man/blockpick.Rd
 4251819d24014671bd5e52f22de306e8 *man/estimable.2fis.Rd
 8711af23c18fdbc954ae7a266834a98f *man/fold.design.Rd
 faf3e2dbf493905aece5271cc1379590 *man/godolphin.Rd
-630c666d195e6a959040f76530367139 *man/makecatlg.Rd
+5996f18018e1ed1a99e3131a989c3527 *man/makecatlg.Rd
 1664a1cc0f25e0b735312d37372de5ca *man/pb.Rd
 133184fd600ff2c2947301398c35bcda *man/splitplot.Rd
 34b48fe765a05be484ecc9c2b88ed694 *man/utilities.blocksplitplot.aliases.shortrep.Rd

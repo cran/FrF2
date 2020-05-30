@@ -37,9 +37,9 @@ makecatlg(k, gen)
 \keyword{ array }
 \keyword{ design }% __ONLY ONE__ keyword per line
 \examples{
-## Xu's fraction 25-18.2
-genXu <- c(31, 103, 43, 85, 44, 86, 88, 53, 123, 54, 56, 97, 104, 98, 112, 79, 83, 124)
-catXu <- makecatlg(k=7, genXu)
-colpick(catXu, q=2) ## Godolphin blocking into blocks of size 4 yields 207 clear 2fis
-FrF2(128, 25, blocks=32, alias.block.2fis=TRUE, select.catlg=catXu)
+## Xu's fraction 13-5.2
+genXu <- c(127, 143, 179, 85, 150)
+catXu <- makecatlg(k=8, genXu)
+colpick(catXu, q=2) ## Godolphin blocking into blocks of size 4 yields 56 clear 2fis
+FrF2(256, 13, blocks=64, alias.block.2fis=TRUE, select.catlg=catXu)
 }
