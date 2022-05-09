@@ -124,9 +124,9 @@ colpickIV(design, q, all = FALSE, select.catlg = catlg,
 }
 
 \details{
-    These are the functions for the Godolphin (2019) approach to blocking; 
+    These are the functions for the Godolphin (2021) approach to blocking; 
     most of them are user-visible. 
-    This approach and its implementation are described in Groemping (2019). 
+    This approach and its implementation are described in Groemping (2021). 
     Direct use of this functions is intended for expert use only.
 
     Function \code{colpick} is
@@ -199,21 +199,18 @@ colpickIV(design, q, all = FALSE, select.catlg = catlg,
 }
 
 \references{
-Groemping, U. (2010). Creating clear designs: a graph-based algorithm and a 
-   catalogue of clear compromise plans. 
-   \emph{Reports in Mathematics, Physics and Chemistry}, \href{http://www1.beuth-hochschule.de/FB_II/reports/Report-2010-005.pdf}{Report 05/2010}, 
-   Department II, Beuth University of Applied Sciences Berlin.
-   (Preprint for IIE Transactions; IIE Transactions is available at 
-   \url{http://www.tandfonline.com}.)
-   
-Godolphin, J. (2019). Construction of Blocked Factorial Designs to Estimate 
-   Main Effects and Selected Two-Factor Interactions. *Unpublished report* 
-   available at \url{https://arxiv.org/abs/1907.02373}.
-   
-Groemping, U. (2019). An algorithm for blocking regular fractional 
-  factorial 2-level designs with clear two-factor interactions. 
-   \emph{Reports in Mathematics, Physics and Chemistry}, \href{http://www1.beuth-hochschule.de/FB_II/reports/Report-2019-003.pdf}{Report 3/2019}, 
-   Department II, Beuth University of Applied Sciences Berlin.
+Groemping, U. (2012). Creating clear designs: a graph-based algorithm and a 
+catalogue of clear compromise plans. \emph{IIE Transactions} \bold{44}, 988--1001. 
+Early preprint available at \url{http://www1.bht-berlin.de/FB_II/reports/Report-2010-005.pdf}.
+
+Godolphin, J. (2021). Construction of Blocked Factorial Designs to Estimate 
+   Main Effects and Selected Two-Factor Interactions. \emph{J. Royal Statistical Society} \bold{B 83}, 5-29. 
+   \doi{10.1111/rssb.12397}.
+
+Grömping, U. (2021). An algorithm for blocking regular fractional factorial 
+2-level designs with clear two-factor interactions. \emph{Computational Statistics and Data Analysis} 
+\bold{153}, 1-18. \doi{10.1016/j.csda.2020.107059}. Preprint at 
+\href{http://www1.bht-berlin.de/FB_II/reports/Report-2019-003.pdf}{Report 3/2019}.
 
 }
 \examples{

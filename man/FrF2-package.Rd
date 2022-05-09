@@ -57,7 +57,7 @@ than the output from the built-in function \code{alias}.
 \author{
 Ulrike Groemping
 
-Maintainer: Ulrike Groemping <groemping@bht-berlin.de>
+Maintainer: Ulrike Groemping <ulrike.groemping@bht-berlin.de>
 }
 \references{
     Box G. E. P, Hunter, W. C. and Hunter, J. S. (2005) 
@@ -77,7 +77,7 @@ Maintainer: Ulrike Groemping <groemping@bht-berlin.de>
     
     Groemping, U. (2014). {R} Package {FrF2} for Creating and Analyzing Fractional 
     Factorial 2-Level Designs. \emph{Journal of Statistical Software}, \bold{56}, 
-    Issue 1, 1-56. \url{http://www.jstatsoft.org/v56/i01/}.
+    Issue 1, 1-56. \url{https://www.jstatsoft.org/v56/i01/}.
     
     Hedayat, A.S., Sloane, N.J.A. and Stufken, J. (1999) 
     \emph{Orthogonal Arrays: Theory and Applications}, Springer, New York. 

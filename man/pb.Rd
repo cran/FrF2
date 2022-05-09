@@ -178,7 +178,7 @@ pb.list
   
     Groemping, U. (2014). {R} Package {FrF2} for Creating and Analyzing Fractional 
     Factorial 2-Level Designs. \emph{Journal of Statistical Software}, \bold{56}, 
-    Issue 1, 1-56. \url{http://www.jstatsoft.org/v56/i01/}.
+    Issue 1, 1-56. \url{https://www.jstatsoft.org/v56/i01/}.
 
   Mee, R. (2009). \emph{A Comprehensive Guide to Factorial Two-Level Experimentation}. 
   New York: Springer.

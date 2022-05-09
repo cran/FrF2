@@ -55,7 +55,7 @@ blockpick.big(k, gen, k.block, design = NULL, show = 10,
 
   In \pkg{FrF2} versions before 2.0, function \code{blockpick.big} was used for 
   large use cases; this can still be requested using argument \code{block.old=TRUE}. 
-  Since FrF2 version 2, the \code{\link[FrF2:godolphin]{Godolphin (2019) based approach}} 
+  Since FrF2 version 2, the \code{\link[FrF2:godolphin]{Godolphin (2021) based approach}} 
   is used instead, both for 
   large cases and for cases where blocking is combined with estimability requirements 
   (\code{clear=TRUE} only); the big advantage is the ability of combining blocking with 

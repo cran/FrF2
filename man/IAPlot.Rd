@@ -103,12 +103,13 @@ remodel(obj)
     the \code{lm}-method for class \code{design} is applied to it with the 
     required degree (1 or 2), 
     and the default method for the respective function is afterwards applied to the 
-    resulting linear model.
+    resulting linear model.\cr 
+    If the design contains a block factor, the plot functions show non-block effects only. 
     
   \describe{
-  \item{MEPlot}{produces plots of all main effects in the model, 
+  \item{MEPlot}{produces plots of all treatment main effects in the model, 
               or selected ones if \code{select} is specified}
-  \item{IAPlot}{produces plots of all interaction effects in the model,
+  \item{IAPlot}{produces plots of all treatment interaction effects in the model,
               or selected ones if \code{select} is specified}
   \item{intfind}{is an internal function not directly useful for users}
   \item{check}{is an internal function for checking whether the model complies 

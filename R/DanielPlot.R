@@ -14,6 +14,8 @@ DanielPlot.design <- function(fit, ..., response=NULL){
            length(grep("pb",di$type))>0)) { 
            if (!(di$type=="full factorial" & all(di$nlevels==2)))
         stop("The design obj must be of a type containing FrF2 or pb.")
+    if (length(grep("blocked",di$type))>0)
+        stop("Function DanielPlot does not handle blocked designs. \nUse function halfnormal from package DoE.base instead.")
        }
     grad <- 1
     if (length(grep("pb",di$type)) > 0 & di$nfactors < di$nruns-1)

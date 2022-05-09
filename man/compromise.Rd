@@ -54,12 +54,10 @@
 Addelman, S. (1962). Symmetrical and asymmetrical fractional factorial plans. 
 \emph{Technometrics} \bold{4}, 47-58.
 
-Gr\"omping, U. (2010). Creating clear designs: a graph-based algorithm and a 
-catalogue of clear compromise plans. 
-\emph{Reports in Mathematics, Physics and Chemistry}, report 05/2010, 
-Department II, Beuth University of Applied Sciences Berlin.
-(Preprint for IIE Transactions; IIE Transactions is available at 
-\url{http://www.tandfonline.com}.)
+Groemping, U. (2012). Creating clear designs: a graph-based algorithm and a 
+catalog of clear compromise plans. \emph{IIE Transactions} \bold{44}, 988-1001. 
+\doi{10.1080/0740817X.2012.654848}. Early preprint at 
+\url{http://www1.bht-berlin.de/FB_II/reports/Report-2010-005.pdf}.
 
 Ke, W., Tang, B. and Wu, H. (2005). Compromise plans with clear two-factor interactions. 
 \emph{Statistica Sinica} \bold{15}, 709-715.

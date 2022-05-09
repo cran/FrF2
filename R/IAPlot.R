@@ -7,15 +7,22 @@ IAPlot.design <- function(obj, ..., response=NULL){
     di <- design.info(obj)
     if (is.null(di$response.names)) 
         stop("The design obj must have at least one response.")
-    if (!(is.null(response))) 
+    if (is.null(response)) response <- di$response.names[1] else{
       if (!response %in% di$response.names)
         stop("Requested response is not a response variable in obj.")
+        }
     if (!(length(grep("FrF2",di$type))>0 | 
            length(grep("pb",di$type))>0)) { 
            if (!(di$type=="full factorial" & all(di$nlevels==2)))
         stop("The design obj must be of a type containing FrF2 or pb.")
        }
-    IAPlot(lm(obj, degree=2, response=response), ...)
+    if (!length(grep("blocked",di$type))>0)
+        IAPlot(lm(obj, degree=2, response=response), ...)
+    else
+        IAPlot(lm(as.formula(paste(response, "~ (", 
+                      paste(names(di$factor.names), collapse="+"), 
+                                                ")^2")),
+               data=obj))
 }
 
 IAPlot.default <-

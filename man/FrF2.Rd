@@ -321,7 +321,7 @@ FrF2.currentlychecked()
        with 2fis (default: \code{FALSE}); \cr
        it will often be necessary to modify this option, because there is otherwise no solution.\cr 
        CAUTION: If \code{alias.block.2fis=TRUE} and the design is relatively small 
-       (i.e. not with the Godolphin 2019 method), 
+       (i.e. not with the Godolphin 2021 method), 
        no effort is made to avoid aliasing 
        of 2fis with block main effects, even if complete de-aliasing were possible.}
   \item{hard}{ gives the number of hard to change factors. These must be the 
@@ -595,23 +595,26 @@ An improved algorithm for matching large graphs. \emph{Proc. of the 3rd
 IAPR TC-15 Workshop on Graphbased Representations in Pattern Recognition},
 149--159.
 
-Godolphin, J. (2019). Construction of blocked factorial designs to estimate main effects and selected two-factor interactions. \url{https://arxiv.org/abs/1907.02373}
+Godolphin, J. (2021). Construction of Blocked Factorial Designs to Estimate 
+   Main Effects and Selected Two-Factor Interactions. \emph{J. Royal Statistical Society} \bold{B 83}, 5-29. 
+   \doi{10.1111/rssb.12397}.
 
 Groemping, U. (2012). Creating clear designs: a graph-based algorithm and a 
 catalogue of clear compromise plans. \emph{IIE Transactions} \bold{44}, 988--1001.
-Preprint available at \url{http://www1.beuth-hochschule.de/FB_II/reports/Report-2010-005.pdf}. 
+Early preprint available at \url{http://www1.bht-berlin.de/FB_II/reports/Report-2010-005.pdf}. 
 
 Groemping, U. (2014a). {R} Package {FrF2} for Creating and Analyzing Fractional 
 Factorial 2-Level Designs. \emph{Journal of Statistical Software}, \bold{56}, 
-Issue 1, 1-56. \url{http://www.jstatsoft.org/v56/i01/}.
+Issue 1, 1-56. \url{https://www.jstatsoft.org/v56/i01/}.
     
 Groemping, U. (2014b). A Note on Dominating Fractional Factorial 
 Two-Level Designs With Clear Two-Factor Interactions. \emph{Technometrics} 
 \bold{56}, 42--45.
     
-Groemping, U. (2019). An Algorithm for blocking regular 2-level fractional factorial designs, while keeping selected two-factor interactions clear. 
-   \emph{Reports in Mathematics, Physics and Chemistry}, \href{http://www1.beuth-hochschule.de/FB_II/reports}{technical report}, 
-   Department II, Beuth University of Applied Sciences Berlin.
+Grömping, U. (2021). An algorithm for blocking regular fractional factorial 
+2-level designs with clear two-factor interactions. \emph{Computational Statistics and Data Analysis} 
+\bold{153}, 1-18. \doi{10.1016/j.csda.2020.107059}. Preprint at 
+\href{http://www1.bht-berlin.de/FB_II/reports/Report-2019-003.pdf}{Report 3/2019}.
 
 Huang, P., Chen, D. and Voelkel, J.O. (1998). Minimum-Aberration Two-Level Split-Plot Designs. 
 \emph{Technometrics} \bold{40}, 314-326. 

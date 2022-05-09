@@ -7,16 +7,24 @@ MEPlot.design <- function(obj, ..., response=NULL){
     di <- design.info(obj)
     if (is.null(di$response.names)) 
         stop("The design obj must have at least one response.")
-    if (!(is.null(response))) 
+    if (is.null(response)) response <- di$response.names[1] else{
       if (!response %in% di$response.names)
-        stop("Requested response is not a response variable in fit.")
+        stop("Requested response is not a response variable in obj.")
+        }
     if (!(length(grep("FrF2",di$type))>0 | 
            length(grep("pb",di$type))>0)){ 
            if (!(di$type=="full factorial" & all(di$nlevels==2)))
            stop("The design obj must be of a type containing FrF2 or pb.")
     }
-    MEPlot(lm(obj, degree=1, response=response), ...)
+    if (!length(grep("blocked",di$type))>0)
+        MEPlot(lm(obj, degree=1, response=response), ...)
+    else
+        MEPlot(lm(as.formula(paste(response, "~ ", 
+                      paste(names(di$factor.names), collapse="+"))),
+               data=obj), ...)
 }
+
+
 MEPlot.default <-
 function(obj, main=paste("Main effects plot for", respnam), pch=15, 
          cex.xax = par("cex.axis"), cex.yax = cex.xax, mgp.ylab = 4, 

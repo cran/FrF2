@@ -3,19 +3,32 @@ Changes to package FrF2
 The package is still under development. 
 Suggestions and bug reports are very welcome.
 
-29/05/20, version 2.2-2
+Version 2.2-3, 09/05/22
+  - adapted design methods for MEPlot and IAPlot 
+    to handle blocked design objects by ignoring block factor
+    (they threw an error before)
+  - adapted design method for DanielPlot to throw a specific error 
+    for blocked designs: it now recommends the use of function 
+    halfnormal from package DoE.base (threw a misleading error before)
+  - updated maintainer contact details
+  - updated references to published papers rather than preprints
+  - updated several URLs to https
+  - removed LazyData entry in description
+  - reformatted NEWS file (switched version and data)
+
+Version 2.2-2, 29/05/20
   - bug fix for function makecatlg: 
     the clear 2fis were not determined correctly
     (there were too many of them)
   - Modified the documentation accordingly
 
-29/05/20, version 2.2-1
+Version 2.2-1, 29/05/20
   - function colpick did not exclude X matrices with less 
     than full row rank for some situations
   - removed version information from test output (one spot)
     and adapted test output to current R
 
-23/04/2020, version 2.2
+Version 2.2, 23/04/2020
   - The full factorial case with blocking for non-catalogued
     cases has been moved to the Godolphin strategy, since this 
     usually yields much better designs. 
@@ -103,7 +116,7 @@ Suggestions and bug reports are very welcome.
     catalogue with also the even fractions is not an option 
     because of their huge number for larger cases).
 
-09/03/2020, version 2.1-1
+Version 2.1-1, 09/03/2020
   Several changes were made in order to prepare for R version 4.0 
   (new stringsAsFactors default in R CMD check and R)
   - added stringsAsFactors=TRUE to data.frame and cbind calls in FrF2, FrF2Large and pb
@@ -112,7 +125,7 @@ Suggestions and bug reports are very welcome.
   - added stringsAsFactors=TRUE to several cbind and rbind calls in add.center
   - changed BsMD from Imports to Suggests
 
-18/08/2019, version 2.1
+Version 2.1, 18/08/2019
   Major change for new blocking with estimability features: changed algorithmic strategy    to do subgraph isomorphism checks for each candidate X:
   - changed the strategy in function colpick to do the subgraph isomorphism 
     check for each blocking X matrix. 
@@ -149,7 +162,7 @@ Suggestions and bug reports are very welcome.
     function colpick in case all=TRUE to comply with 
     Godolphin's paper and technical report
 
-09/08/2019, version 2.0
+Version 2.0, 09/08/2019
   Major changes:
   - added the possibility to request estimable 2fis 
     (with clear=TRUE only) together with blocking
@@ -193,7 +206,7 @@ Suggestions and bug reports are very welcome.
       - returned data.frame has effect names 
         no longer as a factor but in character vector
 
-03/05/2019, version 1.7-3
+Version 1.7-3, 03/05/2019
   - documented how to reproduce designs 
     created by R versions prior to 3.6.0 with 
     R versions 3.6.0 and later (due to the changed behavior 
@@ -205,7 +218,7 @@ Suggestions and bug reports are very welcome.
   - adjusted the test output to reflect the new default
     randomization behavior
 
-29/09/2016, version 1.7-2
+Version 1.7-2, 29/09/2016
   - replaced require to requireNamespace for suggested package
   - changed namespace and description files to conform with latest 
     R checking rules
@@ -214,7 +227,7 @@ Suggestions and bug reports are very welcome.
     of package DoE.base (add.center tests)
 
 
-31/07/2014, version 1.7-1
+Version 1.7-1, 31/07/2014
   - MEPlot and IAPlot now invisibly return the estimated values 
     so that the plots can be accompanied by tables, if desired.
   - fixed documentation file CIG.Rd, 
@@ -227,7 +240,7 @@ Suggestions and bug reports are very welcome.
     in order to prevent issues under periodical Valgrind test runs
 
 
-27/02/2014, version 1.7
+Version 1.7, 27/02/2014
   - added the LAD algorithm for checking for clear designs.
     Note: With this change, version 0.7 of package igraph 
     is required.
@@ -239,17 +252,17 @@ Suggestions and bug reports are very welcome.
     cases of VF2, LAD may become the default.
   - adjusted documentation to the change, and added / updated related references
 
-11/01/2014, version 1.6-9
+Version 1.6-9, 11/01/2014
   - added citation info for Journal of Statistical Software paper
 
-13/09/2013, version 1.6-8
+Version 1.6-8, 13/09/2013
   - bug fix: imported function combn from package utils, 
     in order to allow proper functionality when package combinat is added 
     to the search path later
   - moved many packages to Imports rather than depends, 
     and adjusted example code and test code accordingly
 
-16/08/2013, version 1.6-7
+Version 1.6-7, 16/08/2013
   - moved function halfnormal to package DoE.base, 
     and extended its functionality
   - modified function DanielPlot from the previous plotting positions 
@@ -263,7 +276,7 @@ Suggestions and bug reports are very welcome.
   - modified the NAMESPACE file in order to avoid a note in R-patched/R-devel
   - removed triple colon access to methods from other packages
     
-18/04/2013, version 1.6-6
+Version 1.6-6, 18/04/2013
   - modified automatic load of package FrF2.catlg128 to work with the lazy 
     load version of that package (version 1.2) and to avoid usage of the 
     command data() which has been banned by CRAN policy
@@ -274,7 +287,7 @@ Suggestions and bug reports are very welcome.
     the estimable functionality, and discouraged the use of that option
   - fixed function CIGstatic to work as advertised
 
-22/03/2013, version 1.6-5
+Version 1.6-5, 22/03/2013
   - made usage of catalogues from package FrF2.catlg128 more comfortable:
     the package and catalogue is now loaded automatically, if a catalogue 
     from that package is requested with option select.catlg of function FrF2
@@ -297,12 +310,12 @@ Suggestions and bug reports are very welcome.
   - bug fix: the element res.WP for split plot designs with manually specified 
     whole plot factors was not populated with information; this has been fixed.
                             
-12/02/2013, version 1.6-4
+Version 1.6-4, 12/02/2013
   - modified treatment of .FrF2.currentlychecked once again, 
     now using an internal environment, because the other solution 
     did not work with R versions before 2.15
 
-12/02/2013, version 1.6-3
+Version 1.6-3, 12/02/2013
   - function BsProb.design was modified to use function BsProb from BsMD rather than 
     directly accessing the Fortran routine from that package
   - refer to function alias from package stats via stats::alias, 
@@ -312,18 +325,18 @@ Suggestions and bug reports are very welcome.
     modified via assignInMyNamespace, instead of earlier storage in global 
     environment; function to access it)
 
-14/08/2012, version 1.6-2
+Version 1.6-2, 14/08/2012
   - Function CIG gained possibilities for graphing requirement set CIGs
   - new functions gen2clear.2fis and gen2CIG in support of investigating the CIG behavior 
     for given generators
   - modified dominating entry in entries of catlg: all NA entries for designs without 
     clear 2fis were changed to FALSE
 
-20/07/2012, version 1.6-1
+Version 1.6-1, 20/07/2012
   - further improvement of search speed for clear designs, sometimes very substantial:
     presorting of CIGs w.r.t. degrees of vertices
 
-10/07/2012, version 1.6
+Version 1.6, 10/07/2012
   - added two further pre-filtering criteria for clear designs, 
     the clique number (size of largest clique at least as required by the requirement set) 
     and the independence number (size of largest independent set at most as large as in 
@@ -336,7 +349,7 @@ Suggestions and bug reports are very welcome.
       instead of a character string
     - improved the documentation of function CIG
 
-29/06/2012, version 1.5
+Version 1.5, 29/06/2012
   - added an element to catalogue entries in catlg in order to speed up search for 
     clear designs (following a 2012 Technometrics paper by Wu, Mee and Tang)
     and modified function mapcalc accordingly (should speed up estimable 
@@ -351,10 +364,10 @@ Suggestions and bug reports are very welcome.
   - added globalVariables() in file aaa.R and renamed one internal function 
     for getting rid of Notes in R CMD check
 
-18/05/2012, version 1.4-1
+Version 1.4-1, 18/05/2012
   - replaced package igraph with igraph0 on request of the igraph author
 
-17/03/2012, version 1.4
+Version 1.4, 17/03/2012
   - modified the aliased and aliased.with.blocks elements of design.info
     for blocked and split-plot designs (more succinct, same structure as for 
     other FrF2 designs in some cases, verbal description in others)
@@ -366,13 +379,13 @@ Suggestions and bug reports are very welcome.
     the summary of large blocked designs (created using function blockpick.big) 
     was confusing regarding the block generators.
 
-04/03/2012, version 1.3-1
+Version 1.3-1, 04/03/2012
   - Bug fix: A change to function formula.design for Plackett-Burman designs 
     in version 0.23 of DoE.base made Daniel plots from pb designs loose their 
     points for error dummies. Fixed with version 0.23-1 of DoE.base (new option use.dummies) 
     and an update to function DanielPlot in this package 
 
-28/02/2012, version 1.3
+Version 1.3, 28/02/2012
   - added the 100 run PB design
   - modified column ordering for several designs in function pb 
     for improving aliasing behavior of resulting designs, 
@@ -392,12 +405,12 @@ Suggestions and bug reports are very welcome.
   - corrected documentation of function CIG (formerly CIG.catlg); 
     half-finished working version of this documentation was online
 
-15/11/2011, Version 1.2-10
+Version 1.2-10, 15/11/2011
   - moved function iscube from package FrF2 to package DoE.base 
     and extended its applicability
   - made package depend on version 0.22-8 of DoE.base (which contains iscube)
 
-07/11/2011, Version 1.2-9
+Version 1.2-9, 07/11/2011
   - made function add.center cater for adding 0 center points 
     (in support of the (not recommended) desire to have a central composite 
     design with center points in the star portion only)
@@ -405,32 +418,32 @@ Suggestions and bug reports are very welcome.
   - made error message for full factorials 2-level designs with center points 
     more meaningful 
 
-08/08/2011, Version 1.2-8
+Version 1.2-8, 08/08/2011
   - bug fix: fold.design did not work on designs 
     created with function pb (contrary to what was 
     documented) 
 
-05/08/2011, Version 1.2-7
+Version 1.2-7, 05/08/2011
   - removed function factorize and 
     changed dependence on sfsmisc 
     to selective import of a few functions, 
     in order to avoid overriding of function factorize 
     from conf.design with the sfsmisc version 
 
-03/08/2011, Version 1.2-6
+Version 1.2-6, 03/08/2011
   - included conf.design version of function factorize (a generic) 
     to prevent sfsmisc version from overriding it
 
-29/07/2011, Version 1.2-5
+Version 1.2-5, 29/07/2011
   - implemented combination of options resolution and hard, 
     which led to an error before
   - fixed bug that led to randomization of whole plots for some cases 
     for hard to change factors, and modified help entry for option hard 
 
-21/07/2011, Version 1.2-4
+Version 1.2-4, 21/07/2011
   - fixed small bug that led to a warning in FrF2 estimable applications
 
-06/06/2011, Version 1.2-3
+Version 1.2-3, 06/06/2011
   - added coding information to all designs with center points 
     (done in add.center function) in support of using these for steepest ascent 
     analysis)
@@ -448,7 +461,7 @@ Suggestions and bug reports are very welcome.
   - fixed generators.summary.test.r, which contained an illegal (and ignored) 
     usage of generators together with WPs and nfac.WP but without WPfacs
 
-07/01/2011, Version 1.2-2
+Version 1.2-2, 07/01/2011
   - speed improvement for estimable interactions with clear=TRUE:
     excluded all designs from running the subgraph isomorphism check, 
     for which the table of vertex degrees is incompatible with the 
@@ -456,7 +469,7 @@ Suggestions and bug reports are very welcome.
     while this change slightly deteriorates speed for well-behaved situations, 
     it dramatically improves speed for critical situations
 
-31/01/2011, Version 1.2-1
+Version 1.2-1, 31/01/2011
   - made run.no.in.std.order a factor with properly ordered levels 
     for functions pb, FrF2 and FrF2Large
   - made option res3 of function FrF2 effective also for MaxC2 
@@ -465,7 +478,7 @@ Suggestions and bug reports are very welcome.
     Box and Meyer Bayesian screening method from package BsMD to FrF2 and 
     pb designs
 
-30/10/2010, Version 1.2
+Version 1.2, 30/10/2010
  This version update adds many larger designs and functionality for them.
   - added a function FrF2Large for large designs,
     either manually-specified or resolution V based on Sanchez and Sanchez (2005)
@@ -489,11 +502,11 @@ Suggestions and bug reports are very welcome.
     - documented extended range of additional MA designs
 
 
-09/09/2010, Version 1.1-5
+Version 1.1-5, 09/09/2010
 - added references to technical reports in help files for estimable 2fis, 
   design catalogue and fractional factorial design generation
 
-03/08/2010, Version 1.1-4
+Version 1.1-4, 03/08/2010
 - reformatted NEWS file for improving display with news() function
 - modified function aliasprint
 - added class aliases to output objects of function aliases
@@ -506,18 +519,18 @@ Suggestions and bug reports are very welcome.
   - functions DanielPlot.default, MEPlot.default and IAPlot.default give more 
     meaningful error message, if called with invalid object type
 
-25/06/2010, Version 1.1-3
+Version 1.1-3, 25/06/2010
 - bug fix: labels on interaction plots for levels of selected factors 
   were wrong, if not the first few factors got selected.
 
-25/06/2010, Version 1.1-2
+Version 1.1-2, 25/06/2010
 - bug fixes: 
   - MEPlot, IAPlot and DanielPlot did not work 
     on designs in wide formal with aggregated responses from 
     repeated measurements, because of an abbreviated name for 
     the list element response.names in the design.info attribute
 
-23/04/2010, Version 1.1-1
+Version 1.1-1, 23/04/2010
 - added the minimum run size for a clear design 
   to the output object of function compromise and 
   an optional message to this effect
@@ -533,7 +546,7 @@ bug fixes:
 - print.catlg did not work for non-default catalogues, 
   if nruns was specified
 
-24/02/2010, Version 1.1
+Version 1.1, 24/02/2010
 - added large (good but not necessarily MA) resolution V designs from Xu 2009, 
   added hint to even larger non-regular resolution V designs in package 
   DoE.base (from version 0.9-16)
@@ -570,27 +583,27 @@ Bug fixes:
 - split-plot designs and designs with hard-to-change factors 
   should now also work for full factorial situations.
 
-17/01/2010, Version 1.0-5
+Version 1.0-5, 17/01/2010
 - internal function double.des was changed to produce different designs 
   for 40,56,64,88,96 runs: The folded columns are in the front rather 
   than in the rear, with the benefit of obtaining resolution IV designs 
   whenever the number of factors is up to half the number of runs
 
-02/01/2010, Version 1.0-4
+Version 1.0-4, 02/01/2010
 - function compromise for supporting creation of compromise designs
 - bug fix: distinct design with only one 2fi did not work
 
-10/12/2009, Version 1.0-3
+Version 1.0-3, 10/12/2009
 - bug fix: desnum attribute was list instead of data frame 
   for FrF2 with estimability requirements
 
-26/11/2009, Version 1.0-2
+Version 1.0-2, 26/11/2009
 - added a response argument to MEPlot, IAPlot and DanielPlot
 - bug fix for function FrF2: resolution requests were ignored since 
   version 0.97-7
 - small documentation bug fixes
 
-17/11/2009, Version 1.0-1
+Version 1.0-1, 17/11/2009
 - clarified in the explanation of the catalogue file 
   that the resolution III designs constructed for 64 and 128 runs are 
   in fact minimum aberration 
@@ -598,7 +611,7 @@ Bug fixes:
 - bug fix for function DanielPlot.design: the function did not work
   for large numbers of factors
 
-08/10/2009, Version 1.0
+Version 1.0, 08/10/2009
 - added methods for class design for the plotting functions 
   MEPlot, IAPlot and DanielPlot
 - added the MA resolution III designs for 64 runs (33 to 63 factors) 
@@ -608,14 +621,14 @@ Bug fixes:
 - improved documentation of generators option for FrF2
 - removed unnecessary warning from FrF2 in case of more than 19 generators
 
-17/09/2009, Version 0.97-10
+Version 0.97-10, 17/09/2009
 - changed a link to DoE.base-package to work on Mac-OS
 
-14/09/2009, Version 0.97-9
+Version 0.97-9, 14/09/2009
 - made factor names in FrF2 and pb valid names using make.names, 
   also block.name in FrF2
 
-07/09/2009, Version 0.97-8
+Version 0.97-8, 07/09/2009
 - made function FrF2 output factors also for full factorial 2-level designs
   without center points and documented coding of experimental factors for 
   functions FrF2 and pb
@@ -623,7 +636,7 @@ Bug fixes:
 - fixed a bug in function pb's treatment of unnamed lists as factor.names
 - added a few links to manuals
 
-24/08/2009, Version 0.97-7
+Version 0.97-7, 24/08/2009
 - made functions FrF2 and pb tolerate factor.names to be an unnamed list
 - bug fix: resolution option for FrF2 did not return a full factorial,
   if no smaller design of the desired resolution exists
@@ -631,25 +644,25 @@ Bug fixes:
   mention the design.info elements map, clear and res3 for designs created 
   with option estimable
 
-21/08/2009, Version 0.97-6
+Version 0.97-6, 21/08/2009
 - bug fix: generators.from.design did not work for replications 
   in case of designs with the estimable option
 - bug fix: check rejected some valid linear models with 
   only complete aliases due to numerical inaccuracies
 
-21/08/2009, Version 0.97-5
+Version 0.97-5, 21/08/2009
 - developed find.gen and generators.from.design to 
   support generation of ccd designs (including estimable and blocked designs)
 
-21/08/2009, Version 0.97-4
+Version 0.97-4, 21/08/2009
 - bug fix: FrF2 always randomized designs when using the estimable option, 
   even for randomize=FALSE
 
-20/08/2009, Version 0.97-3
+Version 0.97-3, 20/08/2009
 - changed itemize to describe in Rd files for pb and CatalogueAccessors in order 
   to comply with new R CMD check behavior
 
-19/08/2009, Version 0.97-2
+Version 0.97-2, 19/08/2009
 - blocked designs: added the element block.gen to the design.info attribute 
   in order to support subsequent augmentation with star points
 - added error message for missing ncenter for add.center
@@ -663,10 +676,10 @@ Bug fixes:
   all relevant generators from designs especially where these are not obvious 
   (find.gen and generators.from.design) 
 
-16/08/2009, Version 0.97-1
+Version 0.97-1, 16/08/2009
 - bug fix: folding and center points did not work for full factorial 2-level designs
 
-13/08/2009, Version 0.97
+Version 0.97, 13/08/2009
 - added function fold.design for foldover designs
 - added functions add.center for adding center points and iscube for identfying 
   the cube points in a design with center points
@@ -683,13 +696,13 @@ Bug fixes:
 - bug fix: generators element of design.info was labelled wrongly 
   for more than 50 factors (NA labels for factors 51 and following)
 
-03/08/2009, Version 0.96-1
+Version 0.96-1, 03/08/2009
 - added meaningful error message for IAPlot in case of no 2-factor interactions
 - adjusted test output to new version of DoE.base
 - bugfix for MacOS: replaced log2(nruns) with rounded version for print.catlg, 
   because otherwise wrong result on MacOS
 
-31/07/2009, Version 0.96
+Version 0.96, 31/07/2009
 - changed R version to R-2.8.0 or newer (extractor for class design does not work 
   with earlier versions)
 - added dependence to R version 2.7.1 or newer
@@ -701,7 +714,7 @@ Bug fixes:
   only, where in fact there are no repeated measurements
 - bugfix:designs with 20 or more generators did not work in function FrF2
 
-13/07/2009, Version 0.95
+Version 0.95, 13/07/2009
 - included Bobby Mees very comprehensive new book into the references
 - included design 3-1.1 (cf. program in FrF2-devel) into catlg 
   in support of future implementation of inner/outer array designs
@@ -715,12 +728,12 @@ Bugfixes:
 - pb design with 8 runs and <=4 factors now effectively is the FrF2 design, 
   with all FrF2 properties, as was already documented before. 
 
-06/07/2009, Version 0.94-1
+Version 0.94-1, 06/07/2009
 Bugfix: Replicated blocks had the same block number or name in case of bbreps. 
   This is unreasonable and has been changed; with the changed version, the 
   blocking variable can be directly used in a (mixed) linear model analysis.
 
-28/06/2009, Version 0.94
+Version 0.94, 28/06/2009
 - added element creator to design.info attribute of designs created by 
   functions FrF2 and pb, and documented objects accordingly; this element 
   contains the call, but is called creator to allow it also to include 
@@ -743,7 +756,7 @@ Bugfix: Replicated blocks had the same block number or name in case of bbreps.
 Bugfix: function DanielPlot gave error message in case 
   of non-significant effects only
 
-24/05/2009, Version 0.93
+Version 0.93, 24/05/2009
 - The constant Letters and some functions have been moved to new package DoE.base, 
   in preparation of the collaborating package group of FrF2, DoE.base, DoE.wrapper and 
   RcmdrPlugin.DoE.
@@ -752,7 +765,7 @@ Bugfix: function DanielPlot gave error message in case
   directly by users)
 - removed unnecessary suggests for BHH2
 
-18/05/2009, Version 0.92-5
+Version 0.92-5, 18/05/2009
 Bugfixes 
 - simultaneous specification of nfactors and nlevels of length > 1 did not work 
   in internal function fac.design;
@@ -765,7 +778,7 @@ Bugfixes
   128 run resolution IV designs with up to 24 factors is downloadable from the 
   authors website (it is simply too large and could not be uploaded)
 
-15/05/2009, Version 0.92-4
+Version 0.92-4, 15/05/2009
 Bugfixes and small changes regarding row numbering
 - third column of run.order for blocked designs was wrong
 - added original row number of design to columns 1 and 3 of run.order in case 
@@ -774,7 +787,7 @@ Bugfixes and small changes regarding row numbering
   from 1 to number of rows (i.e. second column of 
   attribute run.order) regardless of design
 
-07/05/2009, Version 0.92-2
+Version 0.92-2, 07/05/2009
 Bug fixes
 - blockpick.big displayed wrong information about which effects 
   are aliased with blocks; corrected; 
@@ -789,13 +802,13 @@ Bug fixes
   (from 2-column matrix to 3-column data frame 
   with third column including replication information)
 
-01/05/2009, Version 0.92-1
+Version 0.92-1, 01/05/2009
 Bug fixes
 - hard to change factor number equal to nfactors gave indexing error;
   prevented by error message, since this does not make sense anyway
 - hard to change order was not the intended one --> changed
 
-30/04/2009, Version 0.92
+Version 0.92, 30/04/2009
 Substantial additions to function FrF2:
 - split-plot and blocking facilities
     including also functions splitpick, blockpick, blockpick.big
@@ -824,10 +837,10 @@ added examples and test cases (tests directory)
 
 far too many changes to be all mentioned in detail
 
-15/04/2009, Version 0.91-1
+Version 0.91-1, 15/04/2009
 Bug fix in documentation to function FrF2 
 
-06/04/2009, Version 0.91
+Version 0.91, 06/04/2009
 Additions to function FrF2: 
 - added functionality for "estimable", i.e. automated search  
   for designs that accommodate certain 2-factor interactions (2fis) well 
@@ -855,7 +868,7 @@ Bug fixes:
   for those numbers of runs for which doubling is used 
   (40, 56,64,88,96)
 
-24/03/2009, Version 0.9-1
+Version 0.9-1, 24/03/2009
 A few minor bug fixes: 
 - Changed R version the package depends on to 2.7.0 
   (packages BsMD and scatterplot3d require this version),
@@ -869,13 +882,13 @@ A few minor bug fixes:
   even if the catlg object has only one element
 - minor clarifications in documentation
 
-11/03/2009, Version 0.9
+Version 0.9, 11/03/2009
 Added functionality for creating designs: 
 - FrF2 and pb create 
   regular and non-regular fractional factorials with 2-level 
   factors, together with a number of utility functions. 
 
-16/02/2008, Version 0.8
+Version 0.8, 16/02/2008
 - added function for cube plots for showing means or fitted means 
   for three-way-interactions
 - corrected bugs in documentation: plot functions MEPlot and 
@@ -892,15 +905,15 @@ Added functionality for creating designs:
 - right outer margin slightly increased for making outer border 
   visible in copied figures
 
-16/12/2007, Version 0.7
+Version 0.7, 16/12/2007
 Bug-fix: functions DanielPlot and IAPlot did not work with aov 
   objects but only with pure lm-objects. This has been fixed by 
   letting the internal function remodel transform aov objects 
   into pure lm objects.
 
-16/12/2007, Version 0.6 
+Version 0.6, 16/12/2007
 - Eliminated portability issue with example: Version 0.5 used 
   windows() for opening several graphics devices.
 
-15/12/2007, Version 0.5
+Version 0.5, 15/12/2007
 First version on CRAN

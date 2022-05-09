@@ -54,7 +54,7 @@
   for an example of how to proceed.\cr
   Since version 2 of package \pkg{FrF2}, requesting 2fis to be clear is compatible 
   with blocking a design. The algorithm behind that functionality is based on 
-  Godolphin (2019) and is described in Groemping (2019). 
+  Godolphin (2021) and is described in Groemping (2021). 
   The default implementation strives for a guartanteed and best possible result. 
   Arguments \code{firsthit} and \code{useV} to function \code{\link{FrF2}} 
   can be used for trying to obtain a possibly not best result (\code{firsthit}) 
@@ -146,31 +146,32 @@ An improved algorithm for matching large graphs. \emph{Proc. of the 3rd
 IAPR TC-15 Workshop on Graphbased Representations in Pattern Recognition},
 149--159.
 
-    Godolphin, J. (2019). Construction of Blocked Factorial Designs to Estimate 
-   Main Effects and Selected Two-Factor Interactions. *Unpublished report* 
-   available at \url{https://arxiv.org/abs/1907.02373}.
-   
+Godolphin, J. (2021). Construction of Blocked Factorial Designs to Estimate 
+   Main Effects and Selected Two-Factor Interactions. \emph{J. Royal Statistical Society} \bold{B 83}, 5-29. 
+   \doi{10.1111/rssb.12397}.
+
 Groemping, U. (2010). \dQuote{Clear} and \dQuote{Distinct}: two approaches for regular 
 fractional factorial designs with estimability requirements. 
 \emph{Reports in Mathematics, Physics and Chemistry}, report 02/2010, 
 Department II, Beuth University of Applied Sciences Berlin.
+\url{http://www1.bht-berlin.de/FB_II/reports/Report-2010-002.pdf}.
 
 Groemping, U. (2012). Creating clear designs: a graph-based algorithm and a 
 catalogue of clear compromise plans. \emph{IIE Transactions} \bold{44}, 988--1001. 
-Preprint available at \url{http://www1.beuth-hochschule.de/FB_II/reports/Report-2010-005.pdf}.
+Early preprint available at \url{http://www1.bht-berlin.de/FB_II/reports/Report-2010-005.pdf}.
 
     Groemping, U. (2014a). {R} Package {FrF2} for Creating and Analyzing Fractional 
     Factorial 2-Level Designs. \emph{Journal of Statistical Software}, \bold{56}, 
-    Issue 1, 1-56. \url{http://www.jstatsoft.org/v56/i01/}.
+    Issue 1, 1-56. \url{https://www.jstatsoft.org/v56/i01/}.
     
     Groemping, U. (2014b). A Note on Dominating Fractional Factorial 
     Two-Level Designs With Clear Two-Factor Interactions. \emph{Technometrics} 
     \bold{56}, 42--45.
 
-Groemping, U. (2019). An algorithm for blocking regular fractional 
-  factorial 2-level designs with clear two-factor interactions. 
-   \emph{Reports in Mathematics, Physics and Chemistry}, \href{http://www1.beuth-hochschule.de/FB_II/reports/Report-2019-003.pdf}{Report 3/2019}, 
-   Department II, Beuth University of Applied Sciences Berlin.
+Grömping, U. (2021). An algorithm for blocking regular fractional factorial 
+2-level designs with clear two-factor interactions. \emph{Computational Statistics and Data Analysis} 
+\bold{153}, 1-18. \doi{10.1016/j.csda.2020.107059}. Preprint at 
+\href{http://www1.bht-berlin.de/FB_II/reports/Report-2019-003.pdf}{Report 3/2019}.
 
 Ke, W., Tang, B. and Wu, H. (2005). Compromise plans with clear two-factor interactions. 
 \emph{Statistica Sinica} \bold{15}, 709-715.
