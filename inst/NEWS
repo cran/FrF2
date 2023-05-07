@@ -3,6 +3,24 @@ Changes to package FrF2
 The package is still under development. 
 Suggestions and bug reports are very welcome.
 
+Version 2.3, May 2023
+  - made the Godolphin method default 
+    to alias.block.2fis
+    (override possible, or block.old=TRUE for old behavior)
+  - adapted documentation for FrF2 und block
+  - adapted test output to the new blocking strategy for alias.block.2fis=TRUE
+  - added the ... argument in the IAPlot.default call for blocked designs, 
+    and added las argument to default methods of IAPlot and MEPlot 
+    (las=1 is a good choice)
+  - bugfix: function colpick (Godolphin method) 
+    threw an error for k < 2^(q-1) 
+    (few large blocks relative to run size), 
+    because it used only columns with first element zero 
+    for the X matrix
+  - changed encoding to UTF-8
+  - fixed note regarding "Escaped LaTeX specials"
+  - fixed notes regarding print method for wordlist and wordlist4 objects
+
 Version 2.2-3, 09/05/22
   - adapted design methods for MEPlot and IAPlot 
     to handle blocked design objects by ignoring block factor

@@ -20,14 +20,14 @@ MEPlot(obj, ...)
 \method{MEPlot}{default}(obj, main = paste("Main effects plot for", respnam), 
     pch = 15, cex.xax = par("cex.axis"), cex.yax = cex.xax, mgp.ylab = 4, 
     cex.title = 1.5, cex.main = par("cex.main"), 
-    lwd = par("lwd"), abbrev = 3, select = NULL, ...)
+    lwd = par("lwd"), las=par("las"), abbrev = 3, select = NULL, ...)
 
 IAPlot(obj, ...)
 \method{IAPlot}{design}(obj, ..., response = NULL)
 \method{IAPlot}{default}(obj, main = paste("Interaction plot matrix for", respnam), 
     pch = c(15, 17), cex.lab = par("cex.lab"), cex = par("cex"), 
     cex.xax = par("cex.axis"), cex.yax = cex.xax, cex.title = 1.5, 
-    lwd = par("lwd"), abbrev = 4, select = NULL, show.alias = FALSE, ...)
+    lwd = par("lwd"), las=par("las"), abbrev = 4, select = NULL, show.alias = FALSE, ...)
          
 intfind(i, j, mat)
 
@@ -69,6 +69,7 @@ remodel(obj)
               produced by \code{IAPlot}.}
   \item{cex}{ size of plot symbols in interaction plots }
   \item{lwd}{ line width for plot lines and axes }
+  \item{las}{ orientation for tick mark labels (\code{las=1} is recommended) }
   \item{abbrev}{ number of characters shown for factor levels }
   \item{select}{ vector with position numbers of the main effects to be displayed; \cr
               default: all main effects; the default implies the full interaction plot matrix 
@@ -84,8 +85,7 @@ remodel(obj)
               \code{y} is the only response and all other variables are 2-level factors).
               }
   \item{show.alias}{ if TRUE, the interaction plot shows the number 
-              of the list entry from aliases(obj)\$aliases 
-              (cf. \code{\link{aliases}}) in order to support immediate 
+              of the list entry from aliases(obj) (cf. \code{\link{aliases}}) in order to support immediate 
               diagnosis of which depicted interaction may be due to other 
               than the shown effect because of aliasing;\cr
               CAUTION: if the \code{select} option is used, 

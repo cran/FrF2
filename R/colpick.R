@@ -89,11 +89,22 @@ colpick <- function(design, q, all=FALSE,
   tablist <- vector(mode="list")
   clearlist <- vector(mode="list")
   if (!is.null(estimable)) maplist <- vector(mode="list")
-  ## each row of picks provides a possible XI matrix
-  poscands <- lapply(1:k, function(obj) 
-    if (obj <= div) 
-      1:obj
-    else 1:div
+  ## each row of picks (=instance produced by nxt) provides a possible XI matrix
+  ## fix May 2023: for k < 2^(q-1), XI and hence X did not have full row rank
+  ##      because of the choice of columns in poscands
+  poscands <- lapply(1:k, function(obj){ 
+    if (k >= 2^(q-1)){
+      if (obj <= div) 
+        return(1:obj)
+      else return(1:div)
+    }
+      else{
+        if (obj <= q) 
+           return(2^(0:(obj-1)))
+        else 
+           return(c(2^(0:(q-1)), setdiff(1:obj, 2^(0:(obj-1)))[1:(obj-q)]))
+    }
+    }
   )
   nxt <- do.call(lazyExpandGrid, poscands)
   #picks <- as.matrix(expand.grid(poscands))

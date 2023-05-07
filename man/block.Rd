@@ -57,7 +57,10 @@
   CAUTION: If the user manually generates a blocked design, it is his/her responsibility to ensure a 
   good choice of design (e.g. by using a catalogued design from Bisgaard 1994, 
   Sun, Wu and Chen 1997, Sitter, Chen and Feder (1997), or Cheng and Wu 2002).
-  Since version 2 of package \pkg{FrF2}, manual blocking is also checked for confounding of the block factor with main effects or two-factor interactions; this implies that some earlier code will now require the additional specification of argument \code{alias.block.2fis=TRUE} in order to avoid errors.
+  Since version 2 of package \pkg{FrF2}, manual blocking is also checked for confounding 
+  of the block factor with main effects or two-factor interactions; 
+  this implies that some earlier code will now require the additional specification 
+  of argument \code{alias.block.2fis=TRUE} in order to avoid errors.
   }
     \item{Automatic definition of blocked designs for regular fractional factorials}{
   If the user only specifies the number of blocks required for the experiment, function \code{\link{FrF2}} 
@@ -67,9 +70,12 @@
   (implemented in function \code{\link{blockpick}}, which also calls \code{colpick}, if that 
   catalogue does not offer a solution). 
   Otherwise, depending on the situation, 
-  function \code{\link{FrF2}} uses function \code{\link{blockpick}} or function \code{\link{colpick}} with subsequent \code{\link{blockgencreate}}; 
-  function \code{\link{blockpick}} treats smaller problems (\code{choose(nruns-1-nfactors,k.block) < 100000}) without estimability requirements, other problems are treated by 
-  function \code{\link{colpick}}.
+  function \code{\link{FrF2}} uses function \code{\link{blockpick}} or function \code{\link{colpick}} 
+  with subsequent \code{\link{blockgencreate}}; 
+  function \code{\link{blockpick}} treats smaller problems (\code{choose(nruns-1-nfactors,k.block) < 100000}) 
+  without estimability requirements and with \code{force.godolphin=FALSE} (the latter is per default set to TRUE 
+  whenever \code{alias.block.2fis=TRUE}), 
+  other problems are treated by function \code{\link{colpick}}.
   
   Use of the earlier default function \code{\link{blockpick.big}} for large cases or the earlier behavior for full factorial designs 
   can be requested with the argument 
@@ -87,14 +93,17 @@
   (if \code{alias.block.2fis=TRUE}). Note that no effort is made to avoid aliasing with 2-factor interactions, 
   if \code{alias.block.2fis=TRUE} is chosen. 
   
-  For the larger problems, or blocking in combination with requiring some 2fis to be clear of aliasing,
-  function \code{\link{colpick}} creates a \eqn{q \times}{q times} \code{nfactors} \bold{X} matrix for creating 
+  For the larger problems, or blocking in combination with requiring some 2fis to be clear of aliasing, 
+  or per default for blocking with permitting 2fis to be aliased with blocks, 
+  function \code{\link{colpick}} creates a \eqn{q \times n}{q times \code{nfactors}} \bold{X} matrix for creating 
   blocks of size \eqn{2^q} based on the approach described by Godolphin (2021); 
   function \code{blockgencreate} creates block generators from this matrix. 
   This approach can be used in combination with argument \code{estimable}, 
   as long as \code{clear=TRUE}. The implementation of this approach is described in Groemping (2021).
   The argument \code{force.godolphin} of function \code{\link{FrF2}} can enforce the Godolphin approach instead 
-  of the default approach for small blocked designs. Note that the Godolphin approach solely focuses on clear 2fis 
+  of the default approach for small blocked designs without \code{alias.block.2fis=TRUE}, 
+  and the Godolphin approach can be switched off for \code{alias.block.2fis=TRUE} applications by explicitly requesting 
+  \code{force.godolphin=FALSE}. Note that the Godolphin approach solely focuses on clear 2fis 
   of the blocked design and does not attempt to avoid confounding of the block factor with non-clear 2fis; it may 
   thus confound 2fis with the block factor even if this were avoidable, maintaining the same number of clear 2fis.
   
@@ -118,7 +127,7 @@
   Please contact me with any suggestions for improvements.
 }
 \references{
-Bisgaard, S. (1994a). Blocking generators for small 2\^(k-p) designs. 
+Bisgaard, S. (1994a). Blocking generators for small \eqn{2^{k-p}}{2^(k-p)} designs. 
 \emph{J. Quality Technology} \bold{26}, 288-294.
 
 Chen, J., Sun, D.X. and Wu, C.F.J. (1993) 
@@ -147,7 +156,7 @@ Fractional Resolution and Minimum Aberration in Blocked 2n-k Designs.
 \emph{Technometrics} \bold{39}, 382--390.
 
 Sun, D.X., Wu, C.F.J. and Chen, Y.Y. (1997). 
-Optimal blocking schemes for 2\^p and 2\^(n-p) designs. \emph{Technometrics} \bold{39}, 
+Optimal blocking schemes for \eqn{2^p} and \eqn{2^{n-p}}{2^(n-p)} designs. \emph{Technometrics} \bold{39}, 
 298-307. 
 
 }

@@ -136,9 +136,9 @@ Analysis of alias structure for linear models of \code{FrF2} designs: \code{\lin
     # half normal plot of effects
     DanielPlot(iM.lm,code=TRUE,alpha=0.5,half=TRUE)
     # main effects plots
-    MEPlot(iM.lm)
+    MEPlot(iM.lm, las=1)
     # interaction plots
-    IAPlot(iM.lm)
+    IAPlot(iM.lm, las=1)
     # interaction plots with attention drawn to aliases
     aus <- IAPlot(iM.lm, show.alias=TRUE)
     # alias groups corresponding to interaction plots

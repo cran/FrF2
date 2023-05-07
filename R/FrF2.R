@@ -9,7 +9,7 @@ FrF2 <- function(nruns=NULL, nfactors=NULL,
                  perm.start=NULL, perms=NULL, MaxC2=FALSE, 
                  replications=1, repeat.only=FALSE, 
                  randomize=TRUE, seed=NULL, alias.info=2, 
-                 blocks=1, block.name="Blocks", block.old=FALSE, force.godolphin=FALSE,
+                 blocks=1, block.name="Blocks", block.old=FALSE, force.godolphin=alias.block.2fis,
                  bbreps=replications, wbreps=1, alias.block.2fis = FALSE,
                  hard=NULL, check.hard=10, WPs=1, nfac.WP=0, WPfacs=NULL, check.WPs=10, ...){
 ## Version 1.7: added the LAD method and made it the default for clear designs

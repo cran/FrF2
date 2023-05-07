@@ -111,7 +111,7 @@ A catalogue of 2-level and 3-level orthogonal arrays.
 \emph{International Statistical Review} \bold{61}, 131-145. 
 
 Sun, D.X., Wu, C.F.J. and Chen, Y.Y. (1997). 
-Optimal blocking schemes for 2\^p and 2\^(n-p) designs. \emph{Technometrics} \bold{39}, 
+Optimal blocking schemes for \eqn{2^n} and \eqn{2^{n-p}}{2^(n-p)} designs. \emph{Technometrics} \bold{39}, 
 298-307. 
 }
 \author{ Ulrike Groemping }

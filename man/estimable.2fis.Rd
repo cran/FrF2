@@ -168,7 +168,7 @@ Early preprint available at \url{http://www1.bht-berlin.de/FB_II/reports/Report-
     Two-Level Designs With Clear Two-Factor Interactions. \emph{Technometrics} 
     \bold{56}, 42--45.
 
-Grömping, U. (2021). An algorithm for blocking regular fractional factorial 
+Groemping, U. (2021). An algorithm for blocking regular fractional factorial 
 2-level designs with clear two-factor interactions. \emph{Computational Statistics and Data Analysis} 
 \bold{153}, 1-18. \doi{10.1016/j.csda.2020.107059}. Preprint at 
 \href{http://www1.bht-berlin.de/FB_II/reports/Report-2019-003.pdf}{Report 3/2019}.

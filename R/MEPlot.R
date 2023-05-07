@@ -28,7 +28,7 @@ MEPlot.design <- function(obj, ..., response=NULL){
 MEPlot.default <-
 function(obj, main=paste("Main effects plot for", respnam), pch=15, 
          cex.xax = par("cex.axis"), cex.yax = cex.xax, mgp.ylab = 4, 
-         cex.title=1.5, cex.main=par("cex.main"), lwd=par("lwd"), 
+         cex.title=1.5, cex.main=par("cex.main"), lwd=par("lwd"), las=par("las"), 
          abbrev=3, select=NULL, ...){
    # main      overall title
    # pch       plot character
@@ -38,6 +38,8 @@ function(obj, main=paste("Main effects plot for", respnam), pch=15,
    # mgp.ylab  mgp entry y-axis label 
    #           (relative to invisible axis of left-most plot)
    # cex.title multiplier for cex.main for the overall title given in option main
+   # lwd
+   # las
    # abbrev  maximum number of characters used for levels on x-axes
    if (! ("lm" %in% class(obj) | "aov" %in% class(obj))) 
       stop("obj must be a linear model object (lm or aov), or a design of class design")
@@ -91,11 +93,11 @@ function(obj, main=paste("Main effects plot for", respnam), pch=15,
           box(which="figure")
           abline(h=ymean,xpd=TRUE)   ## line for mean in all plots
           axis(1, at = c(-1,1), labels = labs[[i]], 
-               cex.axis=cex.xax, xpd=NA,lwd=lwd) ## draw bottom axes; 
+               cex.axis=cex.xax, xpd=NA,lwd=lwd, las=las) ## draw bottom axes; 
                                          ## annotation may extend
                                          ## into outer area
           if (i==1)
-          axis(2, at = ax, labels = ax, cex.axis=cex.yax, outer=TRUE,lwd=lwd)
+          axis(2, at = ax, labels = ax, cex.axis=cex.yax, outer=TRUE,lwd=lwd, las=las)
               ## draw left-hand-side axis into the outer area
               ## (axis label comes from first actual plot
               ## placement controlled by mgp.ylab

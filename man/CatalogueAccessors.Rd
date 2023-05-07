@@ -246,7 +246,7 @@ Ryan, K.J. and Bulutoglu, D.A. (2010). Minimum Aberration Fractional Factorial D
      \emph{Technometrics} \bold{52}, 250-255.
 
 Sun, D.X., Wu, C.F.J. and Chen, Y.Y. (1997). 
-Optimal blocking schemes for 2\^p and 2\^(n-p) designs. \emph{Technometrics} \bold{39}, 
+Optimal blocking schemes for \eqn{2^p} and \eqn{2^{n-p}}{(n-p)} designs. \emph{Technometrics} \bold{39}, 
 298-307. 
 
 Wu, H., Mee, R. and Tang, B. (2012). Fractional Factorial Designs With Admissible 

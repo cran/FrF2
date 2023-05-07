@@ -1,5 +1,5 @@
 
-R version 4.0.0 (2020-04-24) -- "Arbor Day"
+R version 4.0.2 (2020-06-22) -- "Taking Off Again"
 Copyright (C) 2020 The R Foundation for Statistical Computing
 Platform: x86_64-w64-mingw32/x64 (64-bit)
 
@@ -111,15 +111,16 @@ $`generators for design itself`
 [1] F=ABC  G=ABD  H=ABE  J=ACDE
 
 $`block generators`
-[1] AB AC
+[1] AC AE
 
 
 Alias structure:
 $fi2
- [1] AD=BG AE=BH AG=BD AH=BE CD=FG CE=FH CG=DF CH=EF DE=GH DH=EG
+ [1] AB=CF=DG=EH AD=BG       AF=BC       AG=BD       AH=BE       CD=FG      
+ [7] CG=DF       CH=EF       DE=GH       DH=EG      
 
 Aliased with block main effects:
-[1] AB AC AF BC BF CF DG EH
+[1] AC AE BF BH CE FH
 > summary(FrF2(32,9,blocks=c("AB","AC"),alias.block.2fis=TRUE),brief=TRUE)
 Call:
 FrF2(32, 9, blocks = c("AB", "AC"), alias.block.2fis = TRUE)
@@ -762,4 +763,4 @@ FrF2(32, 7, gen = c(6, 15), WPs = 4, nfac.WP = 3, WPfacs = c(2,
 > 
 > proc.time()
    user  system elapsed 
-   7.45    0.54    8.00 
+   1.34    0.15    1.48 

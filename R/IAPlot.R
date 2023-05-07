@@ -22,13 +22,13 @@ IAPlot.design <- function(obj, ..., response=NULL){
         IAPlot(lm(as.formula(paste(response, "~ (", 
                       paste(names(di$factor.names), collapse="+"), 
                                                 ")^2")),
-               data=obj))
+               data=obj), ...)
 }
 
 IAPlot.default <-
 function(obj, main=paste("Interaction plot matrix for",respnam), pch=c(15,17), 
     cex.lab=par("cex.lab"), cex=par("cex"), cex.xax=par("cex.axis"), 
-    cex.yax=cex.xax, cex.title = 1.5, lwd=par("lwd"), abbrev=4, select=NULL, 
+    cex.yax=cex.xax, cex.title = 1.5, lwd=par("lwd"), las=par("las"), abbrev=4, select=NULL, 
     show.alias=FALSE, ...){
     # obj     a linear model
     # pch     plot characters used
@@ -36,6 +36,9 @@ function(obj, main=paste("Interaction plot matrix for",respnam), pch=c(15,17),
     # cex.lab size of variable labels in diagonal panels
     # cex.xax size of annotation for x-axis
     # cex.yax size of annotation for y-axis
+    # cex.title
+    # lwd
+    # las
     # abbrev  number of characters for factor levels in diagonal panel
     # show.alias  show number of effect in each panel, 
     #         in order to allow immediate judgment which effects are aliased
@@ -180,7 +183,7 @@ function(obj, main=paste("Interaction plot matrix for",respnam), pch=c(15,17),
           if (i==j){ plot(c(-1),min(ax)+5/6*(max(ax)-min(ax)),
                           ylim=c(min(ax),max(ax)),xlim=c(-1.1,1.1),
                           axes=FALSE,xlab="",ylab=respnam,
-                          col="red", pch=pch[1], cex=cex)
+                          col="red", pch=pch[1], cex=cex, las=las)
                 box(which="figure")
                 points(c(-1),min(ax)+1/6*(max(ax)-min(ax)),pch=pch[2], cex=cex, lwd=lwd)
                 text(c(-1,-1),min(ax)+c(5,1)*(max(ax)-min(ax))/6,
@@ -189,41 +192,41 @@ function(obj, main=paste("Interaction plot matrix for",respnam), pch=c(15,17),
                     cex=cex.lab, col="blue")
                 ## axes for corner panels
                 if (i==1) axis(2, at = ax, labels = ax, cex.axis=cex.yax, 
-                      outer=TRUE, lwd=lwd)
+                      outer=TRUE, lwd=lwd, las=las)
                 if (j==nmain) axis(1, at = c(-1,1), labels = labs[[j]], 
-                    cex.axis=cex.xax, outer=TRUE, lwd=lwd)
+                    cex.axis=cex.xax, outer=TRUE, lwd=lwd, las=las)
                 }
           if (i<j) {
               sp <- intfind(i,j,varnums)
               if (is.null(sp)) {
                     plot(c(-10,10),c(-1,1), axes=FALSE, xlab="",
-                       xlim=c(-1.1,1.1),ylim=c(min(ax),max(ax)))
+                       xlim=c(-1.1,1.1),ylim=c(min(ax),max(ax)), las=las)
                        ## skip panel
                     box(which="figure")
                     }
               else {plot(c(-1,1),predmat[c(1,2),sp],ylab=respnam,xlab=terms1[j],
                      type="b", xlim=c(-1.1,1.1),ylim=c(min(ax),max(ax)), 
                      axes=FALSE, col="red",
-                     lty=3, pch=pch[1], cex=cex, lwd=lwd)
+                     lty=3, pch=pch[1], cex=cex, lwd=lwd, las=las)
                     box(which="figure")
                     lines(c(-1,1),predmat[c(3,4),sp],lwd=lwd)
                     points(c(-1,1),predmat[c(3,4),sp],pch=pch[2], cex=cex, lwd=lwd)
                     }       
               ## axes for border panels
-                if (i==1) axis(2, at = ax, labels = ax, cex.axis=cex.yax, outer=TRUE, lwd=lwd)
+                if (i==1) axis(2, at = ax, labels = ax, cex.axis=cex.yax, outer=TRUE, lwd=lwd, las=las)
                 if (j==nmain) axis(1, at = c(-1,1), labels = labs[[i]], 
-                    cex.axis=cex.xax, outer=TRUE, lwd=lwd)
+                    cex.axis=cex.xax, outer=TRUE, lwd=lwd, las=las)
           }
           if (i>j) {
                sp <- intfind(j,i,varnums)
               if (is.null(sp)) {
                     plot(c(-10,10),c(-1,1), axes=FALSE, xlab="",
-                       xlim=c(-1.1,1.1),ylim=c(min(ax),max(ax)))## skip panel
+                       xlim=c(-1.1,1.1),ylim=c(min(ax),max(ax)), las=las)## skip panel
                     box(which="figure")
                     }
               else {plot(c(-1,1),predmat[c(1,3),sp],ylab=respnam,xlab=terms1[j],
                        type="b", xlim=c(-1.1,1.1),ylim=c(min(ax),max(ax)), axes=FALSE, 
-                       col="red", lty=3, pch=pch[1], cex=cex, lwd=lwd)
+                       col="red", lty=3, pch=pch[1], cex=cex, lwd=lwd, las=las)
                     box(which="figure")
                     lines(c(-1,1),predmat[c(2,4),sp],lwd=lwd)
                     points(c(-1,1),predmat[c(2,4),sp],pch=pch[2], cex=cex, lwd=lwd)}

@@ -106,27 +106,27 @@ words.four <- function(wl, f4, max.length=wl$max.length){
 
 #words.four(wl, c(1,2,6))
 
-print.wordlist <- function(wl){
-   if (!inherits(wl,"wordlist")) stop("This function prints wordlist objects only.")
-   print(wl[[1]])
-   cat("\n\nWord list (up to length ",wl$max.length,"):\n",sep="")
-   if (max(unlist(wl[[2]]))>50) print(sapply(wl[[2]],function(obj) 
+print.wordlist <- function(x, ...){
+   if (!inherits(x,"wordlist")) stop("Function print.wordlist prints wordlist objects only.")
+   print(x[[1]])
+   cat("\n\nWord list (up to length ",x$max.length,"):\n",sep="")
+   if (max(unlist(x[[2]]))>50) print(sapply(x[[2]],function(obj) 
                           paste(sign(obj[1]),"(",paste(abs(obj),collapse=","),")",sep=""),quote=FALSE))
-   else print(sapply(wl[[2]],function(obj) paste(if (obj[1]<0) "-" else "",paste(Letters[abs(obj)],collapse=""),sep="")),quote=FALSE)
+   else print(sapply(x[[2]],function(obj) paste(if (obj[1]<0) "-" else "",paste(Letters[abs(obj)],collapse=""),sep="")),quote=FALSE)
 }
 
-print.wordlist4 <- function(wl){
+print.wordlist4 <- function(x, ...){
 ### !!! not adapted to the new possibility of negative sign generators!!!
-   if (!inherits(wl,"wordlist4")) stop("This function prints wordlist4 objects only.")
-   print(wl[[1]])
+   if (!inherits(x,"wordlist4")) stop("Function print.wordlist4 prints wordlist4 objects only.")
+   print(x[[1]])
    cat("\n\nWord list with 4-level factor internal words removed:\n")
-   if (max(unlist(wl[[2]]))>50) print(sapply(wl[[2]],function(obj) paste("(",paste(obj,collapse=","),")",sep=""),quote=FALSE))
-   else print(sapply(wl[[2]],function(obj) paste(Letters[obj],collapse="")),quote=FALSE)
+   if (max(unlist(x[[2]]))>50) print(sapply(x[[2]],function(obj) paste("(",paste(obj,collapse=","),")",sep=""),quote=FALSE))
+   else print(sapply(x[[2]],function(obj) paste(Letters[obj],collapse="")),quote=FALSE)
    cat("\n\nWord length pattern for reduced word list:\n")
-   print(wl[[5]])
+   print(x[[5]])
    cat("\n\nContrast combinations for 4-level factors:\n")
-   if (max(unlist(wl[[4]]))>50) print(sapply(wl[[4]],function(obj) paste("(",paste(obj,collapse=","),")",sep=""),quote=FALSE))
-   else print(sapply(wl[[4]],FUN=function(obj) paste(Letters[obj],collapse=""),simplify=FALSE),quote=FALSE)
+   if (max(unlist(x[[4]]))>50) print(sapply(x[[4]],function(obj) paste("(",paste(obj,collapse=","),")",sep=""),quote=FALSE))
+   else print(sapply(x[[4]],FUN=function(obj) paste(Letters[obj],collapse=""),simplify=FALSE),quote=FALSE)
 }
 
 alias3fi <- function(k, gen, order=3){

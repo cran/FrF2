@@ -107,7 +107,7 @@ colpickIV(design, q, all = FALSE, select.catlg = catlg,
         of \code{Letters[1:n]}}
   \item{n}{number of factors}
   \item{p}{the number of generated factors (among the n factors); 
-       \eqn{2^(n-p)} is the number of runs in the experiment)}
+       \eqn{2^{n-p}}{2^(n-p)} is the number of runs in the experiment)}
   \item{XI}{a \eqn{q \times k}{q times k} \bold{X}_I matrix 
        with only 0/1 elements, 
        to be extended into a \eqn{q \times n}{q times n} \bold{X} matrix for 
@@ -153,7 +153,7 @@ colpickIV(design, q, all = FALSE, select.catlg = catlg,
     blocks of size \eqn{2^q}, given the specified profile.
     
     Function \code{blockgencreate} creates block generators from an \bold{X} matrix 
-    for blocking a design in \eqn{2^(n-p)=2^k} runs into blocks of size \eqn{2^q}, 
+    for blocking a design in \eqn{2^{n-p}=2^k}{2^(n-p)=2^k} runs into blocks of size \eqn{2^q}, 
     where \eqn{n} and \eqn{q} are derived from \code{X} as the number of columns and rows, 
     respectively. The generators are returned as a character vector that consists of 
     strings of base factor letters.
@@ -207,7 +207,7 @@ Godolphin, J. (2021). Construction of Blocked Factorial Designs to Estimate
    Main Effects and Selected Two-Factor Interactions. \emph{J. Royal Statistical Society} \bold{B 83}, 5-29. 
    \doi{10.1111/rssb.12397}.
 
-Grömping, U. (2021). An algorithm for blocking regular fractional factorial 
+Groemping, U. (2021). An algorithm for blocking regular fractional factorial 
 2-level designs with clear two-factor interactions. \emph{Computational Statistics and Data Analysis} 
 \bold{153}, 1-18. \doi{10.1016/j.csda.2020.107059}. Preprint at 
 \href{http://www1.bht-berlin.de/FB_II/reports/Report-2019-003.pdf}{Report 3/2019}.

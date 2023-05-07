@@ -1,14 +1,16 @@
-citHeader("To cite FrF2 in publications use:")
+## R package reference generated from DESCRIPTION meta data
+citation(auto = meta)
 
-citEntry(entry = "Article",
+bibentry(bibtype = "Article",
   title        = "{R} Package {FrF2} for Creating and Analyzing Fractional Factorial 2-Level Designs",
-  author       = personList(as.person("Ulrike Gr\"omping")),
+  author       = person("Ulrike", "Gr\"omping", email="ulrike.groemping@bht-berlin.de"),
   journal      = "Journal of Statistical Software",
   year         = "2014",
   volume       = "56",
   number       = "1",
   pages        = "1--56",
   url          = "https://www.jstatsoft.org/v56/i01/",
+  header       = "To cite FrF2 in publications, use ",
 
   textVersion  =
   paste("Ulrike Gr\"omping (2014).",

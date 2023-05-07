@@ -23,7 +23,7 @@ FrF2(nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
         MaxC2 = FALSE, replications = 1, repeat.only = FALSE, 
         randomize = TRUE, seed = NULL, alias.info = 2, 
         blocks = 1, block.name = "Blocks", block.old=FALSE, 
-        force.godolphin=FALSE,
+        force.godolphin=alias.block.2fis,
         bbreps=replications, wbreps=1, 
         alias.block.2fis = FALSE, 
         hard = NULL, check.hard=10, WPs=1,nfac.WP=0,
@@ -310,7 +310,9 @@ FrF2.currentlychecked()
   \item{block.name}{ name of the block factor, default \dQuote{Blocks}}
   \item{block.old}{logical; if TRUE, blocking behavior of FrF2 version 1.7.2 is activated}
   \item{force.godolphin}{logical; if TRUE, blocking is forced to be done with the 
-       Godolphin method (see \code{\link{block}})}
+       Godolphin method (using function \code{colpick}, see \code{\link{block}}), 
+       even if the default would have been to use function \code{blockpick}. \cr
+       The Godolphin method was introduced with package version 2.0, and since package version 2.3, the default for \code{alias.block.2fis=TRUE} is to force the use of the Godolphin method.}
   \item{bbreps}{ between block replications; these are always taken as genuine replications, 
        not repeat runs; default: equal to \code{replications};
        CAUTION: you should not modify \code{bbreps} if you do not work with blocks, 
@@ -319,11 +321,7 @@ FrF2.currentlychecked()
        depends on the setting of \code{repeat.only}}
   \item{alias.block.2fis}{ logical indicating whether blocks may be aliased 
        with 2fis (default: \code{FALSE}); \cr
-       it will often be necessary to modify this option, because there is otherwise no solution.\cr 
-       CAUTION: If \code{alias.block.2fis=TRUE} and the design is relatively small 
-       (i.e. not with the Godolphin 2021 method), 
-       no effort is made to avoid aliasing 
-       of 2fis with block main effects, even if complete de-aliasing were possible.}
+       it will often be necessary to modify this option, because there is otherwise no solution.}
   \item{hard}{ gives the number of hard to change factors. These must be the 
        first factors in \code{factor.names}. Implementation is via a non-randomized split-plot 
        design with as few as possible whole plots (number of possible whole plots is 
@@ -571,7 +569,7 @@ Designing Fractional Factorial Split-Plot Experiments with Few Whole-Plot Factor
 Bingham, D. and Sitter, R.R. (2003). Fractional Factorial Split-Plot Designs
 for Robust Parameter Experiments. \emph{Technometrics} \bold{45}, 80-89.
 
-Bisgaard, S. (1994a). Blocking generators for small 2\^(k-p) designs. 
+Bisgaard, S. (1994a). Blocking generators for small \eqn{2^{k-p}}{2^(k-p)} designs. 
 \emph{J. Quality Technology} \bold{26}, 288-294.
 
 Chen, J., Sun, D.X. and Wu, C.F.J. (1993) 
@@ -611,7 +609,7 @@ Groemping, U. (2014b). A Note on Dominating Fractional Factorial
 Two-Level Designs With Clear Two-Factor Interactions. \emph{Technometrics} 
 \bold{56}, 42--45.
     
-Grömping, U. (2021). An algorithm for blocking regular fractional factorial 
+Groemping, U. (2021). An algorithm for blocking regular fractional factorial 
 2-level designs with clear two-factor interactions. \emph{Computational Statistics and Data Analysis} 
 \bold{153}, 1-18. \doi{10.1016/j.csda.2020.107059}. Preprint at 
 \href{http://www1.bht-berlin.de/FB_II/reports/Report-2019-003.pdf}{Report 3/2019}.
@@ -626,7 +624,7 @@ Solnon, C. (2010). AllDifferent-based Filtering for Subgraph Isomorphism.
 \emph{Artificial Intelligence} \bold{174}, 850--864.
 
 Sun, D.X., Wu, C.F.J. and Chen, Y.Y. (1997). 
-Optimal blocking schemes for 2\^p and 2\^(n-p) designs. \emph{Technometrics} \bold{39}, 
+Optimal blocking schemes for \eqn{2^n} and \eqn{2^{n-p}}{2^(n-p)} designs. \emph{Technometrics} \bold{39}, 
 298-307. 
 
 Wu, C.F.J. and Chen, Y. (1992) 
@@ -719,11 +717,15 @@ run.order(FrF2(8,3,blocks=2,bbreps=2,wbreps=2))
 ## automatic blocked design with fractions
 FrF2(16,7,blocks=4,alias.block.2fis=TRUE,factor.names=c("MotorSpeed", 
       "FeedMode","FeedSizing","MaterialType","Gain","ScreenAngle","ScreenVibLevel"))
-## isomorphic non-catalogued design as basis
+## isomorphic non-catalogued design as basis, using Godolphin approach
 FrF2(16,gen=c(7,11,14),blocks=4,alias.block.2fis=TRUE)
+## isomorphic non-catalogued design as basis, not using Godolphin approach
+## (different design of comparable quality in this case)
+FrF2(16,gen=c(7,11,14),blocks=4,alias.block.2fis=TRUE, force.godolphin=FALSE)
 ## FrF2 uses blockpick.big and ignores the generator
 FrF2(64,gen=c(7,11,14),blocks=16,alias.block.2fis=TRUE, block.old=TRUE)
-## FrF2 uses Godolphin approach
+## FrF2 uses Godolphin approach, regardless of force.godolphin argument
+##      because the setting is large
 FrF2(64,gen=c(7,11,14),blocks=16,alias.block.2fis=TRUE)
 
 ########## manual blocked design ####################
