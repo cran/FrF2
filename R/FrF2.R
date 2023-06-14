@@ -41,7 +41,7 @@ catlg.name <- deparse(substitute(select.catlg))
       if (catlg.name %in% catlgs128){
              if (!requireNamespace("FrF2.catlg128", quietly=TRUE, character.only=TRUE)) 
                   stop("Package FrF2.catlg128 is not available")
-             if (packageVersion("FrF2.catlg128") < numeric_version(1.2)){ 
+             if (packageVersion("FrF2.catlg128") < numeric_version("1.2")){ 
                   if (catlg.name %in% catlgs128[c(1,3:11)])
                   stop("For this version of package FrF2.catlg128,\n",
                        "load ", catlg.name, " with the command data(", catlg.name,")\n",
