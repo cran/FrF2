@@ -231,6 +231,6 @@ FrF2Large <- function(nruns, nfactors=NULL,
       class(desdf) <- c("design", "data.frame")
       ## add center points, if requested
       if (ncenter>0) desdf <- add.center(desdf, ncenter, distribute=center.distribute)
-      ## hier weiter: sicherstellen, dass dieses alle Voraussetzungen an FrF2-artige Objekte erfüllt
+      ## hier weiter: sicherstellen, dass dieses alle Voraussetzungen an FrF2-artige Objekte erfuellt
       desdf
 }

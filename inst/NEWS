@@ -3,6 +3,9 @@ Changes to package FrF2
 The package is still under development. 
 Suggestions and bug reports are very welcome.
 
+Version 2.3-2, August 2023
+  - removed non-UTF8 special characters, on request by CRAN team
+
 Version 2.3-1, June 2023
   - made numeric_version argument character instead of numeric,
     on request by CRAN team

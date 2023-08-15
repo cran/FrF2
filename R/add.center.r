@@ -137,7 +137,7 @@ add.center <- function(design, ncenter, distribute=NULL, ...){
           }
           ## end of added 15 Feb 2013
         ro.getrennt <- split(ro,together)
-        ## wird das überhaupt gebraucht???
+        ## wird das ueberhaupt gebraucht???
         ro$run.no.in.std.order <- as.character(ro$run.no.in.std.order)
         ro$run.no.std.rp <- as.character(ro$run.no.std.rp)
         
@@ -300,7 +300,7 @@ add.center <- function(design, ncenter, distribute=NULL, ...){
      design.info(new) <- di
      }
      else {
-     ### ??? was wird noch benötigt für ccd.augment???
+     ### ??? was wird noch benoetigt fuer ccd.augment???
         new <- design
         ronew <- run.order(design)
         if (!any(is.na(as.numeric(as.character(ronew$run.no.in.std.order)))))
