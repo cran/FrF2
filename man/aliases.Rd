@@ -60,8 +60,16 @@ aliasprint(design, ...)
 
 \examples{
     ### Injection Molding Experiment. Box et al. 1978.
-    data(BM93.e3.data, package="BsMD")  #from BsMD
-    iMdat <- BM93.e3.data[1:16,2:10]  #only original experiment
+    ## data(BM93.e3.data, package="BsMD")  #from BsMD
+    ## iMdat <- BM93.e3.data[1:16,2:10]  #only original experiment
+    ## re-create here
+    y=c(14, 16.8, 15, 15.4, 27.6, 24, 27.4, 22.6, 
+     22.3, 17.1, 21.5, 17.5, 15.9, 21.9, 16.7, 20.3)
+    iMdat <- FrF2(8,7,randomize=FALSE)
+    iMdat <- desnum(iMdat)
+    iMdat <- rbind(cbind(iMdat,H=1),cbind(-iMdat,H=-1))
+    iMdat <- cbind(as.data.frame(iMdat), y=y)
+
     # make data more user-friendly
     colnames(iMdat) <- c("MoldTemp","Moisture","HoldPress","CavityThick",
              "BoostPress","CycleTime","GateSize","ScrewSpeed","y")
