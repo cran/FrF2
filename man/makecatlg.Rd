@@ -3,11 +3,11 @@
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{ Function for creating a class catlg catalogue from a vector of generators }
 \description{
-  creates a class catlg catalogue with a single element for use in functions 
+  creates a class catlg catalogue with a single element for use in functions
   colpick or FrF2
 }
 \usage{
-makecatlg(k, gen) 
+makecatlg(k, gen)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -15,15 +15,15 @@ makecatlg(k, gen)
   \item{gen}{ generators as a numeric vector of Yates column numbers }
 }
 \details{
-   If generators are available in a different format, they must be transformed to Yates column numbers. 
-   
-   For a character vector \code{genc} with elements like \code{ABC}, \code{ADE}, etc., 
+   If generators are available in a different format, they must be transformed to Yates column numbers.
+
+   For a character vector \code{genc} with elements like \code{ABC}, \code{ADE}, etc.,
    a code for obtaining Yates columns with order preserved is
-   \code{sapply(1:length(genc), function(obj) which(names(Yates)==genc[obj]))} 
+   \code{sapply(1:length(genc), function(obj) which(names(Yates)==genc[obj]))}
    (a solution with \code{which} applied to the entire vector at once does not preserve the order).
-   
-   Yet different formats like \code{123}, \code{145}, etc., can e.g. 
-   be preprocessed by picking the suitable elements from \code{\link{Letters}}, e.g. 
+
+   Yet different formats like \code{123}, \code{145}, etc., can e.g.
+   be preprocessed by picking the suitable elements from \code{\link[DoE.base:utilities]{Letters}}, e.g.
    \code{paste(Letters[as.numeric(unlist(strsplit("123","")))],collapse="")}.
 }
 \value{

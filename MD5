@@ -1,4 +1,4 @@
-e3035e92b614bfcd752ed438a6de6fb8 *DESCRIPTION
+3f3e8a94ac6337e265a73ceb322c0922 *DESCRIPTION
 0f4d11151e45265d818e3bddee7787ef *NAMESPACE
 0b934ceb6e9a6c32d659444e789ac876 *R/BsProb.design.R
 5adf7eeab9a4071e5cd02475666e18d3 *R/CIG.R
@@ -49,16 +49,16 @@ c8e2a5350b451ca05c525367cdb9fc00 *R/sysdata.rda
 ebe1bed418bfa6c64e0bfb99037bf69a *R/utilcat.R
 246ebe6006da805cce8df555c965be70 *R/utilpb.R
 170328a9e64be149b0b97f65623f8ee1 *R/utilperm.R
-a2f1c9e9c9ce7fe15ba28f1f4281eec2 *build/partial.rdb
+f01682ffd9d5582c0d3b8a226f3c2b16 *build/partial.rdb
 3f4815d6d46f20797ec0ea294c54de82 *inst/CITATION
-fde1fa70846b6df257177a742bc17a69 *inst/NEWS
+7e793b9ab6c817b4721ec5953c7f414e *inst/NEWS
 ac8a9054f960f86aebe1079d54c93332 *man/BsProb.design.Rd
 2322eb8b9582ca1bff01585901a09ef8 *man/CIG.Rd
 57993d9da66b51c523af4db3aee978e9 *man/CatalogueAccessors.Rd
 9d83c190359459666930526a1f348e9a *man/DanielPlot.Rd
 7c7fe6f29b06b4d5fd2b994baddc349a *man/FrF2-package.Rd
 485b2ed67818cd21fe76ffb20a2b887d *man/FrF2.Rd
-db9df98b72009505f468f869c17029b9 *man/FrF2Large.Rd
+ea3f056486601cc7b76e4fc2a79f3dd4 *man/FrF2Large.Rd
 dde0296d8b478641a6a679a7ab349e8f *man/IAPlot.Rd
 1a067357e18e5d6cfd276ef32909b8e8 *man/StructurePickers.Rd
 135d48e5e647810e5f189684976d38fa *man/add.center.Rd
@@ -70,8 +70,8 @@ ad5317e1fc6880466222df303dede8f9 *man/blockpick.Rd
 841e3878c69ff0d1b5fceab89a972ab0 *man/estimable.2fis.Rd
 8711af23c18fdbc954ae7a266834a98f *man/fold.design.Rd
 bcff0d2b9fcc3d2273c99f8e81e2d2cd *man/godolphin.Rd
-5996f18018e1ed1a99e3131a989c3527 *man/makecatlg.Rd
-b81762c789ad55f8e681f7b0ce635dd6 *man/pb.Rd
+383eca0eaeb94bfaa296f110e7558e31 *man/makecatlg.Rd
+211889cd1a9f7be9def237d27437fd71 *man/pb.Rd
 133184fd600ff2c2947301398c35bcda *man/splitplot.Rd
 34b48fe765a05be484ecc9c2b88ed694 *man/utilities.blocksplitplot.aliases.shortrep.Rd
 d80020b1e0ac59010816ae35f2f9c4de *man/utilitiesCat.Rd

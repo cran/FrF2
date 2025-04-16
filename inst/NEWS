@@ -3,6 +3,9 @@ Changes to package FrF2
 The package is still under development. 
 Suggestions and bug reports are very welcome.
 
+Version 2.3-4, April 2025
+  - fixed CRAN notes regarding non-anchored links to documentation of package DoE.base
+
 Version 2.3-3, September 2023
   - removed reliance of example on suggested package BsMD, on request by CRAN team
 
