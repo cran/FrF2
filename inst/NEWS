@@ -3,6 +3,12 @@ Changes to package FrF2
 The package is still under development. 
 Suggestions and bug reports are very welcome.
 
+Version 2.3-5, May 2026
+  - adapted igraph calls to new function names (graph.empty() -> make_empty_graph(), 
+    add.edges() -> add_edges(), independence.number() -> ivs_size(), 
+    clique.number() -> clique_num(), permute.vertices() -> permute()) in functions
+    mapcalc.block, estimable.2fis, colpick and CIG
+
 Version 2.3-4, April 2025
   - fixed CRAN notes regarding non-anchored links to documentation of package DoE.base
 

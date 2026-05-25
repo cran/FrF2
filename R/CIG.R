@@ -74,9 +74,9 @@ CIG <- function (design, select.catlg = catlg, nfac=NULL, static = FALSE, layout
         if (!label == "num")
             vertex.label <- Letters[vertex.label]
     }
-    go2 <- graph.empty(n = design$nfac, directed = FALSE)
+    go2 <- make_empty_graph(n = design$nfac, directed = FALSE)
     if (!length(design$clear.2fis) == 0)
-        go2 <- add.edges(go2, design$clear.2fis)
+        go2 <- add_edges(go2, design$clear.2fis)
     if (design$res < 4)
         warning("the design is of resolution less than IV")
     if (plot) {

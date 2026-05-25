@@ -23,22 +23,22 @@ mapcalc <- function (estimable, nfac, nruns, res3 = FALSE, select.catlg = catlg,
         res3 <- FALSE
     }
     catlg <- select.catlg
-    go2 <- graph.empty(n = nfac, directed = FALSE)
-    go2 <- add.edges(go2, estimable)
+    go2 <- make_empty_graph(n = nfac, directed = FALSE)
+    go2 <- add_edges(go2, estimable)
     ## optionally sort vertices by degree, 20 Jul 2012
    deg2 <- degree(go2)
     if (sort %in% c("high", "low")) {
         if (sort == "low") 
             ord2 <- order(deg2)
         else ord2 <- order(deg2, decreasing = TRUE)
-        go2 <- permute.vertices(go2, invperm(ord2))
+        go2 <- permute(go2, invperm(ord2))
     }
     degree2 <- rev(cumsum(rev(table(deg2))))   ## make it faster to reject non-isomorphic cases
                                       ## 7 Feb 2011
     degs2 <- as.numeric(names(degree2))        ## required minimum degrees
     ## added further pre-filtering criteria 9 July 2012
-    indep2 <- independence.number(go2)         ## required maximum independence number
-    clique2 <- clique.number(go2)              ## required minimum clique size
+    indep2 <- ivs_size(go2)         ## required maximum independence number
+    clique2 <- clique_num(go2)              ## required minimum clique size
     tobechecked <- catlg[which(nfac(catlg) == nfac & nruns(catlg) == nruns)]
     ## reduced attention to dominating designs, if applicable (29 June 2012)
     ## made reduction to dominating designs respond to ignore.dom argument (12 August 2019)
@@ -67,17 +67,17 @@ mapcalc <- function (estimable, nfac, nruns, res3 = FALSE, select.catlg = catlg,
     ## for enabling user to access it after aborting without success
     for (i in 1:length(tobechecked)) {
         putFrF2(".FrF2.currentlychecked", names(tobechecked[i]))
-        go1 <- graph.empty(n = nfac, directed = FALSE)
+        go1 <- make_empty_graph(n = nfac, directed = FALSE)
           ## previous version subtracted 1 from tobechecked[[i]]$clear.2fis 
           ## for previous igraph node definition; changed 29/06/2012
-        go1 <- add.edges(go1, tobechecked[[i]]$clear.2fis)
+        go1 <- add_edges(go1, tobechecked[[i]]$clear.2fis)
        ## optionally sort vertices by degree, 20 Jul 2012
         deg1 <- degree(go1)
         if (sort %in% c("high", "low")) {
             if (sort == "low") 
                 ord1 <- order(deg1)
             else ord1 <- order(deg1, decreasing = TRUE)
-            go1 <- permute.vertices(go1, invperm(ord1))
+            go1 <- permute(go1, invperm(ord1))
         }
         degree1 <- rev(cumsum(rev(table(deg1))))
         degs1 <- as.numeric(names(degree1))
@@ -90,9 +90,9 @@ mapcalc <- function (estimable, nfac, nruns, res3 = FALSE, select.catlg = catlg,
             if (any(comp < degree2)) 
                 next
           ## added further pre-filtering criteria 9 July 2012
-            if (independence.number(go1) > indep2) 
+            if (ivs_size(go1) > indep2) 
                 next
-            if (clique.number(go1) < clique2) 
+            if (clique_num(go1) < clique2) 
                 next
             if (method=="LAD") 
             erg <- graph.subisomorphic.lad(go2, go1)

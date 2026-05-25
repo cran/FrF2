@@ -74,8 +74,8 @@ colpick <- function(design, q, all=FALSE,
                           function(obj) as.numeric(gsub( "F", "", unlist(strsplit(obj, ":", fixed=TRUE)) )))
       if (!is.matrix(estimable)) stop("invalid estimable")
      }
-    #graph_requirement <- graph.empty(n = n, directed = FALSE)
-    #graph_requirement <- add.edges(graph_requirement, estimable)
+    #graph_requirement <- make_empty_graph(n = n, directed = FALSE)
+    #graph_requirement <- add_edges(graph_requirement, estimable)
   } 
   Z <- t(sapply(gen, function(obj) rev(digitsBase(obj, 2, k))))
   div <- 2^q-1

@@ -111,7 +111,7 @@ DanielPlot(fit, ...)
     
     Lenth, R.V. (2006) Lenth s Method for the Analysis of Unreplicated Experiments.
     To appear in \emph{Encyclopedia of Statistics in Quality and Reliability}, Wiley, New York.
-    Downloadable at \url{http://www.wiley.com/legacy/wileychi/eqr/docs/sample_1.pdf}.
+    Downloadable at \url{https://www.wiley.com/legacy/wileychi/eqr/docs/sample_1.pdf}.
 }
 \note{If you load package \pkg{BsMD} after package \pkg{FrF2}, 
     a mere call to function \code{DanielPlot} will use the function from package \pkg{BsMD} 
